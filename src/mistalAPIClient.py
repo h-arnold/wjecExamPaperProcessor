@@ -1,8 +1,8 @@
 import os
 from pathlib import Path
-from mistralai import Mistral
+from mistral import Mistral
 
-class MistralOCRClient:
+class MistralAPIClient:
     """
     A client for interacting with the Mistal OCR API using the MistalAI Python library.
     """
