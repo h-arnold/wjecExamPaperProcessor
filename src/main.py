@@ -1,7 +1,7 @@
 import os
-from mistralAPIClient import MistralAPIClient
+from mistralOCRClient import MistralOCRClient
 
-from pdf_ocr_processor import PDFOCRProcessor
+from pdfOcrProcessor import PDF_OCR_Processor
 
 def main():
     """
@@ -16,12 +16,12 @@ def main():
     if not api_key:
         raise EnvironmentError("MISTRAL_API_KEY environment variable not set.")
     
+    
     # Initialise the Mistal OCR client using the MistalAI Python library.
-    ocr_client = MistralAPIClient
-    (api_key=api_key)
+    ocr_client = MistralOCRClient(api_key=api_key)
     
     # Initialise and run the PDF OCR processor.
-    processor = PDFOCRProcessor(source_folder, destination_folder, ocr_client)
+    processor = PDF_OCR_Processor(source_folder, destination_folder, ocr_client)
     processor.process_pdfs()
 
 if __name__ == "__main__":

@@ -1,8 +1,8 @@
 import os
 from pathlib import Path
-from mistral import Mistral
+from mistralai import Mistral
 
-class MistralAPIClient:
+class MistralOCRClient:
     """
     A client for interacting with the Mistal OCR API using the MistalAI Python library.
     """
@@ -35,11 +35,20 @@ class MistralAPIClient:
                 },
                 purpose="ocr"
             )
-        # Assume response is a dictionary with a 'url' key or an object with an attribute 'url'
-        signed_url = response.get("url") if isinstance(response, dict) else getattr(response, "url", None)
-        if not signed_url:
-            raise ValueError("Upload did not return a signed URL.")
-        return signed_url
+
+        return response
+
+    def get_signed_url(self, file_id: str):
+        """
+        Get a signed URL for an uploaded file.
+
+        Args:
+            file_id (str): The ID of the uploaded file.
+
+        Returns:
+            object: Response containing the signed URL for the file.
+        """
+        return self.client.files.get_signed_url(file_id=file_id)
 
     def ocr_pdf(self, signed_url: str, include_image_base64: bool = True) -> dict:
         """

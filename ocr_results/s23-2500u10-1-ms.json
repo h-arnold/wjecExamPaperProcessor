@@ -1,0 +1,131 @@
+[
+    {
+        "index": 0,
+        "markdown": "# wjec cbac \n\n![img-0.jpeg](img-0.jpeg)\n\n## GCE AS MARKING SCHEME\n\n## SUMMER 2023\n\nAS\nCOMPUTER SCIENCE - UNIT 1 2500U10-1",
+        "images": [
+            {
+                "id": "img-0.jpeg",
+                "top_left_x": 942,
+                "top_left_y": 254,
+                "bottom_right_x": 1458,
+                "bottom_right_y": 514,
+                "image_path": "s23-2500u10-1-ms/images/img_0_0.jpeg"
+            }
+        ],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2338,
+            "width": 1654
+        }
+    },
+    {
+        "index": 1,
+        "markdown": "# INTRODUCTION \n\nThis marking scheme was used by WJEC for the 2023 examination. It was finalised after detailed discussion at examiners' conferences by all the examiners involved in the assessment. The conference was held shortly after the paper was taken so that reference could be made to the full range of candidates' responses, with photocopied scripts forming the basis of discussion. The aim of the conference was to ensure that the marking scheme was interpreted and applied in the same way by all examiners.\n\nIt is hoped that this information will be of assistance to centres but it is recognised at the same time that, without the benefit of participation in the examiners' conference, teachers may have different views on certain matters of detail or interpretation.\n\nWJEC regrets that it cannot enter into any discussion or correspondence about this marking scheme.",
+        "images": [],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2338,
+            "width": 1654
+        }
+    },
+    {
+        "index": 2,
+        "markdown": "# WJEC GCE AS COMPUTER SCIENCE - UNIT 1 \n\n## SUMMER 2023 MARK SCHEME\n\n| Question | Answer | Marks | AO1 | AO2 | AO3 | Total |\n| :--: | :--: | :--: | :--: | :--: | :--: | :--: |\n| 1. (a) | Award one mark for each suitable example and one mark for the correct storage requirement up to a maximum of six. <br> ASCII Character <br> - Example: A / B / C (any reasonable example) <br> - 8 bits / 7 bits <br> Boolean <br> - Example: TRUE / FALSE 0/1 NOT Yes/No <br> - 1 bit <br> Short Integer <br> - Example: 1 / 2 <br> - Accept range between -32,768 and 32,767 <br> - 16 bits | $\\begin{aligned} & 1 \\\\ & 1 \\\\ & 1 \\\\ & 1 \\\\ & 1 \\\\ & 1 \\end{aligned}$ | 1b |  |  | 6 |\n| (b) | Award one mark for each of the following up to a maximum of two: <br> - Character maps are used to represent each character <br> - Each character is mapped to a binary number <br> - Allows for standardised communication between computer systems <br> NOT binary on its own | 2 | 1a |  |  | 2 |\n| 2. (a) (i) | Award one mark for each of the following: <br> - Four instructions can be processed at the same time / simultaneously <br> - Step 1: $Y=20+6+15+6$ <br> - Step 2: $Y=26+21$ <br> No credit for Step 3: $Y=47$ | 3 |  | 1b |  | 3 |\n| (ii) | - Parallel processing | 1 |  | 1b |  | 1 |",
+        "images": [],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2339,
+            "width": 1654
+        }
+    },
+    {
+        "index": 3,
+        "markdown": "| Question | Answer | Marks | AO1 | AO2 | AO3 | Total |\n| :--: | :--: | :--: | :--: | :--: | :--: | :--: |\n| (b) | Award one mark for each of the following components up to a maximum of four: <br> Control Unit <br> - Directs the flow of instructions and/or data <br> - Coordinates the other parts of the CPU <br> - Generates clock ticks or controls the clock <br> Arithmetic Logic Unit <br> - The ALU performs all the mathematical calculations and logical operations in the CPU. <br> Registers <br> - Fast access temporary storage to store frequently used data and instructions. <br> MDR <br> - Register of a computer's control unit that contains the data to be stored in the computer storage (e.g. RAM), or the data after a fetch from the computer storage. <br> MAR <br> - Register that either stores the memory address from which data will be fetched to the CPU or the address to which data will be sent and stored. In other words, MAR holds the memory location of data that needs to be accessed. <br> Accumulator <br> - Register in which intermediate ALU results are stored. <br> CIR <br> - Holds the instruction that is currently being executed or decoded. <br> PC <br> - Processor register that indicates where a computer is in its program sequence. <br> Cache memory <br> - Smaller, faster memory, closer to a processor core <br> - stores copies of the data from frequently used main memory locations <br> - Most CPUs have different independent caches, including instruction and data caches, where the data cache is usually organized as a hierarchy of more cache levels (L1, L2, etc.) <br> Buses <br> - Connects the different parts of the CPU. <br> - A data bus provides transportation for data. <br> - An address bus is used to transfer data between devices. The address is stored in the form of binary numbers to enable the data bus to access memory storage. <br> - A control bus carries commands from the CPU and returns status signals from the devices. <br> No mark for naming only | 4 | 1b |  |  | 4 |",
+        "images": [],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2339,
+            "width": 1654
+        }
+    },
+    {
+        "index": 4,
+        "markdown": "| Question | Answer | Marks | AO1 | AO2 | AO3 | Total |\n| :--: | :--: | :--: | :--: | :--: | :--: | :--: |\n| 3. | Award one mark for each of the following: <br> Mask: <br> 10000000 <br> Logical Operation: <br> AND <br> Correct result (Bit-wise AND Operation): <br> 10000000 <br> Accept an XOR methodology | $\\begin{aligned} & 1 \\\\ & 1 \\\\ & 1 \\end{aligned}$ |  | $\\begin{aligned} & 1 a \\\\ & 1 a \\\\ & 1 a \\end{aligned}$ |  | 3 |\n| 4. (a) | Award one mark for each of the following up to a maximum of six marks: <br> - When data is fragmented it is split <br> - and stored on different parts of the disk <br> - HDD uses magnetic secondary storage technology which is impacted by fragmentation <br> - Where data is stored on a hard drive platter <br> - data is read using an arm that has a special read/write head at the end <br> - as the disk spins, the arm travels across the disk <br> - fragmentation will slow access speeds <br> - as the read/write head will need to move into several different positions at each point where the data is split. | 6 | $1 b$ |  |  | 6 |\n| (b) | Award one mark for each of the following: <br> - Defragmentation <br> - Where fragmented data is physically rearranged and stored closer together on disk <br> - meaning the read/write head will need to move into fewer different positions. | 3 | $1 b$ |  |  | 3 |\n| 5. (a) | - When a computer system establishes a device's readiness to communicate | 1 | $1 a$ |  |  | 1 |\n| (b) | Award one mark for each of the following: <br> - Ensures that hardware and software produced by different vendors can work together <br> - Without networking standards, it would be difficult / impossible to develop networks that easily share information <br> - Standards mean that customers are not locked into one vendor <br> - Standards help to promote more competition and hold down prices <br> - The use of standards makes it much easier to develop software and hardware that link different networks because software and hardware can be developed one layer at a time. | 3 | $1 b$ |  |  | 3 |",
+        "images": [],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2339,
+            "width": 1654
+        }
+    },
+    {
+        "index": 5,
+        "markdown": "| Question | Answer | Marks | AO1 | AO2 | AO3 | Total |\n| :--: | :--: | :--: | :--: | :--: | :--: | :--: |\n| (c) | Award one mark naming a suitable protocol. One mark for a description of that protocol One mark description of importance. Up to a maximum of six marks two for each mark point. <br> Name: File transfer protocol (FTP) (1) <br> Description: allows the transfer of files over a network <br> (1). This is important as the FTP protocol has in-built error checking and re-transmission request as necessary (1). <br> Name: Hypertext transfer protocol (HTTP) (1) <br> Description: allows the transfer of multimedia webpages over the internet (1). This is important as the HTTP protocol allows multiple different web browsers to display and format web pages as the original author intended (1). <br> Name: Simple mail transfer protocol (SMTP) (1) <br> Description: allows emails to be sent over a network <br> (1). This is important as the SMTP provides a standard way of transferring emails between two different servers (1). <br> Name: Internet Message Access Protocol (IMAP) (1) <br> Description: allows emails to be transferred between computer systems (via the internet) (1). This is important as the IMAP provides a standard way of transferring emails between two different servers / messages are stored on the server instead of mobile devices, which saves storage space (1). <br> Name: Dynamic host control protocol (1) (DHCP) <br> Description: assigns dynamic IP addresses to devices on a network (1). This is important as the DHCP protocol allows addresses no longer in use to be automatically returned to the pool of available IP addresses for reallocation (1). <br> Name: Universal datagram protocol (UDP) (1) <br> Description: sends datagrams across a network with very few error recovery services. (1). This is important as, for example, video and audio streaming protocols are designed to handle occasional lost packets and need to receive new packets rather than the retransmission of previous ones (1). <br> Name: Transmission Control Protocol/Internet Protocol (TCP/IP) (1) <br> Description: allows any networked computers to communicate with each other (1) This is important as TCP/IP specifies how signals are routed and transported around a network (and reduces the need for gateways to convert signals into different protocols). (1) | 6 | 1b |  |  | 6 |",
+        "images": [],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2339,
+            "width": 1654
+        }
+    },
+    {
+        "index": 6,
+        "markdown": "| Question | Answer | Marks | AO1 | AO2 | AO3 | Total |\n| :--: | :--: | :--: | :--: | :--: | :--: | :--: |\n| 6. | Award one mark for each of the following: <br> Simplex <br> - Data can only travel in one direction <br> - Example e.g. Keyboard <br> Half duplex <br> - Data can travel in both directions but only in one direction at any given time <br> - Example: walkie talkie <br> Full duplex <br> - Data can travel in both directions at the same time <br> - Example: broadband | $\\begin{aligned} & 1 \\\\ & 1 \\\\ & 1 \\\\ & 1 \\\\ & 1 \\\\ & 1 \\end{aligned}$ | $\\begin{aligned} & 1 \\mathrm{~b} \\\\ & 1 \\mathrm{~b} \\\\ & 1 \\mathrm{~b} \\\\ & 1 \\mathrm{~b} \\\\ & 1 \\mathrm{~b} \\end{aligned}$ |  |  | 6 |\n| 7. | Indicative content <br> 1 declare r as real <br> 2 declare A as real <br> 3 declare C as real <br> 4 declare pi as real <br> 5 <br> 6 set pi $=3.14$ <br> 7 <br> 8 input $r$ <br> 9 <br> 10 if $r>0$ then <br> 11 $A=pi * r * r$ <br> 12 $A=A * 10000$ <br> 13 $C=2 *$ pi * $r$ <br> 14 $C=C * 100$ <br> 15 <br> 16 output \"A = \", A <br> 17 output \"C = \", C <br> 18 else <br> 19 output \"You must enter a number $>0$ for r .\" <br> 20 end if <br> Award one mark for each of the following: <br> - Declare / Initialise variables <br> - Input r <br> - Validation check on r <br> - Calculation of Area in $\\mathrm{cm}^{2}$ <br> - Calculation of Circumference in cm <br> - Output Area <br> - Output Circumference <br> - Output validation error message | 8 |  |  |  | 8 |",
+        "images": [],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2339,
+            "width": 1654
+        }
+    },
+    {
+        "index": 7,
+        "markdown": "| Question | Answer | Marks | AO1 | AO2 | AO3 | Total |\n| :--: | :--: | :--: | :--: | :--: | :--: | :--: |\n| 8. | Award one mark for each simplification: <br> Q. $(P+Q)+\\bar{P} \\cdot(1+R)+Q \\cdot(\\bar{P} \\cdot P)$ <br> - $Q \\cdot(P+Q)+\\bar{P} \\cdot(1+R)+Q \\cdot 0$ <br> - $Q \\cdot(P+Q)+\\bar{P} \\cdot(1+R)$ <br> - $Q \\cdot P+Q \\cdot Q+\\bar{P} \\cdot 1$ <br> - $Q \\cdot P+Q+\\bar{P} \\cdot 1$ <br> - $Q \\cdot P+Q+\\bar{P}$ <br> - $Q \\cdot(P+1)+\\bar{P}$ <br> - $Q+\\bar{P}$ <br> DO NOT award any marks for a solution that only uses a truth table with no final expression | 7 |  | $2 b$ |  | 7 |\n| 9. (a) (i) | Award one mark for correct starting point (1 ${ }^{\\text {st }}$ number) and one mark for the remaining numbers <br> Accept either number or index |  |  |  |  |  |\n|  | 1 | 2 | 5 | 6 | 8 | 11 | 14 |\n|  | 0 | 1 | 2 | 3 | 4 | 5 | 6 |\n| (ii) | Award one mark for correct starting point (1st number) and one mark for the remaining numbers |  |  |  |  |  |  |\n|  | 6 | 11 | 14 | \\# | \\# | \\# | \\# |\n|  | 3 | 5 | 6 | \\# | \\# | \\# | \\# |\n|  | Or |  |  |  |  |  |  |\n|  | 6 | 8 | 11 | 11 | 14 | \\# | \\# |\n|  | 3 | 4 | 5 | 5 | 6 | \\# | \\# |\n|  | Accept either number or index |  |  |  |  |  |  |\n| (b) | Award one mark for each of the following: <br> Advantage <br> - A binary search has a better time performance than a linear search (because the data that needs to be searched halves with each step and is therefore logarithmic) <br> Disadvantage <br> - The data must be sorted. <br> - More complex to code than linear. |  |  |  |  |  | 2 |",
+        "images": [],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2339,
+            "width": 1654
+        }
+    },
+    {
+        "index": 8,
+        "markdown": "| Question | Answer | Marks | AO1 | AO2 | AO3 | Total |\n| :--: | :--: | :--: | :--: | :--: | :--: | :--: |\n| 10. | Award one mark for each of the following up to a maximum of six.: Maximum of four marks for description of one form of data compression. <br> - Data compression reduces the file size <br> - Lossy data compression <br> - Some of the original data is discarded to reduce the size of the file <br> - When compressed files are decompressed they do not give back the original data, i.e. data is lost <br> - It is not a good method of compression for critical data, such as textual data <br> - It is most useful for digitally sampled analogue data, such as sound, video, graphics or images / accept suitable example <br> - Lossless data compression <br> - The original message can be decompressed back to its original form (recovers all original data) <br> - Lossless data compression works by finding repeated patterns in data and compressing those patterns in an efficient manner / accept suitable example e.g Huffman encoding. <br> - For this reason, lossless data compression is also referred to as redundancy reduction. <br> - Because redundancy reduction is dependent on patterns in the message, it does not work well on random messages. <br> - Lossless data compression is ideal for text. | 6 | 1b |  |  | 6 |\n| 11. (a) | Award one mark for each of the following: <br> - A data structure is a group / set / collection of related records <br> - Convenient / best way of organising data relating to a real problem / may be efficient to deal with various elements as one item | 1 <br> 1 | 1b <br> 1b |  |  | 2 |\n| (b) (i) | Award one mark for each of the following: <br> - Example: FilmID / Title / Certificate / Genre <br> - Description: A field is a collection of related data | 2 |  | 1b |  | 2 |\n| (ii) | Award one mark for each of the following: <br> - Example: 1 End in Justice 18 Horror / 2 Inferno of Retaliation 12 Action / 3 Misson Mercury 15 Sci fi / 4 Boy of an Angel PG Love <br> - Description: A record is a collection of fields all related to a single entity | 2 |  | 1b |  | 2 |\n| (iii) | Award one mark for each of the following: <br> - Example: FilmID <br> - Description: A primary key is a unique identifier (for each record) | 2 |  | 1b |  | 2 |",
+        "images": [],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2339,
+            "width": 1654
+        }
+    },
+    {
+        "index": 9,
+        "markdown": "| Question | Answer | Marks | AO1 | AO2 | AO3 | Total |\n| :--: | :--: | :--: | :--: | :--: | :--: | :--: |\n| 12. | Award one mark for each of the following up to a maximum of six: <br> - Sequential files order records based on a primary key field <br> - In order to add a new record the position in the file where the record is to be added must be found <br> - It is not possible to move records about easily within a file due to the serial nature of files <br> - This means that any inserting or deleting from sequential files must happen in a temporary file <br> - When inserting, records are copied from the original file into a temporary file. <br> - This continues until the point where the new record is to be inserted is found. <br> - At this point the new record is added to the temporary file and the remainder of the old file is copied over. <br> - The temporary file then replaces the original file. | 6 | $1 b$ |  |  | 6 |\n| 13. | Award one mark for each of the following up to a maximum of three: <br> - Adaptive maintenance <br> - In adaptive maintenance bugs are fixed and extra functionality is added to the system. <br> - New features tend to be added based on external needs. <br> - For example, recently the law changed, making companies more accountable for cookies. <br> - Corrective maintenance <br> - Corrective maintenance simply fixes problems as they arise to ensure that the system closely matches the original specification. <br> - Normally the customer will take out a support contract that asks the developer to work on corrective maintenance. <br> - Their mandate will be clear. They are to fix problems, without breaking the system or adding functionality. <br> - Perfective maintenance <br> - Perfective maintenance is maintenance performed with the aim of achieving a perfect system. <br> - In order to make the system perfect, it will be necessary to fix all problems. If new or changed requirements are identified and agreed, upgrades must also be provided to implement them. <br> - Perfective maintenance also requires that performance is improved when possible. A perfect system is only as perfect as the testing carried out on it. So although you may fix all the bugs you encounter, this does not mean there are no more bugs left in the system. | 3 | $1 b$ |  |  | 3 |",
+        "images": [],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2339,
+            "width": 1654
+        }
+    },
+    {
+        "index": 10,
+        "markdown": "| Question | Answer | Marks | AO1 | AO2 | AO3 | Total |\n| :--: | :--: | :--: | :--: | :--: | :--: | :--: |\n| 14. | Indicative content | 8 |  | 1b |  | 12 |\n|  | Method 1 |  |  |  |  |  |\n|  | Highest <br> - $01111111_{2}=127_{10}$ |  |  |  |  |  |\n|  | Lowest <br> - $00000000_{2}=0_{10}$ |  |  |  |  |  |\n|  | Method 2 |  |  |  |  |  |\n|  | Highest <br> - Mantissa: 0.1111 <br> - Exponent: 011 / 3 <br> - $7.5_{10}$ |  |  |  |  |  |\n|  | Lowest <br> - Mantissa: 0.1000 <br> - Exponent: 000 / 101 <br> - $0.5_{10} / 0.0625_{10}$ |  |  |  |  |  |\n|  | Method 3 |  |  |  |  |  |\n|  | Highest <br> - Mantissa: 0.111 <br> - Exponent: 0111 / 7 <br> - $112_{10}$ |  |  |  |  |  |\n|  | Lowest <br> - Mantissa: 0.100 <br> - Exponent: 0000 / 1100 <br> - $0.5_{10} / 0.125_{10}$ |  |  |  |  |  |\n|  | Advantages of integers: (MAX 3) <br> - Numbers are stored accurately <br> - Less complex processing <br> - Exact representation of zero <br> - Less storage space | 4 | 1b |  |  |  |\n|  | Advantages of floating-point: (MAX 3) <br> - Very large / small numbers can be stored <br> - Larger range of numbers can be represented <br> - Fractions / decimal places can be represented. |  |  |  |  |  |",
+        "images": [],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2339,
+            "width": 1654
+        }
+    },
+    {
+        "index": 11,
+        "markdown": "| Band | AO1.1b <br> Max 4 marks | AO2.1b <br> Max 8 marks |\n| :--: | :--: | :--: |\n| 3 | 4 marks <br> The candidate has: <br> - written an extended response that has a sustained line of reasoning which is coherent, relevant, and logically structured <br> - shown clear understanding of the requirements of the question and a clear knowledge of the indicative content. Clear knowledge is defined as a response that provides four relevant detailed points on the advantages of both integers and floating point <br> - addressed the question appropriately with minimal repetition and no irrelevant material <br> - has presented a balanced discussion and justified their answer with examples <br> - used appropriate technical terminology referring to the indicative content confidently and accurately. | 7-8 marks <br> The candidate has: <br> - shown clear understanding of the requirements of the question and a clear knowledge of the indicative content. Clear knowledge is defined as a response that provides seven to eight relevant detailed calculations as signalled in the indicative content. |\n| 2 | 2-3 marks <br> The candidate has: <br> - written a response that has an adequate line of reasoning with elements of coherence, relevance, and logical structure <br> - shown adequate understanding of the requirements of the question and a satisfactory knowledge as specified in the indicative content. Satisfactory knowledge is defined as a response that provides two to three points on the advantages of integers and/or floating point <br> - has presented a discussion with limited examples <br> - used appropriate technical terminology referring to the indicative content. | 3-6 marks <br> The candidate has: <br> - shown adequate understanding of the requirements of the question and a satisfactory knowledge as specified in the indicative content. Satisfactory knowledge is defined as a response that provides three to six calculations as signalled in the indicative content |\n| 1 | 1 mark <br> The candidate has: <br> - written a response that that lacks sufficient reasoning and structure <br> - produced a discussion which is not well developed <br> - attempted to address the question but has demonstrated superficial knowledge of the topics specified in the indicative content. Superficial knowledge is defined as a response that provides one points on the advantages either integers or floating point <br> - used limited technical terminology referring to the indicative content. | 1-2 marks <br> The candidate has: <br> - attempted to address the question but has demonstrated superficial knowledge of the topics specified in the indicative content. Superficial knowledge is defined as a response that provides one to two points as signalled in the indicative content. |\n| 0 | 0 marks <br> - Response not credit worthy or not attempted. |  |  |  |  |\n|  | Total | 100 | 60 | 32 | 8 |",
+        "images": [],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2339,
+            "width": 1654
+        }
+    }
+]

@@ -1,0 +1,229 @@
+[
+    {
+        "index": 0,
+        "markdown": "![img-0.jpeg](img-0.jpeg)\n\n# GCE AS/A LEVEL \n\n## WJEC cbar\n\n2500U10-1\n\n## EIIIIIIIIIIIIIIIIIIIIIIIIIIIIII\n\nS23-2500U10-1\n\n## TUESDAY, 16 MAY 2023 - AFTERNOON\n\n## COMPUTER SCIENCE - AS unit 1\n\nFundamentals of Computer Science\n2 hours\n\n|  | For Examiner's use only |  |\n| :--: | :--: | :--: |\n| Question | Maximum <br> Mark | Mark <br> Awarded |\n| 1. | 8 |  |\n| 2. | 8 |  |\n| 3. | 3 |  |\n| 4. | 9 |  |\n| 5. | 10 |  |\n| 6. | 6 |  |\n| 7. | 8 |  |\n| 8. | 7 |  |\n| 9. | 6 |  |\n| 10. | 6 |  |\n| 11. | 8 |  |\n| 12. | 6 |  |\n| 13. | 3 |  |\n| 14. | 12 |  |\n| Total | 100 |  |\n\n## ADDITIONAL MATERIALS\n\nA calculator.\n\n## INSTRUCTIONS TO CANDIDATES\n\nUse black ink or black ball-point pen.\nAnswer all questions.\nWrite your name, centre number and candidate number in the spaces at the top of this page.\nWrite your answers in the spaces provided in this booklet. If you run out of space, use the continuation pages at the back of the booklet, taking care to number the question(s) correctly.\n\n## INFORMATION FOR CANDIDATES\n\nThe number of marks is given in brackets at the end of each question or part-question.\nThe total number of marks available is 100 .\nAssessment will take into account the quality of written communication used in your answers.",
+        "images": [
+            {
+                "id": "img-0.jpeg",
+                "top_left_x": 160,
+                "top_left_y": 161,
+                "bottom_right_x": 1505,
+                "bottom_right_y": 334,
+                "image_path": "s23-2500u10-1/images/img_0_0.jpeg"
+            }
+        ],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2339,
+            "width": 1654
+        }
+    },
+    {
+        "index": 1,
+        "markdown": "Answer all questions.\n\n1. (a) Complete the table.\n\n| Data Type | Example Data | Storage Requirements <br> (in bits) |\n| :-- | :--: | :--: |\n| Character (ASCII) |  | b |\n| Boolean |  | b |\n| Short Integer |  | b |\n\n(b) Describe how character sets are used in a computer system.",
+        "images": [],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2339,
+            "width": 1654
+        }
+    },
+    {
+        "index": 2,
+        "markdown": "2. A certain single-core processor will process the following calculation in seven steps:\n\n$$\nY=(4 \\times 5)+(1 \\times 6)+(5 \\times 3)+(3 \\times 2)\n$$\n\nStep 1: $Y=20+(1 \\times 6)+(5 \\times 3)+(3 \\times 2)$\nStep 2: $Y=20+6+(5 \\times 3)+(3 \\times 2)$\nStep 3: $Y=20+6+15+(3 \\times 2)$\nStep 4: $Y=20+6+15+6$\nStep 5: $Y=26+15+6$\nStep 6: $Y=41+6$\nStep 7: $Y=47$\n(a) (i) Describe, showing each step, how a quad-core processor would process the calculation.\n(ii) State the name given to this method of processing data.",
+        "images": [],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2339,
+            "width": 1654
+        }
+    },
+    {
+        "index": 3,
+        "markdown": "(b) Identify and state the purpose of four components in a CPU.\n\n# Component 1 \n\nComponent 2\n\nComponent 3\n\nComponent 4",
+        "images": [],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2339,
+            "width": 1654
+        }
+    },
+    {
+        "index": 4,
+        "markdown": "3. The following data is stored in an 8 bit register:\n\n| 1 | 0 | 1 | 1 | 1 | 0 | 0 | 0 |\n| :-- | :-- | :-- | :-- | :-- | :-- | :-- | :-- |\n\nDemonstrate how the state of the most significant bit can be determined using a logical operation.",
+        "images": [],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2339,
+            "width": 1654
+        }
+    },
+    {
+        "index": 5,
+        "markdown": "4. (a) Explain, with reference to the functional characteristics of a Hard Disk Drive (HDD), how performance is affected by data fragmentation.\n$\\qquad$\n$\\qquad$\n$\\qquad$\n$\\qquad$\n$\\qquad$\n$\\qquad$\n$\\qquad$\n$\\qquad$\n(b) Describe how the effect of fragmentation can be reduced on a HDD.",
+        "images": [],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2339,
+            "width": 1654
+        }
+    },
+    {
+        "index": 6,
+        "markdown": "5. (a) State what is meant by the term handshaking.\n$\\qquad$\n$\\qquad$\n$\\qquad$\n$\\qquad$\n(b) Explain the importance of having networking standards.\n$\\qquad$\n$\\qquad$\n$\\qquad$\n$\\qquad$\n$\\qquad$\n$\\qquad$",
+        "images": [],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2339,
+            "width": 1654
+        }
+    },
+    {
+        "index": 7,
+        "markdown": "(c) Name two standard networking protocols and describe their function and importance.\n\nProtocol 1\n\nProtocol 2",
+        "images": [],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2339,
+            "width": 1654
+        }
+    },
+    {
+        "index": 8,
+        "markdown": "6. Describe simplex, half duplex and full duplex data transmission methods and give an example use for each.\n\n# Simplex \n\n## Half duplex\n\n## Full duplex\n\n$\\qquad$\n$\\qquad$\n$\\qquad$",
+        "images": [],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2339,
+            "width": 1654
+        }
+    },
+    {
+        "index": 9,
+        "markdown": "7. The area and circumference of a circle can be calculated using the following formulae:\n\n# Area of a circle \n\n## Circumference of a circle\n\n$$\nA=\\pi r^{2}\n$$\n\n$$\nC=2 \\pi r\n$$\n\nWhere $\\pi=3.14$ and $r=$ radius.\n\nWrite an algorithm, using pseudo-code, which will allow a user to enter the radius to calculate the area and circumference of a circle. The values input should be in metres, but the output should be converted into centimetres $\\left(1 \\mathrm{~m}^{2}=10,000 \\mathrm{~cm}^{2}\\right.$ and $\\left.1 \\mathrm{~m}=100 \\mathrm{~cm}\\right)$.\n\nFor example:\n\n## Input\n\n$$\n\\begin{aligned}\n& \\text { Output } \\\\\n& r=1.5(\\text { metres })\n\\end{aligned}\n$$\n\n$$\n\\begin{aligned}\n& \\mathrm{A}=70650 \\mathrm{~cm}^{2} \\\\\n& \\mathrm{C}=942.0 \\mathrm{~cm}\n\\end{aligned}\n$$\n\nYour algorithm should output a suitable error message if the value entered is not valid.\nYour algorithm should be written using self-documenting identifiers.",
+        "images": [],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2339,
+            "width": 1654
+        }
+    },
+    {
+        "index": 10,
+        "markdown": "8. Clearly showing each step, simplify the following expression using only Boolean identities and rules:\n\n$$\nQ \\cdot(P+Q)+\\bar{P} \\cdot(1+R)+Q \\cdot(\\bar{P} \\cdot P)\n$$\n\n$\\qquad$\n$\\qquad$\n$\\qquad$\n$\\qquad$\n$\\qquad$\n$\\qquad$\n$\\qquad$\n$\\qquad$\n$\\qquad$\n$\\qquad$",
+        "images": [],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2339,
+            "width": 1654
+        }
+    },
+    {
+        "index": 11,
+        "markdown": "9. (a) The following data is stored in myArray.\nmyArray\n\n| 1 | 2 | 5 | 6 | 8 | 11 | 14 |\n| :-- | :-- | :-- | :-- | :-- | :-- | :-- |\n| $(0)$ | $(1)$ | $(2)$ | $(3)$ | $(4)$ | $(5)$ | $(6)$ |\n\nWrite down the order in which each number will be accessed when performing the following types of search for 14.\n\nYou may not need to use all the boxes given.\n(i) Linear search.\n![img-1.jpeg](img-1.jpeg)\n(b) Give one advantage and one disadvantage of a binary search over a linear search.",
+        "images": [
+            {
+                "id": "img-1.jpeg",
+                "top_left_x": 539,
+                "top_left_y": 806,
+                "bottom_right_x": 1114,
+                "bottom_right_y": 1223,
+                "image_path": "s23-2500u10-1/images/img_11_0.jpeg"
+            }
+        ],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2339,
+            "width": 1654
+        }
+    },
+    {
+        "index": 12,
+        "markdown": "10. Describe the principles of data compression algorithms.",
+        "images": [],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2339,
+            "width": 1654
+        }
+    },
+    {
+        "index": 13,
+        "markdown": "11. (a) Describe the term data structure and why data structures are used in computing.\n$\\qquad$\n$\\qquad$\n$\\qquad$\n$\\qquad$\n$\\qquad$\n(b) Information about films is stored in a table.\n\n| FilmID | Title | Certificate | Genre |\n| :--: | :-- | :--: | :--: |\n| 1 | End in Justice | 18 | Horror |\n| 2 | Inferno of Retaliation | 12 | Action |\n| 3 | Mission Mercury | 15 | Sci-fi |\n| 4 | Boy of an Angel | PG | Romcom |\n| $\\ldots$ | $\\ldots$ | $\\ldots$ | $\\ldots$ |\n\nDescribe each of the following using examples from the table:\n(i) Field.\n$\\qquad$\n$\\qquad$\n$\\qquad$\n$\\qquad$\n(ii) Record.\n$\\qquad$\n$\\qquad$\n$\\qquad$\n(iii) Primary key.",
+        "images": [],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2339,
+            "width": 1654
+        }
+    },
+    {
+        "index": 14,
+        "markdown": "12. Describe sequential files and how records are added to them.",
+        "images": [],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2339,
+            "width": 1654
+        }
+    },
+    {
+        "index": 15,
+        "markdown": "13. Describe, giving an example, one type of maintenance performed on a computer program. [3]",
+        "images": [],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2339,
+            "width": 1654
+        }
+    },
+    {
+        "index": 16,
+        "markdown": "14. Andrew is considering using three different methods for storing positive numbers, using two's complementation, in a computer system.\n\n| METHOD 1 | METHOD 2 | METHOD 3 |\n| :-- | :-- | :-- |\n| Store numbers as an <br> integer using an 8 bit <br> register. | Store real numbers <br> in normalised <br> floating-point <br> form, using a 5 bit <br> mantissa and a 3 bit <br> exponent. | Store real numbers <br> in normalised <br> floating-point <br> form, using a 4 bit <br> mantissa and a 4 bit <br> exponent. |\n\nCalculate the denary range (highest and lowest) of numbers that can be stored by each method. Compare the advantages of representing numbers in integer and floating-point forms.",
+        "images": [],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2339,
+            "width": 1654
+        }
+    },
+    {
+        "index": 17,
+        "markdown": "# END OF PAPER \n\n\u00a9 WJEC CBAC Ltd.\n\n(2500U10-1)",
+        "images": [],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2339,
+            "width": 1654
+        }
+    },
+    {
+        "index": 18,
+        "markdown": "# For continuation only. \n\n## 19\n\n## For the form of the form of the form of the form of the form of the form of the form of the form of the form of the form of the form of the form of the form of the form of the form of the form of the form of the form of the form of the form of the form of the form of the form of the form of the form of the form of the form of the form of the form of the form of the form of the form of the form of the form of the form of the form of the form of the form of the form of the form of the form of the form of the form of the form of the form of the form of the form of the form of the form of the form of the form of the form of the form of the form of the form of the form of the form of the form of the form of the form of the form of the form of the form of the form of the form of the form of the form of",
+        "images": [],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2339,
+            "width": 1654
+        }
+    },
+    {
+        "index": 19,
+        "markdown": "# For continuation only. \n\n![img-2.jpeg](img-2.jpeg)\n\n$$\n\\begin{aligned}\n& \\text { 20 } \\\\\n& \\text { 20 }\n\\end{aligned}\n$$\n\n$$\n\\begin{aligned}\n& \\text { 20 }\n\\end{aligned}\n$$\n\n$$\n\\begin{aligned}\n& \\text { 20 }\n\\end{aligned}\n$$\n\n$$\n\\begin{aligned}\n& \\text { 20 }\n\\end{aligned}\n$$\n\n$$\n\\begin{aligned}\n& \\text { 20 }\n\\end{aligned}\n$$",
+        "images": [
+            {
+                "id": "img-2.jpeg",
+                "top_left_x": 181,
+                "top_left_y": 311,
+                "bottom_right_x": 1452,
+                "bottom_right_y": 537,
+                "image_path": "s23-2500u10-1/images/img_19_0.jpeg"
+            }
+        ],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2339,
+            "width": 1654
+        }
+    }
+]
