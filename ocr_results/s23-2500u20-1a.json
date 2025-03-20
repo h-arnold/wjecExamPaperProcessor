@@ -1,0 +1,224 @@
+[
+    {
+        "index": 0,
+        "markdown": "# GCE AS/A LEVEL \n\n## 2500U20-1\n\nMONDAY, 22 MAY 2023 - AFTERNOON\n\n## COMPUTER SCIENCE - AS unit 2 Practical Programming to Solve Problems\n\n2 hours\n\n## INSTRUCTIONS TO CANDIDATES\n\nThe question paper is divided into two main sections. Below are the recommended timings for this assessment.\n\n## Section A\n\nAnswer ALL questions in Section A.\nYou are advised to spend no more than $\\mathbf{6 0}$ minutes on this section.\nYou will be required to analyse and deconstruct the scenario to consider its component parts in terms that can be addressed through automated computation.\n\n## Section B\n\nSelect the programming language of your choice from section BI, BII or BIII and answer all questions within your chosen section.\nYou are advised to spend no more than $\\mathbf{6 0}$ minutes on this section.\nYou will be required to develop programs that solve computing problems referring to the initial scenario.\n\n## INFORMATION FOR CANDIDATES\n\nThe number of marks is given in brackets at the end of each question or part-question.\nThe total number of marks available is 60 .\nYou will need a computer with an installed functional copy of the Integrated Development Environment (IDE) appropriate to your chosen programming language and word processing software.\nA calculator is allowed in this examination.",
+        "images": [],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2339,
+            "width": 1654
+        }
+    },
+    {
+        "index": 1,
+        "markdown": "# Scenario \n\n## Sky Balloon Park\n\n![img-0.jpeg](img-0.jpeg)\n\nSky Balloon Park is a small hot air ballooning company that offers trips in their hot air balloons.\nSky Balloon Park needs a computer system that will allow it to handle bookings for its hot air balloon trips. Sky Balloon Park is hoping to encourage repeat bookings for the trips it offers.\n\nSky Balloon Park maintains a list of possible trips in a table. A trip may be booked by multiple passengers, a passenger may wish to book multiple trips. Some of the details that Sky Balloon Park needs to store about its trips include: Trip ID, Date of trip, Time and Description.\n\nSky Balloon Park needs a method that calculates the total weight of the balloon for a given booking to ensure that it can safely ascend on a particular trip.\n\nThe main requirements of the new computer system for Sky Balloon Park are to:\n\n- store details about trips, bookings and customers.\n- carry out simple calculations such as calculating the total weight for a booking.",
+        "images": [
+            {
+                "id": "img-0.jpeg",
+                "top_left_x": 145,
+                "top_left_y": 404,
+                "bottom_right_x": 1503,
+                "bottom_right_y": 1263,
+                "image_path": "s23-2500u20-1a/images/img_1_0.jpeg"
+            }
+        ],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2339,
+            "width": 1654
+        }
+    },
+    {
+        "index": 2,
+        "markdown": "# Section A: Analysis and Design \n\n## Answer all questions (1-4) in this section.\n\nYou have been asked to analyse the scenario as a preliminary step towards creating a prototype computer system for Sky Balloon Park.\n\nPresent your answers as a single word-processed document named: Section A\n\n1. (a) Create an entity relationship diagram for the booking system described in the scenario. There is no need to include any attributes.\n(b) Create a data structure table, including suitable validation checks, for two of the tables in your entity relationship diagram.\n2. Select and fully justify your proposed programming method of solution for Sky Balloon Park. You should include references to the main programming constructs you will need to use including:\n\n- User interface\n- Data structures\n- File handling\n- Validation\n- Local and global variables\n- Data types\n\n3. Describe the processes that Sky Balloon Park could use to protect the security and integrity of data it stores about its customers.",
+        "images": [],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2339,
+            "width": 1654
+        }
+    },
+    {
+        "index": 3,
+        "markdown": "4. (a) Sky Balloon Park uses this algorithm to calculate the total weight for the next balloon trip.\n\n```\ndeclare weight[4,2] as integer\ndeclare constant PASSENGERWEIGHT = 150\n    {average weight of a passenger}\ndeclare subroutine fillArray(passengers)\n    for i = 1 to passengers\n        weight[i,1] = i\n        weight[i,2] = i * PASSENGERWEIGHT\n    next i\n    if passengers >0 then\n        return TRUE\n    else\n        return FALSE\n    end if\n    end subroutine\n    startMainProg\n    declare passengers as integer\n    declare completed as Boolean\n    output \"Type in the number of passengers\"\n    input passengers\n    completed = fillArray(passengers)\n    if completed = TRUE then\n        output \"Subroutine completed successfully\"\n    end if\n    endMainProg\n    end\n```\n\nCopy and complete the table below showing the contents of the array weight for the input provided.\npassengers $=4$\n\n| weight <br> $[\\mathrm{i}, 1]$ |  |  |  |  |\n| :-- | :-- | :-- | :-- | :-- |\n| weight <br> $[\\mathrm{i}, 2]$ |  |  |  |  |",
+        "images": [],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2339,
+            "width": 1654
+        }
+    },
+    {
+        "index": 4,
+        "markdown": "(b) From the algorithm given identify an example of the following and describe its role in the algorithm:\n\n- Constant\n- Local variable\n- Global variable\n- Self-documenting identifier\n- Annotation\n- Procedure calling\n- Parameter passing\n- Return a value.\n\nSave your answers as a single word-processed document named: Section A",
+        "images": [],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2339,
+            "width": 1654
+        }
+    },
+    {
+        "index": 5,
+        "markdown": "# Section B: Develop programs \n\nSelect the programming language of your choice from section BI, BII or BIII and answer all questions within your chosen section.\n\n## BI Visual Basic\n\nSky Balloon Park wants a prototype computer system to be developed using Visual Basic.\n\n1. Open the file skycustomers\n\n- Read through the code and familiarise yourself with its contents.\n- The file contains incomplete code which attempts to save customer details and return the number of customers on file that match the search criteria entered.\n\nComplete this code.\nSave the changes made to the file.\n2. Using the internal facility of your chosen language, annotate the code from Question BI above to clearly explain the design of this program to another software developer.\n\nSave the annotation within the file.\n3. Create a new program to allow Sky Balloon Park to record details about upcoming trips.\n\nThe new program must accept:\no TripID\no Date\no Time\no Description\nThe program should have a Save facility and a Load facility.\nSave the new program as Trips.",
+        "images": [],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2339,
+            "width": 1654
+        }
+    },
+    {
+        "index": 6,
+        "markdown": "# BII Java \n\nSky Balloon Park wants a prototype computer system to be developed using Java\n\n1. Open the file skycustomers\n\n- Read through the code and familiarise yourself with its contents.\n- The file contains incomplete code which attempts to save customer details and return the number of customers on file that match the search criteria entered.\n\nComplete this code.\nSave the changes made to the file.\n2. Using the internal facility of your chosen language, annotate the code from Question BII above to clearly explain the design of this program to another software developer.\n\nSave the annotation within the file.\n3. Create a new program to allow Sky Balloon Park to record details about upcoming trips.\n\nThe new program must accept:\no TriplD\no Date\no Time\no Description\nThe program should have a Save facility and a Load facility.\nSave the new program as Trips.",
+        "images": [],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2339,
+            "width": 1654
+        }
+    },
+    {
+        "index": 7,
+        "markdown": "# BIII Python \n\nSky Balloon Park wants a prototype computer system to be developed using Python.\n\n1. Open the file skycustomers\n\n- Read the code and familiarise yourself with its contents.\n- The file contains incomplete code which attempts to save customer details and return the number of customers on file that match the search criteria entered.\n\nComplete this code.\nSave the changes made to the file.\n2. Using the internal facility of your chosen language, annotate the code from Question BIII above to clearly explain the design of this program to another software developer.\n\nSave the annotation within the file.\n3. Create a new program to allow Sky Balloon Park to record details about upcoming trips.\n\nThe new program must accept:\no TriplD\no Date\no Time\no Description\nThe program should have a Save facility and a Load facility.\nSave the new program as Trips.",
+        "images": [],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2339,
+            "width": 1654
+        }
+    },
+    {
+        "index": 8,
+        "markdown": "# GCE AS/A LEVEL \n\n## MONGMY, 22 MAY 2023 - AFTERNOON\n\n## COMPUTER SCIENCE - AS unit 2 Practical Programming to Solve Problems\n\nInstructions to Candidates",
+        "images": [],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2339,
+            "width": 1654
+        }
+    },
+    {
+        "index": 9,
+        "markdown": "# BLANK PAGE",
+        "images": [],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2339,
+            "width": 1654
+        }
+    },
+    {
+        "index": 10,
+        "markdown": "# Instructions for candidates \n\n## WJEC GCE AS Computer Science Unit 2 (2500U20-1) MONDAY, 22 MAY 2023 - AFTERNOON\n\n## 1. The decryption password for the encrypted media files is brown-cq*FiA\n\n2. You will be issued with a Question Paper and instructions for candidates.\n3. You will be using:\n\n- a dedicated examination account for this examination only which should be inactive until the examination starts\n- 7-Zip pre-installed on each PC\n- a pre-installed functional copy of your chosen IDE (Visual Basic, Python or Java)\n- access to a word processing package (for example, Microsoft Word) to produce your candidate responses\n- the encrypted media files pre-installed on each PC\n- the password for the media files\n- an 'empty' user area or storage device (with only the encrypted media files) on which to save the work.\n\nNB: You must not have access to the internet, any shared drives, virtual learning environments (VLEs) or email during the examination.",
+        "images": [],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2339,
+            "width": 1654
+        }
+    },
+    {
+        "index": 11,
+        "markdown": "# 4. In the examination room before the examination starts \n\ni. When told to do so by the invigilator, log onto your workstation and follow the instructions below to decrypt the media files using 7 -Zip.\nii. Access your user area on your workstation. Your user area will contain a file with a .7z suffix like this one:\n$\\square$ Name\nDate modified\nType\nSize\n3500U20 W/EC GCSE Computer Science Unit 2.7z 02/01/2020 15:19 7Z File\n79 KB\niii. Right click this file, choose 7 -Zip and then Open archive as shown below.\n![img-1.jpeg](img-1.jpeg)",
+        "images": [
+            {
+                "id": "img-1.jpeg",
+                "top_left_x": 137,
+                "top_left_y": 879,
+                "bottom_right_x": 1503,
+                "bottom_right_y": 1796,
+                "image_path": "s23-2500u20-1a/images/img_11_0.jpeg"
+            }
+        ],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2339,
+            "width": 1654
+        }
+    },
+    {
+        "index": 12,
+        "markdown": "iv. You will then be asked for the password (this will be case sensitive). You can find this on the first page of these instructions. Type in this password in the box provided. This may be easier if you tick the Show password box as below. Click OK when you've entered the password.\n![img-2.jpeg](img-2.jpeg)\nv. In the next window choose extract.\n![img-3.jpeg](img-3.jpeg)",
+        "images": [
+            {
+                "id": "img-2.jpeg",
+                "top_left_x": 158,
+                "top_left_y": 381,
+                "bottom_right_x": 1503,
+                "bottom_right_y": 1204,
+                "image_path": "s23-2500u20-1a/images/img_12_0.jpeg"
+            },
+            {
+                "id": "img-3.jpeg",
+                "top_left_x": 193,
+                "top_left_y": 1333,
+                "bottom_right_x": 1553,
+                "bottom_right_y": 1494,
+                "image_path": "s23-2500u20-1a/images/img_12_1.jpeg"
+            }
+        ],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2339,
+            "width": 1654
+        }
+    },
+    {
+        "index": 13,
+        "markdown": "vi. Just click OK at the next window.\n![img-4.jpeg](img-4.jpeg)\nvii. The program will then extract all the files you need, and you are ready to start the examination when told to do so by the invigilator.",
+        "images": [
+            {
+                "id": "img-4.jpeg",
+                "top_left_x": 142,
+                "top_left_y": 421,
+                "bottom_right_x": 1501,
+                "bottom_right_y": 1174,
+                "image_path": "s23-2500u20-1a/images/img_13_0.jpeg"
+            }
+        ],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2339,
+            "width": 1654
+        }
+    },
+    {
+        "index": 14,
+        "markdown": "5. In the examination room after the examination has finished.\n\nYou will need to zip all your files following the instructions below:\ni. Highlight all the files in your folder either by pressing Ctrl A or by using the mouse.\n\n| $\\square$ Name | Date modified | Type | Size |  |\n| :-- | :-- | :-- | :-- | :-- |\n| $\\square$ Aquarium | $02 / 01 / 202015: 15$ | File folder |  |  |\n| $\\square$ WJECAnts8 | $02 / 01 / 202015: 15$ | File folder |  |  |\n| $\\square$ WJECAnts9 | $02 / 01 / 202015: 15$ | File folder |  |  |\n| $\\square$ Electronic Answer Document.docx | $02 / 01 / 202015: 15$ | Microsoft Word Doc... | 23 KB |  |\n| $\\square$ pets.jpg | $02 / 01 / 202015: 15$ | JPG File | 31 KB |  |\n\n1 Example files only\nii. Right click and choose 7-Zip then Add to archive.\n![img-5.jpeg](img-5.jpeg)",
+        "images": [
+            {
+                "id": "img-5.jpeg",
+                "top_left_x": 215,
+                "top_left_y": 928,
+                "bottom_right_x": 1516,
+                "bottom_right_y": 1875,
+                "image_path": "s23-2500u20-1a/images/img_14_0.jpeg"
+            }
+        ],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2339,
+            "width": 1654
+        }
+    },
+    {
+        "index": 15,
+        "markdown": "iii. Fill out the archive name with your candidate number followed by your surname and initials.\n\n# DO NOT ENTER ANY ENCRYPTION DETAILS. IF YOU DO YOU MAY NOT RECEIVE MARKS FOR YOUR WORK \n\niv. Then click OK.\n![img-6.jpeg](img-6.jpeg)\n\n## 6. Leaving the examination room after the examination has finished.\n\nYou have now finished and can leave the examination room when told to do so by the invigilation staff.",
+        "images": [
+            {
+                "id": "img-6.jpeg",
+                "top_left_x": 181,
+                "top_left_y": 470,
+                "bottom_right_x": 1538,
+                "bottom_right_y": 1768,
+                "image_path": "s23-2500u20-1a/images/img_15_0.jpeg"
+            }
+        ],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2339,
+            "width": 1654
+        }
+    }
+]

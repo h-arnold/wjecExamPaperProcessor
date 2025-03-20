@@ -105,6 +105,19 @@ class PDF_OCR_Processor:
             # For other types, convert to string
             return str(obj)
 
+    def _delete_source_file(self, file_path):
+        """
+        Deletes a file from the filesystem.
+        
+        Args:
+            file_path (Path): Path to the file to be deleted.
+        """
+        try:
+            file_path.unlink()
+            logging.info(f"Deleted source file: {file_path}")
+        except Exception as e:
+            logging.error(f"Error deleting file {file_path}: {e}")
+
     def process_pdfs(self):
         """
         Iterate through PDF files in the source folder, upload them, process them via OCR,
@@ -140,5 +153,8 @@ class PDF_OCR_Processor:
                 with open(output_file, "w", encoding="utf-8") as f:
                     json.dump(extracted_result, f, indent=4)
                 logging.info(f"OCR result saved to {output_file}")
+                
+                # Delete the source PDF file after successful processing
+                self._delete_source_file(pdf_file)
             except Exception as e:
                 logging.error(f"Error processing {pdf_file.name}: {e}")
