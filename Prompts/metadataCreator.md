@@ -14,7 +14,6 @@ You must return a valid JSON object with the following fields:
 - `Type`: one of the following:
   - `"Question Paper"`
   - `"Mark Scheme"`
-
 - `Qualification`: one of the following:
   - `"A-Level"`
   - `"AS-Level"`
@@ -25,7 +24,7 @@ You must return a valid JSON object with the following fields:
 
 - `Subject`: must always be `"Computer Science"`
 
-- `Exam Paper`: the name or number of the paper (e.g. `"Paper 1"`, `"Component 2"`, `"Unit 1 – Fundamentals"`)
+- `Exam Paper`: the name or number of the paper (e.g. `"Paper 1"`, `"Component 2"`, `"Unit 1: Fundamentals"`)
 
 - `Exam Season`: one of the following:
   - `"Autumn"`
