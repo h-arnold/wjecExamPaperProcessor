@@ -1,35 +1,16 @@
-# PDF OCR Processor with Mistral AI
+# WJEC Exam Paper Processor
 
-A Python application for processing PDF documents using Mistral AI's OCR (Optical Character Recognition) API. This tool automatically extracts text and images from PDF files and saves the results in structured JSON format.
+## Project Overview
+The WJEC Exam Paper Processor is a specialised tool designed to automate the extraction, processing, and analysis of Welsh Joint Education Committee (WJEC) examination papers. This tool helps educators, assessment designers, and educational researchers work more efficiently with exam content by automating metadata extraction and content organization.
 
-## Features
+## Key Features
+- Automated extraction of exam paper metadata (titles, questions, marks, etc.)
+- Structured organization of exam content for easier analysis
+- Support for various WJEC exam formats across different subject areas
+- Tools for comparing exam content across years and specifications
+- Export capabilities for further analysis in other systems
 
-- Automatic processing of multiple PDF files
-- OCR text extraction from PDFs using Mistral AI's OCR API
-- Extraction and saving of images found in PDFs
-- JSON output with structured OCR results
-- Automatic source file cleanup after successful processing
-
-## Architecture
-
-### Components
-
-1. **MistralOCRClient (`mistralOCRClient.py`)**
-   - Handles communication with Mistral AI's API
-   - Manages file uploads, signed URL generation, and OCR processing
-
-2. **PDF_OCR_Processor (`pdfOcrProcessor.py`)**
-   - Processes PDF files from a source directory
-   - Extracts and saves images from OCR results
-   - Serializes OCR results to JSON format
-   - Manages file system operations
-
-3. **Main Script (`main.py`)**
-   - Application entry point
-   - Initializes all necessary components
-   - Manages configuration and environment variables
-
-## Setup and Installation
+## Getting Started
 
 ### Prerequisites
 
@@ -63,6 +44,16 @@ A Python application for processing PDF documents using Mistral AI's OCR (Optica
    ```bash
    mkdir -p source_pdfs ocr_results
    ```
+
+## Metadata Extraction
+The system extracts crucial metadata from WJEC exam papers including:
+- Paper code and reference numbers
+- Subject and qualification information
+- Date and session information
+- Question structure and mark allocation
+- Content domain coverage
+
+This metadata enables efficient searching, categorisation and analysis of exam papers.
 
 ## Usage
 

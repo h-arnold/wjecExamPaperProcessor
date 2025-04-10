@@ -13,7 +13,7 @@ from pathlib import Path
 sys.path.insert(0, os.path.abspath(os.path.dirname(__file__)))
 
 # Import necessary modules from the project
-from MetadataExtraction.metadata_extraction import extract_metadata_from_directory
+from MetadataExtraction.main import extract_metadata_from_directory
 
 def test_directory_metadata_extraction(
     ocr_directory_path: str,
