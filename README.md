@@ -1,9 +1,11 @@
 # WJEC Exam Paper Processor
 
 ## Project Overview
+
 The WJEC Exam Paper Processor is a specialised tool designed to automate the extraction, processing, and analysis of Welsh Joint Education Committee (WJEC) examination papers. This tool helps educators, assessment designers, and educational researchers work more efficiently with exam content by automating metadata extraction and content organization.
 
 ## Key Features
+
 - Automated extraction of exam paper metadata (titles, questions, marks, etc.)
 - Structured organization of exam content for easier analysis
 - Support for various WJEC exam formats across different subject areas
@@ -20,33 +22,40 @@ The WJEC Exam Paper Processor is a specialised tool designed to automate the ext
 ### Installation
 
 1. Clone the repository:
+
    ```bash
    git clone https://github.com/yourusername/examPapersInMarkdown.git
    cd examPapersInMarkdown
    ```
 
 2. Install the required packages:
+
    ```bash
    pip install mistralai
    ```
 
 3. Set up your Mistral AI API key as an environment variable:
+
    ```bash
    export MISTRAL_API_KEY="your-api-key"
    ```
-   
+
    For Windows:
+
    ```powershell
    set MISTRAL_API_KEY=your-api-key
    ```
 
 4. Create the required directories:
+
    ```bash
    mkdir -p source_pdfs ocr_results
    ```
 
 ## Metadata Extraction
+
 The system extracts crucial metadata from WJEC exam papers including:
+
 - Paper code and reference numbers
 - Subject and qualification information
 - Date and session information
@@ -60,6 +69,7 @@ This metadata enables efficient searching, categorisation and analysis of exam p
 1. Place your PDF files in the `source_pdfs` directory.
 
 2. Run the main script:
+
    ```bash
    python src/main.py
    ```
