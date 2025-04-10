@@ -83,11 +83,12 @@ class MetadataExtractor:
         try:
             # Check if OCR content is in the expected array format with index and markdown
             if isinstance(ocr_content, list) and len(ocr_content) > 0 and "index" in ocr_content[0] and "markdown" in ocr_content[0]:
-                # Extract text from each page up to the max index for metadata scanning
+                # Extract text only from the first self.max_index pages
                 text_content = ""
-                for page in ocr_content:
-                    if "index" in page and page["index"] <= self.max_index and "markdown" in page:
-                        text_content += page["markdown"] + "\n\n"
+                max_pages = min(self.max_index, len(ocr_content))
+                for i in range(max_pages):
+                    if "markdown" in ocr_content[i]:
+                        text_content += ocr_content[i]["markdown"] + "\n\n"
                 return text_content
             # Check if OCR content has pages structure
             elif "pages" in ocr_content:
