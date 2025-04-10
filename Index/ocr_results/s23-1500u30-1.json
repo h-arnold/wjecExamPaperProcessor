@@ -1,0 +1,72 @@
+[
+    {
+        "index": 0,
+        "markdown": "# GCE A LEVEL \n\n## 1500U30-1 <br> EIIIIIIIIIIIIIIIIIIIIIIIIIIIIII\n\nMONDAY, 12 JUNE 2023 - AFTERNOON\n\n## COMPUTER SCIENCE - A2 unit 3 <br> Programming and System Development\n\n2 hours\n\n## ADDITIONAL MATERIALS\n\nA WJEC pink 16-page answer booklet.\nA calculator.\n\n## INSTRUCTIONS TO CANDIDATES\n\nAnswer all questions.\nWrite your answers in the separate answer booklet provided.\n\n## INFORMATION FOR CANDIDATES\n\nThe number of marks is given in brackets at the end of each question or part-question; you are advised to divide your time accordingly.\nThe total number of marks available is 100 .\nAssessment will take into account the quality of written communication used in your answers.",
+        "images": [],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2339,
+            "width": 1654
+        }
+    },
+    {
+        "index": 1,
+        "markdown": "Answer all questions.\n\n1. (a) Explain the operation of a hash table.\n(b) This is a diagram of a hash table:\n\n| Key | Value |\n| :--: | :--: |\n| 1001 | Apple |\n| 1002 | Berry |\n| 1003 | Kiwi |\n| 1004 | Lime |\n| 1005 | Mango |\n| 1006 | Pear |\n| 1007 | Pineapple |\n\n(i) Redraw the hash table after \"1008, Orange\" has been added and \"1003, Kiwi\" has been deleted.\n(ii) Starting from the modified hash table resulting from (b)(i) redraw the hash table after \"1006, Peach\" has been added.\n2. Explain the differences between procedural and object orientated programming paradigms, giving suitable examples for each.\n3. Using the following Truth Table express $p$ as a Boolean expression:\n\n| $A$ | $B$ | $C$ | $p$ |\n| :--: | :--: | :--: | :--: |\n| 0 | 0 | 0 | 0 |\n| 0 | 0 | 1 | 1 |\n| 0 | 1 | 0 | 1 |\n| 0 | 1 | 1 | 1 |\n| 1 | 0 | 0 | 0 |\n| 1 | 0 | 1 | 1 |\n| 1 | 1 | 0 | 0 |\n| 1 | 1 | 1 | 0 |",
+        "images": [],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2339,
+            "width": 1654
+        }
+    },
+    {
+        "index": 2,
+        "markdown": "4. Clearly showing each step, simplify the following Boolean expressions using Boolean algebra, identities and De Morgan's Law where appropriate.\n(a) $\\mathrm{A} .(1+\\mathrm{C})+\\overline{\\mathrm{B}} .(\\mathrm{A}+\\mathrm{B})$\n(b) $\\mathrm{X} \\cdot(\\overline{\\mathrm{Y}+\\mathrm{Z}})+\\overline{\\mathrm{Z}} \\cdot \\mathrm{X}$\n5. Write a quicksort algorithm, to sort an array of integers into ascending order.\n6. State the purpose of validation and verification, giving a suitable method for each.\n7. An online grocery store uses binary trees. These binary trees can be traversed using a variety of methods.\n(a) Describe the following methods of traversal and give an example of why each method would be used in the grocery store.\n(i) In-order traversal\n(ii) Post-order traversal\n(iii) Pre-order traversal\n(b) Draw an example of a balanced binary tree for grocery items.\n8. Giving suitable examples, describe the types of software tool that have been designed to assist in the following:\n(a) Analysis and planning\n(b) Software development\n(c) Version management",
+        "images": [],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2339,
+            "width": 1654
+        }
+    },
+    {
+        "index": 3,
+        "markdown": "9. A QR code generator uses a string to produce a WiFi access QR code. The string comprises the QR code type, encryption type, network name (SSID) and password. The string is separated using colons.\n\n- The QR code type is WIFI.\n- Colon (:)\n- Encryption can be either WEP or WPA.\n- The network name can contain only lowercase letters, uppercase letters and digits.\n- The password can contain lowercase letters, uppercase letters, special characters and digits.\n\nExample: WIFI:WEP:WJECWiFiPublic:Pa\\$\\$w0rd1\nProduce a Backus-Naur Form (BNF) definition for the string.\n10. Giving suitable examples, describe the differences between translation and execution errors.\n11. Describe the difference between compilers and interpreters. Give one example of a language which is compiled and one example of a language which is interpreted.\n[8]",
+        "images": [],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2339,
+            "width": 1654
+        }
+    },
+    {
+        "index": 4,
+        "markdown": "12. This is an algorithm which searches for consecutive data items in three separate one dimensional arrays all of size $n$. You can assume all the arrays have already been populated with data.\n\n```\nAlgorithm Search\ndeclare i as integer\ndeclare myArray1[n] as integer[]\ndeclare myArray2[n] as integer[]\ndeclare myArray3[n] as integer[]\ndeclare found as string\nset i = 0\nset found = \"\"\ndo\n    if myArray1[i] = myArray1[i+1] then\n        set found = found + myArray1[i] + \" \"\n    end if\n    if myArray2[i] = myArray2[i+1] then\n        set found = found + myArray2[i] + \" \"\n    end if\n    if myArray3[i] = myArray3[i+1] then\n        set found = found + myArray3[i] + \" \"\n    end if\n    set i = i + 1\nwhile (i < n)\noutput \"Consecutive data items found: \" , found\n```\n\n(a) Evaluate the efficiency of the algorithm and using Big O notation, determine the growth rate for time performance.\n(b) Draw a graph of the algorithm to illustrate and identify its order of time performance. Graph paper is not required.\n13. Discuss contemporary approaches to human-computer interaction.\n\nYou should draw on your knowledge, skills and understanding from a number of areas across your computer science course when answering this question.",
+        "images": [],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2339,
+            "width": 1654
+        }
+    },
+    {
+        "index": 5,
+        "markdown": "# BLANK PAGE",
+        "images": [],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2339,
+            "width": 1654
+        }
+    },
+    {
+        "index": 6,
+        "markdown": "# BLANK PAGE",
+        "images": [],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2339,
+            "width": 1654
+        }
+    }
+]

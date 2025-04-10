@@ -1,0 +1,152 @@
+[
+    {
+        "index": 0,
+        "markdown": "# wjec cbac \n\n## GCE AS MARKING SCHEME\n\nSUMMER 2016\n\nCOMPUTER SCIENCE - NEW AS UNIT 1 2500U10-1",
+        "images": [],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2338,
+            "width": 1654
+        }
+    },
+    {
+        "index": 1,
+        "markdown": "# INTRODUCTION \n\nThis marking scheme was used by WJEC for the 2016 examination. It was finalised after detailed discussion at examiners' conferences by all the examiners involved in the assessment. The conference was held shortly after the paper was taken so that reference could be made to the full range of candidates' responses, with photocopied scripts forming the basis of discussion. The aim of the conference was to ensure that the marking scheme was interpreted and applied in the same way by all examiners.\n\nIt is hoped that this information will be of assistance to centres but it is recognised at the same time that, without the benefit of participation in the examiners' conference, teachers may have different views on certain matters of detail or interpretation.\n\nWJEC regrets that it cannot enter into any discussion or correspondence about this marking scheme.",
+        "images": [],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2338,
+            "width": 1654
+        }
+    },
+    {
+        "index": 2,
+        "markdown": "# GCE AS COMPUTER SCIENCE \n\n## SUMMER 2016 MARK SCHEME\n\n## Unit 1\n\n| Q | Answer | Marks | AO1 | AO2 | AO3 | Total |\n| :--: | :--: | :--: | :--: | :--: | :--: | :--: |\n| 1a | Award 1 mark per response. <br> - MOD checks if the number is divisible by 2 / calculates the remainder of the inputted number. <br> - If the result of modulus is 0 then the number can be divided by 2 and is an even number. <br> - If the modulus is not exactly 0 , then the number is not exactly divisible by 2 , hence it will be odd number. | $\\begin{aligned} & 1 \\\\ & 1 \\\\ & 1 \\end{aligned}$ |  | $\\begin{aligned} & 2.1 \\mathrm{~b} \\\\ & 2.1 \\mathrm{~b} \\\\ & 2.1 \\mathrm{~b} \\end{aligned}$ |  | 3 |\n| 1b | Award 1 mark per response. <br> - Example: if num MOD $2=0$ Then <br> - Selection outputs num \\& \" is an even number\" if the condition num MOD $2=0$ is met. | $\\begin{aligned} & 1 \\\\ & 1 \\end{aligned}$ |  | $\\begin{aligned} & 2.1 \\mathrm{~b} \\\\ & 2.1 \\mathrm{~b} \\end{aligned}$ |  | 2 |\n| 1c | Award 1 mark per response. <br> - Example: for i = 1 To numberstocheck <br> - Repetition checks if numbers are even/odd until all numbers have been checked. | $\\begin{aligned} & 1 \\\\ & 1 \\end{aligned}$ |  | $\\begin{aligned} & 2.1 \\mathrm{~b} \\\\ & 2.1 \\mathrm{~b} \\end{aligned}$ |  | 2 |\n| 2 |  |  |  |  |  |  |\n|  | $\\bar{A}$ | B.C | $\\bar{A}+\\boldsymbol{B} . \\boldsymbol{C}$ | $\\bar{A} .(\\boldsymbol{A}+\\boldsymbol{B} . \\boldsymbol{C})$ |  |  |\n|  | 0 | 1 | 1 | 0 |  |  |\n|  | 0 | 0 | 0 | 0 |  |  |\n|  | 1 | 1 | 1 | 1 |  |  |\n|  | 1 | 0 | 1 | 0 |  |  |\n|  | Award One mark for each correct column. |  |  | 4 |  | 2.1a |",
+        "images": [],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2338,
+            "width": 1654
+        }
+    },
+    {
+        "index": 3,
+        "markdown": "| Q | Answer | Marks | AO1 | AO2 | AO3 | Total |\n| :--: | :--: | :--: | :--: | :--: | :--: | :--: |\n| 3 | Award 1 mark for naming $\\times 4$ <br> Award 1 mark for describing the function of the named component $\\times 4$ <br> Control unit / clock <br> - Manages the Fetch/Decode/Execute cycle OR Fetches each instruction in sequence, decodes and synchronises it by sending control signals to other parts of the computer. <br> Arithmetic Logic Unit (Accept ALU) <br> - The processing and manipulation of data which normally consists of arithmetic operations or logical comparisons, allowing a program to take decisions. <br> Registers (MAR/MDR/CIR etc) <br> - A small/fast access/ temporary storage typically addressed by mechanisms other than main memory. (Or a description of MAR MDR etc) <br> Buses(Data Bus / Control Bus / Address Bus) <br> - Connects all the internal components of a computer, such as CPU and memory, to the motherboard.(Or specific role of named bus) <br> Cache memory /Internal Memory (L1, L2) <br> - Cache memory can be accessed by a CPU more quickly than it can access regular RAM to execute frequently accessed items of code (e.g. loops). | 4 <br> 4 | $\\begin{aligned} & 1.1 \\mathrm{a} \\\\ & 1.1 \\mathrm{~b} \\end{aligned}$ |  |  | 8 |",
+        "images": [],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2338,
+            "width": 1654
+        }
+    },
+    {
+        "index": 4,
+        "markdown": "| Q | Answer | Marks | AO1 | AO2 | AO3 | Total |\n| :--: | :--: | :--: | :--: | :--: | :--: | :--: |\n| 4 | Award 1 mark for each up to a maximum of 6 | 6 | 1.1b |  |  | 6 |\n|  | Any six of: <br> - Editor: this allows a programmer to enter and edit source code/annotation <br> - Compiler: Translates source code into machine code <br> - Interpreter: Translates each line/a single line of source code and executes it <br> - Automatic formatting: Correctly indents code <br> - Automatic colour coding: Changes key words, literals and annotation to different colours <br> - Linker: this is a program which allows previously compiled code, from software libraries, to be linked together <br> - Loader: this is a program which loads previously compiled code into memory. <br> - Debugger: this is a program which helps locate, identify and rectify errors in a program <br> - Syntax error detection: Highlighting syntax errors before code is translated <br> - Trace: this is a facility which displays the order in which the lines of a program are executed, and possibly the values of variables as the program is being run <br> - Break point: this is a facility which interrupts a program on a specific line of code, allowing the programmer to compare the values of variables against expected values. The program code can then usually be executed one line at a time. This is called single-stepping <br> - Variable watch: this is a facility which displays the current value of any variable. The value can be 'watched' as the program code is single-stepped to see the effects of the code on the variable. Alternatively a variable watch may be set, which will interrupt the program flow if the watched variable reaches a specified value <br> - Memory inspector: this is a facility which will display the contents of a section of memory <br> - Error diagnostics: these are used when a program fails to compile or to run. Error messages are displayed to help the programmer diagnose what has gone wrong <br> - Emulator: will provide an emulator to run the code/app so no physical device required <br> - Context sensitive menu: IDE suggests available options <br> - Statement completion: IDE will complete a statement such as adding an 'end if' to an 'if' statement <br> - GUI creation: Allows programmer to create a GUI by dragging and dropping controls (buttons, etc...) onto a form. <br> - Publisher: facility to package up and deploy program as an easy to install package <br> - Code optimisation: Warning message when variables have been declared but not used. <br> Accept use of IDE/SDE/SDK interchangeably |  |  |  |  |  |  |",
+        "images": [],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2338,
+            "width": 1654
+        }
+    },
+    {
+        "index": 5,
+        "markdown": "| Q | Answer | Marks | AO1 | AO2 | AO3 | Total |\n| :--: | :--: | :--: | :--: | :--: | :--: | :--: |\n| 5a | Award 1 mark for each <br> Simplex <br> - Data transmission is possible in one direction only. <br> Half duplex <br> - Data transmission is possible in both directions, but only in one direction at a time. <br> Full duplex <br> - Data transmission is possible in both directions simultaneously. | 1 <br> 1 <br> 1 | $1.1 b$ <br> 1.1b |  |  | 3 |\n| 5b | Award 1 mark for each <br> - Data collision occurs when two sets of data are detected on the network simultaneously. <br> - Once detected, a computer waits for a short (random) time then sends again. | 1 <br> 1 | $1.1 b$ <br> 1.1b |  |  | 2 |\n| 6ai | Award 1 mark <br> A byte is a collection of 8 bits, (e.g. $00101010_{2}$ ) | 1 | 1.1a |  |  | 1 |\n| 6aii | Award 1 mark <br> A word is the total number of bits that can be manipulated as a single unit by the CPU. | 1 | 1.1b |  |  | 1 |\n| 6b | Award 1 mark for each <br> Convert $2 A_{16}$ into binary: $00101010_{2}$ <br> Convert $\\mathrm{BB}_{16}$ into binary: $10111011_{2}$ <br> Binary addition: <br> $00101010_{2}$ <br> $10111011_{2}$ <br> $11100101_{2}$ <br> $011101000$ | 1 <br> 1 <br> 1 <br> 1 <br> 1 <br> 1 <br> 1 <br> 1 <br> 1 <br> 1 <br> 1 <br> 1 |  | 2.1a <br> 2.1a <br> 2.1a <br> 2.1a |  | 4 |\n| 6c | Award 1 mark for each <br> - From RHS, rewrite it up to and including the first one by change other 1 digits to 0 and 0 digits to 1 <br> or <br> - Flip the bits and add one. <br> Example: $\\begin{array}{r} 00011011 \\rightarrow \\mathrm{xxxxxxx} 1 \\rightarrow 11100101 \\\\ 1 \\end{array}$ | 1 <br> 1 <br> 1 | 1.1b |  |  | 2 |",
+        "images": [],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2338,
+            "width": 1654
+        }
+    },
+    {
+        "index": 6,
+        "markdown": "| Q | Answer | Marks | AO1 | AO2 | AO3 | Total |\n| :--: | :--: | :--: | :--: | :--: | :--: | :--: |\n| 6d | Award 1 mark for each <br> Mantissa $=13 / 16$ OR 0.8125, Exponent $=3$ <br> Answer $=0.8125 \\times 2^{3}=6.5_{10}$ | 1 <br> 1 <br> 1 |  | 2.1a <br> 2.1a <br> 2.1a |  | 3 |\n| 6 e | Award 1 mark for each |  |  |  |  | 6 |\n|  | Truncation: number is approximated to whole number/tenth/hundredth etc. nearer zero. (condone lower, accept idea of shortened / cut off / removed) | 1 | 1.1b |  |  |  |\n|  | Rounding: number is approximated to nearest whole number/tenth/hundredth, etc. | 1 | 1.1b |  |  |  |\n|  | Example <br> - Truncation: $26_{10}$ <br> - Error $-0.8_{10}$ <br> - Rounding: $27_{10}$ <br> - Error $+0.2_{10}$ | 1 <br> 1 <br> 1 |  | 2.1a <br> 2.1b <br> 2.1a <br> 2.1b |  |  |\n|  |  |  |  |  |  |  |",
+        "images": [],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2338,
+            "width": 1654
+        }
+    },
+    {
+        "index": 7,
+        "markdown": "| Q | Answer | Marks | AO1 | AO2 | AO3 | Total |\n| :--: | :--: | :--: | :--: | :--: | :--: | :--: |\n| 7 | Award 1 mark for each: <br> - The physical location of the record is calculated using a hashing algorithm <br> - This calculation is carried out on data in the key field(or other mandatory data item) <br> - A data collision occurs when two data items are hashed to the same location <br> - In this case there needs to be an overflow areas where the latest data is stored <br> - When there are many items in the overflow area, access may become slow <br> - In which case a new hashing algorithm is required and a larger file may be needed. | 1 <br> 1 <br> 1 <br> 1 <br> 1 <br> 1 <br> 1 | 1.1 b <br> 1.1 b <br> 1.1 b <br> 1.1 b <br> 1.1 b |  |  | 6 |\n| 8 | Indicative content <br> 1 Declare MyArray[0 to 6] <br> 2 Declare Start is integer <br> 3 Declare End is integer <br> 4 Declare Found is Boolean <br> 5 Declare Mid is integer <br> 6 <br> 7 set Start $=0$ <br> 8 set End $=6$ <br> 9 set Found = False <br> 10 <br> 11 input SearchValue <br> 12 <br> 13 repeat <br> 14 set Mid = (Start + End) DIV 2 <br> 15 if SearchValue = MyArray[Mid] then <br> 16 set Found = True <br> 17 Output \"SearchValue found at position\", Mid <br> 18 endif <br> 19 <br> 20 if SearchValue > MyArray[Mid] then <br> 21 set Start $=$ Mid +1 <br> 22 endif <br> 23 <br> 24 if SearchValue < MyArray[Mid] then <br> 25 set End = Mid - 1 <br> 26 endif <br> 27 until (Found = True) OR (End < Start) <br> 28 <br> 29 if Found = False <br> 30 Output \"SearchValue not found\" <br> 31 endif |  |  |  |  | 8 |",
+        "images": [],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2338,
+            "width": 1654
+        }
+    },
+    {
+        "index": 8,
+        "markdown": "| Q | Answer | Marks | AO1 | AO2 | AO3 | Total |\n| :--: | :--: | :--: | :--: | :--: | :--: | :--: |\n|  | Marking <br> Award 1 mark for each up to a maximum of 8 <br> - Declare array and initialise variables <br> - Input SearchValue <br> - Loop structure and increment <br> - Comparison with searchValue and output position if found <br> - Correct terminating condition for loop <br> - Correctly discard half of array if myArray(Mid) > SearchValue <br> - Correctly discard half of array if myArray(Mid) <br> SearchValue <br> - Output message if not found | $\\begin{aligned} & 1 \\\\ & 1 \\\\ & 1 \\\\ & 1 \\\\ & 1 \\\\ & 1 \\\\ & 1 \\\\ & 1 \\end{aligned}$ |  |  | $\\begin{aligned} & 3.1 \\mathrm{~b} \\\\ & 3.1 \\mathrm{~b} \\\\ & 3.1 \\mathrm{~b} \\\\ & 3.1 \\mathrm{~b} \\\\ & 3.1 \\mathrm{~b} \\\\ & 3.1 \\mathrm{~b} \\end{aligned}$ |  |\n| 9 | - A standard module is one which carries out a common / standard task / can be used for a standard situation in a (many) program(s) <br> Example: print function / input validation / maths functions (e.g. square root) <br> Award 1 mark per benefit (any two of): <br> - No need to write again as has already been written/decreases development time <br> - Less likely to have errors because it has already been tested/used (\"for real\") <br> - Likely to be of high quality/efficient as may have been written by experts in the field | 1 | 1.1b |  |  | 4 |\n|  |  |  |  |  |  |  |\n| 10 | $\\begin{aligned} & \\text { A. }(A+C)+C \\cdot(A+B) \\\\ & \\text { A. } A+A . C+C . A+C . B \\\\ & A+A . C+C . A+C . B \\\\ & A+A . C+A . C+C . B \\\\ & A+A . C+C . B \\\\ & A+C . B \\end{aligned}$ <br> Award 1 Mark for initial expansion <br> Max 3 Marks for each simplification (may award many marks for each line) <br> Award 1 Mark for correct answer <br> or <br> $\\begin{aligned} & \\text { A. }(A+C)+C \\cdot(A+B) \\\\ & \\text { A. } A+A . C+C . A+C . B \\\\ & A+A .(C+C)+C . B \\\\ & A+A .(C)+C . B \\\\ & A .(1+C)+C . B \\\\ & A+C . B \\end{aligned}$ <br> Other methods equally acceptable | 1 |  | 2.1a |  | 5 |\n|  |  |  |  |  |  |  |",
+        "images": [],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2338,
+            "width": 1654
+        }
+    },
+    {
+        "index": 9,
+        "markdown": "| Q | Answer | Marks | AO1 | AO2 | AO3 | Total |\n| :--: | :--: | :--: | :--: | :--: | :--: | :--: |\n| 11 | Department <br> $\\Lambda$ <br> Courses <br> Students |  |  |  |  | 4 |\n|  | Marking: <br> Award 1 mark for each up to a maximum of 4 <br> - All four correct entities <br> - Correct relationship between Department and Courses <br> - Correct relationship between Courses and Students <br> - Correct relationship between Courses and Modules | 1 <br> 1 <br> 1 |  | 2.1 b <br> 2.1 b <br> 2.1 b |  |  |\n|  |  |  |  |  |  |  |",
+        "images": [],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2338,
+            "width": 1654
+        }
+    },
+    {
+        "index": 10,
+        "markdown": "| Q | Answer | Marks | AO1 | AO2 | AO3 | Total |\n| :--: | :--: | :--: | :--: | :--: | :--: | :--: |\n| 12a | Award a maximum of 6 marks from any one changeover method. <br> N.B: <br> 1 Mark for name <br> 1 Mark for description <br> Direct \"big bang\" approach can be adopted - sudden change to new system <br> - Could be used where a failure would not be catastrophic <br> - Can be cheaper to implement <br> - New system is available immediately if required <br> - Can be the least disruptive if implemented well <br> - New system may not work as well until staff are fully used to using it <br> - If new system fails organisation have no system which could be costly or dangerous <br> Parallel running - both systems running together for a time <br> - Safest option as if new system fails they still have existing system <br> - New system is available immediately if required <br> - The outputs from the old and new systems can be compared to check that the new system is running correctly <br> - Expensive as require temporary staff or overtime for current staff to operate both systems <br> - Could cause confusion for staff / customers having two systems <br> Phased changeover - part-by-part (by functionality) <br> - Allows users to gradually get used to the new system <br> - Staff training can be done in stages <br> - All staff can focus on one area to resolve any problems <br> - Problems can be fixed quicker as more experts to resolve one functionality problem at a time <br> - Difficulties identified in one area can be resolved and managed in next area <br> - Might cause problems in the changeover period when they need to communicate with each other and have different systems <br> - Slower to get new system up and running compared to some other methods <br> - If a part of the new system fails, there is no back-up system, so data can be lost <br> - Some systems cannot easily be broken down by functionality | 10 | $1.1 b$ |  |  | 10 |",
+        "images": [],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2338,
+            "width": 1654
+        }
+    },
+    {
+        "index": 11,
+        "markdown": "| Q | Answer | Marks | AO1 | AO2 | AO3 | Total |\n| :--: | :--: | :--: | :--: | :--: | :--: | :--: |\n| 12a <br> Cont'd | Pilot changeover - part-by-part (by part of the organisation) <br> - All features of the new system can be fully trialled <br> - If something goes wrong with the new system, only a small part of the organisation is affected <br> - The staff who were part of the pilot scheme can help train other staff. <br> - All staff can focus on one area to resolve any problems <br> - Difficulties identified in one area can be resolved and managed in next area <br> - For the office / department doing the pilot, there is no back-up system if things go wrong <br> - Might cause problems in the changeover period when they need to communicate with each other and have different systems <br> - Slower to get new system up and running compared to some other methods |  |  |  |  |  |\n| 12b | Award any one mark per response up to a maximum of 6 <br> From : <br> - Any form of diagrams used in analysis and design. <br> - Descriptions of procedures and subroutines used. <br> - The data structure: <br> - What data structures have been used, database table designs and any other information about what data needs to be stored. <br> - Algorithm designs: <br> - Algorithms will normally be presented in pseudocode or flowchart form. <br> - Annotated code listings: <br> - Code listings that abide by the coding standards set out by the development company. Normally self-documenting and/or annotated. <br> - Variable lists: <br> - Lists of the key variables listing their data types and purpose. More temporary variables, such as loop counters, would not be included. <br> - Data dictionary: <br> - This will describe all of the fields that need to be stored in the data structure including data type, size, relationship with other tables and a description. <br> - Design documents: <br> - Any relevant documentation from design phase. <br> - Hardware and software requirements. <br> - Performance <br> - Storage <br> - Networking <br> - Compatibility <br> - Operating system <br> - Configuration guide and options: <br> - How the system can be configured, which could be through a menu system or by editing configuration files. | 6 | 1.1 b |  |  | 6 |",
+        "images": [],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2338,
+            "width": 1654
+        }
+    },
+    {
+        "index": 12,
+        "markdown": "| Q | Answer | Marks | AO1 | AO2 | AO3 | Total |\n| :--: | :--: | :--: | :--: | :--: | :--: | :--: |\n| 13 | Criteria marked maximum of 10 marks | 10 | 1.1 b |  |  | 10 |\n|  | Indicative content |  |  |  |  |  |\n|  | Types of backup routines: <br> - A generation file backup system <br> - This involves storage of three of the most recent versions of master file. (grandfather - father son) <br> - Useful if one version is corrupted: the previous version(s) is still available. <br> - Data should be stored off site in case of a disaster. |  |  |  |  |  |\n|  | - Incremental backup <br> - Only backs up data that has changed and writes over older back ups <br> - Useful as it saves storage space and is faster than full backup <br> - Only allows the user to restore the most recent backup. |  |  |  |  |  |\n|  | - Delta change backup (accepted not expected) <br> - Only data changed since the previous backup is backed up <br> - The original backup is also maintained in case data needs to be restored <br> - Useful as it is faster than creating a complete backup |  |  |  |  |  |\n|  | Recovery routines: <br> - Buying new hardware <br> - Recovery after disaster - restoring databases/files |  |  |  |  |  |\n|  | General backup procedures <br> - Test if backups work/can be restored <br> - Frequency of backup <br> - Timing, e.g. overnight <br> - Staff member with responsibility for ensures suitable back-up |  |  |  |  |  |\n|  | External hard disc drive <br> - Speed of access - Very fast transfer which is important as daily updates <br> - Cost per unit of storage - external hard disc is quite cheap per byte of storage <br> - Portability reason - external hard disc is physically quite small and can be easily stored securely and safely for example in a fire proof safe <br> - Suitability: Not suitable unless justified |  |  |  |  |  |",
+        "images": [],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2338,
+            "width": 1654
+        }
+    },
+    {
+        "index": 13,
+        "markdown": "| Q | Answer | Marks | AO1 | AO2 | AO3 | Total |\n| :--: | :--: | :--: | :--: | :--: | :--: | :--: |\n|  | Cloud storage / upload to a third party storage provider <br> - Speed of access - very fast transfer achievable (depending on network speed) for daily updates <br> - Cost per unit of storage - could be cheaper or more expensive than external disk - accept either with justification <br> - Data is stored securely and safely on protected servers (or should be!) <br> - Suitability: Suitable for a large company if justified (i.e. contract in place for location of storage etc) <br> Flash memory stick <br> - Speed of access - Very fast transfer which is important as daily updates <br> - Cost per unit of storage - pen drive is quite cheap <br> - Portability reason - pen drive is physically small and can be easily stored securely and safely for example in a fire proof safe <br> - Suitability:Not Suitable for a large company <br> Magnetic tape <br> - Speed of access reason - Access to tape is serial and can be slow but could only back up files amended that day <br> - Cost per unit of storage reason - Tape is relatively (but drive can be expensive!) cheap compared with other secondary storage mediums <br> - Portability reason - Tape is physically small and can be easily stored securely and safely for example in a fire proof safe. <br> - Suitability: Used widely by large companies historically |  |  |  |  |  |",
+        "images": [],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2338,
+            "width": 1654
+        }
+    },
+    {
+        "index": 14,
+        "markdown": "| Band | AO1.1b <br> Max 10 marks |\n| :--: | :--: |\n| 3 | Award 8 - 10 marks <br> The candidate has: <br> - written an extended response that has a sustained line of reasoning which is coherent, relevant, and logically structured <br> - shown clear understanding of the requirements of the question and a clear knowledge of the indicative content. Clear knowledge is defined as a response that provides eight to ten (up to a maximum of four for backup) relevant detailed points on backup routines and suitable secondary storage mediums, which relate to an extensive amount of the indicative content <br> - addressed the question appropriately with minimal repetition and no irrelevant material <br> - has presented a balanced discussion and justified their answer with examples <br> - used appropriate technical terminology referring to the indicative content confidently and accurately. |\n| 2 | Award 4 - 7 marks <br> The candidate has: <br> - written a response that has an adequate line of reasoning with elements of coherence, relevance, and logical structure <br> - shown adequate understanding of the requirements of the question and a satisfactory knowledge of backup routines and suitable secondary storage mediums as specified in the indicative content. Satisfactory knowledge is defined as a response that provides four to seven points (up to a maximum of four for backup) as signalled in the indicative content <br> - has presented a discussion with limited examples <br> - used appropriate technical terminology referring to the indicative content. |\n| 1 | Award 1 - 3 marks <br> The candidate has: <br> - written a response that that lacks sufficient reasoning and structure <br> - produced a discussion which is not well developed <br> - attempted to address the question but has demonstrated superficial knowledge of the topics specified in the indicative content. Superficial knowledge is defined as a response that provides one to three points on backup routines and suitable secondary storage mediums as signalled in the indicative content <br> - used limited technical terminology referring to the indicative content. |\n| 0 | Award 0 marks <br> - Response not credit worthy or not attempted. |  |  |  |  |  |\n|  | Total | 100 | 60 | 32 | 8 | 100 |",
+        "images": [],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2338,
+            "width": 1654
+        }
+    }
+]

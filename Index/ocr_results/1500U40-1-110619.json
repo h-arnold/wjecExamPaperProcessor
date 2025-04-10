@@ -1,0 +1,81 @@
+[
+    {
+        "index": 0,
+        "markdown": "# GCE A LEVEL \n\n1500U40-1\nTUESDAY, 11 JUNE 2019 - MORNING\n\n## COMPUTER SCIENCE - A2 unit 4 Computer Architecture, Data, Communication and Applications\n\n2 hours\n\n## ADDITIONAL MATERIALS\n\nA WJEC pink 16-page answer booklet.\nA calculator.\n\n## INSTRUCTIONS TO CANDIDATES\n\nAnswer all questions.\nWrite your answers in the separate answer booklet provided.\n\n## INFORMATION FOR CANDIDATES\n\nThe number of marks is given in brackets at the end of each question or part-question; you are advised to divide your time accordingly.\nThe total number of marks available is 100 .\nAssessment will take into account the quality of written communication used in your answers.",
+        "images": [],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2339,
+            "width": 1654
+        }
+    },
+    {
+        "index": 1,
+        "markdown": "Answer all questions.\n\n1. (a) (i) Define the term buffering in a computer system.\n(ii) Explain why buffering may be required.\n(iii) Discuss the benefits of double buffering over single buffering.\n(b) (i) Explain what is meant by the term interrupt in a computer system.\n(ii) Describe two instances where an interrupt would be generated, and the resulting action which would be taken by the computer.\n2. A plumber when undertaking a job will record the job number and description. She also records the items used for the job. Each item used can be found in a stock list (that includes stock codes and unit prices). A job may take more than one day, and the date and number of hours worked on each of the days are recorded in a work session table.\n(a) Produce an entity-relationship diagram for the record system described above.\n(b) Design a database in third normal form to store the information required for the record system.\n3. A university runs a variety of degree courses. Each course consists of a number of modules, with each module studied for one year of the course. Students study several modules at the same time.\n\nTwo tables in the database, with example records, are shown below:\nCOURSE\n\n| CourseID | CourseTitle | Degree | YearsDuration |\n| :--: | :-- | :--: | :--: |\n| 386 | Environmental Science | BSc | 3 |\n| 427 | Mechanical Engineering | MSc | 4 |\n| 781 | Modern Languages | BA | 3 |\n| 925 | Modern Languages | MA | 1 |\n\nMODULE\n\n| ModuleID | CourseID | ModuleTitle | YearStudied | StudentsEnrolled |\n| :--: | :--: | :-- | :--: | :--: |\n| 1022 | 386 | Freshwater Biology | 2 | 42 |\n| 2782 | 781 | Russian, level 1 | 1 | 19 |\n| 2988 | 781 | Portuguese, level 2 | 2 | 27 |\n| 3519 | 427 | Hydraulic Systems | 3 | 38 |",
+        "images": [],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2339,
+            "width": 1654
+        }
+    },
+    {
+        "index": 2,
+        "markdown": "(a) Write an SQL command to output the CourseTitle and Degree only, for all of the courses.\n(b) Write an SQL command to output the ModuleTitle for all modules available on the degree course with CourseID 427.\n(c) Write an SQL command to change the year in which the module Freshwater Biology is studied. This module is now to be studied in year 3.\n(d) Write an SQL command to output the ModuleTitle and YearStudied for all modules available on the Modern Languages course for the BA Degree.\n(e) Write an SQL command to list the ModuleTitle and StudentsEnrolled for all modules which have less than 20 students or more than 40 students enrolled.\n4. In a certain computer real numbers are stored in floating point form using 16 bits as shown:\n\n| Mantissa <br> (10 bits in two's complement form. The binary point in the mantissa is immediately after the most significant bit) | Exponent <br> (6 bits in two's complement form) |\n| :--: | :--: |\n\n(a) Convert the number $5.75_{10}$ into this floating point form. Your final answer should be normalised.\n(b) Two different numbers $5.75_{10}$ and $25.5_{10}$ are to be multiplied. Three different methods are considered.\n\nMethod 1: Round both numbers to integers, then multiply.\nMethod 2: Multiply the decimal numbers, then round the final result to an integer.\nMethod 3: Multiply the decimal numbers, then truncate the final result to an integer.\n(i) Calculate the absolute errors which would occur with each of these methods in comparison to the full accuracy of the decimal calculation.\n(ii) Discuss the relative accuracies of each of the three methods above.\n(c) Integers are stored in a different computer system in 16 bits using two's complementation. Demonstrate, showing your working, how the computer would store the value $-152_{10}$.",
+        "images": [],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2339,
+            "width": 1654
+        }
+    },
+    {
+        "index": 3,
+        "markdown": "5. In a certain computer the following assembly language commands are available, where $R, S, T$ and $U$ are the processor registers.\n\n| Assembly Language <br> Command | Description |\n| :-- | :-- |\n| LOD R, X | Load register R with the numerical value X |\n| ADD R, S | Add the contents of register R to register S, leaving the <br> result in register R |\n| INC R | Add 1 to the contents of register R |\n| DEC R | Subtract 1 from the contents of register R |\n| JMP LABEL | Jump unconditionally to LABEL |\n| JNG R, LABEL | Jump to LABEL if the contents of register R are less than <br> zero |\n| IN R | Input a numerical value and store in register R |\n| OUT R | Output the contents of register R |\n\nWrite a program to input a number of daily rainfall readings (in mm ) for a weather station, ending with a rogue value of -1 . The program should then output the total rainfall and the number of readings.\n[6]\n\n| Example: | input values | 0 | 16 | 8 | 0 | 2 | -1 |\n| :-- | :-- | :-- | :-- | :-- | :-- | :-- | :-- |\n|  | output | 26 |  |  |  |  |  |\n|  |  | 5 |  |  |  |  |  |",
+        "images": [],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2339,
+            "width": 1654
+        }
+    },
+    {
+        "index": 4,
+        "markdown": "6. A three-level indexed sequential file system stores customer records which have key field values in the range 0000 to 9999 . Only a few of the possible key field values have currently been allocated to customers.\n\nTo save memory space, index blocks are only created when required. At present, only the three index blocks shown in the diagram have been created.\n\nCustomer records are stored on disk in data blocks. Each data block may contain up to 10 customer records. Records within any one data block have key field values which differ only in the last digit, e.g. 5470 to 5479 , and are sorted sequentially.\n![img-0.jpeg](img-0.jpeg)\n(a) Explain how new customer records 3892 and 3893 are to be added to the system, mentioning the creation and linking of any necessary index or data blocks.\n(b) Explain how the computer would access record 3893 at a later date.\n7. A sequential list of English language words can be stored either in fixed length or variable length records. Six thousand (6000) words are to be stored. The maximum length of any word is 22 letters, with an average word length of 7 letters.\n\nVariable length records have a format where each word is terminated with an @ character (which requires one byte of storage):\n\nEstimate the sizes of the files required to store the words in:\n(a) fixed length format\n(b) variable length format.\n\nGive your answers in kilobytes, correct to one decimal place.",
+        "images": [
+            {
+                "id": "img-0.jpeg",
+                "top_left_x": 145,
+                "top_left_y": 619,
+                "bottom_right_x": 1486,
+                "bottom_right_y": 1239,
+                "image_path": "1500U40-1-110619/images/img_4_0.jpeg"
+            }
+        ],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2339,
+            "width": 1654
+        }
+    },
+    {
+        "index": 5,
+        "markdown": "8. Define the term data mining and describe how three different organisations might use data mining.\n9. Describe four data validation techniques.\n10. (a) Describe the types of malicious software which might be transferred to computers and the delivery mechanisms, and the steps that can be taken to protect against these.\n(b) Computer data may be at its highest security risk during transfer from one location to another. Outline the risks that exist at this time, and how they can be minimised.\n[4]\n11. A city is developing a new light railway system to connect the city centre to the surrounding suburbs. The system will use driverless trains, and several computer centres will control different areas of the network.\n(a) Give examples of input and output which might be required by control systems on board the trains.\n(b) The system will be safety critical. Explain what is meant by a safety critical system, describing measures that are involved in ensuring safety.\n12. Describe the operation of a mainframe computer using a multi-programming, multi-user operating system.\n13. Explain what is meant by distributed processing, and describe how this will operate using an example that you have studied.\n\n# END OF PAPER",
+        "images": [],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2339,
+            "width": 1654
+        }
+    },
+    {
+        "index": 6,
+        "markdown": "# BLANK PAGE",
+        "images": [],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2339,
+            "width": 1654
+        }
+    }
+]

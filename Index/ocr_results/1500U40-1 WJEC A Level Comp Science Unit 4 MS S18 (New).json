@@ -1,0 +1,161 @@
+[
+    {
+        "index": 0,
+        "markdown": "# wjec cbac \n\n## GCE A LEVEL MARKING SCHEME\n\nSUMMER 2018\nA LEVEL (NEW)\nCOMUTER SCIENCE - UNIT 4\n1500U40-1",
+        "images": [],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2338,
+            "width": 1654
+        }
+    },
+    {
+        "index": 1,
+        "markdown": "# INTRODUCTION \n\nThis marking scheme was used by WJEC for the 2018 examination. It was finalised after detailed discussion at examiners' conferences by all the examiners involved in the assessment. The conference was held shortly after the paper was taken so that reference could be made to the full range of candidates' responses, with photocopied scripts forming the basis of discussion. The aim of the conference was to ensure that the marking scheme was interpreted and applied in the same way by all examiners.\n\nIt is hoped that this information will be of assistance to centres but it is recognised at the same time that, without the benefit of participation in the examiners' conference, teachers may have different views on certain matters of detail or interpretation.\n\nWJEC regrets that it cannot enter into any discussion or correspondence about this marking scheme.",
+        "images": [],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2338,
+            "width": 1654
+        }
+    },
+    {
+        "index": 2,
+        "markdown": "# WJEC A Level Computer Science - Unit 4 \n\nMark Scheme Summer 2018\n\n|  |  | Mark | AO1 | AO2 | AO3 | Total |\n| :--: | :--: | :--: | :--: | :--: | :--: | :--: |\n| 1(a) | 1 mark for naming and 1 mark for describing the function of any two buses, up to a maximum of 4 marks. <br> - Address bus, used to transmit the address in RAM of the next line of program code to be fetched. Used to transmit the address of a RAM location or input/output port where data is to be stored or loaded. <br> - Data bus, used to transfer program code between RAM memory and the processor. Used to transfer data between the processor and RAM memory or input/output ports. <br> - Control bus, used to send control signals from the processor to the RAM memory or input/output ports to initiate data transfer. Carries interrupt signals to the processor to indicate that hardware/software requires attention. | 4 | 1.1 b |  |  | 4 |\n| 1(b) | The program command is accessed from the current instruction register. The processor then carries out actions which depend on the command: <br> On completion of the execute phase, the program counter is updated, ready to fetch the next program command. <br> 1 mark for stating that the program instruction is held in the current instruction register. <br> 1 mark for correctly describing a load or save operation, including reference to the memory address register and memory data register. <br> 1 mark for correctly describing one other processing operation, i.e. Calculation, Logic or Jump operation 1 mark for stating that the program counter is incremented at the end of the execute phase. | 4 | 1.1 b |  |  | 4 |",
+        "images": [],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2339,
+            "width": 1654
+        }
+    },
+    {
+        "index": 3,
+        "markdown": "|  |  |  | Mark | AO1 | AO2 | AO3 | Total |\n| :--: | :--: | :--: | :--: | :--: | :--: | :--: | :--: |\n| 1(c) | LOD S, 0 <br> LOD T, 0 <br> LOOP: IN R <br> JLZ R, END <br> INC S <br> ADD T, R <br> JMP LOOP <br> END: OUT T <br> OUT S | (initialise the count variable) <br> (initialise the total variable) <br> (start loop, <br> input a value and store in R) <br> (jump out of loop if value is negative, but continue if the value input is positive) <br> (add 1 to the count) <br> (add current data value to the total) <br> (repeat the loop) <br> (loop ends, output total) <br> (output count) <br> 1 mark for initialising count or total to zero <br> 1 marks for label marking start of the loop <br> 2 marks for correct operation of the loop <br> (Award 1 mark for checking for negative rogue value, 1 mark for jump(s) which correctly continue or end the loop. Other possible combinations of jump commands allowed, provided the rogue value is not added to the total or count) <br> 1 mark for updating total or count <br> 1 mark for output of total or count | $\\begin{aligned} & 1 \\\\ & 1 \\\\ & 2 \\\\ & 1 \\\\ & 1 \\\\ & 1 \\end{aligned}$ |  |  | $\\begin{aligned} & 3.1 b \\\\ & 3.1 b \\\\ & 3.1 b \\\\ & 3.1 b \\\\ & 3.1 b \\end{aligned}$ |  |\n| 2(a) | (i) <br> 1 mark for the overflow area is a separate file. <br> 1 mark for the overflow area uses serial storage. <br> (ii) Award one mark for each correct point up to a maximum of 2 marks: <br> Advantage any one of: <br> - Records are likely to be stored at or close to the calculated location, so access will be fast. <br> - If a record is not in the file, this will be known as soon as the first empty location is reached. <br> - Less total storage space needed <br> Disadvantage: <br> - The main file has a fixed maximum capacity, so storage of further records may be prevented. | 2 | 1.1 b | 2.1 b |  |  | 4 |",
+        "images": [],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2339,
+            "width": 1654
+        }
+    },
+    {
+        "index": 4,
+        "markdown": "|  |  | Mark | AO1 | AO2 | AO3 | Total |\n| :--: | :--: | :--: | :--: | :--: | :--: | :--: |\n| 2(b) | (i) NOV3099 $(14+15+22+30+99)=180,180$ MOD $1000=\\mathbf{1 8 0}$ <br> (ii) <br> - The records would be grouped near the start of the file, <br> - so collisions would be frequent. <br> (iii) A variety of answers are possible. <br> Up to 2 marks for a suitable hash method which: <br> - incorporates the month, day and year figures and can generate hash values over most of the range $0-1000$ <br> 1 mark <br> - will avoid collisions between records for similar dates in successive years (e.g MAR0218 and MAR0119). <br> 1 mark <br> - produce a number in excess of 1000 by using powers or multiples ( $\\mathbf{1}$ mark) of the day, month and year values, then apply the hash function: total MOD 1000 | 1 <br> 1 <br> 2 | 2.1 b |  | 5 |  |\n| 3(a) | costs of links: <br> A-C: 10 A-D: 5 B-D: 4 <br> C-E: 20 D-E: 2 <br> Award 2 marks for all correct, 1 mark for 3 or more correct | 2 |  | 2.1 b |  | 2 |\n| 3(b) | 1 mark for each table row showing a correct cost from node A: | 4 |  | 2.1 b |  | 4 |\n|  | Destination | Route | Cost |  |  |  |\n|  | B | D, B | 9 |  |  |  |\n|  | C | C | 10 |  |  |  |\n|  | D | D | 5 |  |  |  |\n|  | E | D, E | 7 |  |  |  |",
+        "images": [],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2339,
+            "width": 1654
+        }
+    },
+    {
+        "index": 5,
+        "markdown": "|  |  | Mark | AO1 | AO2 | AO3 | Total |\n| :--: | :--: | :--: | :--: | :--: | :--: | :--: |\n| 4(a) | (i) Up to a maximum of 2 marks <br> - No key field, so confusion between customers with the same name: 1 mark <br> - Name field is not atomic. Names should be stored in separate Surname and Forename fields, to allow easy searching/sorting by surname: 1 mark <br> - Room field can contain multiple data items. In first normal form, each record should only contain one room number: <br> 1 mark <br> (ii) <br> Award one mark for each of the following up to a maximum of two. <br> - Identify a customer booking with a primary key field <br> - Surname and Forename separate fields <br> - Splitting into individual room bookings i.e. 133 and 134 in separate records <br> Accepted but not expected split the table into two. | 2 <br> 1 <br> 1 <br> 1 | 2.1b <br> 2.1b |  |  | 4 |",
+        "images": [],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2339,
+            "width": 1654
+        }
+    },
+    {
+        "index": 6,
+        "markdown": "|  |  | Mark | AO1 | AO2 | AO3 | Total |\n| :--: | :--: | :--: | :--: | :--: | :--: | :--: |\n| 4(b) | (i) Entity-relationship diagram <br> Accept a table between trip and resident e.g. booking i.e. trip- booking 1:M and booking - resident M:1 <br> 1 mark for each correct relationship <br> (ii) Tables should be similar to: <br> DRIVER (DriverID [P], DriverName...) <br> VEHICLE (RegNo [P], Number ofSeats ...) <br> RESIDENT (ResidentID [P], ResidentName, Resident Address...) <br> TRIP (TripID [P], DriverID[F], RegNo[F],Date, Destination ...) <br> BOOKING (BookingID [P], TripID [F], ResidentID [F] ...) <br> 1 mark for five tables, including a table such as BOOKING to link TRIP and RESIDENT <br> 1 mark for primary key fields [P] suitably identified. Compound key fields can be allowed. <br> 4 marks, 1 for each foreign key fields [F] suitably identified. <br> Ignore additional fields | 3 <br> 1 <br> 1 <br> 4 | 2.1 b <br> 2.1 b <br> 2.1 b <br> 2.1 b |  |  |  |\n| 5(a) | 1 mark for: <br> SELECT IncidentID, ProblemDescription FROM PROBLEM | 1 |  |  | 3.1 b | 1 |\n| 5(b) | 1 mark for: <br> SELECT Location FROM PROBLEM WHERE EngineerID = '228' | 1 |  |  | 3.1 b | 1 |\n| 5(c) | 1 mark for: <br> UPDATE PROBLEM SET EngineerID = '304' WHERE IncidentID = '1866' | 1 |  |  | 3.1 b | 1 |",
+        "images": [],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2339,
+            "width": 1654
+        }
+    },
+    {
+        "index": 7,
+        "markdown": "|  |  | Mark | AO1 | AO2 | AO3 | Total |\n| :--: | :--: | :--: | :--: | :--: | :--: | :--: |\n| S(d) | Method 1: <br> SELECT Date, Location FROM PROBLEM WHERE EngineerID = (SELECT EngineerID FROM ENGINEER (WHERE Surname = 'Wong' AND Initial = 'K') <br> 1 mark for <br> SELECT Date, Location FROM PROBLEM WHERE EngineerID = <br> 1 mark for <br> SELECT EngineerID FROM ENGINEER WHERE Surname = 'Wong' AND Initial = 'K' <br> Method 2: (accepted not expected) <br> SELECT Date, Location FROM (PROBLEM JOIN ENGINEER ON EngineerID) WHERE Surname = 'Wong' AND Initial = 'K' <br> 1 mark for joining the two tables in a query, even if syntax is not exactly correct. <br> 1 mark for selecting both surname and initial, even if syntax is not exactly correct. | 1 <br> 1 <br> 1 <br> 1 <br> 1 |  |  | 3.1 b <br> 3.1 b <br> 3.1 b <br> 3.1 b | 2 <br> 3.1 b |\n| S(e) | CREATE TABLE DEVICE ( <br> IPAddress Char(15), <br> DeviceDescription Char(40) <br> ) <br> 1 mark for CREATE TABLE DEVICE <br> 1 mark for defining fields (any suitable string, text or character data types accepted) | 2 |  |  | 3.1 b | 2 |\n| 6(a) | 1 mark for identifying addition <br> 1 mark for generating correct negative number <br> 1 mark Correct addition. | 1 <br> 1 <br> 1 | 1.1 b <br> 1.1 b <br> 1.1 b |  |  | 3 |\n| 6(b) | One mark for each up to a maximum of three <br> Overflow beyond the maximum bit capacity of the register. <br> Negative to positive due to overflow into the sign bit <br> Positive to negative due to overflow into the sign bit <br> Underflow where all the 1 s disappear and you are left with zero | 1 <br> 1 <br> 1 <br> 1 | 1.1 b <br> 1.1 b <br> 1.1 b <br> 1.1 b |  |  | 3 |",
+        "images": [],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2339,
+            "width": 1654
+        }
+    },
+    {
+        "index": 8,
+        "markdown": "|  |  | Mark | AO1 | AO2 | AO3 | Total |\n| :--: | :--: | :--: | :--: | :--: | :--: | :--: |\n| 7(a) | 0110110100000111 | 3 |  | 2.1a |  | 3 |\n|  | 1 mark for exponent 7 |  |  |  |  |  |\n|  | 1 mark for calculation method, showing shift of the binary point by 7 places: $0.1101101 \\times 2^{7}$ <br> $=1101101.0$ |  |  |  |  |  |\n|  | 1 mark for correct denary answer: $=109$ |  |  |  |  |  |\n| 7(b) | 0110110100000110 | 2 |  | 2.1a |  | 2 |\n|  | 1 mark Reducing the exponent by 1 will halve the result <br> 1 mark for 54.5 |  |  |  |  |  |\n| 8(a) | (i) 1 mark for the concept: <br> The key could be intercepted and misused. | 1 | $1.1 b$ |  |  | 4 |\n|  | (ii) <br> - A message encrypted by the public key can only be decrypted by the private key. 1 mark <br> - The public key is transmitted to the sender's computer, and used to encrypt the message. 1 mark <br> - The encrypted message is transmitted to the receiver, then decrypted using the private key. 1 mark | 3 | $1.1 b$ |  |  |  |\n| 8(b) | 1 mark for the concept: <br> Some letters (e.g. A, H, E) occur more frequently than other letters in ordinary language. <br> The cypher can be broken by finding the offset from the letter characters which occur most frequently in the code. <br> Frequency Analysis. | 1 |  | 2.1a |  | 1 |",
+        "images": [],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2339,
+            "width": 1654
+        }
+    },
+    {
+        "index": 9,
+        "markdown": "![img-0.jpeg](img-0.jpeg)",
+        "images": [
+            {
+                "id": "img-0.jpeg",
+                "top_left_x": 158,
+                "top_left_y": 187,
+                "bottom_right_x": 1498,
+                "bottom_right_y": 1562,
+                "image_path": "1500U40-1 WJEC A Level Comp Science Unit 4 MS S18 (New)/images/img_9_0.jpeg"
+            }
+        ],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2339,
+            "width": 1654
+        }
+    },
+    {
+        "index": 10,
+        "markdown": "|  |  | Mark | AO1 | AO2 | AO3 | Total |\n| :--: | :--: | :--: | :--: | :--: | :--: | :--: |\n| 9(b) | Indicative content <br> Factors which might be considered: <br> - Availability of computer equipment. An organisation may already have a large mainframe computer suitable for parallel processing. An organisation may have many desktop computers that could be used for distributed processing at quiet times, such as during the night or at weekends. <br> - Suitability of the programming task for separation into modules which can be run in parallel. <br> - Amount of work required for IT staff to load programs and data onto multiple computers for distributed processing. <br> - Availability of local area or wide area network to facilitate transfer of input and output data in distributed processing. <br> - Effects on other work of the organisation, e.g. if a large program takes up mainframe processing time and delays other important tasks. <br> - Security / resilience considerations <br> Up to 4 marks. (1 mark for each of 4 valid points) | 4 | 1.1 b |  |  |  |\n| 10(a) | Biometric data refers to measurement and recording of some physical characteristic of a person, (1 mark) which can be used to uniquely identify that person. <br> (1 mark) | 2 | 1.1 b |  |  | 2 |",
+        "images": [],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2339,
+            "width": 1654
+        }
+    },
+    {
+        "index": 11,
+        "markdown": "|  |  | Mark | AO1 | AO2 | AO3 | Total |\n| :--: | :--: | :--: | :--: | :--: | :--: | :--: |\n| 10(b) | (b) 2 marks for two suitable methods. <br> (1 mark for each example and corresponding description.) <br> Relevant biometric data might include: <br> - Facial recognition data. Measurements of the distances between key points on the face, e.g. eyes, nose, ears. <br> - Fingerprint data. Patterns of whirls and loops in the fingerprint pattern. <br> - Iris scan data. Colour pattern of the iris at the front of the eye. <br> - Hand Geometry - identifies users by the shape of their hand. <br> - Palm vein - patterns of the blood vessels in their palms. <br> - Signature recognition - characteristic writing style. <br> - Voice pattern recognition - characteristic frequencies of spoken sounds. <br> - Human Gait - so you can tell by the way they walk. <br> - Ear canal. <br> - Body Odour identification. <br> Less suitable, but technically possible: <br> - DNA data. Patterns of base sequences in the DNA of the inidividual, obtained from a sample of hair, cells from the mouth, etc. | 2 | 1.1 b |  |  | 2 |\n| 10(c) | Award one mark for each of the following <br> - Data capture (e.g. by photography or scanning) <br> - The data would be digitised and stored on a database. <br> - During access, data would again be captured and compared to the reference record stored in the database. <br> - A decision made, based upon the comparison. | 1 <br> 1 <br> 1 <br> 1 | 1.1 b |  |  | 4 |",
+        "images": [],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2339,
+            "width": 1654
+        }
+    },
+    {
+        "index": 12,
+        "markdown": "|  |  | Mark | AO1 | AO2 | AO3 | Total |\n| :-- | :-- | :--: | :--: | :--: | :--: | :--: |\n| 10(d) | $\\mathbf{4}$ marks for two examples of objections to the the <br> use of biometric systems. <br> For each example: <br> 1 mark for naming the objection. <br> 1 mark for justifying the objection by describing the <br> problem which this might cause for an individual. | 4 | 1.1 b |  |  | 4 |\n|  | Indicative content <br> Possible objections to might include: <br> - Inconvenience and intrusion of privacy in having to <br> be photographed/ fingerprinted. <br> - Cost of the system, e.g. in increasing the fee that <br> has to be paid by individuals for a biometric <br> passport. |  |  |  |  |  |\n|  | - People objecting to having to carry biometric <br> identity and having to show this to officials on <br> demand. There might be a worry that the police <br> would use this as an excuse to stop members of <br> particular groups (e.g. teenagers, ethnic <br> minorities). |  |  |  |  |  |\n|  | - The facial recognition database could allow <br> officials to carry out unauthorised surveillance by <br> monitoring CCTV pictures. |  |  |  |  |  |\n|  | - Possible errors in the system, (e.g. through <br> misidentifying persons in poorly lit street following <br> a crime) |  |  |  |  |  |",
+        "images": [],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2339,
+            "width": 1654
+        }
+    },
+    {
+        "index": 13,
+        "markdown": "|  |  | Mark | AO1 | AO2 | AO3 | Total |\n| :--: | :--: | :--: | :--: | :--: | :--: | :--: |\n| 11 | Indicative content <br> Relevant points which may be awarded marks include: <br> - A database management system stores data accessed by multiple types of user. <br> - Different users may have different levels of access to different data sets. <br> - Different users may have different access rights (e.g. read only, read/write). <br> - Access is password protected <br> - Different classes of password give different amounts of access. <br> Tasks carried out by IT staff may include: <br> - Setting up the database tables, queries and reports for different classes of user. <br> - Database maintenance and performance management. <br> - Allocating user names and managing passwords. <br> - Making regular backups of the data, and restoring data in the event of loss. <br> - Monitoring use of the network through access logs, and identifying unacceptable or unauthorised use. <br> - Maintaining security through installing virus checking and firewall. <br> - Providing encryption of confidential data. <br> - Updating hardware and software as necessary to maintain the system. <br> - Providing help desk facilities <br> - Providing training facilities for users. | 10 | $1.1 b$ |  |  | 10 |",
+        "images": [],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2339,
+            "width": 1654
+        }
+    },
+    {
+        "index": 14,
+        "markdown": "# 8-10 Marks \n\n## 8-10 Marks\n\nThe candidate has:\n\n- written an extended response that has a sustained line of reasoning which is coherent, relevant, and logically structured.\n- shown clear understanding of the requirements of the question and a clear knowledge of the topics as specified in the indicative content. Clear knowledge is defined as a response that makes eight to ten points in the area signalled in the indicative content.\n- addressed the question appropriately with minimal repetition and no irrelevant material.\n- has presented a balanced argument and justified their arguments.\n- used appropriate technical terminology referring to the indicative content confidently and accurately.\n\n\n## 4-7 Marks\n\nThe candidate has:\n\n- written a response that has an adequate line of reasoning with elements of coherence, relevance, and logical structure.\n- shown adequate understanding of the requirements of the question and a satisfactory knowledge of the topics as specified in the indicative content.\n- Satisfactory knowledge is defined as a response that makes four to seven points in the area signalled in the indicative content.\n- presented an argument with limited justification.\n- used appropriate technical terminology referring to the indicative content.\n\n\n## 1-3 Marks\n\nThe candidate has:\n\n- written a response that that lacks sufficient reasoning and structure\n- produced a discussion which is not well developed, and the justification is weak\n- attempted to address the question but has demonstrated superficial knowledge of the topic specified in the indicative content. Superficial knowledge is defined as a response that makes one to three points in the indicative content.\n- used limited technical terminology referring to the indicative content.\n\n\n## 0 Marks\n\nResponse not credit worthy or not attempted.",
+        "images": [],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2339,
+            "width": 1654
+        }
+    }
+]

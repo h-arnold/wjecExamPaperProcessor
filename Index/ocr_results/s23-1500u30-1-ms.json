@@ -1,0 +1,202 @@
+[
+    {
+        "index": 0,
+        "markdown": "# wjec cbac \n\n## GCE A LEVEL MARKING SCHEME\n\nSUMMER 2023\n\nA LEVEL COMPUTER SCIENCE - UNIT 3 1500U30-1",
+        "images": [],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2338,
+            "width": 1654
+        }
+    },
+    {
+        "index": 1,
+        "markdown": "# INTRODUCTION \n\nThis marking scheme was used by WJEC for the 2023 examination. It was finalised after detailed discussion at examiners' conferences by all the examiners involved in the assessment. The conference was held shortly after the paper was taken so that reference could be made to the full range of candidates' responses, with photocopied scripts forming the basis of discussion. The aim of the conference was to ensure that the marking scheme was interpreted and applied in the same way by all examiners.\n\nIt is hoped that this information will be of assistance to centres but it is recognised at the same time that, without the benefit of participation in the examiners' conference, teachers may have different views on certain matters of detail or interpretation.\n\nWJEC regrets that it cannot enter into any discussion or correspondence about this marking scheme.",
+        "images": [],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2338,
+            "width": 1654
+        }
+    },
+    {
+        "index": 2,
+        "markdown": "# GCE A LEVEL COMPUTER SCIENCE - UNIT 3 \n\n## SUMMER 2023 MARK SCHEME\n\n| Question | Answer |  |  |  |  |\n| :--: | :--: | :--: | :--: | :--: | :--: |\n| 1. (a) | One mark for each correct answer up to a maximum of four. <br> A hash table stores data using a key/index and a value. <br> A hashing algorithm is used to generate a key to identifying at which location the data can be stored. <br> The MOD operation is commonly used in a hashing algorithm to generate the key. <br> Data can be retrieved using the key to return the value which is direct access. <br> If the hashing algorithm generate a key that is already present in the hash table problems can occur such data collision. <br> To avoid this one solution would be to used separate chaining where the hash table would use a dynamic data structure like a linked list to so values of the same key. <br> Separate chaining would slow the down the overall retrieval for data as both the hash table and linked list would both need to be searched. <br> Another solution would linear probing which would store the data in the next available location and assign a new key. | 1 <br> 1 <br> 1 <br> 1 <br> 1 <br> 1 | 1b |  |  | 4 |\n| (b) (i) | Key | Value |  |  | 2a |  | 2 |\n|  | 1001 | Apple |  |  |  |  |  |\n|  | 1002 | Berry |  |  |  |  |  |\n|  | 1004 | Lime |  |  |  |  |  |\n|  | 1005 | Mango |  |  |  |  |  |\n|  | 1006 | Pear |  |  |  |  |  |\n|  | 1007 | Pineapple |  |  |  |  |  |\n|  | 1008 | Orange |  |  |  |  |  |\n|  | 1 mark for correct position of Orange. <br> 1 mark for correct removal of Kiwi. | 1 |  |  |  |  |  |",
+        "images": [],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2339,
+            "width": 1654
+        }
+    },
+    {
+        "index": 3,
+        "markdown": "| Question | Answer |  |  |  |  |  |\n| :--: | :--: | :--: | :--: | :--: | :--: | :--: |\n| (ii) | 1 mark for identifying linear probing or suitable description of adding the value in the next available position. | 1 |  |  |  | 2 |\n|  | Key | Value |  |  |  |  |\n|  | 1001 | Apple |  |  |  |  |\n|  | 1002 | Berry |  |  |  |  |\n|  | 1004 | Lime |  |  |  |  |\n|  | 1005 | Mango |  |  |  |  |\n|  | 1006 | Pear |  |  |  |  |\n|  | 1007 | Pineapple |  |  |  |  |\n|  | 1005 | Orange |  |  |  |  |\n|  | 1006 | Peach | 1 |  |  |  |\n|  | 1 mark for correct position of 1006, Peach. |  |  |  |  |  |\n| OR |  |  |  |  |  |  |\n|  | 1 mark for identifying separate chaining or suitable description of placing the value in a separate data structure. | 1 |  |  |  |  |\n|  | Key | Value |  |  |  |  |\n|  | 1001 | Apple |  |  |  |  |\n|  | 1002 | Berry |  |  |  |  |\n|  | 1004 | Lime |  |  |  |  |\n|  | 1005 | Mango |  |  |  |  |\n|  | 1006 | Pear | $\\rightarrow$ | Peach | 1 |  |\n|  | 1007 | Pineapple |  |  |  |  |\n|  | 1005 | Orange |  |  |  |  |\n|  | 1 mark for correct position of 1006, Peach. |  |  |  |  |  |",
+        "images": [],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2339,
+            "width": 1654
+        }
+    },
+    {
+        "index": 4,
+        "markdown": "| Question | Answer |  |  |  |  |  |  |\n| :--: | :--: | :--: | :--: | :--: | :--: | :--: | :--: |\n| 2. | One mark for each correct answer up to a maximum of eight. <br> Procedural programming supports a logical step-by-step process such as implementing an algorithm. <br> Procedural programming follows a top down approach. <br> Allows the programmer to define precisely each step when performing a task. <br> Provides close control over the underlying operation of the hardware <br> Programs are divided into functions. <br> Procedural programming relies of the use of iteration, sequence and section. <br> Examples of PP include Pascal and C. <br> Object orientated programs are divided into objects, classes and methods. <br> Can use inheritance to reduce code duplication and flexibility. <br> Allows data to be encapsulated making data more secure. <br> Easier to expand programs and multiple developers can work on one project without affecting one and others code. <br> Examples of OOP are C++ and Java. | 1 <br> 1 <br> 1 <br> 1 <br> 1 <br> 1 <br> 1 <br> 1 <br> 1 <br> 1 |  |  |  |  | 8 <br> 1 <br> 1 <br> 1 <br> 1 | 8 |\n| 3. |  |  |  |  |  |  |  |\n|  | A | B | C | $\\bar{A}$ | $\\bar{B}$ | $\\bar{C}$ | $\\bar{A}, \\bar{B}, C$ | $\\bar{A}, B, \\bar{C}$ | $\\bar{A}, B, C$ | $A, \\bar{B}, C$ |\n|  | 0 | 0 | 0 | 1 | 1 | 1 | 0 | 0 | 0 | 0 |\n|  | 0 | 0 | 1 | 1 | 1 | 0 | 1 | 0 | 0 | 0 |\n|  | 0 | 1 | 0 | 1 | 0 | 1 | 0 | 1 | 0 | 0 |\n|  | 0 | 1 | 1 | 1 | 0 | 0 | 0 | 0 | 1 | 0 |\n|  | 1 | 0 | 0 | 0 | 1 | 1 | 0 | 0 | 0 | 0 |\n|  | 1 | 0 | 1 | 0 | 1 | 0 | 0 | 0 | 0 | 1 |\n|  | 1 | 1 | 0 | 0 | 0 | 1 | 0 | 0 | 0 | 0 |\n|  | 1 | 1 | 1 | 0 | 0 | 0 | 0 | 0 | 0 | 0 |\n\n$$\n\\mathrm{p}=\\overline{\\mathrm{A}} \\cdot \\overline{\\mathrm{~B}} \\cdot \\mathrm{C}+\\overline{\\mathrm{A}} \\cdot \\mathrm{~B} \\cdot \\overline{\\mathrm{C}}+\\overline{\\mathrm{A}} \\cdot \\mathrm{~B} \\cdot \\mathrm{C}+\\mathrm{A} \\cdot \\overline{\\mathrm{~B}} \\cdot \\mathrm{C}\n$$\n\nAward one mark for each correct expression (as in the columns)\nB. $\\bar{A}+C \\cdot \\bar{B}$\nAward full marks for correct simplified expression",
+        "images": [],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2339,
+            "width": 1654
+        }
+    },
+    {
+        "index": 5,
+        "markdown": "| Question | Answer | ![img-0.jpeg](img-0.jpeg) | ![img-1.jpeg](img-1.jpeg) | ![img-2.jpeg](img-2.jpeg) | ![img-3.jpeg](img-3.jpeg) |\n| :--: | :--: | :--: | :--: | :--: | :--: |\n| 4. (a) | Correct answer can be established using different steps / laws / rules / identities / dual relations. <br> A. $(1+C)+\\bar{B} \\cdot(A+B)$ <br> A. $1+\\mathrm{A} . \\mathrm{C}+\\overline{\\mathrm{B}} \\cdot(\\mathrm{A}+\\mathrm{B})$ <br> A. $1+\\mathrm{A} . \\mathrm{C}+\\overline{\\mathrm{B}} \\cdot \\mathrm{A}+\\overline{\\mathrm{B}} \\cdot \\mathrm{B}$ <br> A + A. C + B. A + B. B <br> A + A. C + B. A + 0 <br> A + B. A <br> A <br> Correctly applying identities to arrive at correct answer 5 marks Correctly applying identities but arriving at wrong answer 1 mark | 5 |  | 2a |  | 5 <br> 5 |\n| (b) | Correct answer can be established using different steps / laws / rules / identities / dual relations. <br> X. $(\\bar{Y}+\\bar{Z})+\\bar{Z} \\cdot X$ <br> X. $(\\bar{Y} \\cdot \\bar{Z})+\\bar{Z} \\cdot X$ <br> X. $\\bar{Y} \\cdot X \\cdot \\bar{Z}+\\bar{Z} \\cdot X$ <br> X. $\\bar{Y} \\cdot \\bar{Z}+\\bar{Z} \\cdot X$ <br> $\\bar{Z} \\cdot X$ <br> X. $\\bar{Z}$ <br> Correctly applying identities to arrive at correct answer 5 marks Correctly applying identities but arriving at wrong answer 1 mark | 5 |  | 2a |  | 5 |",
+        "images": [
+            {
+                "id": "img-0.jpeg",
+                "top_left_x": 463,
+                "top_left_y": 198,
+                "bottom_right_x": 611,
+                "bottom_right_y": 350,
+                "image_path": "s23-1500u30-1-ms/images/img_5_0.jpeg"
+            },
+            {
+                "id": "img-1.jpeg",
+                "top_left_x": 669,
+                "top_left_y": 198,
+                "bottom_right_x": 793,
+                "bottom_right_y": 350,
+                "image_path": "s23-1500u30-1-ms/images/img_5_1.jpeg"
+            },
+            {
+                "id": "img-2.jpeg",
+                "top_left_x": 825,
+                "top_left_y": 198,
+                "bottom_right_x": 944,
+                "bottom_right_y": 350,
+                "image_path": "s23-1500u30-1-ms/images/img_5_2.jpeg"
+            },
+            {
+                "id": "img-3.jpeg",
+                "top_left_x": 965,
+                "top_left_y": 198,
+                "bottom_right_x": 1109,
+                "bottom_right_y": 350,
+                "image_path": "s23-1500u30-1-ms/images/img_5_3.jpeg"
+            }
+        ],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2339,
+            "width": 1654
+        }
+    },
+    {
+        "index": 6,
+        "markdown": "| Question | Answer |  |  |  |  |\n| :--: | :--: | :--: | :--: | :--: | :--: |\n| 5. | Indicative content |  |  |  | 8 |\n|  | 1 Declare subprocedure QuickSort(myArray is integer, indexLow is integer, indexHi is integer) |  |  |  |  |\n|  | 2 <br> 3 Declare pivot is integer <br> 4 Declare temp is integer <br> 5 Declare low is integer <br> 6 Declare high is integer |  |  |  |  |\n|  | 7 <br> 8 set low = indexLow <br> 9 set high = indexHi |  |  |  |  |\n|  | 10 <br> 11 set pivot = myArray [(int((indexLow + indexHi)/2))] |  |  |  |  |\n|  | 12 <br> 13 while (low <= high) |  |  |  |  |\n|  | 14 <br> 15 while (myArray[low] < pivot and low < indexHi) |  |  |  |  |\n|  | 16 set low = low + 1 |  |  |  |  |\n|  | 17 end while |  |  |  |  |\n|  | 18 <br> 19 while (pivot < myArray[high] and high > indexLow) |  |  |  |  |\n|  | 20 | set high = high - 1 |  |  |  |\n|  | 21 end while |  |  |  |  |\n|  | 22 <br> 23 if (low <= high) then |  |  |  |  |\n|  | 24 | set temp = myArray[low] |  |  |  |\n|  | 25 | set myArray[low] = myArray[high] |  |  |  |\n|  | 26 | set myArray[high] = temp |  |  |  |\n|  | 27 | set low = low + 1 |  |  |  |\n|  | 28 | set high = high - 1 |  |  |  |\n|  | 29 end if |  |  |  |  |\n|  | 30 end while |  |  |  |  |\n|  | 31 <br> 32 if (indexLow < high) then QuickSort(myArray, indexLow, high) |  |  |  |  |\n|  | 33 if (low < indexHi) then QuickSort(my Array, low, indexHi) |  |  |  |  |\n|  | 34 <br> 35 End Procedure |  |  |  |  |\n|  | One mark for each of the following up to a maximum of 8: |  |  |  |  |\n|  | Declare / call sub procedure 'QuickSort' with a parameter- Line 1 | 1 |  |  |  |\n|  | Declaring variables - Lines 3 to 4 | 1 |  |  |  |\n|  | Initialise pointers (high and low) - Lines 8 to 9 | 1 |  |  |  |\n|  | Set pivot to data at midpoint - Lines 11 | 1 |  |  |  |\n|  | Outer loop with terminating condition - Line 13 | 1 |  |  |  |\n|  | Compare data with pivot - Lines 15 and 19 | 1 |  |  |  |\n|  | Increment / decrement pointers - Lines 16 and 20 | 1 |  |  |  |\n|  | Swap elements - Lines 24 to 26 | 1 |  |  |  |\n|  | Recursion index low, temp high - Line 32 | 1 |  |  |  |\n|  | Recursion index high, temp low - Line 33 | 1 |  |  |  |",
+        "images": [],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2339,
+            "width": 1654
+        }
+    },
+    {
+        "index": 7,
+        "markdown": "| Question | Answer |  |  |  |  |\n| :--: | :--: | :--: | :--: | :--: | :--: |\n| 6. | One mark for each correct answer up to a maximum of four. |  |  |  | 4 |\n|  | Validation is used to ensure any data that is entered by the user is meets specific requirements / is reasonable / accurate. | 1 |  |  |  |\n|  | Validation and verification are used to minimise the risk of human error when inputting data. | 1 |  |  |  |\n|  | Validation check can include format checks, range check, types checks and presence checks. | 1 | 1b |  |  |\n|  | Verification is used to check that the data entered by the user is consistent. | 1 |  |  |  |\n|  | The main methods of verification is double entry and comparing the data to the original source such a proof reading. | 1 |  |  |  |\n| 7. (a) (i) | In-order traversal is applied by visiting the left subtree first (1 mark) then root (1 mark) and finally the right subtree. This method could be when searching for a grocery item (1 mark). | $\\begin{aligned} & 1 \\\\ & 1 \\\\ & 1 \\end{aligned}$ |  | 2a | 3 |\n|  | Accept any suitable example. |  |  |  |  |\n| (ii) | Post-order traversal is applied by visiting the left subtree first (1 mark) then right subtree (1 mark) and finally the root. This method could be used to delete all the grocery store data (1 mark). | $\\begin{aligned} & 1 \\\\ & 1 \\\\ & 1 \\end{aligned}$ |  | 2a | 3 |\n|  | Accept any suitable example. |  |  |  |  |\n| (iii) | Pre-order traversal is applied by visiting the root first (1 mark) then left subtree (1 mark) and finally the right subtree. This method could be used to create a copy of the grocery store data (1 mark). | $\\begin{aligned} & 1 \\\\ & 1 \\\\ & 1 \\end{aligned}$ |  | 2a | 3 |\n|  | Accept any suitable example. |  |  |  |  |\n| (b) | ![img-4.jpeg](img-4.jpeg) |  |  | 2a | 1 |\n|  | 1 mark for suitable example of a balanced tree. | 1 |  |  |  |",
+        "images": [
+            {
+                "id": "img-4.jpeg",
+                "top_left_x": 380,
+                "top_left_y": 1651,
+                "bottom_right_x": 1083,
+                "bottom_right_y": 1880,
+                "image_path": "s23-1500u30-1-ms/images/img_7_0.jpeg"
+            }
+        ],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2339,
+            "width": 1654
+        }
+    },
+    {
+        "index": 8,
+        "markdown": "| Question | Answer |  |  |  |  |\n| :--: | :--: | :--: | :--: | :--: | :--: |\n| 8. (a) | One mark for each correct answer up to a maximum of three <br> Analysis and planning software tools are used in the producing of designs. <br> Planning a system structure can be through the uses of flow chart software or UML software. <br> These pieces of software allow the developers to produce planning and design documents for individual cases such as the end use or another developer. <br> Analysis software tools are also available to be used in requirements engineering and management. This software can be used to record and monitor requirements, use and test cases. <br> CASE development tools (specific) / Rational Rose | 1 <br> 1 <br> 1 <br> 1 | 1b |  | 3 <br> 1 <br> 3 |\n| (b) | One mark for each correct answer up to a maximum of three <br> Integrated development environments (IDEs) are typical pieces of software used in development. <br> IDEs can provide a wide range of tools including debugging such as automatic error checking and break points. <br> IDEs also allow developers to produce test cases for their software as they develop. <br> IDEs can also be used to support multiple developers in the development of a single project. | 1 <br> 1 <br> 1 <br> 1 | 1b |  | 3 <br> 1 <br> 3 |\n| (c) | One mark for each correct answer up to a maximum of three <br> Program version management software is used as repository for different stages of code development. <br> Version can be submitted to a version management software to track and record the changes in projects. <br> Version management software is useful when multi developers are working on a single project, it ensures not one develop overwrites someone else code. <br> Version management software can also be used to roll-back software if a program becomes corrupt during the development process. <br> Accept a suitable example of VCS e.g. Git / Github | 1 <br> 1 <br> 1 <br> 1 | 1b |  | 3 <br> 1 <br> 3 |",
+        "images": [],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2339,
+            "width": 1654
+        }
+    },
+    {
+        "index": 9,
+        "markdown": "![img-5.jpeg](img-5.jpeg)",
+        "images": [
+            {
+                "id": "img-5.jpeg",
+                "top_left_x": 84,
+                "top_left_y": 187,
+                "bottom_right_x": 1567,
+                "bottom_right_y": 2011,
+                "image_path": "s23-1500u30-1-ms/images/img_9_0.jpeg"
+            }
+        ],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2339,
+            "width": 1654
+        }
+    },
+    {
+        "index": 10,
+        "markdown": "| Question | Answer |  |  |  |  |\n| :--: | :--: | :--: | :--: | :--: | :--: |\n| 11. | One mark for each correct answer up to maximum of eight. |  |  |  | 8 |\n|  | Compilers and interpreters are all examples of translators. Translators are pieces of software used to convert one type of programming language to another. | 1 |  |  |  |\n|  | Compilers convert high-level programming language source code into object and machine code, run through a single executable file. | 1 |  |  |  |\n|  | The compilation process can throw multiple errors which at times can make debugging more difficult than using an interpreter. | 1 |  |  |  |\n|  | Many languages such as C++ and VB.Net are compiled and produce a single executable targeted to one platform or operating system. | 1 |  |  |  |\n|  | Once an application is compiled it is difficult to review the source code making intellectual property easier to protect. | 1 | 1 b |  |  |\n|  | Unlike compilers, interpreters convert high-level programming language source code line-by-line. | 1 |  |  |  |\n|  | An interpreter translates a single line of code into machine code then executes it before moving onto the next. | 1 |  |  |  |\n|  | An interpreted application does not produce an executable file, meaning source code must be interpreted each time the application is run. | 1 |  |  |  |\n|  | To execute interpreted source code the code needs to be freely available making intellectual property harder to protect. | 1 |  |  |  |\n|  | An example of an interpreted language is Python. |  |  |  |  |",
+        "images": [],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2339,
+            "width": 1654
+        }
+    },
+    {
+        "index": 11,
+        "markdown": "| Question | Answer |  |  |  |  |\n| :--: | :--: | :--: | :--: | :--: | :--: |\n| 12. (a) | 1 mark for identifying i loop will execute $n$ times <br> 1 mark for 3 operations outside the loop <br> 1 mark for correct numbers of possible operations $7 n+3$ <br> 1 mark for determining that the order will be dominated by $n$ <br> 1 mark for determining that the growth rate for time performance is $\\mathrm{O}(\\mathrm{n})$ | 1 <br> 1 <br> 1 <br> 1 |  |  | 5 |\n| (b) | Linear Complexity $\\mathrm{O}(\\mathrm{n})$ |  |  |  | 4 |\n|  | ![img-6.jpeg](img-6.jpeg) | 1 <br> 1 <br> 1 |  |  |  |\n|  | Time axis labelled correctly <br> Size axis labelled correctly <br> Correct gradient of line <br> Correct identifying linear (complexity). | 1 <br> 1 <br> 1 |  |  |  |",
+        "images": [
+            {
+                "id": "img-6.jpeg",
+                "top_left_x": 286,
+                "top_left_y": 701,
+                "bottom_right_x": 625,
+                "bottom_right_y": 1008,
+                "image_path": "s23-1500u30-1-ms/images/img_11_0.jpeg"
+            }
+        ],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2339,
+            "width": 1654
+        }
+    },
+    {
+        "index": 12,
+        "markdown": "| Question | Answer |  |  |  |  |\n| :--: | :--: | :--: | :--: | :--: | :--: |\n| 13. | Indicative content <br> - Contemporary devices including smart phones and tablets now do not adopt the traditional interaction technologies such as a keyboard and mouse. <br> - Many devices now employ different methods of humancomputer interaction including voice input, touch screen, force feedback, virtual and augmented reality. <br> - Voice input is not common in the everyday smart device including mobile phones and digital assistants. <br> - Many voice-controlled devices use a trigger word to activate them and can carry out a number of computation operations such as playing a song or ordering washing powder. <br> - Sometimes the ambiguity of the spoken language can have an effect on how these operate. <br> - For example, accents and background noise could impact on the quality of the interaction and cause issues. <br> - Phrases that are pronounced the same such as to, two and too also can sometimes cause issues for voice controlled. <br> - This could have impacts on privacy as many companies store all the phrases that are spoken to each device. <br> - Also, people may overhear what commands you are saying whereby your interaction instantly becomes public. <br> - Touch screen are also now commonplace in everyday life, touch screen allows gesture-controlled operations such a pinch-zoom and swiping. <br> - Touch screens are simple and natural to use and can be learnt very quickly. <br> - Although touch screen requires dexterity which may not be suitable for all users. <br> - Touch screen technology can also be fragile and expensive to replace. More often than not, if a touch screen interface breaks the device becomes unusable. <br> - Virtual and augmented reality interfaces are also growing exponentially within the computing industry. <br> - Virtual reality allows full immersive experience for users and allows user to interact with digital interfaces like never before. <br> - Hardware such as omnidirectional treadmills, VR headsets, in-ear aural headphones and touch controllers all heighten the sense of a different reality. <br> - Augmented reality allows the virtual work to mixed with the real world. <br> - Examples of AR are in mobile games and mobile phone app filters. |  |  |  |  | 13 |\n| Total |  |  |  |  | 100 |",
+        "images": [],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2339,
+            "width": 1654
+        }
+    },
+    {
+        "index": 13,
+        "markdown": "| Band | Q13 AO1b - Max 13 marks |\n| :--: | :--: |\n| 3 | 10-13 marks |\n|  | The candidate has: <br> - written an extended response that has a sustained line of reasoning which is coherent, relevant, and logically structured <br> - shown clear understanding of the requirements of the question and a clear knowledge of the topics as specified in the indicative content. Clear knowledge is defined as responses that provide relevant detailed points of the indicative content, which relate to an extensive amount of the indicative content. <br> - addressed the question appropriately with minimal repetition and no irrelevant material <br> - has presented a balanced discussion and justified their answer with examples <br> - effectively drawn together different areas of knowledge, skills and understanding from all relevant areas across the course of study <br> - used appropriate technical terminology confidently and accurately. |\n| 2 | 5-9 marks |\n|  | The candidate has: <br> - written a response that has an adequate line of reasoning with elements of coherence, relevance, and logical structure <br> - shown adequate understanding of the requirements of the question and a satisfactory knowledge of the topics as specified in the indicative content. Satisfactory knowledge is defined as responses that provide relevant points of the indicative content, which relate to the indicative content. <br> - presented a discussion with limited examples <br> - drawn together different areas of knowledge, skills and understanding from a number of areas across the course of study <br> - used appropriate technical terminology. |\n| 1 | 1-4 marks |\n|  | The candidate has: <br> - written a response that that lacks sufficient reasoning and structure <br> - produced a discussion which is not well developed <br> - attempted to address the question but has demonstrated superficial knowledge of the topics specified in the indicative content. Superficial knowledge is defined as responses that provide limited relevant points of the indicative content, which relate to a limited amount the indicative content. <br> - used limited technical terminology. |\n| 0 | Response not credit worthy or not attempted. |",
+        "images": [],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2339,
+            "width": 1654
+        }
+    }
+]

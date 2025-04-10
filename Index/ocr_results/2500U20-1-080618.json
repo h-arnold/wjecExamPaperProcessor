@@ -1,0 +1,89 @@
+[
+    {
+        "index": 0,
+        "markdown": "# GCE AS/A LEVEL \n\n## COMPUTER SCIENCE - AS unit 2 Practical Programming to Solve Problems\n\nFRIDAY, 8 JUNE 2018 - MORNING\n2 hours\n\n| For Examiner's use only |  |  |\n| :--: | :--: | :--: |\n| Section | Maximum <br> Mark | Mark <br> Awarded |\n| A | 44 |  |\n| B | 16 |  |\n| Total | 60 |  |\n\n## INSTRUCTIONS TO CANDIDATES\n\nAnswer ALL questions.\nThe question paper is divided into two main sections. Below are the recommended timings for this assessment.\n\n## Section A\n\nYou are advised to spend no more than $\\mathbf{6 0}$ minutes on this section.\nYou will be required to analyse and deconstruct the scenario to consider its component parts in terms that can be addressed through automated computation.\n\n## Section B\n\nYou are advised to spend no more than $\\mathbf{6 0}$ minutes on this section.\nYou will be required to develop programs that solve computing problems referring to the initial scenario.\n\n## INFORMATION FOR CANDIDATES\n\nThe number of marks is given in brackets at the end of each question or part-question.\nThe total number of marks available is 60 .\nAssessment will take into account the quality of written communication used in your answers.\nYou will need a computer with an installed functional copy of the Integrated Development Environment (IDE) appropriate to your chosen programming language and word processing software.\nA calculator is allowed in this examination.\nRemember to save your work regularly.",
+        "images": [],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2339,
+            "width": 1654
+        }
+    },
+    {
+        "index": 1,
+        "markdown": "# Scenario \n\n## LlaethFarm Caravan Park\n\n![img-0.jpeg](img-0.jpeg)\n\nLlaethFarm Caravan Park is located in a coastal national park. The company offers a range of luxury holiday caravans for hire.\n\nLlaethFarm Caravan Park wants to improve the management of the holidays and has decided to install a new computer based booking system. Staff of LlaethFarm Caravan Park will use the new computer system to book specific caravans and calculate end of holiday charges.\n\nThe main requirements of the new computer system for LlaethFarm Caravan Park are to:\n\n- store and search customer details\n- store and search caravan details and availability\n- enable different members of staff to view and change different items of data\n- carry out simple calculations, such as the cost of WiFi, or additional charges for gas used during extended stays.\n\nLlaethFarm Caravan Park has the following partially completed entity-relationship diagram as an overview of the system they would like to create:\n![img-1.jpeg](img-1.jpeg)",
+        "images": [
+            {
+                "id": "img-0.jpeg",
+                "top_left_x": 469,
+                "top_left_y": 442,
+                "bottom_right_x": 1197,
+                "bottom_right_y": 951,
+                "image_path": "2500U20-1-080618/images/img_1_0.jpeg"
+            },
+            {
+                "id": "img-1.jpeg",
+                "top_left_x": 196,
+                "top_left_y": 1646,
+                "bottom_right_x": 1453,
+                "bottom_right_y": 2114,
+                "image_path": "2500U20-1-080618/images/img_1_1.jpeg"
+            }
+        ],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2339,
+            "width": 1654
+        }
+    },
+    {
+        "index": 2,
+        "markdown": "# Section A: Analysis and Design (44 marks) \n\nYou have been asked to analyse the scenario as a preliminary step towards creating a computer system for LlaethFarm Caravan Park.\n\n## Answer all questions.\n\n## Present your answers as a single word-processed document named Section A Analysis and Design.\n\n1. Copy and complete the entity relationship diagram provided in the scenario.\n2. Draw two data structure tables that will allow LlaethFarm Caravan Park to store customers' details and details of bookings.\n[10]\n3. Construct a flowchart for the process of searching a list, such as a list of caravans, for a search item. If the item is found the flowchart should output the location in the list where the item was found. If the item is not found the flowchart should output \"Not Found\".\n[8]\n4. Select and fully justify a method of solution for the main requirements listed in the scenario. [6]\n5. LlaethFarm Caravan Park would like to allow different views of the data to different members of staff. The company has employees which are assigned to 4 groups with differing access rights to the tables provided in the scenario. These groups are: managers, receptionists, groundkeepers, and cleaners.\n\nDescribe the level of access to LlaethFarm Caravan Park's database tables that should be granted to each group of employees.\n6. LlaethFarm Caravan Park stores the details of its caravans' daily charge in a sorted array (lowest to highest). They understand that a binary search can be used to find the location of an item in the array.\n\nUsing a recognised convention, write an algorithm that performs a binary search on a presorted array of positive integers.\n\nThe algorithm should accept the following inputs:\n\n- The pre-sorted array: cArray[9999]\n- The data item to search: searchValue\n\n\n## The algorithm should output:\n\n- The location in the array of the searchValue\n- A message such as \"item not found\" if the item is not located.",
+        "images": [],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2339,
+            "width": 1654
+        }
+    },
+    {
+        "index": 3,
+        "markdown": "# Section B: Develop programs (16 marks) \n\nSelect the programming language of your choice from section BI, BII or BIII and answer all 3 questions within your chosen section.\n\n## BI Visual Basic\n\nLlaethFarm Caravan Park wants the prototype computer system to be developed using Visual Basic.\n\n## 1. Open the file Calc\n\n- Read through the code and familiarise yourself with its contents\n- The file contains incomplete code, which is intended to calculate the result of adding, subtracting, multiplying, dividing, storing and recalling whole positive integers and displaying the result on screen.\n- When MS is clicked, it should store the number displayed in a text file called CalcResult.txt\n- When MR is clicked, the number stored in CalcResult.txt should be recalled and displayed on screen.\n\n\n## Complete this code.\n\nSave the changes made to the file Calc\n2. Create a new form, with a suitable interface, that will allow LlaethFarm Caravan Park to:\n\n- Input customer details\n- Validate customer details using four different techniques\n- Store customer details on disk in a text file called customerDetails\n- Recall specific customer details.\n\nSave your new form as CaravanCustomers\n3. Using the internal facility of your chosen language, add annotation to your code from question 2 that clearly explains the design of your program to another software developer.\n\nSave the changes made to the file CaravanCustomers",
+        "images": [],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2339,
+            "width": 1654
+        }
+    },
+    {
+        "index": 4,
+        "markdown": "# BII Java \n\nLlaethFarm Caravan Park wants the prototype computer system to be developed using Java.\n\n1. Open the file Calc\n\n- Read through the code and familiarise yourself with its contents\n- The file contains incomplete code, which is intended to calculate the result of adding, subtracting, multiplying, dividing, storing and recalling whole positive integers and displaying the result on screen.\n- When MS is clicked, it should store the number displayed in a text file called CalcResult.txt\n- When MR is clicked, the number stored in CalcResult.txt should be recalled and displayed on screen.\n\nComplete this code.\nSave the changes made to the file Calc\n2. Create a new form, with a suitable interface, that will allow LlaethFarm Caravan Park to:\n\n- Input customer details\n- Validate customer details using four different techniques\n- Store customer details on disk in a text file called customerDetails\n- Recall specific customer details.\n\nSave your new form as CaravanCustomers\n3. Using the internal facility of your chosen language, add annotation to your code from question 2 that clearly explains the design of your program to another software developer.\n\nSave the changes made to the file CaravanCustomers",
+        "images": [],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2339,
+            "width": 1654
+        }
+    },
+    {
+        "index": 5,
+        "markdown": "# BIII Python \n\nLlaethFarm Caravan Park wants the prototype computer system to be developed using Python.\n\n1. Open the file Calc\n\n- Read through the code and familiarise yourself with its contents\n- The file contains incomplete code, which is intended to calculate the result of adding, subtracting, multiplying, dividing, storing and recalling whole positive integers and displaying the result on screen.\n- When MS is clicked, it should store the number displayed in a text file called CalcResult.txt\n- When MR is clicked, the number stored in CalcResult.txt should be recalled and displayed on screen.\n\nComplete this code.\nSave the changes made to the file Calc\n2. Create a new form, with a suitable interface, that will allow LlaethFarm Caravan Park to:\n\n- Input customer details\n- Validate customer details using four different techniques\n- Store customer details on disk in a text file called customerDetails\n- Recall specific customer details.\n\nSave your new file as CaravanCustomers\n3. Using the internal facility of your chosen language, add annotation to your code from question 2 that clearly explains the design of your program to another software developer.\n\nSave the changes made to the file CaravanCustomers",
+        "images": [],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2339,
+            "width": 1654
+        }
+    },
+    {
+        "index": 6,
+        "markdown": "# BLANK PAGE",
+        "images": [],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2339,
+            "width": 1654
+        }
+    }
+]

@@ -1,0 +1,72 @@
+[
+    {
+        "index": 0,
+        "markdown": "# GCE A LEVEL - NEW \n\n1500U30-1\n\n## COMPUTER SCIENCE - A2 unit 3 <br> Programming and System Development\n\nMONDAY, 11 JUNE 2018 - MORNING\n2 hours\n\n|  | For Examiner's use only |  |\n| :--: | :--: | :--: |\n|  | Question | Maximum <br> Mark |\n| Question | 8 | Awarded |\n| 1. | 8 |  |\n| 2. | 8 |  |\n| 3. | 3 |  |\n| 4. | 8 |  |\n| 5. | 9 |  |\n| 6. | 6 |  |\n| 7. | 6 |  |\n| 8. | 11 |  |\n| 9. | 8 |  |\n| 10. | 13 |  |\n| 11. | 10 |  |\n| 12. | 10 |  |\n| Total | 100 |  |\n\n## INSTRUCTIONS TO CANDIDATES\n\nAnswer all questions.\nWrite your answers in the separate answer booklet provided.\n\n## INFORMATION FOR CANDIDATES\n\nThe number of marks is given in brackets at the end of each question or part-question; you are advised to divide your time accordingly.\nThe total number of marks available is 100 .\nAssessment will take into account the quality of written communication used in your answers.",
+        "images": [],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2339,
+            "width": 1654
+        }
+    },
+    {
+        "index": 1,
+        "markdown": "Answer all questions.\n\n1. A binary tree structure is designed to contain strings and uses the following rules:\n\n- The left pointer indicates the condition \"earlier or at the same position in the alphabet\"\n- The right pointer indicates the condition \"later in the alphabet\"\n(a) Construct a binary tree using these rules and the data entered in the following order: Goat, Duck, Fox, Bear, Ant, Cat, Leopard, Owl, Mayfly, Insect, Jaguar, Emu.\n\nYou may use the initial letters if you wish.\n(b) Carry out a pre-order traversal of the tree and give one use of pre-order traversals.\n(c) Carry out an in-order traversal of the tree and give one use of in-order traversals.\n(d) Carry out a post-order traversal of the tree and give one use of post-order traversals. [2]\n2. The evaluation of a computer based solution should consider system functionality and system performance.\n(a) Identify a criterion for the evaluation of the functionality of a system and a criterion for the evaluation of the performance of a system.\n(b) Developments in human-computer interaction include natural, immersive and experiential interfaces.\n\nDescribe, giving examples, the main characteristics of natural and immersive human computer interfaces.\n3. Use a truth table to prove De Morgan's Law $\\overline{\\mathrm{A}+\\mathrm{B}}=\\overline{\\mathrm{A}} . \\overline{\\mathrm{B}}$.\n4. (a) Simplify the following using De Morgan's Law's and Boolean identities. Identify which law or identity you are using:\n\n$$\n\\overline{\\mathrm{A} . \\mathrm{B}}+\\mathrm{A}\n$$\n\n(b) Simplify the following expression using Boolean identities and rules:\n\n$$\n\\text { A.B. }(\\overline{\\mathrm{B}}+\\mathrm{C})+\\mathrm{B} . \\mathrm{C}+\\mathrm{B}\n$$",
+        "images": [],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2339,
+            "width": 1654
+        }
+    },
+    {
+        "index": 2,
+        "markdown": "5. A code editor is an essential software engineering tool of an integrated development environment (IDE). It provides features designed to assist with the writing and editing of code.\n(a) Describe two features of a code editor designed to assist with the writing and editing of code.\n(b) An IDE will also include tools for translation and debugging of the code. State the purpose of code translation.\n(c) Errors in the code will stop the program from working as intended. Some errors will prevent code translation, other errors may not be discovered until the program is in use. Describe, giving examples, an error that will prevent program translation and an error that will not be discovered during translation.",
+        "images": [],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2339,
+            "width": 1654
+        }
+    },
+    {
+        "index": 3,
+        "markdown": "6. An algorithm is shown below.\n\n```\ndecNumber is integer\n    bin is integer\n    answer is string\n    while decNumber <> 0\n        if decNumber MOD 2 = 0 then\n            bin = 0\n        else\n            bin = 1\n        end if\n        answer = char(bin) + answer\n    decNumber = decNumber DIV 2\n    end while\n    output answer\n    end subroutine\n```\n\n(a) Dry run the algorithm using the trace table below.\n\n| decNumber | decNumber MOD 2 | bin | answer |\n| :--: | :--: | :--: | :--: |\n| 137 |  |  |  |\n|  |  |  |  |\n|  |  |  |  |\n|  |  |  |  |\n|  |  |  |  |\n|  |  |  |  |\n|  |  |  |  |\n|  |  |  |  |\n|  |  |  |  |\n|  |  |  |  |\n|  |  |  |  |\n\n(b) State the purpose of the algorithm.\n(c) Explain the selection of data types for \"bin\" and \"answer\" in the algorithm.",
+        "images": [],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2339,
+            "width": 1654
+        }
+    },
+    {
+        "index": 4,
+        "markdown": "7. An Institute for ICT technicians in schools and colleges operates a code of conduct.\n(a) Describe the purpose of the code of conduct.\n(b) Identify two standards that should be included in the code for professional competence.\n(c) Identify two standards that should be included in the code for professional integrity.\n8. An online retailer offers a large range of stock items. They use a hash table to store details of the stock items in their computer based stock control system. Each stock item has a key value.\n(a) Explain the operation of a hash table and why the time taken to perform search and insertion operations is not affected by the number of stock items stored.\n(b) The retailer needs to store customers' delivery details, including their postal address. In this system a postal address is made up of the street, town and postcode.\n\nStreet can be a house number or name followed by the name of the street.\nAll towns begin with an uppercase letter followed by lowercase letters.\nAll letters in a postcode will be uppercase.\nPostcodes can include two or three digits.\nProduce an appropriate Backus-Naur Form (BNF) definition for this postal address.\n9. The two sections of code below carry out the same task. One section of code uses iteration and the other recursion.\n\n```\nDeclare subFactorial\nfact = 1\ninput n\nfor i = 1 to n\n    fact = fact * i\nnext i\nprint \"factorial of\", n \"is\", fact\nend sub\n```\n\n```\nfunction factorial(n) is integer\nif n <= 1 then\n    return 1\nelse\n    return factorial = n * factorial(n-1)\nend if\nend function\n```\n\n(a) Describe iteration.\n(b) Describe recursion.\n(c) Describe two advantages of using an iterative function compared with a recursive function to solve a given problem.",
+        "images": [],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2339,
+            "width": 1654
+        }
+    },
+    {
+        "index": 5,
+        "markdown": "10. (a) Describe the purpose of data validation.\n(b) Write an algorithm to validate a date in dd/mm/yyyy format.\n11. (a) Describe what is meant by Object-Oriented Programming (OOP).\n(b) Explain the relationship between classes and instances.\n(c) Explain what is meant by a method.\n12. Explain the need for standardisation of computer languages and discuss the advantages arising from the use of algorithms and programming languages that have been standardised.\n\nYou should draw on your knowledge, skills and understanding from a number of areas across your Computer Science course when answering this question.\n[10]\n\n# END OF PAPER",
+        "images": [],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2339,
+            "width": 1654
+        }
+    },
+    {
+        "index": 6,
+        "markdown": "# BLANK PAGE",
+        "images": [],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2339,
+            "width": 1654
+        }
+    }
+]

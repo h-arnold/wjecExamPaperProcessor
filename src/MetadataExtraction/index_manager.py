@@ -95,6 +95,7 @@ class IndexManager:
             "qualification": metadata.get("Qualification"),
             "subject": metadata.get("Subject"),
             "exam_paper": metadata.get("Exam Paper"),
+            "exam_season": metadata.get("Exam Season"),
             "content_path": str(content_path),
             "metadata_path": str(metadata_path),
             "related_documents": []

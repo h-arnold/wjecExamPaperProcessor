@@ -1,0 +1,220 @@
+[
+    {
+        "index": 0,
+        "markdown": "![img-0.jpeg](img-0.jpeg)\n\n# GCE AS/A LEVEL \n\n## WJEC cbar\n\n2500U10-1\n\n## EIIIIIIIIIIIIIIIIIIIIIIIIIIIIII\n\nS23-2500U10-1\n\n## TUESDAY, 16 MAY 2023 - AFTERNOON\n\n## COMPUTER SCIENCE - AS unit 1\n\nFundamentals of Computer Science\n2 hours\n\n|  | For Examiner's use only |  |\n| :--: | :--: | :--: |\n| Question | Maximum <br> Mark | Mark <br> Awarded |\n| 1. | 8 |  |\n| 2. | 8 |  |\n| 3. | 3 |  |\n| 4. | 9 |  |\n| 5. | 10 |  |\n| 6. | 6 |  |\n| 7. | 8 |  |\n| 8. | 7 |  |\n| 9. | 6 |  |\n| 10. | 6 |  |\n| 11. | 8 |  |\n| 12. | 6 |  |\n| 13. | 3 |  |\n| 14. | 12 |  |\n| Total | 100 |  |\n\n## ADDITIONAL MATERIALS\n\nA calculator.\n\n## INSTRUCTIONS TO CANDIDATES\n\nUse black ink or black ball-point pen.\nAnswer all questions.\nWrite your name, centre number and candidate number in the spaces at the top of this page.\nWrite your answers in the spaces provided in this booklet. If you run out of space, use the continuation pages at the back of the booklet, taking care to number the question(s) correctly.\n\n## INFORMATION FOR CANDIDATES\n\nThe number of marks is given in brackets at the end of each question or part-question.\nThe total number of marks available is 100 .\nAssessment will take into account the quality of written communication used in your answers.",
+        "images": [
+            {
+                "id": "img-0.jpeg",
+                "top_left_x": 160,
+                "top_left_y": 161,
+                "bottom_right_x": 1505,
+                "bottom_right_y": 334,
+                "image_path": "s23-2500u10-1/images/img_0_0.jpeg"
+            }
+        ],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2339,
+            "width": 1654
+        }
+    },
+    {
+        "index": 1,
+        "markdown": "Answer all questions.\n\n1. (a) Complete the table.\n\n| Data Type | Example Data | Storage Requirements <br> (in bits) |\n| :-- | :--: | :--: |\n| Character (ASCII) |  | b |\n| Boolean |  | b |\n| Short Integer |  | b |\n\n(b) Describe how character sets are used in a computer system.",
+        "images": [],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2339,
+            "width": 1654
+        }
+    },
+    {
+        "index": 2,
+        "markdown": "2. A certain single-core processor will process the following calculation in seven steps:\n\n$$\nY=(4 \\times 5)+(1 \\times 6)+(5 \\times 3)+(3 \\times 2)\n$$\n\nStep 1: $Y=20+(1 \\times 6)+(5 \\times 3)+(3 \\times 2)$\nStep 2: $Y=20+6+(5 \\times 3)+(3 \\times 2)$\nStep 3: $Y=20+6+15+(3 \\times 2)$\nStep 4: $Y=20+6+15+6$\nStep 5: $Y=26+15+6$\nStep 6: $Y=41+6$\nStep 7: $Y=47$\n(a) (i) Describe, showing each step, how a quad-core processor would process the calculation.\n(ii) State the name given to this method of processing data.",
+        "images": [],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2339,
+            "width": 1654
+        }
+    },
+    {
+        "index": 3,
+        "markdown": "(b) Identify and state the purpose of four components in a CPU.\n\n# Component 1 \n\nComponent 2\n\nComponent 3\n\nComponent 4",
+        "images": [],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2339,
+            "width": 1654
+        }
+    },
+    {
+        "index": 4,
+        "markdown": "3. The following data is stored in an 8 bit register:\n\n| 1 | 0 | 1 | 1 | 1 | 0 | 0 | 0 |\n| :-- | :-- | :-- | :-- | :-- | :-- | :-- | :-- |\n\nDemonstrate how the state of the most significant bit can be determined using a logical operation.",
+        "images": [],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2339,
+            "width": 1654
+        }
+    },
+    {
+        "index": 5,
+        "markdown": "4. (a) Explain, with reference to the functional characteristics of a Hard Disk Drive (HDD), how performance is affected by data fragmentation.\n$\\qquad$\n$\\qquad$\n$\\qquad$\n$\\qquad$\n$\\qquad$\n$\\qquad$\n$\\qquad$\n$\\qquad$\n(b) Describe how the effect of fragmentation can be reduced on a HDD.",
+        "images": [],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2339,
+            "width": 1654
+        }
+    },
+    {
+        "index": 6,
+        "markdown": "5. (a) State what is meant by the term handshaking.\n$\\qquad$\n$\\qquad$\n$\\qquad$\n$\\qquad$\n(b) Explain the importance of having networking standards.\n$\\qquad$\n$\\qquad$\n$\\qquad$\n$\\qquad$\n$\\qquad$\n$\\qquad$",
+        "images": [],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2339,
+            "width": 1654
+        }
+    },
+    {
+        "index": 7,
+        "markdown": "(c) Name two standard networking protocols and describe their function and importance.\n\nProtocol 1\n\nProtocol 2",
+        "images": [],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2339,
+            "width": 1654
+        }
+    },
+    {
+        "index": 8,
+        "markdown": "6. Describe simplex, half duplex and full duplex data transmission methods and give an example use for each.\n\n# Simplex \n\n## Half duplex\n\n## Full duplex\n\n$\\qquad$\n$\\qquad$\n$\\qquad$",
+        "images": [],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2339,
+            "width": 1654
+        }
+    },
+    {
+        "index": 9,
+        "markdown": "7. The area and circumference of a circle can be calculated using the following formulae:\n\n# Area of a circle \n\n## Circumference of a circle\n\n$$\nA=\\pi r^{2}\n$$\n\n$$\nC=2 \\pi r\n$$\n\nWhere $\\pi=3.14$ and $r=$ radius.\n\nWrite an algorithm, using pseudo-code, which will allow a user to enter the radius to calculate the area and circumference of a circle. The values input should be in metres, but the output should be converted into centimetres $\\left(1 \\mathrm{~m}^{2}=10,000 \\mathrm{~cm}^{2}\\right.$ and $\\left.1 \\mathrm{~m}=100 \\mathrm{~cm}\\right)$.\n\nFor example:\n\n## Input\n\n$$\n\\begin{aligned}\n& \\text { Output } \\\\\n& r=1.5(\\text { metres })\n\\end{aligned}\n$$\n\n$$\n\\begin{aligned}\n& \\mathrm{A}=70650 \\mathrm{~cm}^{2} \\\\\n& \\mathrm{C}=942.0 \\mathrm{~cm}\n\\end{aligned}\n$$\n\nYour algorithm should output a suitable error message if the value entered is not valid.\nYour algorithm should be written using self-documenting identifiers.",
+        "images": [],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2339,
+            "width": 1654
+        }
+    },
+    {
+        "index": 10,
+        "markdown": "8. Clearly showing each step, simplify the following expression using only Boolean identities and rules:\n\n$$\nQ \\cdot(P+Q)+\\bar{P} \\cdot(1+R)+Q \\cdot(\\bar{P} \\cdot P)\n$$\n\n$\\qquad$\n$\\qquad$\n$\\qquad$\n$\\qquad$\n$\\qquad$\n$\\qquad$\n$\\qquad$\n$\\qquad$\n$\\qquad$",
+        "images": [],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2339,
+            "width": 1654
+        }
+    },
+    {
+        "index": 11,
+        "markdown": "9. (a) The following data is stored in myArray.\nmyArray\n\n| 1 | 2 | 5 | 6 | 8 | 11 | 14 |\n| :-- | :-- | :-- | :-- | :-- | :-- | :-- |\n| $(0)$ | $(1)$ | $(2)$ | $(3)$ | $(4)$ | $(5)$ | $(6)$ |\n\nWrite down the order in which each number will be accessed when performing the following types of search for 14.\n\nYou may not need to use all the boxes given.\n(i) Linear search.\n![img-1.jpeg](img-1.jpeg)\n(b) Give one advantage and one disadvantage of a binary search over a linear search.",
+        "images": [
+            {
+                "id": "img-1.jpeg",
+                "top_left_x": 539,
+                "top_left_y": 806,
+                "bottom_right_x": 1114,
+                "bottom_right_y": 1223,
+                "image_path": "s23-2500u10-1/images/img_11_0.jpeg"
+            }
+        ],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2339,
+            "width": 1654
+        }
+    },
+    {
+        "index": 12,
+        "markdown": "10. Describe the principles of data compression algorithms.",
+        "images": [],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2339,
+            "width": 1654
+        }
+    },
+    {
+        "index": 13,
+        "markdown": "11. (a) Describe the term data structure and why data structures are used in computing.\n$\\qquad$\n$\\qquad$\n$\\qquad$\n$\\qquad$\n$\\qquad$\n(b) Information about films is stored in a table.\n\n| FilmID | Title | Certificate | Genre |\n| :--: | :-- | :--: | :--: |\n| 1 | End in Justice | 18 | Horror |\n| 2 | Inferno of Retaliation | 12 | Action |\n| 3 | Mission Mercury | 15 | Sci-fi |\n| 4 | Boy of an Angel | PG | Romcom |\n| $\\ldots$ | $\\ldots$ | $\\ldots$ | $\\ldots$ |\n\nDescribe each of the following using examples from the table:\n(i) Field.\n$\\qquad$\n$\\qquad$\n$\\qquad$\n$\\qquad$\n(ii) Record.\n$\\qquad$\n$\\qquad$\n$\\qquad$\n(iii) Primary key.",
+        "images": [],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2339,
+            "width": 1654
+        }
+    },
+    {
+        "index": 14,
+        "markdown": "12. Describe sequential files and how records are added to them.",
+        "images": [],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2339,
+            "width": 1654
+        }
+    },
+    {
+        "index": 15,
+        "markdown": "13. Describe, giving an example, one type of maintenance performed on a computer program. [3]",
+        "images": [],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2339,
+            "width": 1654
+        }
+    },
+    {
+        "index": 16,
+        "markdown": "14. Andrew is considering using three different methods for storing positive numbers, using two's complementation, in a computer system.\n\n| METHOD 1 | METHOD 2 | METHOD 3 |\n| :-- | :-- | :-- |\n| Store numbers as an <br> integer using an 8 bit <br> register. | Store real numbers <br> in normalised <br> floating-point <br> form, using a 5 bit <br> mantissa and a 3 bit <br> exponent. | Store real numbers <br> in normalised <br> floating-point <br> form, using a 4 bit <br> mantissa and a 4 bit <br> exponent. |\n\nCalculate the denary range (highest and lowest) of numbers that can be stored by each method. Compare the advantages of representing numbers in integer and floating-point forms.",
+        "images": [],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2339,
+            "width": 1654
+        }
+    },
+    {
+        "index": 17,
+        "markdown": "# END OF PAPER \n\n\u00a9 WJEC CBAC Ltd.\n\n(2500U10-1)",
+        "images": [],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2339,
+            "width": 1654
+        }
+    },
+    {
+        "index": 18,
+        "markdown": "# For continuation only. \n\n## 19\n\n## For the form of the form of the form of the form of the form of the form of the form of the form of the form of the form of the form of the form of the form of the form of the form of the form of the form of the form of the form of the form of the form of the form of the form of the form of the form of the form of the form of the form of the form of the form of the form of the form of the form of the form of the form of the form of the form of the form of the form of the form of the form of the form of the form of the form of the form of the form of the form of the form of the form of the form of the form of the form of the form of the form of the form of the form of the form of the form of the form of the form of the form of the form of the form of the form of the form of the form of the form of",
+        "images": [],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2339,
+            "width": 1654
+        }
+    },
+    {
+        "index": 19,
+        "markdown": "# For continuation only. \n\n\uc774\uba54\uc77c\uc740 2018\ub144 12\uc6d4 16\uc77c, 2019\ub144 1\uc6d4 18\uc77c, 2020\ub144 1\uc6d4 20\uc77c, 2021\ub144 1\uc6d4 21\uc77c, 2022\ub144 1\uc6d4 22\uc77c, 2023\ub144 1\uc6d4 23\uc77c, 2024\ub144 1\uc6d4 24\uc77c, 2025\ub144 1\uc6d4 25\uc77c, 2026\ub144 1\uc6d4 27\uc77c, 2027\ub144 1\uc6d4 28\uc77c, 2028\ub144 1\uc6d4 29\uc77c, 2029\ub144 1\uc6d4 30\uc77c, 2030\ub144 1\uc6d4 31\uc77c, 2031\ub144 1\uc6d4 32\uc77c, 2033\ub144 1\uc6d4 33\uc77c, 2034\ub144 1\uc6d4 34\uc77c, 2035\ub144 1\uc6d4 36\uc77c, 2036\ub144 1\uc6d4 37\uc77c, 2037\ub144 1\uc6d4 38\uc77c, 2038\ub144 1\uc6d4 39\uc77c, 2039\ub144 1\uc6d4 40\uc77c, 2040\ub144 1\uc6d4 41\uc77c, 2041\ub144 1\uc6d4 42\uc77c, 2043\ub144 1\uc6d4 43\uc77c, 2044\ub144 1\uc6d4 44\uc77c, 2045\ub144 1\uc6d4 46\uc77c, 2046\ub144 1\uc6d4 47\uc77c, 2048\ub144 1\uc6d4 49\uc77c, 2049\ub144 1\uc6d4 50\uc77c, 2050\ub144 1\uc6d4 51\uc77c, 2051\ub144 1\uc6d4 52\uc77c, 2053\ub144 1\uc6d4 53\uc77c, 2054\ub144 1\uc6d4 54\uc77c, 2055\ub144 1\uc6d4 56\uc77c, 2056\ub144 1\uc6d4 57\uc77c, 2058\ub144 1\uc6d4 59\uc77c, 2059\ub144 1\uc6d4 60\uc77c, 2060\ub144 1\uc6d4 61\uc77c, 2061\ub144 1\uc6d4 62\uc77c, 2062\ub144 1\uc6d4 63\uc77c, 2063\ub144 1\uc6d4 64\uc77c, 2064\ub144 1\uc6d4 65\uc77c, 2065\ub144 1\uc6d4 66\uc77c, 2066\ub144 1\uc6d4 67\uc77c, 2067\ub144 1\uc6d4 68\uc77c, 2068\ub144 1\uc6d4 69\uc77c, 2069\ub144 1\uc6d4 70\uc77c, 2070\ub144 1\uc6d4 71\uc77c, 2071\ub144 1\uc6d4 72\uc77c, 2073\ub144 1\uc6d4 73\uc77c, 2074\ub144 1\uc6d4 74\uc77c, 2075\ub144 1\uc6d4 76\uc77c, 2076\ub144 1\uc6d4 77\uc77c, 2078\ub144 1\uc6d4 78\uc77c, 2079\ub144 1\uc6d4 79\uc77c, 2080\ub144 1\uc6d4 80\uc77c, 2081\ub144 1\uc6d4 81\uc77c, 2082\ub144 1\uc6d4 82\uc77c, 2083\ub144 1\uc6d4 83\uc77c, 2084\ub144 1\uc6d4 84\uc77c, 2085\ub144 1\uc6d4 85\uc77c, 2086\ub144 1\uc6d4 86\uc77c, 2087\ub144 1\uc6d4 87\uc77c, 2088\ub144 1\uc6d4 88\uc77c, 2089\ub144 1\uc6d4 89\uc77c, 2090\ub144 1\uc6d4 90\uc77c, 2091\ub144 1\uc6d4 91\uc77c, 2092\ub144 1\uc6d4 92\uc77c, 2093\ub144 1\uc6d4 94\uc77c, 2094\ub144 1\uc6d4 95\uc77c, 2095\ub144 1\uc6d4 96\uc77c, 2096\ub144 1\uc6d4 97\uc77c, 2098\ub144 1\uc6d4 99\uc77c, 2099\ub144 1\uc6d4 100\uc77c, 2010\ub144 1\uc6d4 101\uc77c, 2011\ub144 1\uc6d4 102\uc77c, 2012\ub144 1\uc6d4 103\uc77c, 2013\ub144 1\uc6d4 104\uc77c, 2014\ub144 1\uc6d4 105\uc77c, 2015\ub144 1\uc6d4 106\uc77c, 2016\ub144 1\uc6d4 107\uc77c, 2017\ub144 1\uc6d4 108\uc77c, 2018\ub144 1\uc6d4 109\uc77c, 2019\ub144 1\uc6d4 110\uc77c, 2020\ub144 1\uc6d4 111\uc77c, 2021\ub144 1\uc6d4 112\uc77c, 2022\ub144 1\uc6d4 113\uc77c, 2023\ub144 1\uc6d4 114\uc77c, 2024\ub144 1\uc6d4 115\uc77c, 2025\ub144 1\uc6d4 116\uc77c, 2026\ub144 1\uc6d4 117\uc77c, 2027\ub144 1\uc6d4 118\uc77c, 2028\ub144 1\uc6d4 119\uc77c, 2029\ub144 1\uc6d4 120\uc77c, 2030\ub144 1\uc6d4 121\uc77c, 2031\ub144 1\uc6d4 122\uc77c, 2032\ub144 1\uc6d4 123\uc77c, 2033\ub144 1\uc6d4 124\uc77c, 2034\ub144 1\uc6d4 125\uc77c, 2035\ub144 1\uc6d4 126\uc77c, 2036\ub144 1\uc6d4 127\uc77c, 2037\ub144 1\uc6d4 128\uc77c, 2038\ub144 1\uc6d4 129\uc77c, 2039\ub144 1\uc6d4 130\uc77c, 2040\ub144 1\uc6d4 131\uc77c, 2041\ub144 1\uc6d4 132\uc77c, 2042\ub144 1\uc6d4 133\uc77c, 2043\ub144 1\uc6d4 134\uc77c, 2044\ub144 1\uc6d4 135\uc77c, 2045\ub144 1\uc6d4 136\uc77c, 2046\ub144 1\uc6d4 137\uc77c, 2047\ub144 1\uc6d4 138\uc77c, 2048\ub144 1\uc6d4 139\uc77c, 2049\ub144 1\uc6d4 140\uc77c, 2050\ub144 1\uc6d4 141\uc77c, 2051\ub144 1\uc6d4 142\uc77c, 2052\ub144 1\uc6d4 143\uc77c, 2053\ub144 1\uc6d4 144\uc77c, 2054\ub144 1\uc6d4 145\uc77c, 2055\ub144 1\uc6d4 146\uc77c, 2056\ub144 1\uc6d4 147\uc77c, 2057\ub144 1\uc6d4 148\uc77c, 2058\ub144 1\uc6d4 149\uc77c, 2059\ub144 1\uc6d4 150\uc77c, 2060\ub144 1\uc6d4 151\uc77c, 2061\ub144 1\uc6d4 152\uc77c, 2062\ub144 1\uc6d4 153\uc77c, 2063\ub144 1\uc6d4 154\uc77c, 2064\ub144 1\uc6d4 155\uc77c, 2065\ub144 1\uc6d4 156\uc77c, 2066\ub144 1\uc6d4 157\uc77c, 2067\ub144 1\uc6d4 158\uc77c, 2068\ub144 1\uc6d4 159\uc77c, 2069\ub144 1\uc6d4 160\uc77c, 2070\ub144 1\uc6d4 161\uc77c, 2071\ub144 1\uc6d4 162\uc77c, 2072\ub144 1\uc6d4 163\uc77c, 2073\ub144 1\uc6d4 164\uc77c, 2074\ub144 1\uc6d4 165\uc77c, 2075\ub144 1\uc6d4 166\uc77c, 2076\ub144 1\uc6d4 167\uc77c, 2077\ub144 1\uc6d4 168\uc77c, 2078\ub144 1\uc6d4 169\uc77c, 2079\ub144 1\uc6d4 170\uc77c, 2080\ub144 1\uc6d4 171\uc77c, 2081\ub144 1\uc6d4 172\uc77c, 2082\ub144 1\uc6d4 173\uc77c, 2083\ub144 1\uc6d4 174\uc77c, 2084\ub144 1\uc6d4 175\uc77c, 2085\ub144 1\uc6d4 176\uc77c, 2086\ub144 1\uc6d4 177\uc77c, 2088\ub144 1\uc6d4 178\uc77c, 2089\ub144 1\uc6d4 179\uc77c, 2090\ub144 1\uc6d4 180\uc77c, 2091\ub144 1\uc6d4 181\uc77c, 2092\ub144 1\uc6d4 182\uc77c, 2093\ub144 1\uc6d4 183\uc77c, 2094\ub144 1\uc6d4 184\uc77c, 2095\ub144 1\uc6d4 185\uc77c, 2096\ub144 1\uc6d4 186\uc77c, 2097\ub144 1\uc6d4 187\uc77c, 2098\ub144 1\uc6d4 188\uc77c, 2099\ub144 1\uc6d4 189\uc77c, 2010\ub144 1\uc6d4 190\uc77c, 2011\ub144 1\uc6d4 191\uc77c, 2012\ub144 1\uc6d4 192\uc77c, 2013\ub144 1\uc6d4 193\uc77c, 2014\ub144 1\uc6d4 194\uc77c, 2015\ub144 1\uc6d4 195\uc77c, 2016\ub144 1\uc6d4 196\uc77c, 2017\ub144 1\uc6d4 197\uc77c, 2018\ub144 1\uc6d4 198\uc77c, 2019\ub144 1\uc6d4 199\uc77c, 2020\ub144 1\uc6d4 200\uc77c, 2021\ub144 1\uc6d4 201\uc77c, 2022\ub144 1\uc6d4 202\uc77c, 2023\ub144 1\uc6d4 203\uc77c, 2024\ub144 1\uc6d4 204\uc77c, 2025\ub144 1\uc6d4 205\uc77c, 2026\ub144 1\uc6d4 206\uc77c, 2027\ub144 1\uc6d4 207\uc77c, 2028\ub144 1\uc6d4 208\uc77c, 2029\ub144 1\uc6d4 209\uc77c, 2030\ub144 1\uc6d4 210\uc77c, 2031\ub144 1\uc6d4 211\uc77c, 2032\ub144 1\uc6d4 212\uc77c, 2033\ub144 1\uc6d4 213\uc77c, 2034\ub144 1\uc6d4 214\uc77c, 2035\ub144 1\uc6d4 215\uc77c, 2036\ub144 1\uc6d4 216\uc77c, 2037\ub144 1\uc6d4 217\uc77c, 2038\ub144 1\uc6d4 218\uc77c, 2039\ub144 1\uc6d4 219\uc77c, 2040\ub144 1\uc6d4 220\uc77c, 2041\ub144 1\uc6d4 221\uc77c, 2042\ub144 1\uc6d4 222\uc77c, 2043\ub144 1\uc6d4 223\uc77c, 2044\ub144 1\uc6d4 224\uc77c, 2045\ub144 1\uc6d4 225\uc77c, 2046\ub144 1\uc6d4 226\uc77c, 2047\ub144 1\uc6d4 227\uc77c, 2048\ub144 1\uc6d4 228\uc77c, 2049\ub144 1\uc6d4 229\uc77c, 2050\ub144 1\uc6d4 230\uc77c, 2051\ub144 1\uc6d4 231\uc77c, 2052\ub144 1\uc6d4 232\uc77c, 2053\ub144 1\uc6d4 233\uc77c, 2054\ub144 1\uc6d4 234\uc77c, 2055\ub144 1\uc6d4 236\uc77c, 2056\ub144 1\uc6d4 237\uc77c, 2057\ub144 1\uc6d4 238\uc77c, 2058\ub144 1\uc6d4 239\uc77c, 2059\ub144 1\uc6d4 240\uc77c, 2060\ub144 1\uc6d4 241\uc77c, 2061\ub144 1\uc6d4 242\uc77c, 2062\ub144 1\uc6d4 243\uc77c, 2063\ub144 1\uc6d4 244\uc77c, 2064\ub144 1\uc6d4 245\uc77c, 2065\ub144 1\uc6d4 246\uc77c, 2066\ub144 1\uc6d4 247\uc77c, 2067\ub144 1\uc6d4 248\uc77c, 2068\ub144 1\uc6d4 249\uc77c, 2069\ub144 1\uc6d4 250\uc77c, 2070\ub144 1\uc6d4 251\uc77c, 2071\ub144 1\uc6d4 252\uc77c, 2072\ub144 1\uc6d4 253\uc77c, 2073\ub144 1\uc6d4 254\uc77c, 2074\ub144 1\uc6d4 255\uc77c, 2075\ub144 1\uc6d4 256\uc77c, 2076\ub144 1\uc6d4 257\uc77c, 2078\ub144 1\uc6d4 258\uc77c, 2079\ub144 1\uc6d4 259\uc77c, 2080\ub144 1\uc6d4 260\uc77c, 2081\ub144 1\uc6d4 261\uc77c, 2082\ub144 1\uc6d4 262\uc77c, 2083\ub144 1\uc6d4 263\uc77c, 2084\ub144 1\uc6d4 264\uc77c, 2085\ub144 1\uc6d4 265\uc77c, 2086\ub144 1\uc6d4 266\uc77c, 2087\ub144 1\uc6d4 267\uc77c, 2088\ub144 1\uc6d4 269\uc77c, 2089\ub144 1\uc6d4 270\uc77c, 2090\ub144 1\uc6d4 271\uc77c, 2091\ub144 1\uc6d4 272\uc77c, 2092\ub144 1\uc6d4 273\uc77c, 2093\ub144 1\uc6d4 274\uc77c, 2094\ub144 1\uc6d4 275\uc77c, 2095\ub144 1\uc6d4 276\uc77c, 2096\ub144 1\uc6d4 277\uc77c, 2097\ub144 1\uc6d4 278\uc77c, 2098\ub144 1\uc6d4 279\uc77c, 2099\ub144 1\uc6d4 280\uc77c, 2010\ub144 1\uc6d4 281\uc77c, 2011\ub144 1\uc6d4 282\uc77c, 2012\ub144 1\uc6d4 283\uc77c, 2013\ub144 1\uc6d4 284\uc77c, 2014\ub144 1\uc6d4 285\uc77c, 2015\ub144 1\uc6d4 286\uc77c, 2016\ub144 1\uc6d4 287\uc77c, 2017\ub144 1\uc6d4 288\uc77c, 2018\ub144 1\uc6d4 289\uc77c, 2019\ub144 1\uc6d4 290\uc77c, 2020\ub144 1\uc6d4 291\uc77c, 2021\ub144 1\uc6d4 292\uc77c, 2022\ub144 1\uc6d4 293\uc77c, 2023\ub144 1\uc6d4 294\uc77c, 2024\ub144 1\uc6d4 295\uc77c, 2025\ub144 1\uc6d4 296\uc77c, 2026\ub144 1\uc6d4 297\uc77c, 2027\ub144 1\uc6d4 298\uc77c, 2028\ub144 1\uc6d4 299\uc77c, 2029\ub144 1\uc6d4 300\uc77c, 2030\ub144 1\uc6d4 301\uc77c, 2031\ub144 1\uc6d4 302\uc77c, 2032\ub144 1\uc6d4 303\uc77c, 2033\ub144 1\uc6d4 304\uc77c, 2034\ub144 1\uc6d4 305\uc77c, 2035\ub144 1\uc6d4 306\uc77c, 2036\ub144 1\uc6d4 307\uc77c, 2037\ub144 1\uc6d4 308\uc77c, 2038\ub144 1\uc6d4 309\uc77c, 2039\ub144 1\uc6d4 310\uc77c, 2040\ub144 1\uc6d4 311\uc77c, 2041\ub144 1\uc6d4 312\uc77c, 2042\ub144 1\uc6d4 313\uc77c, 2043\ub144 1\uc6d4 314\uc77c, 2044\ub144 1\uc6d4 315\uc77c, 2045\ub144 1\uc6d4 316\uc77c, 2046\ub144 1\uc6d4 317\uc77c, 2047\ub144 1\uc6d4 318\uc77c, 2048\ub144 1\uc6d4 319\uc77c, 2049\ub144 1\uc6d4 320\uc77c, 2050\ub144 1\uc6d4 321\uc77c, 2051\ub144 1\uc6d4 322\uc77c, 2052\ub144 1\uc6d4 323\uc77c, 2053\ub144 1\uc6d4 324\uc77c, 2054\ub144 1\uc6d4 325\uc77c, 2055\ub144 1\uc6d4 326\uc77c, 2056\ub144 1\uc6d4 327\uc77c, 2057\ub144 1\uc6d4 328\uc77c, 2058\ub144 1\uc6d4 329\uc77c, 2059\ub144 1\uc6d4 330\uc77c, 2060\ub144 1\uc6d4 331\uc77c, 2061\ub144 1\uc6d4 332\uc77c, 2062\ub144 1\uc6d4 333\uc77c, 2063\ub144 1\uc6d4 334\uc77c, 2064\ub144 1\uc6d4 335\uc77c, 2065\ub144 1\uc6d4 336\uc77c, 2066\ub144 1\uc6d4 337\uc77c, 2067\ub144 1\uc6d4 338\uc77c, 2068\ub144 1\uc6d4 339\uc77c, 2069\ub144 1\uc6d4 340\uc77c, 2070\ub144 1\uc6d4 341\uc77c, 2071\ub144 1\uc6d4 342\uc77c, 2072\ub144 1\uc6d4 343\uc77c, 2073\ub144 1\uc6d4 344\uc77c, 2074\ub144 1\uc6d4 345\uc77c, 2075\ub144 1\uc6d4 346\uc77c, 2076\ub144 1\uc6d4 347\uc77c, 2077\ub144 1\uc6d4 348\uc77c, 2078\ub144 1\uc6d4 349\uc77c, 2079\ub144 1\uc6d4 350\uc77c, 2080\ub144 1\uc6d4 351\uc77c, 2081\ub144 1\uc6d4 352\uc77c, 2082\ub144 1\uc6d4 353\uc77c, 2083\ub144 1\uc6d4 354\uc77c, 2084\ub144 1\uc6d4 355\uc77c, 2085\ub144 1\uc6d4 356\uc77c, 2086\ub144 1\uc6d4 357\uc77c, 2087\ub144 1\uc6d4 358\uc77c, 2088\ub144 1\uc6d4 359\uc77c, 2089\ub144 1\uc6d4 360\uc77c, 2090\ub144 1\uc6d4 361\uc77c, 2091\ub144 1\uc6d4 362\uc77c, 2092\ub144 1\uc6d4 363\uc77c, 2093\ub144 1\uc6d4 364\uc77c, 2094\ub144 1\uc6d4 365\uc77c, 2095\ub144 1\uc6d4 366\uc77c, 2096\ub144 1\uc6d4 367\uc77c, 2097\ub144 1\uc6d4 368\uc77c, 2098\ub144 1\uc6d4 369\uc77c, 2099\ub144 1\uc6d4 370\uc77c, 2010\ub144 1\uc6d4 371\uc77c, 2011\ub144 1\uc6d4 372\uc77c, 2012\ub144 1\uc6d4 373\uc77c, 2013\ub144 1\uc6d4 374\uc77c, 2014\ub144 1\uc6d4 375\uc77c, 2015\ub144 1\uc6d4 376\uc77c, 2016\ub144 1\uc6d4 377\uc77c, 2017\ub144 1\uc6d4 378\uc77c, 2018\ub144 1\uc6d4 379\uc77c, 2019\ub144 1\uc6d4 380\uc77c, 2020\ub144 1\uc6d4 381\uc77c, 2021\ub144 1\uc6d4 382\uc77c, 2022\ub144 1\uc6d4 383\uc77c, 2023\ub144 1\uc6d4 384\uc77c, 2024\ub144 1\uc6d4 385\uc77c, 2025\ub144 1\uc6d4 386\uc77c, 2026\ub144 1\uc6d4 387\uc77c, 2027\ub144 1\uc6d4 388\uc77c, 2028\ub144 1\uc6d4 389\uc77c, 2029\ub144 1\uc6d4 390\uc77c, 2030\ub144 1\uc6d4 391\uc77c, 2031\ub144 1\uc6d4 392\uc77c, 2032\ub144 1\uc6d4 393\uc77c, 2033\ub144 1\uc6d4 394\uc77c, 2034\ub144 1\uc6d4 395\uc77c, 2035\ub144 1\uc6d4 396\uc77c, 2036\ub144 1\uc6d4 397\uc77c, 2037\ub144 1\uc6d4 398\uc77c, 2038\ub144 1\uc6d4 399\uc77c, 2039\ub144 1\uc6d4 400\uc77c, 2040\ub144 1\uc6d4 401\uc77c, 2041\ub144 1\uc6d4 402\uc77c, 2042\ub144 1\uc6d4 403\uc77c, 2043\ub144 1\uc6d4 404\uc77c, 2044\ub144 1\uc6d4 405\uc77c, 2045\ub144 1\uc6d4 406\uc77c, 2046\ub144 1\uc6d4 407\uc77c, 2047\ub144 1\uc6d4 408\uc77c, 2048\ub144 1\uc6d4 409\uc77c, 2049\ub144 1\uc6d4 410\uc77c, 2050\ub144 1\uc6d4 411\uc77c, 2051\ub144 1\uc6d4 412\uc77c, 2052\ub144 1\uc6d4 413\uc77c, 2053\ub144 1\uc6d4 414\uc77c, 2054\ub144 1\uc6d4 415\uc77c, 2055\ub144 1\uc6d4 416\uc77c, 2056\ub144 1\uc6d4 417\uc77c, 2057\ub144 1\uc6d4 418\uc77c, 2058\ub144 1\uc6d4 419\uc77c, 2059\ub144 1\uc6d4 420\uc77c, 2060\ub144 1\uc6d4 421\uc77c, 2061\ub144 1\uc6d4 422\uc77c, 2062\ub144 1\uc6d4 423\uc77c, 2063\ub144 1\uc6d4 424\uc77c, 2064\ub144 1\uc6d4 425\uc77c, 2065\ub144 1\uc6d4 426\uc77c, 2066\ub144 1\uc6d4 427\uc77c, 2067\ub144 1\uc6d4 428\uc77c, 2068\ub144 1\uc6d4 429\uc77c, 2069\ub144 1\uc6d4 430\uc77c, 2070\ub144 1\uc6d4 431\uc77c, 2071\ub144 1\uc6d4 432\uc77c, 2072\ub144 1\uc6d4 433\uc77c, 2073\ub144 1\uc6d4 434\uc77c, 2074\ub144 1\uc6d4 435\uc77c, 2075\ub144 1\uc6d4 436\uc77c, 2076\ub144 1\uc6d4 437\uc77c, 2077\ub144 1\uc6d4 438\uc77c, 2078\ub144 1\uc6d4 439\uc77c, 2079\ub144 1\uc6d4 440\uc77c, 2080\ub144 1\uc6d4 441\uc77c, 2081\ub144 1\uc6d4 442\uc77c, 2082\ub144 1\uc6d4 443\uc77c, 2083\ub144 1\uc6d4 444\uc77c, 2084\ub144 1\uc6d4 445\uc77c, 2085\ub144 1\uc6d4 446\uc77c, 2086\ub144 1\uc6d4 447\uc77c, 2087\ub144 1\uc6d4 448\uc77c, 2088\ub144 1\uc6d4 449\uc77c, 2089\ub144 1\uc6d4 450\uc77c, 2090\ub144 1\uc6d4 451\uc77c, 2091\ub144 1\uc6d4 452\uc77c, 2092\ub144 1\uc6d4 453\uc77c, 2093\ub144 1\uc6d4 454\uc77c, 2094\ub144 1\uc6d4 455\uc77c, 2095\ub144 1\uc6d4 456\uc77c, 2096\ub144 1\uc6d4 457\uc77c, 2097\ub144 1\uc6d4 458\uc77c, 2098\ub144 1\uc6d4 459\uc77c, 2099\ub144 1\uc6d4 460\uc77c, 2010\ub144 1\uc6d4 461\uc77c, 2011\ub144 1\uc6d4 462\uc77c, 2012\ub144 1\uc6d4 463\uc77c, 2013\ub144 1\uc6d4 464\uc77c, 2014\ub144 1\uc6d4 465\uc77c, 2015\ub144 1\uc6d4 466\uc77c, 2016\ub144 1\uc6d4 467\uc77c, 2017\ub144 1\uc6d4 468\uc77c, 2018\ub144 1\uc6d4 469\uc77c, 2019\ub144 1\uc6d4 470\uc77c, 2020\ub144 1\uc6d4 471\uc77c, 2021\ub144 1\uc6d4 472\uc77c, 2022\ub144 1\uc6d4 473\uc77c, 2023\ub144 1\uc6d4 474\uc77c, 2024\ub144 1\uc6d4 475\uc77c, 2025\ub144 1\uc6d4 476\uc77c, 2026\ub144 1\uc6d4 477\uc77c, 2027\ub144 1\uc6d4 478\uc77c, 2028\ub144 1\uc6d4 479\uc77c, 2029\ub144 1\uc6d4 480\uc77c, 2030\ub144 1\uc6d4 481\uc77c, 2031\ub144 1\uc6d4 482\uc77c, 2032\ub144 1\uc6d4 483\uc77c, 2033\ub144 1\uc6d4 484\uc77c, 2034\ub144 1\uc6d4 485\uc77c, 2035\ub144 1\uc6d4 486\uc77c, 2036\ub144 1\uc6d4 487\uc77c, 2037\ub144 1\uc6d4 488\uc77c, 2038\ub144 1\uc6d4 489\uc77c, 2039\ub144 1\uc6d4 490\uc77c, 2040\ub144 1\uc6d4 491\uc77c, 2042\ub144 1\uc6d4 492\uc77c, 2043\ub144 1\uc6d4 493\uc77c, 2044\ub144 1\uc6d4 494\uc77c, 2045\ub144 1\uc6d4 495\uc77c, 2046\ub144 1\uc6d4 496\uc77c, 2047\ub144 1\uc6d4 497\uc77c, 2048\ub144 1\uc6d4 498\uc77c, 2049\ub144 1\uc6d4 499\uc77c, 2050\ub144 1\uc6d4 491\uc77c, 2051\ub144 1\uc6d4 492\uc77c, 2052\ub144 1\uc6d4 493\uc77c, 2053\ub144 1\uc6d4 494\uc77c, 2054\ub144 1\uc6d4 495\uc77c, 2055\ub144 1\uc6d4 496\uc77c, 2056\ub144 1\uc6d4 497\uc77c, 2058\ub144 1\uc6d4 498\uc77c, 2059\ub144 1\uc6d4 499\uc77c, 2060\ub144 1\uc6d4 491\uc77c, 2061\ub144 1\uc6d4 492\uc77c, 2062\ub144 1\uc6d4 493\uc77c, 2063\ub144 1\uc6d4 494\uc77c, 2064\ub144 1\uc6d4 495\uc77c, 2065\ub144 1\uc6d4 496\uc77c, 2066\ub144 1\uc6d4 497\uc77c, 2067\ub144 1\uc6d4 498\uc77c, 2068\ub144 1\uc6d4 499\uc77c, 2069\ub144 1\uc6d4 490\uc77c, 2070\ub144 1\uc6d4 491\uc77c, 2071\ub144 1\uc6d4 492\uc77c, 2072\ub144 1\uc6d4 493\uc77c, 2073\ub144 1\uc6d4 494\uc77c, 2074\ub144 1\uc6d4 495\uc77c, 2075\ub144 1\uc6d4 496\uc77c, 2076\ub144 1\uc6d4 497\uc77c, 2078\ub144 1\uc6d4 498\uc77c, 2079\ub144 1\uc6d4 499\uc77c, 2080\ub144 1\uc6d4 491\uc77c, 2081\ub144 1\uc6d4 492\uc77c, 2082\ub144 1\uc6d4 493\uc77c, 2083\ub144 1\uc6d4 494\uc77c, 2084\ub144 1\uc6d4 495\uc77c, 2085\ub144 1\uc6d4 496\uc77c, 2086\ub144 1\uc6d4 497\uc77c, 2088\ub144 1\uc6d4 499\uc77c, 2090\ub144 1\uc6d4 491\uc77c, 2091\ub144 1\uc6d4 492\uc77c, 2092\ub144 1\uc6d4 493\uc77c, 2093\ub144 1\uc6d4 494\uc77c, 2094\ub144 1\uc6d4 495\uc77c, 2096\ub144 1\uc6d4 497\uc77c, 2098\ub144 1\uc6d4 499\uc77c, 2099\ub144 1\uc6d4 490\uc77c, 2010\ub144 1\uc6d4 491\uc77c, 2011\ub144 1\uc6d4 492\uc77c, 2012\ub144 1\uc6d4 493\uc77c, 2013\ub144 1\uc6d4 494\uc77c, 2014\ub144 1\uc6d4 496\uc77c, 2015\ub144 1\uc6d4 497\uc77c, 2016\ub144 1\uc6d4 498\uc77c, 2017\ub144 1\uc6d4 499\uc77c, 2018\ub144 1\uc6d4 490\uc77c, 2019\ub144 1\uc6d4 491\uc77c, 2020\ub144 1\uc6d4 492\uc77c, 2021\ub144 1\uc6d4 493\uc77c, 2022\ub144 1\uc6d4 494\uc77c, 2023\ub144 1\uc6d4 495\uc77c, 2024\ub144 1\uc6d4 496\uc77c, 2025\ub144 1\uc6d4 497\uc77c, 2026\ub144 1\uc6d4 498\uc77c, 2027\ub144 1\uc6d4 499\uc77c, 2028\ub144 1\uc6d4 490\uc77c, 2029\ub144 1\uc6d4 491\uc77c, 2030\ub144 1\uc6d4 492\uc77c, 2031\ub144 1\uc6d4 493\uc77c, 2032\ub144 1\uc6d4 494\uc77c, 2033\ub144 1\uc6d4 495\uc77c, 2034\ub144 1\uc6d4 496\uc77c, 2035\ub144 1\uc6d4 497\uc77c, 2036\ub144 1\uc6d4 498\uc77c, 2037\ub144 1\uc6d4 499\uc77c, 2038\ub144 1\uc6d4 490\uc77c, 2039\ub144 1\uc6d4 491\uc77c, 2040\ub144 1\uc6d4 492\uc77c, 2041\ub144 1\uc6d4 493\uc77c, 2042\ub144 1\uc6d4 494\uc77c, 2043\ub144 1\uc6d4 495\uc77c, 2044\ub144 1\uc6d4 496\uc77c, 2045\ub144 1\uc6d4 497\uc77c, 2046\ub144 1\uc6d4 498\uc77c, 2047\ub144 1\uc6d4 499\uc77c, 2048\ub144 1\uc6d4 490\uc77c, 2049\ub144 1\uc6d4 491\uc77c, 2050\ub144 1\uc6d4 492\uc77c, 2051\ub144 1\uc6d4 493\uc77c, 2052\ub144 1\uc6d4 494\uc77c, 2053\ub144 1\uc6d4 495\uc77c, 2054\ub144 1\uc6d4 496\uc77c, 2055\ub144 1\uc6d4 497\uc77c, 2056\ub144 1\uc6d4 498\uc77c, 2057\ub144 1\uc6d4 499\uc77c, 2058\ub144 1\uc6d4 490\uc77c, 2059\ub144 1\uc6d4 491\uc77c, 2060\ub144 1\uc6d4 492\uc77c, 2061\ub144 1\uc6d4 493\uc77c, 2062\ub144 1\uc6d4 494\uc77c, 2063\ub144 1\uc6d4 495\uc77c, 2064\ub144 1\uc6d4 496\uc77c, 2065\ub144 1\uc6d4 497\uc77c, 2066\ub144 1\uc6d4 498\uc77c, 2067\ub144 1\uc6d4 499\uc77c, 2068\ub144 1\uc6d4 490\uc77c, 2069\ub144 1\uc6d4 491\uc77c, 2070\ub144 1\uc6d4 492\uc77c, 2071\ub144 1\uc6d4 493\uc77c, 2072\ub144 1\uc6d4 494\uc77c, 2073\ub144 1\uc6d4 495\uc77c, 2074\ub144 1\uc6d4 496\uc77c, 2075\ub144 1\uc6d4 497\uc77c, 2076\ub144 1\uc6d4 498\uc77c, 2077\ub144 1\uc6d4 499\uc77c, 2080\ub144 1\uc6d4 491\uc77c, 2081\ub144 1\uc6d4 492\uc77c, 2082\ub144 1\uc6d4 493\uc77c, 2083\ub144 1\uc6d4 494\uc77c, 2084\ub144 1\uc6d4 495\uc77c, 2085\ub144 1\uc6d4 496\uc77c, 2086\ub144 1\uc6d4 497\uc77c, 2088\ub144 1\uc6d4 498\uc77c, 2089\ub144 1\uc6d4 499\uc77c, 2090\ub144 1\uc6d4 491\uc77c, 2091\ub144 1\uc6d4 492\uc77c, 2092\ub144 1\uc6d4 493\uc77c, 2094\ub144 1\uc6d4 494\uc77c, 2095\ub144 1\uc6d4 495\uc77c, 2096\ub144 1\uc6d4 496\uc77c, 2097\ub144 1\uc6d4 497\uc77c, 2098\ub144 1\uc6d4 498\uc77c, 2099\ub144 1\uc6d4 499\uc77c, 2010\ub144 1\uc6d4 491\uc77c, 2011\ub144 1\uc6d4 492\uc77c, 2012\ub144 1\uc6d4 493\uc77c, 2013\ub144 1\uc6d4 494\uc77c, 2014\ub144 1\uc6d4 495\uc77c, 2015\ub144 1\uc6d4 496\uc77c, 2016\ub144 1\uc6d4 497\uc77c, 2017\ub144 1\uc6d4 498\uc77c, 2018\ub144 1\uc6d4 499\uc77c, 2020\ub144 1\uc6d4 491\uc77c, 2021\ub144 1\uc6d4 492\uc77c, 2022\ub144 1\uc6d4 493\uc77c, 2023\ub144 1\uc6d4 494\uc77c, 2024\ub144 1\uc6d4 495\uc77c, 2025\ub144 1\uc6d4 496\uc77c, 2026\ub144 1\uc6d4 497\uc77c, 2028\ub144 1\uc6d4 498\uc77c, 2029\ub144 1\uc6d4 499\uc77c, 2030\ub144 1\uc6d4 491\uc77c, 2031\ub144 1\uc6d4 492\uc77c, 2033\ub144 1\uc6d4 493\uc77c, 2034\ub144 1\uc6d4 494\uc77c, 2035\ub144 1\uc6d4 495\uc77c, 2036\ub144 1\uc6d4 496\uc77c, 2037\ub144 1\uc6d4 497\uc77c, 2038\ub144 1\uc6d4 498\uc77c, 2039\ub144 1\uc6d4 499\uc77c, 2040\ub144 1\uc6d4 491\uc77c, 2041\ub144 1\uc6d4 492\uc77c, 2042\ub144 1\uc6d4 493\uc77c, 2043\ub144 1\uc6d4 494\uc77c, 2044\ub144 1\uc6d4 495\uc77c, 2045\ub144 1\uc6d4 496\uc77c, 2046\ub144 1\uc6d4 497\uc77c, 2048\ub144 1\uc6d4 498\uc77c, 2049\ub144 1\uc6d4 499\uc77c, 2050\ub144 1\uc6d4 491\uc77c, 2051\ub144 1\uc6d4 492\uc77c, 2052\ub144 1\uc6d4 493\uc77c, 2053\ub144 1\uc6d4 494\uc77c, 2054\ub144 1\uc6d4 495\uc77c, 2055\ub144 1\uc6d4 496\uc77c, 2056\ub144 1\uc6d4 497\uc77c, 2058\ub144 1\uc6d4 498\uc77c, 2060\ub144 1\uc6d4 499\uc77c, 2061\ub144 1\uc6d4 490\uc77c, 2062\ub144 1\uc6d4 491\uc77c, 2063\ub144 1\uc6d4 492\uc77c, 2064\ub144 1\uc6d4 493\uc77c, 2065\ub144 1\uc6d4 494\uc77c, 2066\ub144 1\uc6d4 495\uc77c, 2067\ub144 1\uc6d4 496\uc77c, 2068\ub144 1\uc6d4 497\uc77c, 2069\ub144 1\uc6d4 498\uc77c, 2070\ub144 1\uc6d4 499\uc77c, 2071\ub144 1\uc6d4 490\uc77c, 2072\ub144 1\uc6d4 491\uc77c, 2073\ub144 1\uc6d4 492\uc77c, 2074\ub144 1\uc6d4 493\uc77c, 2075\ub144 1\uc6d4 494\uc77c, 2076\ub144 1\uc6d4 495\uc77c, 2077\ub144 1\uc6d4 496\uc77c, 2078\ub144 1\uc6d4 497\uc77c, 2080\ub144 1\uc6d4 498\uc77c, 2081\ub144 1\uc6d4 499\uc77c, 2092\ub144 1\uc6d4 491\uc77c, 2093\ub144 1\uc6d4 492\uc77c, 2094\ub144 1\uc6d4 493\uc77c, 2094\ub144 1\uc6d4 492\uc77c, 2095\ub144 1\uc6d4 493\uc77c, 2096\ub144 1\uc6d4 494\uc77c, 2097\ub144 1\uc6d4 495\uc77c, 2098\ub144 1\uc6d4 496\uc77c, 2099\ub144 1\uc6d4 497\uc77c, 2010\ub144 1\uc6d4 498\uc77c, 2011\ub144 1\uc6d4 499\uc77c, 2012\ub144 1\uc6d4 494\uc77c, 2013\ub144 1\uc6d4 494\uc77c, 2014\ub144 1\uc6d4 495\uc77c, 2016\ub144 1\uc6d4 498\uc77c, 2017\ub144 1\uc6d4 499\uc77c, 2020\ub144 1\uc6d4 491\uc77c, 2021\ub144 1\uc6d4 492\uc77c, 2022\ub144 1\uc6d4 493\uc77c, 2023\ub144 1\uc6d4 494\uc77c, 2024\ub144 1\uc6d4 495\uc77c, 2025\ub144 1\uc6d4 496\uc77c, 2026\ub144 1\uc6d4 497\uc77c, 2028\ub144 1\uc6d4 498\uc77c, 2030\ub144 1\uc6d4 499\uc77c, 2031\ub144 1\uc6d4 494\uc77c, 2032\ub144 1\uc6d4 495\uc77c, 2033\ub144 1\uc6d4 496\uc77c, 2034\ub144 1\uc6d4 497\uc77c, 2035\ub144 1\uc6d4 498\uc77c, 2036\ub144 1\uc6d4 499\uc77c, 2040\ub144 1\uc6d4 491\uc77c, 2041\ub144 1\uc6d4 492\uc77c, 2042\ub144 1\uc6d4 493\uc77c, 2043\ub144 1\uc6d4 494\uc77c, 2044\ub144 1\uc6d4 495\uc77c, 2046\ub144 1\uc6d4 497\uc77c, 2048\ub144 1\uc6d4 498\uc77c, 2050\ub144 1\uc6d4 499\uc77c, 2051\ub144 1\uc6d4 494\uc77c, 2052\ub144 1\uc6d4 495\uc77c, 2053\ub144 1\uc6d4 496\uc77c, 2054\ub144 1\uc6d4 497\uc77c, 2055\ub144 1\uc6d4 498\uc77c, 2056\ub144 1\uc6d4 499\uc77c, 2060\ub144 1\uc6d4 491\uc77c, 2061\ub144 1\uc6d4 492\uc77c, 2062\ub144 1\uc6d4 493\uc77c, 2063\ub144 1\uc6d4 494\uc77c, 2064\ub144 1\uc6d4 495\uc77c, 2066\ub144 1\uc6d4 496\uc77c, 2070\ub144 1\uc6d4 497\uc77c, 2071\ub144 1\uc6d4 498\uc77c, 2080\ub144 1\uc6d4 499\uc77c, 2091\ub144 1\uc6d4 492\uc77c, 2092\ub144 1\uc6d4 493\uc77c, 2094\ub144 1\uc6d4 494\uc77c, 2095\ub144 1\uc6d4 496\uc77c, 2096\ub144 1\uc6d4 497\uc77c, 2098\ub144 1\uc6d4 498\uc77c, 2099\ub144 1\uc6d4 499\uc77c, 2010\ub144 1\uc6d4 491\uc77c, 2011\ub144 1\uc6d4 492\uc77c, 2012\ub144 1\uc6d4 493\uc77c, 2013\ub144 1\uc6d4 494\uc77c, 2014\ub144 1\uc6d4 495\uc77c, 2016\ub144 1\uc6d4 496\uc77c, 2020\ub144 1\uc6d4 497\uc77c, 2021\ub144 1\uc6d4 498\uc77c, 2022\ub144 1\uc6d4 499\uc77c, 2030\ub144 1\uc6d4 494\uc77c, 2031\ub144 1\uc6d4 495\uc77c, 2032\ub144 1\uc6d4 496\uc77c, 2033\ub144 1\uc6d4 497\uc77c, 2040\ub144 1\uc6d4 498\uc77c, 2041\ub144 1\uc6d4 496\uc77c, 2042\ub144 1\uc6d4 497\uc77c, 2043\ub144 1\uc6d4 498\uc77c, 2044\ub144 1\uc6d4 499\uc77c, 2050\ub144 1\uc6d4 496\uc77c, 2051\ub144 1\uc6d4 497\uc77c, 2052\ub144 1\uc6d4 498\uc77c, 2060\ub144 1\uc6d4 499\uc77c, 2071\ub144 1\uc6d4 494\uc77c, 2072\ub144 1\uc6d4 495\uc77c, 2080\ub144 1\uc6d4 496\uc77c, 2091\ub144 1\uc6d4 497\uc77c, 2092\ub144 1\uc6d4 498\uc77c, 2093\ub144 1\uc6d4 494\uc77c, 2095\ub144 1\uc6d4 496\uc77c, 2098\ub144 1\uc6d4 497\uc77c, 2099\ub144 1\uc6d4 496\uc77c, 2010\ub144 1\uc6d4 497\uc77c, 2011\ub144 1\uc6d4 494\uc77c, 2020\ub144 1\uc6d4 495\uc77c, 2031\ub144 1\uc6d4 496\uc77c, 2042\ub144 1\uc6d4 497\uc77c, 2053\ub144 1\uc6d4 498\uc77c, 2060\ub144 1\uc6d4 497\uc77c, 2071\ub144 1\uc6d4 496\uc77c, 2080\ub144 1\uc6d4 497\uc77c, 2092\ub144 1\uc6d4 498\uc77c, 2093\ub144 1\uc6d4 494\uc77c, 2094\ub144 1\uc6d4 495\uc77c, 2096\ub144 1\uc6d4 497\uc77c, 2098\ub144 1\uc6d4 496\uc77c, 2099\ub144 1\uc6d4 497\uc77c, 2000\ub144 1\uc6d4 496\uc77c, 2011\ub144 1\uc6d4 497\uc77c, 2022\ub144 1\uc6d4 498\uc77c, 2033\ub144 1\uc6d4 496\uc77c, 2040\ub144 1\uc6d4 497\uc77c, 2052\ub144 1\uc6d4 498\uc77c, 2060\ub144 1\uc6d4 497\uc77c, 2071\ub144 1\uc6d4 496\uc77c, 2080\ub144 1\uc6d4 497\uc77c, 2091\ub144 1\uc6d4 496\uc77c, 2092\ub144 1\uc6d4 497\uc77c, 2093\ub144 1\uc6d4 498\uc77c, 2094\ub144 1\uc6d4 497\uc77c, 2098\ub144 1\uc6d4 496\uc77c, 2099\ub144 1\uc6d4 497\uc77c, 2000\ub144 1\uc6d4 496\uc77c, 2011\ub144 1\uc6d4 497\uc77c, 2022\ub144 1\uc6d4 496\uc77c, 2033\ub144 1\uc6d4 497\uc77c, 2040\ub144 1\uc6d4 496\uc77c, 2052\ub144 1\uc6d4 497\uc77c, 2060\ub144 1\uc6d4 496\uc77c, 2071\ub144 1\uc6d4 497\uc77c, 2080\ub144 1\uc6d4 496\uc77c, 2092\ub144 1\uc6d4 497\uc77c, 2033\ub144 1\uc6d4 496\uc77c, 2040\ub144 1\uc6d4 497\uc77c, 2052\ub144 1\uc6d4 496\uc77c, 2060\ub144 1\uc6d4 497\uc77c, 2071\ub144 1\uc6d4 496\uc77c, 2080\ub144 1\uc6d4 497\uc77c, 2092\ub144 1\uc6d4 496\uc77c, 2033\ub144 1\uc6d4 497\uc77c, 2040\ub144 1\uc6d4 496\uc77c, 2052\ub144 1\uc6d4 497\uc77c, 2060\ub144 1\uc6d4 496\uc77c, 2071\ub144 1\uc6d4 497\uc77c, 2080\ub144 1\uc6d4 496\uc77c, 2092\ub144 1\uc6d4 497\uc77c, 2080\ub144 1\uc6d4 496\uc77c, 2092\ub144 1\uc6d4 497\uc77c, 2080\ub144 1\uc6d4 496\uc77c, 2092\ub144 1\uc6d4 497\uc77c, 2080\ub144 1\uc6d4 496\uc77c, 2092\ub144 1\uc6d4 497\uc77c, 2080\ub144 1\uc6d4 496\uc77c, 2092\ub144 1\uc6d4 497\uc77c, 2080\ub144 1\uc6d4 496\uc77c, 2092\ub144 1\uc6d4 497\uc77c, 2080\ub144 1\uc6d4 496\uc77c, 2092\ub144 1\uc6d4 497\uc77c, 2080\ub144 1\uc6d4 496\uc77c, 2092\ub144 1\uc6d4 497\uc77c, 2080\ub144 1\uc6d4 496\uc77c, 2092\ub144 1\uc6d4 497\uc77c, 2080\ub144 1\uc6d4 496\uc77c, 2092\ub144 1\uc6d4 497\uc77c, 2080\ub144 1\uc6d4 496\uc77c, 2092\ub144 1\uc6d4 497\uc77c, 2080\ub144 1\uc6d4 496\uc77c, 2092\ub144 1\uc6d4 497\uc77c, 2080\ub144 1\uc6d4 496\uc77c, 2092\ub144 1\uc6d4 497\uc77c, 2080\ub144 1\uc6d4 496\uc77c, 2092\ub144 1\uc6d4 497\uc77c, 2080\ub144 1\uc6d4 496\uc77c, 2092\ub144 1\uc6d4 497\uc77c, 2080\ub144 1\uc6d4 496\uc77c, 2092\ub144 1\uc6d4 497\uc77c, 2080\ub144 1\uc6d4 496\uc77c, 2092\ub144 1\uc6d4 497\uc77c, 2080\ub144 1\uc6d4 496\uc77c, 2092\ub144 1\uc6d4 497\uc77c, 2080\ub144 1\uc6d4 496\uc77c, 2092\ub144 1\uc6d4 497\uc77c, 2080\ub144 1\uc6d4 496\uc77c, 2092\ub144 1\uc6d4 497\uc77c, 2080\ub144 1\uc6d4 496\uc77c, 2092\ub144 1\uc6d4 497\uc77c, 20800\ub144 1\uc6d4 496\uc77c, 2092\ub144 1\uc6d4 497\uc77c, 2080\ub144 1\uc6d4 496\uc77c, 2092\ub144 1\uc6d4 497\uc77c, 2080\ub144 1\uc6d4 496\uc77c, 2092\ub144 1\uc6d4 497\uc77c, 2080\ub144 1\uc6d4 496\uc77c, 2092\ub144 1\uc6d4 497\uc77c, 2080\ub144 1\uc6d4 496\uc77c, 2092\ub144 1\uc6d4 497\uc77c, 2080\ub144 1\uc6d4 496\uc77c, 2092\ub144 1\uc6d4 497\uc77c, 20800\ub144 1\uc6d4 496\uc77c, 2092\ub144 1\uc6d4 497\uc77c, 2080\ub144 1\uc6d4 496\uc77c, 2092\ub144 1\uc6d4 497\uc77c, 2080\ub144 1\uc6d4 496\uc77c, 2092\ub144 1\uc6d4 497\uc77c, 2080\ub144 1\uc6d4 496\uc77c, 2092\ub144 1\uc6d4 497\uc77c, 2080\ub144 1\uc6d4 496\uc77c, 2092\ub144 1\uc6d4 497\uc77c, 2080\ub144 1\uc6d4 496\uc77c, 2092\ub144 1\uc6d4 497\uc77c, 2080\ub144 1\uc6d4 496\uc77c, 2092\ub144 1\uc6d4 497\uc77c, 20800\ub144 1\uc6d4 496\uc77c, 2092\ub144 1\uc6d4 497\uc77c, 20800\ub144 1\uc6d4 496\uc77c, 2092\ub144 1\uc6d4 497\uc77c, 20800\ub144 1\uc6d4 496\uc77c, 2092\ub144 1\uc6d4 497\uc77c, 20800\ub144 1\uc6d4 496\uc77c, 2092\ub144 1\uc6d4 497\uc77c, 20800\ub144 1\uc6d4 496\uc77c, 2092\ub144 1\uc6d4 497\uc77c, 20800\ub144 1\uc6d4 496\uc77c, 2092\ub144 1\uc6d4 497\uc77c, 20800\ub144 1\uc6d4 496\uc77c, 2092\ub144 1\uc6d4 497\uc77c, 20800\ub144 1\uc6d4 496\uc77c, 2092\ub144 1\uc6d4 497\uc77c, 20800\ub144 1\uc6d4 496\uc77c,",
+        "images": [],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2339,
+            "width": 1654
+        }
+    }
+]

@@ -1,0 +1,167 @@
+[
+    {
+        "index": 0,
+        "markdown": "# wjec cbac \n\n## GCE A LEVEL MARKING SCHEME\n\nSUMMER 2017\n\nA LEVEL (NEW)\nCOMPUTER SCIENCE - UNIT 3\n1500U30-1",
+        "images": [],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2338,
+            "width": 1654
+        }
+    },
+    {
+        "index": 1,
+        "markdown": "# INTRODUCTION \n\nThis marking scheme was used by WJEC for the 2017 examination. It was finalised after detailed discussion at examiners' conferences by all the examiners involved in the assessment. The conference was held shortly after the paper was taken so that reference could be made to the full range of candidates' responses, with photocopied scripts forming the basis of discussion. The aim of the conference was to ensure that the marking scheme was interpreted and applied in the same way by all examiners.\n\nIt is hoped that this information will be of assistance to centres but it is recognised at the same time that, without the benefit of participation in the examiners' conference, teachers may have different views on certain matters of detail or interpretation.\n\nWJEC regrets that it cannot enter into any discussion or correspondence about this marking scheme.",
+        "images": [],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2338,
+            "width": 1654
+        }
+    },
+    {
+        "index": 2,
+        "markdown": "# GCE A LEVEL COMPUTER SCIENCE \n\n## SUMMER 2017 MARK SCHEME\n\n| Qu | Answer |  |  |  |  |  |\n| :--: | :--: | :--: | :--: | :--: | :--: | :--: |\n| 1(a) | Any one of the following up to a maximum of two: <br> Two benefits of using a touch screen human computer Interface are: <br> - No need for another pointing device such as a stylus <br> - Can pinch and expand to scale images/text <br> - Screen can be used for input as well as output so device can be small <br> - Intuitive, so easy for beginners to learn to use <br> - Limits number of peripherals needed | 2 |  | 2a |  | 2 |\n| 1(b) | Any one of the following up to a maximum of four: <br> Difficulties creating a natural language interface include difficult to recognise: <br> - two words that sound the same such as 'two' and 'to' <br> - user's voice changes due to a cold or sore throat or other impediment <br> - colloquialisms or local dialect <br> - speech where there is background noise <br> - proper nouns that might not be in dictionary <br> - strong accents <br> - words from other languages in common use such as 'sacr\u00e9 bleu' in English | 4 | 1b |  |  | 4 |\n| 2 | The term 'class' refers to the written code which is used to define a template for an object <br> An object is an instance of a class (an actual thing created using the template) <br> Methods are actions (behaviours) that an object can perform or can be performed on the object | 1 <br> 1 <br> 1 | 1b <br> 1b <br> 1b |  |  | 3 |\n| $3(a)$ |  |  |  |  |  |  |\n|  | A | B | C | \u00c4 | \u00c4.B | P |\n|  | 0 | 0 | 0 | 1 | 0 | 0 |\n|  | 0 | 0 | 1 | 1 | 0 | 1 |\n|  | 0 | 1 | 0 | 1 | 1 | 1 |\n|  | 0 | 1 | 1 | 1 | 1 | 1 |\n|  | 1 | 0 | 0 | 0 | 0 | 0 |\n|  | 1 | 0 | 1 | 0 | 0 | 1 |\n|  | 1 | 1 | 0 | 0 | 0 | 0 |\n|  | 1 | 1 | 1 | 0 | 0 | 1 |\n\nMarking\none mark for all possible values of $A, B$ and $C$ correct\none mark for each correct column if column $P$ correct award full marks\n3(b)\n\n| Bit number | 7 | 6 | 5 | 4 | 3 | 2 | 1 | 0 |\n| :--: | :--: | :--: | :--: | :--: | :--: | :--: | :--: | :--: |\n| Register contents | 1 | 1 | 1 | 0 | 0 | 0 | 1 | 1 |\n| Mask | 0 | 0 | 0 | 0 | 1 | 1 | 1 | 1 |\n| Result | 0 | 0 | 0 | 0 | 0 | 0 | 1 | 1 |\n\nMarking\nCorrect mask - one mark\nIdentity AND operation - one mark\nproduce correct result - one mark",
+        "images": [],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2339,
+            "width": 1654
+        }
+    },
+    {
+        "index": 3,
+        "markdown": "| Qu | Answer |  |  |  |  |\n| :--: | :--: | :--: | :--: | :--: | :--: |\n| 4(a) | One mark for each point up to a maximum of 6. Must address all three sections to gain maximum marks, otherwise maximum of 5. <br> Lexical analysis <br> - Comments and unneeded spaces are removed <br> - Keywords, constants and identifiers are replaced by 'tokens' <br> - A symbol table is created which holds the addresses of variables, labels and subroutines <br> Syntax analysis <br> - Tokens are checked to see if they match the spelling and grammar expected, using standard language definitions. This is done by parsing each token to determine if it uses the correct syntax for the programming language. <br> - If syntax errors are found, error messages are produced <br> Semantic analysis <br> - Variables are checked to ensure that they have been properly declared and used <br> - Variables are checked to ensure they are of the correct data type, e.g. real values are not being assigned to integers <br> - Operations are checked to ensure that they are legal for the type of variable being used e.g. you would not try to store the result of a division operation as an integer | 6 | $1 b$ |  |  | 6 |\n| 4(b) | One mark for each of the following up to a maximum of two: <br> Advantage of using a language that requires compiling compared with a language that requires interpreting are: <br> Once compiled the program will run quickly / the object code will be efficient because the compiler will translate directly to the native code of the specific machine / optimise the code for the target hardware. <br> Protection of intellectual property | 1 <br> 1 <br> 1 | $\\begin{aligned} & 1 \\mathrm{lb} \\\\ & 1 \\mathrm{lb} \\end{aligned}$ |  |  |\n| 4(c) | Two advantages for a program developer of using a language that requires interpreting compared with language that requires compiling are: <br> Debugging can be easier as interpreter will stop translation at the point where the error occurred and highlight the error for the programmer to deal with. <br> Code is more portable as it is not machine dependent and will run on different hardware or in a browser (java script) <br> For security when downloading code from the Internet so it can be checked before interpreting on the local machine (2 marks) | 1 <br> 1 <br> 1 | $\\begin{aligned} & 1 \\mathrm{lb} \\\\ & 1 \\mathrm{lb} \\\\ & 1 \\mathrm{lb} \\end{aligned}$ |  |  | 4 |\n| 4(d) | The purpose of an assembler is to translate assembly language into machine (executable) code <br> An assembler's source code is low level code, compliers translate high level source code. <br> An assembly instruction which will translate to one machine code instruction, whereas single lines of high level code compile to many machine code instructions. | 1 <br> 1 <br> 2 | 1a <br> 1b <br> 1b |  |  | 4 |",
+        "images": [],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2339,
+            "width": 1654
+        }
+    },
+    {
+        "index": 4,
+        "markdown": "![img-0.jpeg](img-0.jpeg)",
+        "images": [
+            {
+                "id": "img-0.jpeg",
+                "top_left_x": 49,
+                "top_left_y": 128,
+                "bottom_right_x": 1604,
+                "bottom_right_y": 1333,
+                "image_path": "1500U30-1 WJEC GCE A Level Comp Science Unit 3 MS S17 (New)/images/img_4_0.jpeg"
+            }
+        ],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2339,
+            "width": 1654
+        }
+    },
+    {
+        "index": 5,
+        "markdown": "![img-1.jpeg](img-1.jpeg)",
+        "images": [
+            {
+                "id": "img-1.jpeg",
+                "top_left_x": 51,
+                "top_left_y": 128,
+                "bottom_right_x": 1604,
+                "bottom_right_y": 1606,
+                "image_path": "1500U30-1 WJEC GCE A Level Comp Science Unit 3 MS S17 (New)/images/img_5_0.jpeg"
+            }
+        ],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2339,
+            "width": 1654
+        }
+    },
+    {
+        "index": 6,
+        "markdown": "![img-2.jpeg](img-2.jpeg)",
+        "images": [
+            {
+                "id": "img-2.jpeg",
+                "top_left_x": 67,
+                "top_left_y": 123,
+                "bottom_right_x": 1604,
+                "bottom_right_y": 1791,
+                "image_path": "1500U30-1 WJEC GCE A Level Comp Science Unit 3 MS S17 (New)/images/img_6_0.jpeg"
+            }
+        ],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2339,
+            "width": 1654
+        }
+    },
+    {
+        "index": 7,
+        "markdown": "| Qu | Answer |  |  |  |  |\n| :--: | :--: | :--: | :--: | :--: | :--: |\n| 9(a) | An algorithm is an (unambiguous) set of instructions to solve a problem An alternative method to pseudo code of expressing an algorithm is a flowchart / structured English | $\\begin{aligned} & 1 \\\\ & 1 \\end{aligned}$ | $\\begin{aligned} & 1 a \\\\ & 1 a \\end{aligned}$ |  | 2 |\n| 9(b) | A recursive algorithm is one which calls itself (with a parameter which changes) and It must have a terminating condition (base case) to stop the calls | $\\begin{aligned} & 1 \\\\ & 1 \\end{aligned}$ | $\\begin{aligned} & 1 a \\\\ & 1 a \\end{aligned}$ |  | 2 |\n| 9(c) | One mark for each of the following up to a maximum of two: <br> Memory overheads of stack use with many recursive procedural calls <br> Difficult to program / dry run/debug if there is a fault <br> Stack overflow <br> Infinite loop | $\\begin{aligned} & 1 \\\\ & 1 \\\\ & 1 \\\\ & 1 \\end{aligned}$ | $\\begin{aligned} & 1 b \\\\ & 1 b \\\\ & 1 b \\\\ & 1 b \\end{aligned}$ |  | 2 |\n| 10 | Design review tasks: <br> Checking the correspondence between the actual design and its specification / user requirements / objectives / safety issues <br> Confirming that the most appropriate techniques have been used <br> Confirming the HCI is appropriate for the application | $\\begin{aligned} & 1 \\\\ & 1 \\\\ & 1 \\end{aligned}$ | $\\begin{aligned} & 1 b \\\\ & 1 b \\\\ & 1 b \\end{aligned}$ |  | 3 |\n| 11(a) | One mark for each of the following up to a maximum of two: <br> When searching an ordered list the search can be terminated when an item greater than the search value (or less than) is reached <br> When searching an unordered list the search cannot be terminated until the last item has been reached. <br> For an ordered list a binary search can be used. | $\\begin{aligned} & 1 \\\\ & 1 \\\\ & 1 \\end{aligned}$ | $\\begin{aligned} & 1 b \\\\ & 1 b \\\\ & 1 b \\end{aligned}$ |  | 2 |\n| 11(b)(i) | ![img-3.jpeg](img-3.jpeg) |  |  |  | 3 |\n| Start pointer - one mark <br> End pointer - one mark <br> All pointers correct - one mark |  |  |  |  |  |",
+        "images": [
+            {
+                "id": "img-3.jpeg",
+                "top_left_x": 267,
+                "top_left_y": 1349,
+                "bottom_right_x": 980,
+                "bottom_right_y": 1627,
+                "image_path": "1500U30-1 WJEC GCE A Level Comp Science Unit 3 MS S17 (New)/images/img_7_0.jpeg"
+            }
+        ],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2339,
+            "width": 1654
+        }
+    },
+    {
+        "index": 8,
+        "markdown": "![img-4.jpeg](img-4.jpeg)",
+        "images": [
+            {
+                "id": "img-4.jpeg",
+                "top_left_x": 33,
+                "top_left_y": 119,
+                "bottom_right_x": 1620,
+                "bottom_right_y": 2067,
+                "image_path": "1500U30-1 WJEC GCE A Level Comp Science Unit 3 MS S17 (New)/images/img_8_0.jpeg"
+            }
+        ],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2339,
+            "width": 1654
+        }
+    },
+    {
+        "index": 9,
+        "markdown": "| Qu | Answer |  |  |  |  |\n| :--: | :--: | :--: | :--: | :--: | :--: |\n| 12 | Stepping. Execution of code one line at a time. | 1 | $1 b$ |  | 6 |\n|  | Allows the programmer to examine each line of code in isolation to check that it is behaving as intended. | 1 | $1 b$ |  |  |\n|  | Break points. A special marker that pauses execution of code at a preset position. Whilst paused the programmer inspects the test environment (registers, memory, files etc) to check that the program is functioning correctly. | 1 | $1 b$ |  |  |\n|  | Variable watch. Used to view values in global and local variables as the code is executed in debug mode. | 1 | $1 b$ |  |  |\n|  | Can be set to continually inspect variables which will be updated as the code is stepped through. | 1 | $1 b$ |  |  |",
+        "images": [],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2339,
+            "width": 1654
+        }
+    },
+    {
+        "index": 10,
+        "markdown": "| Qu | Answer |  |  |  |  |\n| :--: | :--: | :--: | :--: | :--: | :--: |\n| 13 | Indicative content |  | 1 b |  | 10 |\n|  | The Waterfall approach <br> - Sequential design process, in which various developers draft up all of the requirements for a system up front <br> - By having all the requirements beforehand, everyone knows exactly what's needed <br> - Client knows what to expect, including time frame, size, and cost of the project, and they know exactly what their product will do <br> - If employees leave or join the development team, the strong documentation allows bringing new people up to speed quickly <br> - Because the process is sequential, once a stage of development has been completed, you can't go back to a previous stage to make changes <br> - If the initial requirements of the project are faulty in any way, the project is almost guaranteed to fail <br> - The product is only tested once it is completed and if bugs were made early on, a large amount of code will be affected <br> - If the client's needs change as the project goes on, the project will take longer than predicted |  |  |  |  |  |\n|  | The Agile approach <br> - Incremental approach to development, in which developers start off with a simple project design instead of a huge document, and work on small modules at a time <br> - It can be hard to employ new people into a team when you have less of a clearly defined structural process <br> - It can be difficult to predict when the project will be completed, or how much it will ultimately cost <br> - Changes can be made after the initial planning phase, and as the client makes changes the program can be re- written <br> - Testing is done as the product is developed, ensuring that bugs are found earlier in the process <br> - A smaller team can work on the product because you are removing the upper layers of project managers <br> - There can be a closer relationship between the customer and the developer <br> - When the end goal of the product is not clearly defined, Agile development is the most suitable approach <br> - Sprints of work on the project are done and priorities of the project are discussed, evaluated, and tested Then, a simple product is released to the consumer and they are now able to use it and provide feedback |  |  |  |  |  |\n|  | Which different programming paradigms would be suitable for each approach <br> - Procedural languages are suitable for both the Agile and Waterfall approach <br> - Scripting Languages are suitable for both the Agile and Waterfall approach <br> - Non-Procedural languages would be suitable for the Waterfall approach but some might not work as well with the Agile approach <br> - Non-procedural programming languages require programmers to specify rules and facts which is more suitable for Waterfall <br> - Object Orientated languages are suitable for both the Agile and Waterfall approach <br> - Visual languages would be more suitable for Agile <br> - $4^{\\text {th }}$ Generation languages are suitable for both the Agile and Waterfall approach |  |  |  |  |  |",
+        "images": [],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2339,
+            "width": 1654
+        }
+    },
+    {
+        "index": 11,
+        "markdown": "| Band | AO1b - Max 10 marks |  |  |  |  |  |  |\n| :--: | :--: | :--: | :--: | :--: | :--: | :--: | :--: |\n| 3 | 8 - 10 marks |  |  |  |  |  |  |\n|  | The candidate has: <br> - written an extended response that has a sustained line of reasoning which is coherent, relevant, and logically structured <br> - shown clear understanding of the requirements of the question and a clear knowledge of the topics as specified in the indicative content. Clear knowledge is defined as responses that provide relevant detailed points of the implications of agile and waterfall approaches and suitable paradigms, which relate to an extensive amount of the indicative content. <br> - addressed the question appropriately with minimal repetition and no irrelevant material <br> - has presented a balanced discussion and justified their answer with examples <br> - effectively drawn together different areas of knowledge, skills and understanding from all relevant areas across the course of study <br> - used appropriate technical terminology confidently and accurately. |  |  |  |  |  |  |\n| 2 | 4 - 7 marks |  |  |  |  |  |  |\n|  | The candidate has: <br> - written a response that has an adequate line of reasoning with elements of coherence, relevance, and logical structure <br> - shown adequate understanding of the requirements of the question and a satisfactory knowledge of the topics as specified in the indicative content. Satisfactory knowledge is defined as responses that provide relevant points of the implications of agile and waterfall approaches and suitable paradigms, which relate to the indicative content. <br> - presented a discussion with limited examples <br> - drawn together different areas of knowledge, skills and understanding from a number of areas across the course of study <br> - used appropriate technical terminology. |  |  |  |  |  |  |\n| 1 | 1-3 marks |  |  |  |  |  |  |\n|  | The candidate has: <br> - written a response that that lacks sufficient reasoning and structure <br> - produced a discussion which is not well developed <br> - attempted to address the question but has demonstrated superficial knowledge of the topics specified in the indicative content. Superficial knowledge is defined as responses that provide limited relevant points of the implications of agile and waterfall approaches or suitable paradigms which relate to a limited amount the indicative content. <br> - used limited technical terminology. |  |  |  |  |  |  |\n| 0 | Response not credit worthy or not attempted. |  |  |  |  |  |  |",
+        "images": [],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2339,
+            "width": 1654
+        }
+    }
+]

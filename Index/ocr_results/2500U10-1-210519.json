@@ -1,0 +1,276 @@
+[
+    {
+        "index": 0,
+        "markdown": "![img-0.jpeg](img-0.jpeg)\n\n# GCE AS/A LEVEL \n\n## WJEC cbac\n\n2500U10-1\n\n## EJEHIIIIIIIIIIIIIIIIIIIIIIIIIIIIII\n\nS19-2500U10-1\n\n## COMPUTER SCIENCE - AS unit 1\n\nFundamentals of Computer Science\n\n## TUESDAY, 21 MAY 2019 - MORNING\n\n2 hours\n\n## ADDITIONAL MATERIALS\n\nA calculator.\n\n## INSTRUCTIONS TO CANDIDATES\n\nUse black ink or black ball-point pen.\nAnswer all questions.\nWrite your name, centre number and candidate number in the spaces at the top of this page.\nWrite your answers in the spaces provided in this booklet. If you run out of space, use the continuation pages at the back of the booklet, taking care to number the question(s) correctly.\n\n## INFORMATION FOR CANDIDATES\n\nThe number of marks is given in brackets at the end of each question or part-question.\nThe total number of marks available is 100.\nAssessment will take into account the quality of written communication used in your answers.",
+        "images": [
+            {
+                "id": "img-0.jpeg",
+                "top_left_x": 158,
+                "top_left_y": 161,
+                "bottom_right_x": 1505,
+                "bottom_right_y": 327,
+                "image_path": "2500U10-1-210519/images/img_0_0.jpeg"
+            }
+        ],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2339,
+            "width": 1654
+        }
+    },
+    {
+        "index": 1,
+        "markdown": "Answer all questions.\n\n1. (a) Define the term Internet.\n(b) Describe the use of the following networking protocols:\n(i) Universal Datagram Protocol (UDP).\n(ii) Dynamic Host Configuration Protocol (DHCP).\n(iii) Simple Mail Transfer Protocol (SMTP).",
+        "images": [],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2339,
+            "width": 1654
+        }
+    },
+    {
+        "index": 2,
+        "markdown": "2. This is an algorithm which should have four outputs, $a, b, c$ and $d$. The algorithm does not work as intended.\n\n```\ndefine myFunction\ndeclare c as integer\ndeclare d as integer\n    set c = 3\n    set d = 4\n    end myFunction\n7\n8 \\text { Start MainProg}\n9 declare a as integer\n10 declare b as integer\n11\n12}\\mathrm{ set a = 0\n13\n14 if a = 0 then\n15 set b = 1\n16 end if\n17\n18 call myFunction\n19\n2 0 \\text { output a}\n21 output b\n22 output c\n23 output d\n24\n25 End MainProg\n```\n\n(a) State the outputs that this algorithm will give.",
+        "images": [],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2339,
+            "width": 1654
+        }
+    },
+    {
+        "index": 3,
+        "markdown": "(b) Explain why this algorithm does not work as intended.\n3. Apart from buses, describe the function of three main components in a contemporary Von Neumann type CPU architecture.",
+        "images": [],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2339,
+            "width": 1654
+        }
+    },
+    {
+        "index": 4,
+        "markdown": "4. Files $\\mathbf{A}$ and $\\mathbf{B}$ are stored on an external hard disk drive (HDD).\n![img-1.jpeg](img-1.jpeg)\n\nFile A\nFile B\n(a) Describe the functional characteristics of a HDD.",
+        "images": [
+            {
+                "id": "img-1.jpeg",
+                "top_left_x": 568,
+                "top_left_y": 348,
+                "bottom_right_x": 1080,
+                "bottom_right_y": 870,
+                "image_path": "2500U10-1-210519/images/img_4_0.jpeg"
+            }
+        ],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2339,
+            "width": 1654
+        }
+    },
+    {
+        "index": 5,
+        "markdown": "(b) (i) Explain why there would be a difference in disk access speeds when loading File A and File B into main memory.\n(ii) An alternative secondary storage medium which does not have the same issue as question (b)(i) is a Solid State Drive (SSD). Explain why this is the case.",
+        "images": [],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2339,
+            "width": 1654
+        }
+    },
+    {
+        "index": 6,
+        "markdown": "5. Give the simplest Boolean expression for each truth table.\n(a)\n\n| Input |  | Output |\n| :--: | :--: | :--: |\n| A | B | C |\n| 0 | 0 | 0 |\n| 1 | 0 | 1 |\n| 0 | 1 | 0 |\n| 1 | 1 | 0 |\n\n(b)\n\n| Input |  | Output |\n| :--: | :--: | :--: |\n| $\\mathbf{P}$ | $\\mathbf{Q}$ | $\\mathbf{R}$ |\n| 0 | 0 | 1 |\n| 1 | 0 | 0 |\n| 0 | 1 | 0 |\n| 1 | 1 | 0 |\n\n(c)\n\n| Input |  | Output |\n| :--: | :--: | :--: |\n| X | Y | Z |\n| 0 | 0 | 1 |\n| 1 | 0 | 0 |\n| 0 | 1 | 0 |\n| 1 | 1 | 1 |",
+        "images": [],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2339,
+            "width": 1654
+        }
+    },
+    {
+        "index": 7,
+        "markdown": "6. Parameters can be passed to procedures by reference.\n(a) Explain what is meant by the term parameter and how passing parameters by reference works.\n(b) Describe another method for passing parameters to a procedure.\n$\\qquad$\n$\\qquad$\n$\\qquad$\n$\\qquad$\n(c) Give one disadvantage of passing parameters by reference.",
+        "images": [],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2339,
+            "width": 1654
+        }
+    },
+    {
+        "index": 8,
+        "markdown": "7. (a) Draw a clearly labelled diagram that shows how a transaction file and master file are used during an update.\n(b) Describe the data used and the organisation of transaction files and a master file for an application of your choice.\n$\\qquad$\n$\\qquad$\n$\\qquad$\n$\\qquad$\n$\\qquad$\n$\\qquad$\n(c) Describe the most suitable mode of operation for your chosen application.",
+        "images": [],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2339,
+            "width": 1654
+        }
+    },
+    {
+        "index": 9,
+        "markdown": "8. Clearly showing each step, simplify the following Boolean expression using Boolean algebra and identities:\n\n$$\nA \\cdot(B+C)+A \\cdot(0+\\bar{A})+B \\cdot(1+C)\n$$\n\n$\\qquad$\n$\\qquad$\n$\\qquad$\n$\\qquad$\n$\\qquad$\n$\\qquad$",
+        "images": [],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2339,
+            "width": 1654
+        }
+    },
+    {
+        "index": 10,
+        "markdown": "9. Describe methods used in file security to prevent accidental data loss from computer systems.\n[6]",
+        "images": [],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2339,
+            "width": 1654
+        }
+    },
+    {
+        "index": 11,
+        "markdown": "10. Two different types of search algorithm are binary search and linear search.\n(a) The following is a binary search algorithm.\n\n```\n1 declare myArray[0 to 10]\n2}\\mathrm{ declare start is integer\n3}\\mathrm{ declare end is integer\n4}\\mathrm{ declare found is Boolean\n5}\\mathrm{ declare mid is integer\n6\n7}\\mathrm{ set start = 0\n8}\\mathrm{ set end = 10\n9}\\mathrm{ set found = FALSE\n10\n11}\\mathrm{ input searchValue\n12\n13 repeat\n14 set mid = (start + end) DIV 2\n15 if searchValue = myArray[mid] then\n16 set found = TRUE\n17 Output \"searchValue found at position\", mid\n18 end if\n19\n20 if searchValue > myArray[mid] then\n21 set start = mid + 1\n22 end if\n23\n24 if searchValue < myArray[mid] then\n25 set end = mid - 1\n26 end if\n27\n28 until (found = TRUE) OR (end < start)\n```\n\nBy crossing out or shading the discarded elements in the diagram below, show how the algorithm will reduce the part of the array being searched at each repetition.\nsearchValue $=22$\n\n|  | $(0)$ | $(1)$ | $(2)$ | $(3)$ | $(4)$ | $(5)$ | $(6)$ | $(7)$ | $(8)$ | $(9)$ | $(10)$ |\n| :--: | :--: | :--: | :--: | :--: | :--: | :--: | :--: | :--: | :--: | :--: | :--: |\n| Original Data | 12 | 22 | 27 | 31 | 38 | 54 | 63 | 71 | 73 | 87 | 92 |\n| Repetition 1 | 12 | 22 | 27 | 31 | 38 | 54 | 63 | 71 | 73 | 87 | 92 |\n| Repetition 2 | 12 | 22 | 27 | 31 | 38 | 54 | 63 | 71 | 73 | 87 | 92 |\n| Repetition 3 | 12 | 22 | 27 | 31 | 38 | 54 | 63 | 71 | 73 | 87 | 92 |",
+        "images": [],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2339,
+            "width": 1654
+        }
+    },
+    {
+        "index": 12,
+        "markdown": "(b) Write a linear search algorithm, using pseudo-code, for the following array.\n\n| (1) | (2) | (3) | (4) | (5) |\n| :--: | :--: | :--: | :--: | :--: |\n| 45 | 12 | 98 | 54 | 56 |\n| myArray |  |  |  |  |\n\nYour algorithm should output the position of the searchValue if it is found or a suitable message if the searchValue is not found.\n\nYour algorithm should be written using self-documenting identifiers.",
+        "images": [],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2339,
+            "width": 1654
+        }
+    },
+    {
+        "index": 13,
+        "markdown": "(c) Describe an appropriate circumstance for the use of each search type.\n11. (a) Convert $6 C_{16}$ and $A F_{16}$ into binary and add them together using binary addition.",
+        "images": [],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2339,
+            "width": 1654
+        }
+    },
+    {
+        "index": 14,
+        "markdown": "(b) In a certain computer system, real numbers are stored in normalised floating-point form using a positive 4 bit mantissa and a positive 4 bit exponent.\n![img-2.jpeg](img-2.jpeg)\n\nCalculate the denary range of positive real numbers that can be stored in this normalised floating-point form.\n\nShow all your workings.",
+        "images": [
+            {
+                "id": "img-2.jpeg",
+                "top_left_x": 420,
+                "top_left_y": 383,
+                "bottom_right_x": 1235,
+                "bottom_right_y": 526,
+                "image_path": "2500U10-1-210519/images/img_14_0.jpeg"
+            }
+        ],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2339,
+            "width": 1654
+        }
+    },
+    {
+        "index": 15,
+        "markdown": "(c) Give the advantages of representing numbers in integer form and in floating-point form.\n12. Describe the different methods of investigation used by a systems analyst.",
+        "images": [],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2339,
+            "width": 1654
+        }
+    },
+    {
+        "index": 16,
+        "markdown": "13. Discuss the advantages of using database systems and their associated features to store data.\n[11]",
+        "images": [],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2339,
+            "width": 1654
+        }
+    },
+    {
+        "index": 17,
+        "markdown": "# For continuation only. \n\n![img-3.jpeg](img-3.jpeg)\n\n\u5e8f\u7ae0 2 2 2\n\n![img-4.jpeg](img-4.jpeg)\n\n\u5e8f\u7ae0 3 2 2\n\n![img-5.jpeg](img-5.jpeg)\n\n\u5e8f\u7ae0 4 2 2\n\n![img-6.jpeg](img-6.jpeg)\n\n\u5e8f\u7ae0 5 2 2\n\n![img-7.jpeg](img-7.jpeg)\n\n\u5e8f\u7ae0 6 2 2\n\n![img-8.jpeg](img-8.jpeg)\n\n\u5e8f\u7ae0 7 2 2\n\n![img-9.jpeg](img-9.jpeg)\n\n\u5e8f\u7ae0 8 2 2",
+        "images": [
+            {
+                "id": "img-3.jpeg",
+                "top_left_x": 181,
+                "top_left_y": 311,
+                "bottom_right_x": 1452,
+                "bottom_right_y": 537,
+                "image_path": "2500U10-1-210519/images/img_17_0.jpeg"
+            },
+            {
+                "id": "img-4.jpeg",
+                "top_left_x": 181,
+                "top_left_y": 584,
+                "bottom_right_x": 1452,
+                "bottom_right_y": 790,
+                "image_path": "2500U10-1-210519/images/img_17_1.jpeg"
+            },
+            {
+                "id": "img-5.jpeg",
+                "top_left_x": 181,
+                "top_left_y": 818,
+                "bottom_right_x": 1452,
+                "bottom_right_y": 1026,
+                "image_path": "2500U10-1-210519/images/img_17_2.jpeg"
+            },
+            {
+                "id": "img-6.jpeg",
+                "top_left_x": 181,
+                "top_left_y": 1075,
+                "bottom_right_x": 1452,
+                "bottom_right_y": 1312,
+                "image_path": "2500U10-1-210519/images/img_17_3.jpeg"
+            },
+            {
+                "id": "img-7.jpeg",
+                "top_left_x": 181,
+                "top_left_y": 1309,
+                "bottom_right_x": 1452,
+                "bottom_right_y": 1522,
+                "image_path": "2500U10-1-210519/images/img_17_4.jpeg"
+            },
+            {
+                "id": "img-8.jpeg",
+                "top_left_x": 181,
+                "top_left_y": 1520,
+                "bottom_right_x": 1452,
+                "bottom_right_y": 1721,
+                "image_path": "2500U10-1-210519/images/img_17_5.jpeg"
+            },
+            {
+                "id": "img-9.jpeg",
+                "top_left_x": 181,
+                "top_left_y": 1754,
+                "bottom_right_x": 1452,
+                "bottom_right_y": 1957,
+                "image_path": "2500U10-1-210519/images/img_17_6.jpeg"
+            }
+        ],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2339,
+            "width": 1654
+        }
+    },
+    {
+        "index": 18,
+        "markdown": "# For continuation only. \n\n\uc774\ubbf8\uc9c0\n\n|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |",
+        "images": [],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2339,
+            "width": 1654
+        }
+    }
+]

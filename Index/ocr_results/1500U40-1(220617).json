@@ -1,0 +1,72 @@
+[
+    {
+        "index": 0,
+        "markdown": "# GCE A LEVEL - NEW \n\n1500U40-1\n\n## COMPUTER SCIENCE - A2 unit 4 Computer Architecture, Data, Communication and Applications\n\nTHURSDAY, 22 JUNE 2017 - MORNING\n2 hours\n\n|  |  |  |\n| :--: | :--: | :--: |\n| A D DITIONAL MATERIALS |  |  |\n| A WJEC pink 16-page answer booklet. |  |  |\n| A calculator. |  |  |\n| INSTRUCTIONS TO CANDIDATES |  |  |\n\nAnswer all questions.\nWrite your answers in the separate answer booklet provided.\n\n## INFORMATION FOR CANDIDATES\n\nThe number of marks is given in brackets at the end of each question or part-question; you are advised to divide your time accordingly.\nThe total number of marks available is 100 .\nAssessment will take into account the quality of written communication used in your answers.",
+        "images": [],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2339,
+            "width": 1654
+        }
+    },
+    {
+        "index": 1,
+        "markdown": "Answer all questions.\n\n1. Two tables have been created in a database using SQL commands. They are:\n\n| CUSTOMER |  |  |  |\n| :-- | :-- | :-- | :-- |\n| CustNum | CustName | DateOfFlight | FlightNum |\n| 12455 | McClintock | 02-Dec-17 | 370 |\n| 13670 | Storey | 03-Jun-17 | 378 |\n| 14777 | Rice | 23-Aug-17 | 345 |\n| 14756 | Radford | 28-Feb-17 | 370 |\n| 21328 | George | 18-Jan-17 | 378 |\n| FLIGHT | Destination | Terminal |  |\n| FlightNum | Rome | 1 |  |\n| 370 | Florida | 5 |  |\n| 345 | Bahrain | 1 |  |\n\n(a) Write an SQL command to output the names and flight numbers of all the customers. [1]\n(b) Write an SQL command to output all details of customers who are on flight number 370.\n(c) Write an SQL command to output the names of all the customers flying from Terminal 1.\n(d) Write an SQL command to create a new table FREQUENTFLYER to contain the Customer Number and Frequent Flyer points of each customer.\n(e) Write an SQL command to enter the following data into the new table.\n\n- Customer 21328 should have 210 points\n- Customer 14777 should have 300 points\n\n2. Describe the advantages of using a distributed database.",
+        "images": [],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2339,
+            "width": 1654
+        }
+    },
+    {
+        "index": 2,
+        "markdown": "3. A certain computer has an 8 bit accumulator with the following data stored in memory.\n\n- Memory location 1A holds the number $0_{10}$\n- Memory location 1B holds the number $1_{10}$\n- Memory location 1C holds the number $9_{10}$\n\nThe computer's assembly language instruction set contains the following commands.\n\n| Assembly Language Command | Description |\n| :--: | :-- |\n| LDA X | Load the accumulator with the contents of memory location X |\n| JGT LABEL | Jump to LABEL if the contents of the accumulator are greater <br> than zero |\n| ADD X | Add the contents of memory location X to the accumulator |\n| STAX | Copy the contents of the accumulator to memory location X |\n| CLR | Clear the contents of the accumulator |\n| OUT | Output the contents of the accumulator |\n| DEC X | Decrement the accumulator by the contents of memory <br> location X |\n\n(a) Write a simple program using only the assembly language commands above to output the integers $0_{10}$ to $9_{10}$.\n(b) Two extra commands are defined as follows:\n\n| ASR R | Performs an arithmetic shift right one place on register $R$ |\n| :--: | :-- |\n| LDR P, Q | Load register $P$ with the contents of memory location $Q$ |\n\nDemonstrate what the following fragment of code does, by showing the contents of registers and memory locations at each step.\n\n- Memory location 1D holds the number $01111000_{2}$\n- Memory location 1E holds the number $01000110_{2}$\n\n| LDR R, 1D |  |\n| :-- | :-- |\n| LDR S, 1E |  |\n| ASR R |  |\n| LDA R |  |\n| ADD S |  |\n| STA R |  |",
+        "images": [],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2339,
+            "width": 1654
+        }
+    },
+    {
+        "index": 3,
+        "markdown": "4. (a) Explain the meaning of the term parallel processing; your answer should make reference to how parallel processing carries out a single task.\n(b) Give four limiting factors of parallel processing.\n5. (a) Explain the difference between truncation and rounding giving a binary example of truncation and a denary example of rounding.\n(b) State which method generally produces a more accurate result.\n(c) Describe how absolute and relative errors are calculated when truncating and rounding.\n6. (a) Convert the hexadecimal numbers $-7_{16}$ and $A_{16}$ into two 8 bit binary numbers, using two's complementation. Using binary addition, calculate the binary number that would result from adding them.\n\nYou must show all of your working.\n(b) In a certain computer system, real numbers are stored in floating point form using 16 bits as shown below.\n\n| Mantissa | Exponent |\n| :-- | :-- |\n| 12 bits in two's complement form. The binary | 4 bits in two's complement form |\n| point in the mantissa is immediately after the |  |\n| left bit. |  |\n\nClearly showing your working, convert $42.875_{10}$ into this format.\n(c) In a different computer system, real numbers are stored in floating point form, an 8 bit signed mantissa and a 4 bit signed exponent.\n\nClearly showing your working, calculate the decimal value of $0.11110110101_{2}$",
+        "images": [],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2339,
+            "width": 1654
+        }
+    },
+    {
+        "index": 4,
+        "markdown": "7. (a) When scheduling, name and describe the three basic states of a process.\n(b) Interrupts cause the operating system to respond to system events. Give two examples of common interrupts.\n(c) Describe a single buffer and a double buffer. Explain the role of a single buffer and a double buffer. Explain why double buffering is usually preferred.\n8. Cryptography uses asymmetric or symmetric encryption methods.\n\nSymmetric encryption methods use a single key which encrypts and decrypts data. Asymmetric encryption methods use a public key for encryption and a private key for data decryption.\n(a) Describe the advantages of asymmetric encryption and the advantages of symmetric encryption.\n(b) The Boolean operation XOR is often used in cryptography.\n\nIn the 8 bit ASCII character set, the characters OK! are represented by the following binary numbers.\n$O=01001111_{2}$\n$K=01001011_{2}$\n$!=00100001_{2}$\nUse XOR to encrypt the string OK! with the 8 bit binary key $11110011_{2}$\n(c) Describe two deficiencies of the key used in question 8(b).\n9. A company with a large office building operates a \"Bring Your Own Device to Work\" (BYOD) scheme allowing employees to use personal devices (e.g. tablet or laptop) on the company's network.\n(a) Describe the hardware necessary to connect a device to the company's network wirelessly and provide an Internet connection.\n(b) Identify and describe two network applications that could be used by an employee with a connected device.",
+        "images": [],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2339,
+            "width": 1654
+        }
+    },
+    {
+        "index": 5,
+        "markdown": "10. Expert systems are widely used by organisations for a variety of purposes. Describe the benefits to an organisation of using an expert system.\n11. Explain the use of multi-level indexes and draw a diagram to demonstrate the operation of a three-level index.\n12. Khan's Pharmaceuticals currently uses an ID card system to control employee access to its premises. This has proved problematical with employees swapping cards and the company now wishes to use a voice print recognition system in its place.\n\nDescribe how this system would operate and explain the benefits and drawbacks associated with a biometric system used for this purpose.\n\n# END OF PAPER",
+        "images": [],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2339,
+            "width": 1654
+        }
+    },
+    {
+        "index": 6,
+        "markdown": "# BLANK PAGE",
+        "images": [],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2339,
+            "width": 1654
+        }
+    }
+]
