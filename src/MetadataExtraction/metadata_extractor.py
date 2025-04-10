@@ -3,10 +3,13 @@ Metadata extraction module for exam paper content.
 """
 
 import json
+import os
 from pathlib import Path
 from typing import Dict, Any, Optional
+from dotenv import load_dotenv
 
-from src.llm_client import LLMClient
+from Llm_client.base_client import LLMClient
+from Prompting.prompt import Prompt
 
 
 class MetadataExtractor:
@@ -25,6 +28,9 @@ class MetadataExtractor:
             llm_client (LLMClient): An initialized LLM client
         """
         self.llm_client = llm_client
+        # Load environment variables for configuration
+        load_dotenv()
+        self.max_index = int(os.getenv('MAX_INDEX_FOR_METADATA_SCANNING', '4'))
     
     def extract_metadata(self, ocr_content: Dict[str, Any], metadata_prompt: str) -> Dict[str, Any]:
         """
@@ -43,9 +49,16 @@ class MetadataExtractor:
         # Extract the text content from OCR JSON
         text_content = self._extract_text_from_ocr(ocr_content)
         
+        ## Combine the prompt.
+        #  TODO: Make a metadata prompt class.
+
+        prompt_contents = [text_content, "\n\n", metadata_prompt]
+        metadata_prompt = Prompt(prompt_contents).get()
+        
+        
         try:
             # Use the LLM client to extract metadata
-            metadata = self.llm_client.extract_metadata(text_content, metadata_prompt)
+            metadata = self.llm_client.extract_metadata(metadata_prompt)
             
             # Validate the required fields
             self._validate_required_fields(metadata)
@@ -68,15 +81,23 @@ class MetadataExtractor:
             ValueError: If text content cannot be extracted
         """
         try:
-            # We expect the OCR content to have certain structure
-            # This may need to be adapted based on the actual OCR output format
-            if "pages" in ocr_content:
+            # Check if OCR content is in the expected array format with index and markdown
+            if isinstance(ocr_content, list) and len(ocr_content) > 0 and "index" in ocr_content[0] and "markdown" in ocr_content[0]:
+                # Extract text from each page up to the max index for metadata scanning
+                text_content = ""
+                for page in ocr_content:
+                    if "index" in page and page["index"] <= self.max_index and "markdown" in page:
+                        text_content += page["markdown"] + "\n\n"
+                return text_content
+            # Check if OCR content has pages structure
+            elif "pages" in ocr_content:
                 # Extract text from each page
                 text_content = ""
                 for page in ocr_content["pages"]:
                     if "text" in page:
                         text_content += page["text"] + "\n\n"
                 return text_content
+            # Check for simple text field
             elif "text" in ocr_content:
                 # Simple format with just text field
                 return ocr_content["text"]

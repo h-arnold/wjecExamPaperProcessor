@@ -6,6 +6,7 @@ from .base_client import LLMClient
 from mistralai import Mistral
 from typing import Dict, Any, Optional
 import json
+from json_repair import repair_json
 
 
 class MistralLLMClient(LLMClient):
@@ -36,7 +37,7 @@ class MistralLLMClient(LLMClient):
             str: The generated text response
         """
         options = {**self.options, **kwargs}
-        response = self.client.chat(
+        response = self.client.chat.complete(
             model=self.model,
             messages=[{"role": "user", "content": prompt}],
             **options
@@ -57,7 +58,7 @@ class MistralLLMClient(LLMClient):
         json_prompt = f"{prompt}\n\nPlease provide your response in valid JSON format only."
         options = {**self.options, **kwargs}
         
-        response = self.client.chat(
+        response = self.client.chat.complete(
             model=self.model,
             messages=[{"role": "user", "content": json_prompt}],
             **options
@@ -66,26 +67,26 @@ class MistralLLMClient(LLMClient):
         try:
             # Extract JSON from the response
             text_response = response.choices[0].message.content
-            # Strip any markdown code block formatting if present
-            if "```json" in text_response:
-                text_response = text_response.split("```json")[1].split("```")[0].strip()
-            elif "```" in text_response:
-                text_response = text_response.split("```")[1].split("```")[0].strip()
+            # Strip everything before the first { and after the last }
+            first_brace = text_response.find('{')
+            last_brace = text_response.rfind('}')
+            if first_brace != -1 and last_brace != -1:
+                text_response = text_response[first_brace:last_brace+1]
+                # Use json_repair to clean up any malformed JSON
+                repaired_json = repair_json(text_response)
             
-            return json.loads(text_response)
+            return json.loads(repaired_json)
         except json.JSONDecodeError as e:
             raise ValueError(f"Failed to parse JSON response from Mistral API: {e}")
     
-    def extract_metadata(self, content: str, metadata_prompt: str) -> Dict[str, Any]:
+    def extract_metadata(self, prompt: str) -> Dict[str, Any]:
         """
         Extract metadata using Mistral's understanding of the content.
         
         Args:
-            content (str): The content to extract metadata from
-            metadata_prompt (str): The prompt that guides the extraction process
+            prompt (str): The prompt that guides the metadata extraction process
             
         Returns:
             Dict[str, Any]: The extracted metadata as a structured dictionary
         """
-        full_prompt = f"{metadata_prompt}\n\nAnalyze the following content to extract metadata:\n\n{content}"
-        return self.generate_json(full_prompt)
+        return self.generate_json(prompt)

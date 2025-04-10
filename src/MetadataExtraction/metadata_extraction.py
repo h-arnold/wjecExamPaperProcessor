@@ -11,9 +11,11 @@ import argparse
 from pathlib import Path
 from typing import Dict, Any, List, Optional, Union
 
-from src.llm_client.factory import LLMClientFactory
-from src.document_processor import DocumentProcessor
-from src.Prompting.prompt import Prompt
+from Llm_client.factory import LLMClientFactory
+from MetadataExtraction.document_processor import DocumentProcessor
+from MetadataExtraction.file_manager import MetadataFileManager
+from MetadataExtraction.index_manager import IndexManager
+from Prompting.prompt import Prompt
 
 
 def extract_metadata_from_file(
@@ -45,25 +47,20 @@ def extract_metadata_from_file(
         model="mistral-small-latest" if provider == "mistral" else None
     )
     
-    # Load prompt using the Prompt class if prompt_path is provided
-    if prompt_path:
-        prompt_obj = Prompt({"metadata_extraction": prompt_path})
-        metadata_prompt = prompt_obj.get()
-    else:
-        metadata_prompt = "./Prompts/metadataCreator.md"
+   
+    # Create file and index managers first
+    file_manager = MetadataFileManager(base_dir=base_metadata_dir)
+    index_manager = IndexManager(index_path=index_path)
     
-    # Create document processor
+    # Create document processor with properly instantiated managers
     processor = DocumentProcessor(
         llm_client=llm_client,
-        metadata_prompt_path=prompt_path,  # Will be ignored if we loaded prompt above
-        file_manager_kwargs={"base_dir": base_metadata_dir},
-        index_manager_kwargs={"index_path": index_path}
+        file_manager=file_manager,
+        index_manager=index_manager,
+        metadata_prompt_path=None  # We'll set the prompt directly below
     )
     
-    # If we loaded prompt using Prompt class, we need to set it directly
-    if metadata_prompt:
-        processor.metadata_prompt = metadata_prompt
-    
+   
     # Process the document
     result = processor.process_document(ocr_file_path)
     
@@ -119,14 +116,19 @@ def extract_metadata_from_directory(
         prompt_obj = Prompt({"metadata_extraction": prompt_path})
         metadata_prompt = prompt_obj.get()
     else:
-        metadata_prompt = None
+        prompt_obj = Prompt({"metadata_extraction": "./Prompts/metadataCreator.md"})
+        metadata_prompt = prompt_obj.get()
     
-    # Create document processor
+    # Create file and index managers first
+    file_manager = MetadataFileManager(base_dir=base_metadata_dir)
+    index_manager = IndexManager(index_path=index_path)
+    
+    # Create document processor with properly instantiated managers
     processor = DocumentProcessor(
         llm_client=llm_client,
-        metadata_prompt_path=prompt_path,  # Will be ignored if we loaded prompt above
-        file_manager_kwargs={"base_dir": base_metadata_dir},
-        index_manager_kwargs={"index_path": index_path}
+        file_manager=file_manager,
+        index_manager=index_manager,
+        metadata_prompt_path=None  # We'll set the prompt directly below
     )
     
     # If we loaded prompt using Prompt class, we need to set it directly

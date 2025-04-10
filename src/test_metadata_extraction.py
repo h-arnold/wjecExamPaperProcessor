@@ -13,10 +13,7 @@ from pathlib import Path
 sys.path.insert(0, os.path.abspath(os.path.dirname(__file__)))
 
 # Import necessary modules from the project
-from src.metadata_extraction import extract_metadata_from_file
-from src.llm_client.factory import LLMClientFactory
-from src.document_processor import DocumentProcessor
-
+from MetadataExtraction.metadata_extraction import extract_metadata_from_file
 
 def test_metadata_extraction(
     ocr_file_path: str,

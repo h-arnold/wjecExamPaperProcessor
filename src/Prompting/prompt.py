@@ -1,18 +1,17 @@
 from pathlib import Path
-from typing import Dict, Union
+from typing import List
 
 class Prompt:
     """
     A class to construct a prompt by concatenating a set of strings or markdown files.
 
     Attributes:
-        sources (Dict[str, Union[str, Path]]):
-            A dictionary where each value is either:
-            - A string (literal content to be included directly), or
-            - A path (string or Path object) to a markdown file to be read and included.
+        sources (List[str]):
+            A list of strings to be concatenated into a prompt.
+
     """
 
-    def __init__(self, sources: Dict[str, Union[str, Path]]):
+    def __init__(self, sources: List[str]):
         """
         Initialise the Prompt object.
 
@@ -25,24 +24,17 @@ class Prompt:
 
     def _build_prompt(self) -> str:
         """
-        Process the dictionary and concatenate all text contents in order.
+        Process the list and concatenate all text contents in order.
 
         Returns:
             str: The concatenated prompt text.
         """
         prompt_parts = []
 
-        for key, value in self.sources.items():
-            if isinstance(value, (str, Path)) and Path(value).is_file():
-                # If the value is a path to a markdown file, read the file
-                try:
-                    content = Path(value).read_text(encoding='utf-8')
-                except Exception as e:
-                    raise ValueError(f"Error reading file '{value}': {e}")
-                prompt_parts.append(content.strip())
-            else:
-                # Otherwise, assume it's a literal string
-                prompt_parts.append(str(value).strip())
+        for value in self.sources:
+            if not isinstance(value, str):
+                raise ValueError(f"Error: '{value}' is not a string. All entries in the list must be strings.")
+            prompt_parts.append(value.strip())
 
         return "\n\n".join(prompt_parts)
 

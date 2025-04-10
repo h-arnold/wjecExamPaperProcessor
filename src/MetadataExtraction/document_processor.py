@@ -10,10 +10,10 @@ import glob
 from pathlib import Path
 from typing import Dict, Any, List, Optional, Union
 
-from src.llm_client import LLMClient
-from src.metadata_extractor import MetadataExtractor
-from src.file_manager import MetadataFileManager
-from src.index_manager import IndexManager
+from Llm_client.base_client import LLMClient
+from MetadataExtraction.metadata_extractor import MetadataExtractor
+from MetadataExtraction.file_manager import MetadataFileManager
+from MetadataExtraction.index_manager import IndexManager
 
 
 class DocumentProcessor:
@@ -52,7 +52,7 @@ class DocumentProcessor:
             self.metadata_prompt = Path(metadata_prompt_path).read_text(encoding='utf-8')
         else:
             # Default to looking in a standard location
-            default_prompt_path = Path("Prompts/metadataCreator.md")
+            default_prompt_path = Path("src/Prompts/metadataCreator.md")
             if default_prompt_path.exists():
                 self.metadata_prompt = default_prompt_path.read_text(encoding='utf-8')
             else:
