@@ -90,6 +90,15 @@ wheels = [
 ]
 
 [[package]]
+name = "json-repair"
+version = "0.41.0"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/a7/79/bfe51a451f6504e2fe40ccc01c59735736cd05cdcea8421fa2745049caca/json_repair-0.41.0.tar.gz", hash = "sha256:c9ee227d949d5da463024942b715e0e331f9f96cb7377e2f85a661b21596c50b", size = 31167 }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/c5/f3/07804982ee14f80f480796949c9d218ac6385e35b2e5597ef4fe6e2bd51c/json_repair-0.41.0-py3-none-any.whl", hash = "sha256:e3be820988fa210fe046e54c8475eafa9e069f1b85d67725f842eb00d1b61f21", size = 21705 },
+]
+
+[[package]]
 name = "mistralai"
 version = "1.6.0"
 source = { registry = "https://pypi.org/simple" }
@@ -227,12 +236,14 @@ name = "wjecexampaperprocessor"
 version = "0.1.0"
 source = { virtual = "." }
 dependencies = [
+    { name = "json-repair" },
     { name = "mistralai" },
     { name = "python-dotenv" },
 ]
 
 [package.metadata]
 requires-dist = [
+    { name = "json-repair", specifier = ">=0.41.0" },
     { name = "mistralai", specifier = ">=1.6.0" },
     { name = "python-dotenv", specifier = ">=1.1.0" },
 ]

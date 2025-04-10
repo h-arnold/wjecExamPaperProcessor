@@ -10,7 +10,8 @@ You must return a valid JSON object with the following fields:
 
 ---
 
-### Required Fields (always include):
+### Required Fields (always include)
+
 - `Type`: one of the following:
   - `"Question Paper"`
   - `"Mark Scheme"`
@@ -36,7 +37,8 @@ You must return a valid JSON object with the following fields:
 
 ---
 
-### Optional Fields (include only if they appear on the document):
+### Optional Fields (include only if they appear on the document)
+
 - `Information for Candidates`: instructions aimed at candidates
 - `Information for Examiners`: instructions aimed at examiners
 - `Total Marks`: total number of marks available in the exam (e.g. `80`, `120`)
@@ -48,6 +50,7 @@ Omit optional fields if not explicitly shown on the cover page.
 ## Output Examples
 
 ### Example 1 (Question Paper, all fields included)
+
 ```json
 {
   "Type": "Question Paper",
@@ -66,6 +69,7 @@ Omit optional fields if not explicitly shown on the cover page.
 ---
 
 ### Example 2 (Mark Scheme, no optional fields)
+
 ```json
 {
   "Type": "Mark Scheme",
