@@ -70,6 +70,40 @@ class IndexManager:
             if doc.get("id") == document_id:
                 return doc
         return None
+    
+    def _extract_unit_number(self, exam_paper: str) -> Optional[int]:
+        """
+        Extract unit number from exam paper title.
+        
+        Args:
+            exam_paper (str): The exam paper title
+            
+        Returns:
+            int or None: The unit number if found, otherwise None
+        """
+        if not exam_paper:
+            return None
+            
+        # Look for patterns like "Unit 3" or "unit 3" or "Unit3"
+        unit_patterns = [
+            r'unit\s*(\d)',  # matches "Unit 3" or "unit3"
+            r'Unit\s*(\d)',  # matches "Unit 3" or "Unit3"
+            r'UNIT\s*(\d)',  # matches "UNIT 3" or "UNIT3"
+            r'u(\d+)-',      # matches "u30-" in exam codes like "1500u30-1"
+            r'U(\d+)-',      # matches "U30-" in exam codes like "1500U30-1"
+            r'u(\d+)\w',     # matches "u30" in exam codes
+            r'U(\d+)\w'      # matches "U30" in exam codes
+        ]
+        
+        for pattern in unit_patterns:
+            match = re.search(pattern, exam_paper, re.IGNORECASE)
+            if match:
+                try:
+                    return int(match.group(1))
+                except (ValueError, IndexError):
+                    continue
+                    
+        return None
         
     def update_index(self, metadata: Dict[str, Any], content_path: str, 
                      metadata_path: str) -> Dict[str, Any]:
@@ -87,6 +121,12 @@ class IndexManager:
         # Extract ID from content path
         document_id = Path(content_path).stem
         
+        # Extract unit number from exam paper title
+        unit_number = self._extract_unit_number(metadata.get("Exam Paper", ""))
+        if unit_number is None and document_id:
+            # Try to extract from document ID if not found in exam paper
+            unit_number = self._extract_unit_number(document_id)
+        
         # Create index entry
         index_entry = {
             "id": document_id,
@@ -98,6 +138,7 @@ class IndexManager:
             "exam_season": metadata.get("Exam Season"),
             "content_path": str(content_path),
             "metadata_path": str(metadata_path),
+            "unit_number": unit_number,
             "related_documents": []
         }
         
@@ -243,3 +284,125 @@ class IndexManager:
                 results.append(doc)
                 
         return results
+
+    def sort_index(self):
+        """
+        Sort the index by subject, year, qualification, and unit_number.
+        
+        This helps organize the index to group related documents together.
+        
+        Returns:
+            List[Dict[str, Any]]: The sorted list of documents
+        """
+        # First, ensure all documents have unit_number
+        for doc in self.index["documents"]:
+            if "unit_number" not in doc or doc["unit_number"] is None:
+                # Try to extract from exam_paper field
+                if "exam_paper" in doc and doc["exam_paper"]:
+                    doc["unit_number"] = self._extract_unit_number(doc["exam_paper"])
+                # Try to extract from id field
+                if ("unit_number" not in doc or doc["unit_number"] is None) and "id" in doc:
+                    doc["unit_number"] = self._extract_unit_number(doc["id"])
+        
+        # Sort the documents
+        sorted_docs = sorted(
+            self.index["documents"], 
+            key=lambda x: (
+                x.get("subject", ""), 
+                x.get("year", 0), 
+                x.get("qualification", ""), 
+                x.get("unit_number", 0) if x.get("unit_number") is not None else 999
+            )
+        )
+        
+        # Update the index
+        self.index["documents"] = sorted_docs
+        self.save_index()
+        
+        return sorted_docs
+        
+    def find_related_by_unit(self, document_id: str) -> List[Dict[str, Any]]:
+        """
+        Find related documents based on unit number, year, and qualification.
+        
+        This helps identify question papers and mark schemes that belong together
+        even if they don't follow the standard naming pattern.
+        
+        Args:
+            document_id (str): The document ID to find relations for
+            
+        Returns:
+            List[Dict[str, Any]]: List of related documents
+        """
+        doc = self.find_document_by_id(document_id)
+        if not doc:
+            return []
+            
+        related = []
+        
+        # Only proceed if we have a unit number
+        if "unit_number" not in doc or doc["unit_number"] is None:
+            return []
+            
+        # Determine the document type we're looking for
+        target_type = "Mark Scheme" if doc["type"] == "Question Paper" else "Question Paper"
+        
+        for other_doc in self.index["documents"]:
+            # Skip self or documents that don't match our target type
+            if other_doc["id"] == doc["id"] or other_doc["type"] != target_type:
+                continue
+                
+            # Check for matching unit, year, subject, and qualification
+            if (other_doc.get("unit_number") == doc["unit_number"] and
+                other_doc.get("year") == doc.get("year") and
+                other_doc.get("subject") == doc.get("subject") and
+                other_doc.get("qualification") == doc.get("qualification")):
+                related.append(other_doc)
+                
+                # Also update the relation in both documents
+                if other_doc["id"] not in doc.get("related_documents", []):
+                    if "related_documents" not in doc:
+                        doc["related_documents"] = []
+                    doc["related_documents"].append(other_doc["id"])
+                    
+                if doc["id"] not in other_doc.get("related_documents", []):
+                    if "related_documents" not in other_doc:
+                        other_doc["related_documents"] = []
+                    other_doc["related_documents"].append(doc["id"])
+        
+        # Save the index with the new relationships
+        self.save_index()
+        return related
+        
+    def update_all_document_relations(self):
+        """
+        Update relationships for all documents in the index.
+        
+        This method processes all documents to find related question papers
+        and mark schemes based on unit numbers and metadata.
+        
+        Returns:
+            int: Number of relationships found and updated
+        """
+        relationship_count = 0
+        
+        # First ensure all documents have unit numbers
+        for doc in self.index["documents"]:
+            if "unit_number" not in doc or doc["unit_number"] is None:
+                # Try to extract from exam_paper field
+                if "exam_paper" in doc and doc["exam_paper"]:
+                    doc["unit_number"] = self._extract_unit_number(doc["exam_paper"])
+                # Try to extract from id field
+                if ("unit_number" not in doc or doc["unit_number"] is None) and "id" in doc:
+                    doc["unit_number"] = self._extract_unit_number(doc["id"])
+        
+        # Then find relationships
+        for doc in self.index["documents"]:
+            # Find related documents based on pattern matching
+            self._update_related_documents(doc["id"])
+            
+            # Find related documents based on unit numbers
+            related = self.find_related_by_unit(doc["id"])
+            relationship_count += len(related)
+        
+        return relationship_count

@@ -1,3 +1,5 @@
+FileManager
+IndexManager
 Llm_client
 MetadataExtraction
 Prompts
