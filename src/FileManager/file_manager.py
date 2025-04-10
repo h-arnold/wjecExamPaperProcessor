@@ -3,7 +3,6 @@ File management module for the WJEC Exam Paper Processor.
 Handles file I/O operations and organization of metadata files.
 """
 
-import os
 import json
 from pathlib import Path
 from typing import Dict, Any, Optional, Union

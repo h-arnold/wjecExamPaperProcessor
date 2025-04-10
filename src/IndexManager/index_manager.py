@@ -5,7 +5,7 @@ Index manager for maintaining the master index of exam documents.
 import json
 import re
 from pathlib import Path
-from typing import Dict, Any, List, Optional, Union
+from typing import Dict, Any, List, Optional
 
 
 class IndexManager:

@@ -13,8 +13,8 @@ from typing import Dict, Any, List, Optional, Union
 
 from Llm_client.factory import LLMClientFactory
 from MetadataExtraction.document_processor import DocumentProcessor
-from MetadataExtraction.file_manager import MetadataFileManager
-from MetadataExtraction.index_manager import IndexManager
+from FileManager.file_manager import MetadataFileManager
+from IndexManager.index_manager import IndexManager
 from Prompting.prompt import Prompt
 
 

@@ -12,8 +12,8 @@ from typing import Dict, Any, List, Optional, Union
 
 from Llm_client.base_client import LLMClient
 from MetadataExtraction.metadata_extractor import MetadataExtractor
-from MetadataExtraction.file_manager import MetadataFileManager
-from MetadataExtraction.index_manager import IndexManager
+from FileManager.file_manager import MetadataFileManager
+from IndexManager.index_manager import IndexManager
 
 
 class DocumentProcessor:
