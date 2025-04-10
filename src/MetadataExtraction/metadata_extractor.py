@@ -5,11 +5,10 @@ Metadata extraction module for exam paper content.
 import json
 import os
 from pathlib import Path
-from typing import Dict, Any, Optional
+from typing import Dict, Any, Optional, List
 from dotenv import load_dotenv
 
 from Llm_client.base_client import LLMClient
-from Prompting.prompt import Prompt
 
 
 class MetadataExtractor:
@@ -32,13 +31,14 @@ class MetadataExtractor:
         load_dotenv()
         self.max_index = int(os.getenv('MAX_INDEX_FOR_METADATA_SCANNING', '4'))
     
-    def extract_metadata(self, ocr_content: Dict[str, Any], metadata_prompt: str) -> Dict[str, Any]:
+    def extract_metadata(self, ocr_content: Dict[str, Any], metadata_prompt: str = None) -> Dict[str, Any]:
         """
         Extract metadata from OCR content using the LLM client.
         
         Args:
             ocr_content (Dict[str, Any]): The OCR JSON content
-            metadata_prompt (str): The prompt that guides metadata extraction
+            metadata_prompt (str, optional): Optional custom metadata prompt text to use instead of loading
+                                           the default template. Default: None (use standard template)
             
         Returns:
             Dict[str, Any]: Extracted metadata
@@ -49,23 +49,94 @@ class MetadataExtractor:
         # Extract the text content from OCR JSON
         text_content = self._extract_text_from_ocr(ocr_content)
         
-        ## Combine the prompt.
-        #  TODO: Make a metadata prompt class.
-
-        prompt_contents = [text_content, "\n\n", metadata_prompt]
-        metadata_prompt = Prompt(prompt_contents).get()
-        
+        # Create a metadata prompt using our specialized class
+        from Prompting.prompt import MetadataPrompt
+        formatted_prompt = MetadataPrompt(text_content).get()
         
         try:
             # Use the LLM client to extract metadata
-            metadata = self.llm_client.extract_metadata(metadata_prompt)
+            metadata = self.llm_client.extract_metadata(formatted_prompt)
             
-            # Validate the required fields
+            # Check for missing fields and retry if needed
+            missing_fields = self._validate_required_fields(metadata, raise_error=False)
+            if missing_fields:
+                # Try one more time with a targeted retry prompt
+                metadata = self._retry_metadata_extraction(metadata, text_content, missing_fields)
+            
+            # Validate the required fields after final attempt
             self._validate_required_fields(metadata)
             
             return metadata
         except Exception as e:
             raise ValueError(f"Metadata extraction failed: {str(e)}")
+    
+    def _retry_metadata_extraction(self, initial_metadata: Dict[str, Any], 
+                                 text_content: str, 
+                                 missing_fields: List[str]) -> Dict[str, Any]:
+        """
+        Retry metadata extraction with a targeted prompt focusing on missing fields.
+        
+        Args:
+            initial_metadata (Dict[str, Any]): The initially extracted metadata with missing fields
+            text_content (str): The original text content
+            missing_fields (List[str]): List of missing required fields
+            
+        Returns:
+            Dict[str, Any]: The updated metadata after retry
+        """
+        # Create a specific retry prompt that includes the original results and what's missing
+        retry_prompt_text = (
+            f"You previously extracted the following metadata from an exam paper:\n"
+            f"{json.dumps(initial_metadata, indent=2)}\n\n"
+            f"However, the following required fields are missing or incomplete: {', '.join(missing_fields)}\n"
+            f"Please analyze the text again and return a COMPLETE JSON object with ALL required fields filled in.\n"
+            f"Focus especially on finding the missing information. Required fields are: "
+            f"Type, Qualification, Year, Subject, Exam Paper, Exam Season, Exam Length.\n\n"
+            f"Original text content:\n{text_content}"
+        )
+        
+        # Create a prompt object for the retry
+        from Prompting.prompt import Prompt
+        retry_prompt = Prompt(retry_prompt_text)
+        
+        # Try again with the enhanced prompt
+        retry_metadata = self.llm_client.extract_metadata(retry_prompt.get())
+        
+        # Merge the results, preferring the new extraction but keeping any old fields that might be lost
+        for key, value in initial_metadata.items():
+            if key not in retry_metadata and value:  # Keep any non-empty values from the original
+                retry_metadata[key] = value
+                
+        return retry_metadata
+    
+    def _validate_required_fields(self, metadata: Dict[str, Any], raise_error: bool = True) -> Optional[List[str]]:
+        """
+        Validate that metadata contains all required fields.
+        
+        Args:
+            metadata (Dict[str, Any]): Metadata to validate
+            raise_error (bool, optional): Whether to raise an error if fields are missing. Default: True
+            
+        Returns:
+            Optional[List[str]]: List of missing field names if raise_error is False, None otherwise
+            
+        Raises:
+            ValueError: If any required field is missing and raise_error is True
+        """
+        required_fields = [
+            "Type", "Qualification", "Year", "Subject", 
+            "Exam Paper", "Exam Season"
+        ]
+        
+        missing_fields = []
+        for field in required_fields:
+            if field not in metadata or not metadata[field]:
+                missing_fields.append(field)
+        
+        if missing_fields and raise_error:
+            raise ValueError(f"Missing required metadata fields: {', '.join(missing_fields)}")
+        
+        return missing_fields if not raise_error else None
     
     def _extract_text_from_ocr(self, ocr_content: Dict[str, Any]) -> str:
         """
@@ -106,29 +177,6 @@ class MetadataExtractor:
                 raise ValueError("Unexpected OCR content format")
         except Exception as e:
             raise ValueError(f"Failed to extract text from OCR content: {str(e)}")
-    
-    def _validate_required_fields(self, metadata: Dict[str, Any]):
-        """
-        Validate that metadata contains all required fields.
-        
-        Args:
-            metadata (Dict[str, Any]): Metadata to validate
-            
-        Raises:
-            ValueError: If any required field is missing
-        """
-        required_fields = [
-            "Type", "Qualification", "Year", "Subject", 
-            "Exam Paper", "Exam Season", "Exam Length"
-        ]
-        
-        missing_fields = []
-        for field in required_fields:
-            if field not in metadata:
-                missing_fields.append(field)
-                
-        if missing_fields:
-            raise ValueError(f"Missing required metadata fields: {', '.join(missing_fields)}")
     
     def enrich_metadata(self, metadata: Dict[str, Any], file_path: str) -> Dict[str, Any]:
         """
