@@ -1,0 +1,135 @@
+Metadata-Version: 2.4
+Name: wjecexampaperprocessor
+Version: 0.1.0
+Summary: Add your description here
+Requires-Python: >=3.12
+Description-Content-Type: text/markdown
+Requires-Dist: mistralai>=1.6.0
+Requires-Dist: python-dotenv>=1.1.0
+
+# PDF OCR Processor with Mistral AI
+
+A Python application for processing PDF documents using Mistral AI's OCR (Optical Character Recognition) API. This tool automatically extracts text and images from PDF files and saves the results in structured JSON format.
+
+## Features
+
+- Automatic processing of multiple PDF files
+- OCR text extraction from PDFs using Mistral AI's OCR API
+- Extraction and saving of images found in PDFs
+- JSON output with structured OCR results
+- Automatic source file cleanup after successful processing
+
+## Architecture
+
+### Components
+
+1. **MistralOCRClient (`mistralOCRClient.py`)**
+   - Handles communication with Mistral AI's API
+   - Manages file uploads, signed URL generation, and OCR processing
+
+2. **PDF_OCR_Processor (`pdfOcrProcessor.py`)**
+   - Processes PDF files from a source directory
+   - Extracts and saves images from OCR results
+   - Serializes OCR results to JSON format
+   - Manages file system operations
+
+3. **Main Script (`main.py`)**
+   - Application entry point
+   - Initializes all necessary components
+   - Manages configuration and environment variables
+
+## Setup and Installation
+
+### Prerequisites
+
+- Python 3.8 or higher
+- Mistral AI API key
+
+### Installation
+
+1. Clone the repository:
+   ```bash
+   git clone https://github.com/yourusername/examPapersInMarkdown.git
+   cd examPapersInMarkdown
+   ```
+
+2. Install the required packages:
+   ```bash
+   pip install mistralai
+   ```
+
+3. Set up your Mistral AI API key as an environment variable:
+   ```bash
+   export MISTRAL_API_KEY="your-api-key"
+   ```
+   
+   For Windows:
+   ```powershell
+   set MISTRAL_API_KEY=your-api-key
+   ```
+
+4. Create the required directories:
+   ```bash
+   mkdir -p source_pdfs ocr_results
+   ```
+
+## Usage
+
+1. Place your PDF files in the `source_pdfs` directory.
+
+2. Run the main script:
+   ```bash
+   python src/main.py
+   ```
+
+3. The OCR results will be saved in the `ocr_results` directory. For each PDF:
+   - A JSON file with the OCR text data
+   - An images directory containing extracted images (if any)
+
+## Configuration
+
+The application can be configured by modifying the following variables in `main.py`:
+
+- `source_folder`: The directory containing the source PDF files (default: `./source_pdfs`)
+- `destination_folder`: The directory where OCR results will be saved (default: `./ocr_results`)
+- The OCR model can be changed by modifying the `model` parameter when initializing `MistralOCRClient`
+
+## Output Format
+
+The OCR results are saved as JSON files with the following structure:
+
+```json
+[
+  {
+    "page_number": 1,
+    "text": "Extracted text content...",
+    "images": [
+      {
+        "image_path": "relative/path/to/image.jpeg",
+        "bounding_box": {
+          "x0": 100,
+          "y0": 200,
+          "x1": 300,
+          "y1": 400
+        }
+      }
+    ]
+  }
+]
+```
+
+## Error Handling
+
+The application includes comprehensive logging to help diagnose issues:
+
+- Information messages track the processing progress
+- Error messages capture exceptions during processing
+- Each file is processed independently, so errors with one file won't affect others
+
+## License
+
+[Add your license information here]
+
+## Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.

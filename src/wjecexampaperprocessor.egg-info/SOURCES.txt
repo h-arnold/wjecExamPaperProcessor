@@ -1,0 +1,11 @@
+README.md
+pyproject.toml
+src/main.py
+src/mistralOCRClient.py
+src/pdfOcrProcessor.py
+src/Prompting/prompt.py
+src/wjecexampaperprocessor.egg-info/PKG-INFO
+src/wjecexampaperprocessor.egg-info/SOURCES.txt
+src/wjecexampaperprocessor.egg-info/dependency_links.txt
+src/wjecexampaperprocessor.egg-info/requires.txt
+src/wjecexampaperprocessor.egg-info/top_level.txt

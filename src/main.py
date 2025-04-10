@@ -7,9 +7,14 @@ def main():
     """
     Main function to run the PDF OCR processing.
     """
-    # Define the source and destination folders (update these paths as necessary).
-    source_folder = "./source_pdfs"
-    destination_folder = "./ocr_results"
+    # Retrieve the source and destination folders from environment variables.
+    source_folder = os.environ.get("SOURCE_FOLDER")
+    if not source_folder:
+        raise EnvironmentError("SOURCE_FOLDER environment variable not set.")
+    
+    destination_folder = os.environ.get("DESTINATION_FOLDER")
+    if not destination_folder:
+        raise EnvironmentError("DESTINATION_FOLDER environment variable not set.")
     
     # Retrieve the Mistal API key from the environment.
     api_key = os.environ.get("MISTRAL_API_KEY")

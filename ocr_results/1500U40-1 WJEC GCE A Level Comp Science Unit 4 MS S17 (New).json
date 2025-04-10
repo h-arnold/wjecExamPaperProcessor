@@ -1,0 +1,102 @@
+[
+    {
+        "index": 0,
+        "markdown": "# wjec cbar \n\n## GCE A LEVEL MARKING SCHEME\n\nSUMMER 2017\n\nA LEVEL (NEW)\nCOMPUTER SCIENCE - UNIT 4\n1500U40-1",
+        "images": [],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2338,
+            "width": 1654
+        }
+    },
+    {
+        "index": 1,
+        "markdown": "# INTRODUCTION \n\nThis marking scheme was used by WJEC for the 2017 examination. It was finalised after detailed discussion at examiners' conferences by all the examiners involved in the assessment. The conference was held shortly after the paper was taken so that reference could be made to the full range of candidates' responses, with photocopied scripts forming the basis of discussion. The aim of the conference was to ensure that the marking scheme was interpreted and applied in the same way by all examiners.\n\nIt is hoped that this information will be of assistance to centres but it is recognised at the same time that, without the benefit of participation in the examiners' conference, teachers may have different views on certain matters of detail or interpretation.\n\nWJEC regrets that it cannot enter into any discussion or correspondence about this marking scheme.",
+        "images": [],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2338,
+            "width": 1654
+        }
+    },
+    {
+        "index": 2,
+        "markdown": "# GCE A LEVEL COMPUTER SCIENCE \n\n## SUMMER 2017 MARK SCHEME\n\n| Q |  | Mark | AO1 | AO2 | AO3 | Total |\n| :--: | :--: | :--: | :--: | :--: | :--: | :--: |\n| 1(a) | Award one mark for: <br> SELECT CustName, FlightNum from CUSTOMER | 1 |  |  | 3.1b | 1 |\n| (b) | Award one mark for: <br> SELECT * FROM CUSTOMER WHERE FlightNum $=370^{\\prime}$ <br> Or <br> SELECT CustNum, CustName, DateOfFlight FROM CUSTOMER WHERE FlightNum='370' | 1 |  |  | 3.1 b | 1 |\n| (c) | Award one mark for: <br> SELECT CustName FROM CUSTOMER WHERE FlightNum = <br> Award one mark for: <br> (SELECT FlightNum FROM FLIGHT WHERE <br> Terminal $=\\left.1^{\\prime}\\right)$ <br> Accepted but not expected: <br> SELECT CustName FROM CUSTOMER JOIN FLIGHT WHERE Terminal = '1' | 1 |  |  | 3.1 b | 2 |\n|  |  | 1 |  |  | 3.1 b |  |\n| (d) | Award 1 mark for table; 1 mark for fields (any suitable field size (or type) acceptable): CREATE TABLE FREQUENTFLYER ( CustNum Char(5) Points Char(5)) | 2 |  |  | 3.1 b | 2 |\n| (e) | Award 1 mark for insert; 1 mark for values inserted: <br> INSERT INTO FREQUENTFLYER VALUES ('21328', '210') <br> INSERT INTO FREQUENTFLYER VALUES ('14777', '300') | 2 |  |  | 3.1 b | 2 |\n| 2 | Award 1 mark for each point, up to a maximum of 5: <br> - Resilient. A problem in one site will not stop other sites from working. <br> - Security. Staff access can be limited to only their portion of the database. <br> - Network traffic is reduced so reducing bandwidth costs. <br> - A single site database still works even if the connection between sites is temporarily broken). <br> - Scaling: If demand increases then it is straight forward to add an extra node to the distributed database. (A large company, the demand will likely increase/decrease when a market changes and the system can be scaled quickly). <br> - High performance: Queries and updates are largely local so the there is no network bottleneck (The queries/updates are likely to be local to the sites, and there will be no local bottlenecking). <br> - Expense: either cheaper or more expensive but has to be properly qualified | 5 | 1.1b |  |  | 5 |",
+        "images": [],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2338,
+            "width": 1654
+        }
+    },
+    {
+        "index": 3,
+        "markdown": "| Q |  | Mark | AO1 | AO2 | AO3 | Total |\n| :--: | :--: | :--: | :--: | :--: | :--: | :--: |\n| 3(a) | Award 1 mark for outputting a valid digit (0-9) Award 1 mark for incrementing / decrementing the output values <br> Award 1 mark for the jump <br> Award 1 mark for a working solution <br> JUMP: CLR <br> LDA 1A <br> OUT <br> ADD 1B <br> STA 1A <br> LDA 1C <br> DEC 1B <br> STA 1C <br> JGT JUMP <br> CLR - good practice but not required for mark <br> Or any similar solution that works. | 1 <br> 1 <br> 1 <br> 1 |  |  | 3.1b | 4 |\n| (b) | Award one mark for each correct command: <br> Register R $01111000_{2}$ (after instruction LDR R, 1D). <br> Register S $01000110_{2}$ (after instruction LDR S, 1E). [Both required for one mark] <br> Register R $00111100_{2}$ (after instruction ASR R) <br> Accumulator $00111100_{2}$ (after instruction LDA R) <br> Accumulator $10000010_{2}$ (after instruction ADD S) <br> Register R $10000010_{2}$ (after Instruction STA R) | 1 <br> 1 <br> 1 <br> 1 |  | 2.1a <br> 2.1a <br> 2.1a <br> 2.1a <br> 2.1a |  | 5 |\n| 4(a) | Award one mark for each correct point <br> Two or more processors working together to perform a single task. <br> The task is split into smaller sub-tasks (threads). These tasks are executed simultaneously by all available processors (any task can be processed by any processor. | 1 <br> 1 <br> 1 | 1.1b <br> 1.1b <br> 1.1b |  |  | 3 |",
+        "images": [],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2338,
+            "width": 1654
+        }
+    },
+    {
+        "index": 4,
+        "markdown": "| Q |  | Mark | AO1 | AO2 | AO3 | Total |\n| :--: | :--: | :--: | :--: | :--: | :--: | :--: |\n| (b) | Award one mark for each of the following up to <br> a maximum of four: <br> - More complex to program <br> - Multiple processors may not be available <br> - Software may not allow parallel processing <br> - Advantages may be minimal due to improved processing speed <br> - Sequential processing may still be important so limit to speed gained <br> - Not all tasks are suitable for parallel processing <br> - May be less efficient overall due to introducing additional functions not needed in an equivalent sequential program. | 4 | 1.1 b |  |  | 4 |\n| 5(a) | Award one mark for each point <br> Truncation removes the least significant bits (moves it nearer to zero) <br> In rounding the number is approximated to the nearest whole number/tenth/hundredth etc. <br> 0.10011 truncated to 4 bits 0.100 <br> 3.75 rounded to 2 digits 3.8 <br> Any valid example where the outcome is different | 1 | 1.1 b |  |  | 4 |\n|  |  | 1 | 1.1 b |  |  |  |\n|  |  | 1 | 1.1 b |  |  |  |\n| (b) | Award one mark for: <br> Rounding. | 1 | 1.1 b |  |  | 1 |\n| (c) | Award one mark for each description <br> Absolute error = Original - New <br> Or <br> Absolute error = New - Original <br> Relative error = Absolute error / Original | 1 | 1.1 b |  |  | 2 |\n| 6(a) | Award one mark for each stage <br> $\\mathrm{A}_{16}->00001010_{2}$ <br> $-7_{16}->11111001_{2}$ <br> $00001010_{2}$ <br> $11111001_{2}+$ <br> $00000011_{2}$ <br> $411110000_{2}$ | 1 <br> 1 <br> 1 <br> 1 <br> 1 <br> 1 <br> 1 <br> 1 <br> 1 <br> 1 <br> 1 <br> 1 <br> 1 <br> 1 |  | 2.1a <br> 2.1a <br> 2.1a <br> 2.1a <br> 2.1a |  | 4 |\n| (b) | Award one mark for each point <br> Mantissa $=101010.111_{2}$ <br> Exponent $=0110_{2}$ <br> Answer $=0.101010111000110_{2}$ | 1 <br> 1 <br> 1 <br> 1 |  | 2.1a <br> 2.1a <br> 2.1a |  | 3 |\n| (c) | Award one mark for each point <br> Calculate exponent: +5 <br> Move binary point: 011110.11 <br> Decimal Equivalent: $30.75_{10}$ | 1 <br> 1 <br> 1 <br> 1 |  | 2.1a <br> 2.1a <br> 2.1a |  | 3 |",
+        "images": [],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2338,
+            "width": 1654
+        }
+    },
+    {
+        "index": 5,
+        "markdown": "| Q |  | Mark | A01 | A02 | A03 | Total |\n| :--: | :--: | :--: | :--: | :--: | :--: | :--: |\n| 7(a) | 1 mark for each state correctly named <br> 1 mark for each definition <br> - Running: when the process has control of the <br> CPU / currently executing. <br> - Ready to run: a process is in a queue waiting <br> for the CPU. <br> - Blocked (Condone Suspended): a process is <br> waiting on an input/output (I/O) operation such <br> as reading from the hard drive. | 2 <br> 2 <br> 2 <br> 2 | 1.1a <br> 1.1a <br> 1.1a |  |  | 6 |\n| (b) | Award one mark for each point up to a <br> maximum of two: <br> - May arise from an input/output request, e.g. <br> Hard drive ready for more data to save or it has <br> retrieved requested data. <br> - May arise from a timer interrupt occurring. <br> - May arise from a peripheral, e.g. key has been <br> pressed or requires more data (for example a <br> printer or a scanner). <br> - May arise from hardware, e.g. the on/off button <br> has been pressed. <br> - May arise from a hardware failure or problem <br> encountered. <br> - May arise from a run time error. <br> - May arise from a user request (must be <br> qualified) | 2 | 1.1b |  |  | 2 |\n| (c) | Award one mark for each point, up to a <br> maximum of five <br> - A buffer is a small block of memory inside <br> hardware devices such as printers, keyboards <br> and hard drives. <br> - A buffer holds data sent from a device. <br> - Double buffering can be used for emptying one <br> buffer while filling the other. <br> - There is no delay while an interrupt is being <br> processed. <br> - The device will have a much higher active time. | 5 | 1.1b |  |  | 5 |\n| 8(a) | Award 1 mark for each point <br> Award mark for reverse, e.g. Asymmetric slower <br> to encrypt but don't award the same mark twice. <br> Asymmetric: <br> - Anybody can have access to the encrypt key. <br> but decrypt access can be restricted. <br> - Not everyone has to have access to the key <br> that encrypts and decrypts. <br> - More secure than symmetric. <br> - Most suitable for online transactions <br> Symmetric: <br> - Fewer keys to generate. <br> - Keys are easier to generate. <br> - Faster to encrypt. <br> - The longer the key the more secure the <br> algorithm. <br> - Most suitable for encrypting documents on your <br> own computer <br> - Both the sender and receiver must know the <br> key | 4 | 1.1b |  |  | 4 |",
+        "images": [],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2338,
+            "width": 1654
+        }
+    },
+    {
+        "index": 6,
+        "markdown": "| Q |  | Mark | AO1 | AO2 | AO3 | Total |\n| :--: | :--: | :--: | :--: | :--: | :--: | :--: |\n| (b) | Award one mark for each of: <br> O: $010001111 \\mathrm{XOR} 11110011=10111100$ <br> K: $01001011 \\mathrm{XOR} 11110011=10111000$ <br> !: $00100001 \\mathrm{XOR} 11110011=11010010$ | 3 |  | 2.1b |  | 3 |\n| (c) | Award one mark for each of up to a maximum of 2 <br> - The key is short and easy to crack. <br> - It cannot be publically shared. <br> - XOR encryption is very common so it could be one of the first entry points <br> - Because it's short it's difficult to use on a machine with a larger word length e.g. on a 64 bit machine you should have a 64 bit key | 2 |  | 2.1b |  | 2 |\n| 9(a) | Award one mark for: <br> - Wireless Interface Card (accept Network Interface Card) in the device. <br> Award one mark for the following up to a maximum of two: <br> - An available Wireless Access Point (WAP) to provide the connection. <br> - Switch / Hub to connect the WAP. <br> - Router to route the traffic to the Internet. | 1 <br> 2 |  | 2.1a <br> 2.1a |  | 3 |\n| (b) | Award one mark for 2 instances of: <br> Any suitable application named description of it usage <br> Indicative content <br> File sharing - being able to upload and download files to the company's servers. <br> Presentation Control - Being able to control slide content from a mobile device. <br> Email / Messaging - access to corporate email or internal messaging services. <br> Web browsing / Intranet - via the company Wi-Fi. <br> Network based apps e.g. VNC - either a corporate app or being able to view other screens via remote access. | 2 <br> 2 |  | 2.1a <br> 2.1a |  | 4 |",
+        "images": [],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2338,
+            "width": 1654
+        }
+    },
+    {
+        "index": 7,
+        "markdown": "| Q |  | Mark | AO1 | AO2 | AO3 | Total |\n| :--: | :--: | :--: | :--: | :--: | :--: | :--: |\n| 10 | Award one mark for each of up to a maximum of 8 <br> - Can store more knowledge than one person. <br> - Can easily be kept up to date. <br> - Helps to give a more accurate decision. <br> - Does not get ill, retire, go on holiday, etc. <br> - Gives a second opinion. <br> - Available 24/7. <br> - Allows access to an expert where not available locally. <br> - Provide significant clerical time and labour savings. <br> - Increase competitive advantage / Improve company efficiency / Significantly increase company profitability. <br> - Used to centralise decision making (more consistency). <br> - Allow lower management levels to make decisions / Allow better use of management time. <br> - Allow broader distribution of expertise throughout the company. <br> - A good expert system explains its decision so that a user can decide whether to accept the decision or not <br> - Expert systems can learn from experience <br> - Allows employees to learn from the system | 8 | 1.1 b |  |  | 8 |",
+        "images": [],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2338,
+            "width": 1654
+        }
+    },
+    {
+        "index": 8,
+        "markdown": "| Q |  | Mark | AO1 | AO2 | AO3 | Total |\n| :--: | :--: | :--: | :--: | :--: | :--: | :--: |\n| 11 | Award 1 mark for each point up to a maximum of three <br> Award 1 mark for three tables with appropriate labels, 1 mark for showing the indexes with three appropriate arrows and 1 mark for pointing to the actual data. <br> - An index is used to improve (read) access times to records <br> - There is a main that contains the location of the next index <br> - This process may extend to several levels. <br> - The last index contains the physical address of the record. <br> Diagram: | 3 <br> 3 | $1.1 b$ |  |  | 6 |\n| 12 | Band marked <br> Indicative content <br> Technical Content <br> - The voice print of each employee will initially be recorded when they join the company. <br> - This is stored in a secure format (encryption). <br> - On attempted entry to the building, the original voiceprint record is compared with the current voice print of the employee. <br> - If they match, entry is permitted. <br> - A number of attempts are permitted. <br> Benefits: <br> - More secure as it is difficult to replicate the data / unique voice print. <br> - Can't be lost, stolen or forgotten. <br> - Can't be phished or tricked out of someone. <br> - Can speed up queues at the entrance / exit. <br> Drawbacks: <br> - Not always reliable under some circumstances, e.g. background noise. <br> - People's voice change over time. <br> - Privacy concerns. <br> - Expensive to set-up. | 11 |  | $2.1 b$ |  | 11 |",
+        "images": [],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2338,
+            "width": 1654
+        }
+    },
+    {
+        "index": 9,
+        "markdown": "| Band | AO2.1b |\n| :--: | :--: |\n|  | Max 11 Marks |\n| 3 | 9-11 Marks |\n|  | The candidate has: <br> - written an extended response that has a sustained line of reasoning which is coherent, relevant, and logically structured <br> - shown clear understanding of the requirements of the question and a clear knowledge of the topics as specified in the indicative content. Clear knowledge is defined as a response that makes nine to eleven points in all areas signalled in the indicative content. The top of the mark range would require a clear response in all areas. <br> - addressed the question appropriately with minimal repetition and no irrelevant material <br> - has presented a balanced argument and justified their arguments <br> - effectively drawn together different areas of knowledge, skills and understanding from all relevant areas across the course of study <br> - used appropriate technical terminology referring to the indicative content confidently and accurately. |\n| 2 | 4-8 Marks |\n|  | The candidate has: <br> - written a response that has an adequate line of reasoning with elements of coherence, relevance, and logical structure <br> - shown adequate understanding of the requirements of the question and a satisfactory knowledge of the topics as specified in the indicative content. <br> - Satisfactory knowledge is defined as a response that makes four to eight points in all areas signalled in the indicative content. The top of the mark range would require a satisfactory response in the technical area and at least one other <br> - presented an argument with limited justification <br> - drawn together different areas of knowledge, skills and understanding from at least two areas across the course of study used appropriate technical terminology referring to the indicative content. |\n| 1 | 1-3 Marks |\n|  | The candidate has: <br> - written a response that that lacks sufficient reasoning and structure <br> - produced a discussion which is not well developed, and the justification is weak <br> - attempted to address the question but has demonstrated superficial knowledge of the topics specified in the indicative content. Superficial knowledge is defined as a response that makes one to two points in all areas as signalled in the indicative content. The top of the mark range would require a superficial response in all areas. <br> - used limited technical terminology referring to the indicative content. |\n| 0 | 0 Marks <br> Response not credit worthy or not attempted. |",
+        "images": [],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2338,
+            "width": 1654
+        }
+    }
+]

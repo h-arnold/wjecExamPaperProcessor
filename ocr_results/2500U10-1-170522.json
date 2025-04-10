@@ -1,0 +1,258 @@
+[
+    {
+        "index": 0,
+        "markdown": "![img-0.jpeg](img-0.jpeg)\n\n# GCE AS/A LEVEL \n\n## WJEC cbac\n\n2500U10-1\n\n## IIIIIIIIIIIIIIIIIIIIIIIIIIIIII\n\n222-2500U10-1\n\n## TUESDAY, 17 MAY 2022 - AFTERNOON\n\n## COMPUTER SCIENCE - AS unit 1\n\n## Fundamentals of Computer Science\n\n2 hours\n\n## ADDITIONAL MATERIALS\n\nA calculator.\n\n## INSTRUCTIONS TO CANDIDATES\n\nUse black ink or black ball-point pen.\nAnswer all questions.\nWrite your name, centre number and candidate number in the spaces at the top of this page.\nWrite your answers in the spaces provided in this booklet. If you run out of space, use the continuation pages at the back of the booklet, taking care to number the question(s) correctly.\n\n## INFORMATION FOR CANDIDATES\n\nThe number of marks is given in brackets at the end of each question or part-question.\nThe total number of marks available is 100 .\nAssessment will take into account the quality of written communication used in your answers.",
+        "images": [
+            {
+                "id": "img-0.jpeg",
+                "top_left_x": 160,
+                "top_left_y": 161,
+                "bottom_right_x": 1505,
+                "bottom_right_y": 327,
+                "image_path": "2500U10-1-170522/images/img_0_0.jpeg"
+            }
+        ],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2339,
+            "width": 1654
+        }
+    },
+    {
+        "index": 1,
+        "markdown": "Answer all questions.\n\n1. Describe the fetch-decode-execute cycle showing how data can be read from RAM into registers. Your answer should make reference to the MAR, MDR, PC and CIR.\n$\\qquad$\n$\\qquad$\n$\\qquad$\n$\\qquad$\n$\\qquad$\n$\\qquad$\n$\\qquad$",
+        "images": [],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2339,
+            "width": 1654
+        }
+    },
+    {
+        "index": 2,
+        "markdown": "2. Describe the use of the following contemporary methods for input and their associated devices. Your answer should include their benefits and drawbacks.\n(a) Voice input\n$\\qquad$\n$\\qquad$\n$\\qquad$\n$\\qquad$\n$\\qquad$\n$\\qquad$\n$\\qquad$\n$\\qquad$\n(b) Touch input\n$\\qquad$\n$\\qquad$\n$\\qquad$\n$\\qquad$\n$\\qquad$",
+        "images": [],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2339,
+            "width": 1654
+        }
+    },
+    {
+        "index": 3,
+        "markdown": "3. (a) Explain the role of multiplexing on a network.\n[2]\n(b) Describe the contents of a typical TCP/IP data packet.",
+        "images": [],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2339,
+            "width": 1654
+        }
+    },
+    {
+        "index": 4,
+        "markdown": "4. (a) State the meaning of the term \"word\".\n(b) Convert the hexadecimal numbers $\\mathrm{AE}_{16}$ and $1 \\mathrm{~B}_{16}$ into binary and, using binary addition, calculate the number that would result from adding them.\nConvert your answer into denary.\nYou must show all of your working.\n(c) Show how $-39_{10}$ would be represented using sign/magnitude and how it would be represented using two's complement representation in an 8 bit register.",
+        "images": [],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2339,
+            "width": 1654
+        }
+    },
+    {
+        "index": 5,
+        "markdown": "(d) In a certain computer system, real numbers are stored in normalised floating point form using two's complementation, an 8 bit mantissa and a 3 bit exponent.\n(i) The following is a floating point representation of a real number:\n\n$$\n0.1110100\n$$\n\n010\nCalculate the denary value of the mantissa and exponent, and convert this floating point number into a denary number.\n$\\qquad$\n$\\qquad$\n$\\qquad$\n$\\qquad$\n$\\qquad$\n$\\qquad$\n$\\qquad$\n$\\qquad$\n(ii) Showing your workings, calculate the largest positive denary number that this computer system can store.",
+        "images": [],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2339,
+            "width": 1654
+        }
+    },
+    {
+        "index": 6,
+        "markdown": "(e) Using the number $111.10110_{2}$, describe truncation and rounding to two binary places, and their effect upon accuracy in terms of their absolute errors. State which method is more accurate.",
+        "images": [],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2339,
+            "width": 1654
+        }
+    },
+    {
+        "index": 7,
+        "markdown": "5. Explain the difference between fixed and variable length records.",
+        "images": [],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2339,
+            "width": 1654
+        }
+    },
+    {
+        "index": 8,
+        "markdown": "6. (a) Describe the benefits of user groups having different views of database data. Describe how these views may be varied for each user group.\n$\\qquad$\n$\\qquad$\n$\\qquad$\n$\\qquad$\n$\\qquad$\n$\\qquad$\n$\\qquad$\n$\\qquad$\n$\\qquad$\n$\\qquad$\n$\\qquad$\n$\\qquad$\n(b) Describe the need for archiving files.",
+        "images": [],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2339,
+            "width": 1654
+        }
+    },
+    {
+        "index": 9,
+        "markdown": "7. The following user login details are stored in a two-dimensional string array called loginDetails.\n\n|  | Username <br> $[0]$ | Password <br> $[1]$ | Full name <br> $[2]$ |\n| :-- | :-- | :-- | :-- |\n| $[0]$ | MurahanA | 152599 | Alice Murahan |\n| $[1]$ | JonesT | p@ssword12134 | Tim Jones |\n| $[2]$ | MurrayB | Fred1985 | Benjamin Murray |\n| $[3]$ | AliZ | 1234 | Zaheer Ali |\n| $[4]$ | DaviesD | \\#12356! | Denzil Davies |\n\nWrite an algorithm, using pseudo-code, which will allow a user to enter a username and password to login.\nIf the user has logged in successfully, then a suitable welcome message should be displayed followed by their full name.\nYour algorithm should output a suitable error message if the password entered is incorrect or if the username is not found.\nYour algorithm should be written using self-documenting identifiers.",
+        "images": [],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2339,
+            "width": 1654
+        }
+    },
+    {
+        "index": 10,
+        "markdown": "8. Describe a suitable mode of operation for producing payslips in a payroll application.",
+        "images": [],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2339,
+            "width": 1654
+        }
+    },
+    {
+        "index": 11,
+        "markdown": "9. Clearly showing each step, simplify the following Boolean expression:\n\n$$\n(A+B) \\cdot(A+C)+\\bar{B} \\cdot B\n$$",
+        "images": [],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2339,
+            "width": 1654
+        }
+    },
+    {
+        "index": 12,
+        "markdown": "10. The following algorithm calculates the area of a circle for a radius input by the user.\n\n```\nStarProc areaOfCircle\n    A is real\n    B is real\n    C is real\n    set C = 3.14\n    output \"Please enter the radius\"\n    input A\n    input A\n    B = C * (A * A)\n    output \"The Area is \", B\n    End Proc\n```\n\n(a) Identify and define the following terms in the algorithm above.\n(i) Constant.\n(ii) Variable.\n(iii) Variable.\n(iv)",
+        "images": [],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2339,
+            "width": 1654
+        }
+    },
+    {
+        "index": 13,
+        "markdown": "11. Describe the distinguishing features of the following different types of programming paradigms.\n(a) Procedural.\n[4]\n$\\qquad$\n$\\qquad$\n$\\qquad$\n$\\qquad$\n$\\qquad$\n$\\qquad$\n(b) Mark-up.\n$\\qquad$\n$\\qquad$\n$\\qquad$\n$\\qquad$",
+        "images": [],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2339,
+            "width": 1654
+        }
+    },
+    {
+        "index": 14,
+        "markdown": "12. Describe the difference between malicious and accidental damage to data and identify one situation where each could occur.",
+        "images": [],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2339,
+            "width": 1654
+        }
+    },
+    {
+        "index": 15,
+        "markdown": "13. Explain the purpose of expert systems and describe the possible effects of these systems on the nature of employment in wider society.\n\nDiscuss their general benefits and drawbacks.\n$\\qquad$\n$\\qquad$\n$\\qquad$\n$\\qquad$\n$\\qquad$\n$\\qquad$\n$\\qquad$\n$\\qquad$\n$\\qquad$\n$\\qquad$\n$\\qquad$\n$\\qquad$\n$\\qquad$",
+        "images": [],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2339,
+            "width": 1654
+        }
+    },
+    {
+        "index": 16,
+        "markdown": "# BLANK PAGE",
+        "images": [],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2339,
+            "width": 1654
+        }
+    },
+    {
+        "index": 17,
+        "markdown": "# For continuation only. \n\n![img-1.jpeg](img-1.jpeg)\n\n\u5e8f\u7ae0 2 2 2\n\n![img-2.jpeg](img-2.jpeg)\n\n\u5e8f\u7ae0 3 2 2\n\n![img-3.jpeg](img-3.jpeg)\n\n\u5e8f\u7ae0 4 2 2\n\n![img-4.jpeg](img-4.jpeg)\n\n\u5e8f\u7ae0 5 2 2\n\n![img-5.jpeg](img-5.jpeg)\n\n\u5e8f\u7ae0 6 2 2\n\n![img-6.jpeg](img-6.jpeg)\n\n\u5e8f\u7ae0 7 2 2\n\n![img-7.jpeg](img-7.jpeg)\n\n\u5e8f\u7ae0 8 2 2",
+        "images": [
+            {
+                "id": "img-1.jpeg",
+                "top_left_x": 181,
+                "top_left_y": 306,
+                "bottom_right_x": 1452,
+                "bottom_right_y": 540,
+                "image_path": "2500U10-1-170522/images/img_17_0.jpeg"
+            },
+            {
+                "id": "img-2.jpeg",
+                "top_left_x": 181,
+                "top_left_y": 584,
+                "bottom_right_x": 1452,
+                "bottom_right_y": 792,
+                "image_path": "2500U10-1-170522/images/img_17_1.jpeg"
+            },
+            {
+                "id": "img-3.jpeg",
+                "top_left_x": 181,
+                "top_left_y": 813,
+                "bottom_right_x": 1452,
+                "bottom_right_y": 1026,
+                "image_path": "2500U10-1-170522/images/img_17_2.jpeg"
+            },
+            {
+                "id": "img-4.jpeg",
+                "top_left_x": 181,
+                "top_left_y": 1043,
+                "bottom_right_x": 1452,
+                "bottom_right_y": 1277,
+                "image_path": "2500U10-1-170522/images/img_17_3.jpeg"
+            },
+            {
+                "id": "img-5.jpeg",
+                "top_left_x": 181,
+                "top_left_y": 1286,
+                "bottom_right_x": 1452,
+                "bottom_right_y": 1510,
+                "image_path": "2500U10-1-170522/images/img_17_4.jpeg"
+            },
+            {
+                "id": "img-6.jpeg",
+                "top_left_x": 181,
+                "top_left_y": 1520,
+                "bottom_right_x": 1452,
+                "bottom_right_y": 1733,
+                "image_path": "2500U10-1-170522/images/img_17_5.jpeg"
+            },
+            {
+                "id": "img-7.jpeg",
+                "top_left_x": 181,
+                "top_left_y": 1744,
+                "bottom_right_x": 1452,
+                "bottom_right_y": 1953,
+                "image_path": "2500U10-1-170522/images/img_17_6.jpeg"
+            }
+        ],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2339,
+            "width": 1654
+        }
+    },
+    {
+        "index": 18,
+        "markdown": "# For continuation only. \n\n\uc774\ubbf8\uc9c0\n\n|  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |  |",
+        "images": [],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2339,
+            "width": 1654
+        }
+    }
+]

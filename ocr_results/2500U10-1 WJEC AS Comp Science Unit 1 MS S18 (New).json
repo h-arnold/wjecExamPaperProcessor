@@ -1,0 +1,218 @@
+[
+    {
+        "index": 0,
+        "markdown": "# wjec cbac \n\n## GCE AS MARKING SCHEME\n\nSUMMER 2018\n\nAS (NEW)\nCOMPUTER SCIENCE - UNIT 1\n2500U10-1",
+        "images": [],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2338,
+            "width": 1654
+        }
+    },
+    {
+        "index": 1,
+        "markdown": "# INTRODUCTION \n\nThis marking scheme was used by WJEC for the 2018 examination. It was finalised after detailed discussion at examiners' conferences by all the examiners involved in the assessment. The conference was held shortly after the paper was taken so that reference could be made to the full range of candidates' responses, with photocopied scripts forming the basis of discussion. The aim of the conference was to ensure that the marking scheme was interpreted and applied in the same way by all examiners.\n\nIt is hoped that this information will be of assistance to centres but it is recognised at the same time that, without the benefit of participation in the examiners' conference, teachers may have different views on certain matters of detail or interpretation.\n\nWJEC regrets that it cannot enter into any discussion or correspondence about this marking scheme.",
+        "images": [],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2338,
+            "width": 1654
+        }
+    },
+    {
+        "index": 2,
+        "markdown": "# WJEC <br> GCE AS Computer Science - Unit 1 \n\n## Summer 2018 Mark Scheme\n\n| Q | Answer |  |  | Marks | AO1 | AO2 | AO3 | Tot |\n| :--: | :--: | :--: | :--: | :--: | :--: | :--: | :--: | :--: |\n| 1 |  |  |  |  |  |  |  | 4 |\n|  | A OR C | B AND C | $\\begin{gathered} (\\text { A OR C }) \\\\ \\text { XOR (B } \\\\ \\text { AND C) } \\end{gathered}$ | NOT ((A OR C) XOR (B AND C)) |  |  |  |  |\n|  | 0 | 0 | 0 | 1 |  |  |  |  |\n|  | 0 | 0 | 0 | 1 |  |  |  |  |\n|  | 1 | 0 | 1 | 0 |  |  |  |  |\n|  | 1 | 0 | 1 | 0 |  |  |  |  |\n|  | 1 | 0 | 1 | 0 |  |  |  |  |\n|  | 1 | 1 | 0 | 1 |  |  |  |  |\n|  | 1 | 0 | 1 | 0 |  |  |  |  |\n|  | 1 | 1 | 0 | 1 |  |  |  |  |\n|  | One mark for correct each column: <br> - A OR C <br> - B AND C <br> - (A OR C) XOR (B AND C) <br> - NOT ((A OR C) XOR (B AND C)) |  |  |  | 1 <br> 1 <br> 1 <br> 1 |  | 2.1a <br> 2.1a <br> 2.1a <br> 2.1a |  |  |\n| 2a | Assigns dynamic IP addresses to devices on a network. |  |  | 1 | 1.1 b |  |  | 1 |\n| 2b | Internet standard for electronic mail (email) transmission |  |  | 1 | 1.1 b |  |  | 1 |\n| 2c | Transfers webpages over a network |  |  | 1 | 1.1 b |  |  | 1 |",
+        "images": [],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2339,
+            "width": 1654
+        }
+    },
+    {
+        "index": 3,
+        "markdown": "| Q | Answer | Marks | AO1 | AO2 | AO3 | Tot |\n| :--: | :--: | :--: | :--: | :--: | :--: | :--: |\n| 3a | Award one mark for each of the following up to a maximum of four: <br> - Hacking - gain unauthorised access to data/to a computer system. <br> - Virus - a program which is capable of copying itself and typically has a detrimental effect, such as corrupting the system or destroying data. <br> - Trojan - a program designed to breach the security of a computer system while ostensibly performing some innocuous function. <br> - Worm - a standalone malware computer program that replicates itself in order to spread to other computers. <br> - Spyware - software that enables a user to obtain information about another's computer activities by transmitting data from their hard drive. <br> - Botnets - a network of private computers infected with malicious software and controlled as a group without the owners' knowledge, e.g. to send spam. <br> - Malware - software which is specifically designed to disrupt or damage a computer system. <br> - Keylogger - a computer program that records every keystroke made by a computer user, especially in order to gain fraudulent access to passwords and other confidential information. <br> - Malicious damage - when a person intentionally sets out to corrupt or delete electronic files, data or software programs. <br> - Accidental damage - when a person unintentionally corrupts or deletes electronic files, data or software programs. <br> - Loss of data leading to damage to company's reputation <br> - Loss of data leading to fines or prosecution / GDPR <br> - Hardware failure leading to a loss of data <br> - ID theft leading to personal losses / fraud | 4 | 1.1 b |  |  |  | 4 |",
+        "images": [],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2339,
+            "width": 1654
+        }
+    },
+    {
+        "index": 4,
+        "markdown": "| Q | Answer | Marks | AO1 | AO2 | AO3 | Tot |\n| :--: | :--: | :--: | :--: | :--: | :--: | :--: |\n| 3b | One mark for each of the following: <br> - Levels of permitted access - certain users would have different/restricted access to certain data or parts of the system <br> - Write-protect mechanisms - only certain users will have permission to write/edit data already stored on the system. <br> - Strong secure password - the organisation limits access to the network by ensuring that all authorised users have a strong secure password. <br> - Access rights - access to confidential files on the network is limited to authorised users only by assigning access rights to users that only allow certain users to access specified area of the network and/or specified files. <br> - Encryption - hackers are prevented from reading the confidential files even they gain access to it by encrypting the files <br> - Encryption - an encryption key is used and known only by the organisation <br> - Firewall - the servers would be protected with firewall software blocking / checking all network traffic entering or leaving specified ports / stop programs accessing the internet <br> - Antivirus software - file servers would be protected with antivirus software which regularly scans all files stored on them for possible infection by malware <br> - Antivirus software - email server would be protected with antivirus software and all incoming emails would be scanned to see if attached files are infected <br> - Antivirus software - workstations would be protected with antivirus software and all files from external media would be scanned before they're allowed to be accessed <br> - Backups - copies of data held in order to restore in the event of data loss <br> - Policies / Legislation - relevant descriptions based on current legislation or company policies <br> - Accounting or auditing software - all files accessed by a user are recorded in an activity log | 4 | 1.1 b |  |  | 4 |",
+        "images": [],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2339,
+            "width": 1654
+        }
+    },
+    {
+        "index": 5,
+        "markdown": "| Q | Answer | Marks | AO1 | AO2 | AO3 | Tot |\n| :--: | :--: | :--: | :--: | :--: | :--: | :--: |\n| 4 | $\\begin{aligned} & \\text { A. }(\\bar{A}+B)+\\bar{C} \\cdot(A+B)+A \\cdot(\\bar{B}+C)+\\bar{B} \\cdot B \\\\ & \\text { A. }(\\bar{A}+B)+\\bar{C} \\cdot(A+B)+A \\cdot(\\bar{B}+C) \\\\ & \\text { A. } \\bar{A}+A \\cdot B+\\bar{C} \\cdot A+\\bar{C} \\cdot B+A \\cdot \\bar{B}+A \\cdot C \\\\ & \\text { A. } B+\\bar{C} \\cdot A+\\bar{C} \\cdot B+A \\cdot \\bar{B}+A \\cdot C \\\\ & \\text { A. }(B+\\bar{B})+\\bar{C} \\cdot A+\\bar{C} \\cdot B+A \\cdot C \\\\ & \\text { A. }(B+\\bar{B})+A \\cdot(\\bar{C} \\cdot+C)+\\bar{C} \\cdot B \\\\ & \\text { A. }(1)+A(1)+\\bar{C} \\cdot B \\\\ & A+\\bar{C} \\cdot B \\\\ & A+B \\cdot \\bar{C} \\end{aligned}$ <br> To obtain full marks candidate must show some working out. <br> Do not accept truth tables | 1 <br> 1 <br> 1 <br> 1 <br> 1 <br> 1 <br> 1 <br> 1 <br> 1 | 2.1 b <br> 2.1 b <br> 2.1 b <br> 2.1 b <br> 2.1 b <br> 2.1 b <br> 2.1 b |  |  | 8 |\n| 5a | $\\begin{aligned} & 31_{16}=00110001_{2} \\\\ & 6 D_{16}=01101101_{2} \\\\ & 00110001_{2} \\\\ & 01101101_{2} \\\\ & 10011110_{2} \\\\ & \\text { No marks for answer only in the addition } \\end{aligned}$ | 1 <br> 1 <br> 1 | 2.1a <br> 2.1a |  | 3 |  |\n| 5bi | 10000.001 | 1 | 2.1a |  | 3 |  |\n|  | Mantissa $=0.10000001000$ <br> Exponent $=0101$ <br> Answer must be normalised <br> Accept 16 bit number | 1 <br> 1 | 2.1a <br> 2.1a |  |  |  |\n| 5bii | Mantissa $=0.1111_{2}\\left(0.9375_{10}\\right)$ <br> Exponent $=3$ <br> Answer $=0.9375_{10} \\times 2^{3}=7.5_{10}$ <br> Correct answer only | 1 <br> 1 <br> 1 | 2.1a <br> 2.1a <br> 2.1a |  | 3 |  |\n| 6a | One mark for each of the following: <br> - Two-dimensional array <br> - As there is only one data type required | 1 <br> 1 | 2.1a <br> 2.1b |  | 2 |  |\n| 6b | Integer | 1 | 2.1a |  | 1 |  |\n| 6c | One mark for each of the following: <br> - Record <br> - Can store more than one data type / all data relates to a single entity | 1 <br> 1 | 2.1a <br> 2.1b |  | 2 |  |",
+        "images": [],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2339,
+            "width": 1654
+        }
+    },
+    {
+        "index": 6,
+        "markdown": "| Q | Answer | Marks | AO1 | AO2 | AO3 | Tot |\n| :--: | :--: | :--: | :--: | :--: | :--: | :--: |\n| 7 | One mark for each of the following (MAX 3): <br> - Parallel processing is a form of computation in which many calculations are carried out simultaneously <br> - Parallel processing uses multiple cores <br> - It operates on the principle that large problems can often be divided into smaller ones, which are then solved concurrently <br> - Parallel processing in computer programs is more complex to design and to write than sequential computer programs <br> - Communication and synchronisation between the different subtasks are typically some of the greatest obstacles to getting efficient parallel program performance <br> Accepted not expected: <br> - The maximum possible speed-up of a single program as a result of parallelisation is known as Amdahl's law: <br> - $T(n)=T(1)\\left(B+\\frac{1}{n}(1-B)\\right)$ <br> - Where: <br> - $T(n)=$ time taken on $n$ threads <br> - $n=$ number of threads <br> - $B=$ <br> fraction of algorithm that is sequer <br> - Example: If a program has a runtime of 10 hours when using a single core processor. If $80 \\%$ ( 8 hours) of this program can be parallelised, then clearly a multi-core processor will reduce the runtime required. However, regardless of the number of cores used to execute this program, the minimum runtime cannot be less than the time taken to execute the non-parallelised 20\\% (2 hour). The remaining 20\\% will still be processed sequentially <br> - Using the formula above with one thread $(n=1)$ we get: <br> - $T(n)=T(1)\\left(B+\\frac{1}{n}(1-B)\\right.$ <br> - $T(1)=10$ hours $\\times\\left(0.2+\\frac{1}{1}(1-0.2)=\\right.$ 10 hours <br> - $T(1)=10$ hours <br> - The speedup of a program using multiple processors in parallel computing is limited by the time needed for the sequential fraction of the program <br> - Using the formula above with one thousand threads $(n=1000)$ we get: <br> - $T(n)=T(1)\\left(B+\\frac{1}{n}(1-B)\\right.$ <br> $T(1000)=10$ hours $\\times\\left(0.2+\\frac{1}{1000}\\right.$ | 5 | 1.1 b |  |  | 5 |\n| :-- | :-- | :-- | :-- | :-- | :-- |",
+        "images": [],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2339,
+            "width": 1654
+        }
+    },
+    {
+        "index": 7,
+        "markdown": "| Q | Answer | Marks | AO1 | AO2 | AO3 | Tot |\n| :--: | :--: | :--: | :--: | :--: | :--: | :--: |\n|  | \u25cb $(1-0.2)$ <br> \u25cb $T(1)=2.008$ hours <br> - Note that even with an infinite amount of threads, the runtime of executing the program cannot be less than 2 hours. <br> One mark for each of the following (MAX 3) <br> Cache memory <br> - is similar to RAM, except it resides on or close to the CPU <br> - is faster than RAM and is also volatile <br> - used to store frequently used data from main memory <br> - used by the processor to avoid having to slow down to the speed of the RAM all the time <br> - used to store intermediate results to calculations <br> - Different levels of cache memory which denote speed and characteristics <br> - Von Neumann bottleneck solution <br> Award a further mark for detailed descriptions of cache levels. |  |  |  |  |  |  |",
+        "images": [],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2339,
+            "width": 1654
+        }
+    },
+    {
+        "index": 8,
+        "markdown": "![img-0.jpeg](img-0.jpeg)",
+        "images": [
+            {
+                "id": "img-0.jpeg",
+                "top_left_x": 175,
+                "top_left_y": 168,
+                "bottom_right_x": 1481,
+                "bottom_right_y": 2065,
+                "image_path": "2500U10-1 WJEC AS Comp Science Unit 1 MS S18 (New)/images/img_8_0.jpeg"
+            }
+        ],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2339,
+            "width": 1654
+        }
+    },
+    {
+        "index": 9,
+        "markdown": "| 9b | One mark for each of the following: <br> - Binary search requires the input data to be sorted; linear search doesn't <br> - Binary search requires an ordering comparison; linear search only requires equality comparisons <br> - Binary search requires random access to the data; linear search only requires sequential access (this can be very important - it means a linear search can stream data of arbitrary size) <br> - Linear search would be slower than a binary search on a larger list. <br> - Linear search is appropriate for data that cannot be sorted. <br> Accepted not expected <br> - Binary search has complexity O(log n) linear search has complexity O(n) as discussed earlier | 3 | 1.1b |  |  | 3 |\n| :--: | :--: | :--: | :--: | :--: | :--: | :--: |\n| 10a | One mark for each of the following up to a maximum of 3 : <br> - 45325321962 (duplicated number) <br> - 51932354562 (ascending order) <br> - 62453532195 (descending order) <br> - 32451962 -35 5 (negative number) <br> - 2437911 (unsorted list) <br> - Very large numbers e.g. $>65537$ <br> Do not accept tests for invalid data i.e. noninteger values | 3 |  | 2.1b |  | 3 |\n| 10b | One mark for each of the following: <br> - A pass is made through the data, comparing each value with the following one and swapping them if necessary. <br> - A number of passes is made until the data is in order. | 2 | 1.1b |  |  | 2 |\n| 10c | One mark for each of the following: <br> - swapped will become TRUE after one swap <br> - Loop will terminate too soon OR <br> - If the array is in ascending order then swapped will stay FALSE <br> - Loop will not terminate | 2 |  | 2.1b |  | 2 |\n| 10d | One mark for each of the following: <br> - Change the terminating condition for the loop such that it terminates when swapped becomes TRUE <br> Accept <br> - Line 17: until (swapped = FALSE) | 1 |  | 2.1b |  | 1 |",
+        "images": [],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2339,
+            "width": 1654
+        }
+    },
+    {
+        "index": 10,
+        "markdown": "| 10e | - Insertion sort <br> One mark for each of the following up to a maximum of two <br> - Comparisons are made <br> - Data placed in the right position <br> - Move other items along <br> Accept other sort algorithms | 1 <br> 2 | $1.1 b$ <br> 1.1 b |  |  | 3 |\n| :--: | :--: | :--: | :--: | :--: | :--: | :--: |\n| 11a | One mark for each of the following up to a maximum of 5 : <br> Indicative Content <br> Defragmentation <br> - is the process where files are physically rearranged on disk so that they are no longer fragmented and the parts of each file are stored together. <br> Compression <br> - software reduces file sizes using less space <br> Task management <br> - can see how much disk \\% a given program is using, can shut it down if dominating. <br> Disk scanning and repair <br> - fixes problems on disk. <br> Anti-virus software <br> - to scan for viruses which could be causing issues with the disc access speed / damaging data <br> Firewall <br> - Prevents unauthorised network access <br> Backup <br> - software allows users to archive files and delete files on the hard disk to free up space | 5 | 1.1 b |  |  | 5 |  |",
+        "images": [],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2339,
+            "width": 1654
+        }
+    },
+    {
+        "index": 11,
+        "markdown": "![img-1.jpeg](img-1.jpeg)",
+        "images": [
+            {
+                "id": "img-1.jpeg",
+                "top_left_x": 158,
+                "top_left_y": 166,
+                "bottom_right_x": 1481,
+                "bottom_right_y": 1482,
+                "image_path": "2500U10-1 WJEC AS Comp Science Unit 1 MS S18 (New)/images/img_11_0.jpeg"
+            }
+        ],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2339,
+            "width": 1654
+        }
+    },
+    {
+        "index": 12,
+        "markdown": "| 12 | One mark for each of the following: | 8 | 1.1 b |  | 8 |\n| :--: | :--: | :--: | :--: | :--: | :--: |\n|  | Off-the-shelf (MAX 5) <br> - Cheaper. The development costs are spread across a large number of users, so you pay much less than it would cost to build the same software from scratch. <br> - Available immediately. The development work has already been done, so all you need to do is set up the software and start using it. <br> - Lower training costs. If it is a commonly used package, users and I.T. staff may already be familiar with it, saving on learning time and training costs. Or, there may be pre-existing training materials and courses that you can leverage. <br> - Community support. If the software is popular, there may be books, articles, forums and online communities offering support and advice to help you learn or resolve any issues. <br> - More functionality. Off-the-shelf software often has more functionality, because the developers try to meet the requirements of as many users as possible. (There may even be functionality you didn't realise you need!) <br> - Upgrades. The vendor will continue to develop the software, so you will likely get upgrades for free or at a reduced cost, whereas in bespoke software you don't get anything new unless you pay for it to be built. <br> - Compromise. You may have to compromise on your requirements - it is unlikely you will find ready-made software that does everything you need it to, exactly how you want it to. <br> - May be overly complicated. The software may include functionality that you don't need, as it is trying to meet the different requirements of a number of users. This can make it more difficult to learn and use. <br> - You are not in control. The vendor's plans for the future may not always fit with your own. As a single customer amongst many, you may not be able to get the features you want implemented. <br> - May be general e.g. Word Processing or specific e.g. Stock Control |  |  |  |  |  |",
+        "images": [],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2339,
+            "width": 1654
+        }
+    },
+    {
+        "index": 13,
+        "markdown": "| Bespoke (MAX 5) <br> - Tailored to you. The software is developed and built to meet your specific requirements, ensuring that you get software that works exactly how you need it to and delivers the results you want. <br> - More flexible. A bespoke system can evolve over time to match your changing requirements. <br> - No per-user fees. If you own the software, you won't have to extra per-user fees as your business grows. <br> - Not tied in. You own the intellectual property, so you are not tied to a specific vendor that could potentially disappear at any time. <br> - Competitive advantage. As your competitors won't have the same software, it could give you a competitive edge. An effective software package can make a company work more efficiently, improve their performance and have a positive impact on customer satisfaction levels. <br> - Higher initial costs. It will cost more at the beginning, as you have to pay the development costs. <br> - Takes longer. Depending on the size and complexity of the software, it may take months or even years to develop. |\n| :--: | :--: |",
+        "images": [],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2339,
+            "width": 1654
+        }
+    },
+    {
+        "index": 14,
+        "markdown": "| 13 | Indicative Content <br> Feasibility study <br> - A feasibility study establishes whether or not the project can be done, given the scope laid out during the problem definition phase. <br> - it considers whether it is desirable for the developing company to proceed with the project. When embarking on a software project there must be confidence on both sides that the project can be delivered on time and within budget. <br> - Economic feasibility <br> - A project has a specific budget, which must include all the costs of the project, including: <br> - software licences <br> - hardware <br> - human resources/wages <br> - the development company's running costs. <br> - Profit is also an important consideration. <br> - The hardware and software costs are fairly straightforward and are unlikely to change over the course of the project. Human costs are the most variable and account <br> - Staffing costs are based on the number of people on the project, the amount they earn and the length of the project. <br> - Economic feasibility <br> - considers the overall budget and the overall costs. It then decides if enough profit can be made to make the project worth doing. <br> - Time feasibility <br> - Late projects result in going over budget because of the cost of developers' wages. It is critically important that projects are delivered on time, as the developing company will make a negative impression if they cannot deliver when they said they could. <br> - In order to decide on how long a project will take, the project manager will have to estimate how long their developers will take to do the project. | 11 | 1.1 b |  |  | 11 |\n| :--: | :--: | :--: | :--: | :--: | :--: |",
+        "images": [],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2339,
+            "width": 1654
+        }
+    },
+    {
+        "index": 15,
+        "markdown": "![img-2.jpeg](img-2.jpeg)",
+        "images": [
+            {
+                "id": "img-2.jpeg",
+                "top_left_x": 165,
+                "top_left_y": 173,
+                "bottom_right_x": 1478,
+                "bottom_right_y": 1630,
+                "image_path": "2500U10-1 WJEC AS Comp Science Unit 1 MS S18 (New)/images/img_15_0.jpeg"
+            }
+        ],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2339,
+            "width": 1654
+        }
+    },
+    {
+        "index": 16,
+        "markdown": "![img-3.jpeg](img-3.jpeg)",
+        "images": [
+            {
+                "id": "img-3.jpeg",
+                "top_left_x": 165,
+                "top_left_y": 168,
+                "bottom_right_x": 1481,
+                "bottom_right_y": 839,
+                "image_path": "2500U10-1 WJEC AS Comp Science Unit 1 MS S18 (New)/images/img_16_0.jpeg"
+            }
+        ],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2339,
+            "width": 1654
+        }
+    },
+    {
+        "index": 17,
+        "markdown": "| Band | AO1.1b <br> Max 11 marks |\n| :--: | :--: |\n| 3 | 9 - 11 marks |\n|  | The candidate has: <br> - written an extended response that has a sustained line of reasoning which is coherent, relevant, and logically structured <br> - shown clear understanding of the requirements of the question and a clear knowledge of the indicative content. Clear knowledge is defined as a response that provides nine to eleven relevant detailed points, which relate to an extensive amount of the indicative content in relation to both feasibility study and weather forecasting <br> - addressed the question appropriately with minimal repetition and no irrelevant material <br> - has presented a balanced discussion and justified their answer with examples <br> - used appropriate technical terminology referring to the indicative content confidently and accurately. |\n| 2 | 4 - 8 marks |\n|  | The candidate has: <br> - written a response that has an adequate line of reasoning with elements of coherence, relevance, and logical structure <br> - shown adequate understanding of the requirements of the question and a satisfactory knowledge as specified in the indicative content. Satisfactory knowledge is defined as a response that provides four to eight points as signalled in the indicative content <br> - has presented a discussion with limited examples <br> - used appropriate technical terminology referring to the indicative content. |\n| 1 | 1 - 3 marks |\n| 1 | The candidate has: <br> - written a response that that lacks sufficient reasoning and structure <br> - produced a discussion which is not well developed <br> - attempted to address the question but has demonstrated superficial knowledge of the topics specified in the indicative content. Superficial knowledge is defined as a response that provides one to three points as signalled in the indicative content <br> - used limited technical terminology referring to the indicative content. |\n| 0 | 0 marks <br> - Response not credit worthy or not attempted. |\n|  | Total 100 60 32 8 100 |",
+        "images": [],
+        "dimensions": {
+            "dpi": 200,
+            "height": 2339,
+            "width": 1654
+        }
+    }
+]
