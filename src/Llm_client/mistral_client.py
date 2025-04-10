@@ -55,12 +55,11 @@ class MistralLLMClient(LLMClient):
         Returns:
             Dict[str, Any]: The structured JSON response
         """
-        json_prompt = f"{prompt}\n\nPlease provide your response in valid JSON format only."
         options = {**self.options, **kwargs}
         
         response = self.client.chat.complete(
             model=self.model,
-            messages=[{"role": "user", "content": json_prompt}],
+            messages=[{"role": "user", "content": prompt}],
             **options
         )
         
