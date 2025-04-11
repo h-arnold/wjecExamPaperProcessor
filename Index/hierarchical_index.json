@@ -1,0 +1,691 @@
+{
+  "subjects": {
+    "Computer Science": {
+      "years": {
+        "2016": {
+          "qualifications": {
+            "A-Level": {
+              "exams": {
+                "Unit 1": {
+                  "unit_number": 1,
+                  "documents": {
+                    "Mark Scheme": [
+                      {
+                        "id": "2500N10-1 GCE AS Computer Science Unit 1 MS Summer 2016 (New)-w",
+                        "content_path": "Index/ocr_results/2500N10-1 GCE AS Computer Science Unit 1 MS Summer 2016 (New)-w.json",
+                        "metadata_path": "Index/test_metadata/mark_schemes/2500N10-1 GCE AS Computer Science Unit 1 MS Summer 2016 (New)-w-metadata.json"
+                      }
+                    ]
+                  },
+                  "name": "Unit 1",
+                  "exam_season": "Summer",
+                  "instructions_for_examiners": "Defnyddiwyd fersiwn Saesneg gwreiddiol y cynllun marcio hwn gan CBAC ar gyfer arholiad 2016. Penderfynwyd arno'n derfynol yn dilyn trafodaeth fanwl mewn cynadleddau arholwyr gan yr holl arholwyr oedd yn ymwneud â'r asesiad. Cynhaliwyd y gynhadledd yn fuan ar ôl sefyll y papur fel y gellid cyfeirio at yr amrediad llawn o ymatebion ymgeiswyr, gyda sgriptiau wedi'u llungopîo yn sail i'r drafodaeth. Amcan y gynhadledd oedd sicrhau bod y cynllun marcio wedi'i ddehongli a'i gymhwyso yn yr un modd gan yr holl arholwyr."
+                },
+                "Unit 2": {
+                  "unit_number": 2,
+                  "documents": {
+                    "Mark Scheme": [
+                      {
+                        "id": "2500N20-1 GCE AS Computer Science Unit 2 MS Summer 2016 (New)-w",
+                        "content_path": "Index/ocr_results/2500N20-1 GCE AS Computer Science Unit 2 MS Summer 2016 (New)-w.json",
+                        "metadata_path": "Index/test_metadata/mark_schemes/2500N20-1 GCE AS Computer Science Unit 2 MS Summer 2016 (New)-w-metadata.json"
+                      }
+                    ]
+                  },
+                  "name": "Unit 2",
+                  "exam_season": "Summer",
+                  "instructions_for_examiners": "Defnyddiwyd fersiwn Saesneg gwreiddiol y cynllun marcio hwn gan CBAC ar gyfer arholiad 2016. Penderfynwyd arno'n derfynol yn dilyn trafodaeth fanwl mewn cynadleddau arholwyr gan yr holl arholwyr oedd yn ymwneud â'r asesiad. Cynhaliwyd y gynhadledd yn fuan ar ôl sefyll y papur fel y gellid cyfeirio at yr amrediad llawn o ymatebion ymgeiswyr, gyda sgriptiau wedi'u llungopîo yn sail i'r drafodaeth. Amcan y gynhadledd oedd sicrhau bod y cynllun marcio wedi'i ddehongli a'i gymhwyso yn yr un modd gan yr holl arholwyr."
+                }
+              }
+            },
+            "AS-Level": {
+              "exams": {
+                "Unit 1": {
+                  "unit_number": 1,
+                  "documents": {
+                    "Question Paper": [
+                      {
+                        "id": "2500U10-1(060616)",
+                        "content_path": "Index/ocr_results/2500U10-1(060616).json",
+                        "metadata_path": "Index/test_metadata/question_papers/2500U10-1(060616)-metadata.json"
+                      }
+                    ],
+                    "Mark Scheme": [
+                      {
+                        "id": "2500U10-1 GCE AS Computer Science Unit 1 MS Summer 2016 (New)-e",
+                        "content_path": "Index/ocr_results/2500U10-1 GCE AS Computer Science Unit 1 MS Summer 2016 (New)-e.json",
+                        "metadata_path": "Index/test_metadata/mark_schemes/2500U10-1 GCE AS Computer Science Unit 1 MS Summer 2016 (New)-e-metadata.json"
+                      }
+                    ]
+                  },
+                  "name": "Unit 1: Fundamentals of Computer Science",
+                  "exam_season": "Summer",
+                  "exam_length": "2 hours",
+                  "total_marks": 100,
+                  "instructions_for_candidates": "Use black ink or black ball-point pen. Answer all questions. Write your name, centre number and candidate number in the spaces at the top of this page. Write your answers in the spaces provided in this booklet. If you run out of space, use the continuation page at the back of the booklet, taking care to number the question(s) correctly."
+                },
+                "Unit 2": {
+                  "unit_number": 2,
+                  "documents": {
+                    "Question Paper": [
+                      {
+                        "id": "2500U20-1(140616)",
+                        "content_path": "Index/ocr_results/2500U20-1(140616).json",
+                        "metadata_path": "Index/test_metadata/question_papers/2500U20-1(140616)-metadata.json"
+                      }
+                    ],
+                    "Mark Scheme": [
+                      {
+                        "id": "2500U20-1 GCE AS Computer Science Unit 2 MS Summer 2016 (New)-e",
+                        "content_path": "Index/ocr_results/2500U20-1 GCE AS Computer Science Unit 2 MS Summer 2016 (New)-e.json",
+                        "metadata_path": "Index/test_metadata/mark_schemes/2500U20-1 GCE AS Computer Science Unit 2 MS Summer 2016 (New)-e-metadata.json"
+                      }
+                    ]
+                  },
+                  "name": "Unit 2",
+                  "exam_season": "Summer",
+                  "exam_length": "2 hours",
+                  "total_marks": 60,
+                  "instructions_for_candidates": "Answer ALL questions. The question paper is divided into two main sections. Below are the recommended timings for this assessment. The number of marks is given in brackets at the end of each question or part-question. The total number of marks available is 60. Assessment will take into account the quality of written communication used in your answers. You will need a computer with an installed functional copy of the Integrated Development Environment (IDE) appropriate to your chosen programming language and word processing software. A calculator is allowed in this examination. Remember to save your work regularly.",
+                  "instructions_for_examiners": "It should be remembered that learners are writing under examination conditions and credit should be given for what the learner writes, rather than adopting the approach of penalising him/her for any omissions."
+                }
+              }
+            }
+          }
+        },
+        "2017": {
+          "qualifications": {
+            "A-Level": {
+              "exams": {
+                "Unit 3": {
+                  "unit_number": 3,
+                  "documents": {
+                    "Mark Scheme": [
+                      {
+                        "id": "1500U30-1 WJEC GCE A Level Comp Science Unit 3 MS S17 (New)",
+                        "content_path": "Index/ocr_results/1500U30-1 WJEC GCE A Level Comp Science Unit 3 MS S17 (New).json",
+                        "metadata_path": "Index/test_metadata/mark_schemes/1500U30-1 WJEC GCE A Level Comp Science Unit 3 MS S17 (New)-metadata.json"
+                      }
+                    ]
+                  },
+                  "name": "Unit 3",
+                  "exam_season": "Summer"
+                },
+                "Unit 4": {
+                  "unit_number": 4,
+                  "documents": {
+                    "Mark Scheme": [
+                      {
+                        "id": "1500U40-1 WJEC GCE A Level Comp Science Unit 4 MS S17 (New)",
+                        "content_path": "Index/ocr_results/1500U40-1 WJEC GCE A Level Comp Science Unit 4 MS S17 (New).json",
+                        "metadata_path": "Index/test_metadata/mark_schemes/1500U40-1 WJEC GCE A Level Comp Science Unit 4 MS S17 (New)-metadata.json"
+                      }
+                    ]
+                  },
+                  "name": "Unit 4",
+                  "exam_season": "Summer"
+                }
+              }
+            },
+            "A2-Level": {
+              "exams": {
+                "Unit 3": {
+                  "unit_number": 3,
+                  "documents": {
+                    "Question Paper": [
+                      {
+                        "id": "1500U30-1(160617)",
+                        "content_path": "Index/ocr_results/1500U30-1(160617).json",
+                        "metadata_path": "Index/test_metadata/question_papers/1500U30-1(160617)-metadata.json"
+                      }
+                    ]
+                  },
+                  "name": "Unit 3 Programming and System Development",
+                  "exam_season": "Summer",
+                  "exam_length": "2 hours",
+                  "total_marks": 100
+                },
+                "Unit 4": {
+                  "unit_number": 4,
+                  "documents": {
+                    "Question Paper": [
+                      {
+                        "id": "1500U40-1(220617)",
+                        "content_path": "Index/ocr_results/1500U40-1(220617).json",
+                        "metadata_path": "Index/test_metadata/question_papers/1500U40-1(220617)-metadata.json"
+                      }
+                    ]
+                  },
+                  "name": "Unit 4 Computer Architecture, Data, Communication and Applications",
+                  "exam_season": "Summer",
+                  "exam_length": "2 hours",
+                  "total_marks": 100,
+                  "instructions_for_candidates": "Answer all questions. Write your answers in the separate answer booklet provided."
+                }
+              }
+            },
+            "AS-Level": {
+              "exams": {
+                "Unit 1": {
+                  "unit_number": 1,
+                  "documents": {
+                    "Mark Scheme": [
+                      {
+                        "id": "2500U10-1 WJEC GCE AS Comp Science Unit 1 MS S17 (New)",
+                        "content_path": "Index/ocr_results/2500U10-1 WJEC GCE AS Comp Science Unit 1 MS S17 (New).json",
+                        "metadata_path": "Index/test_metadata/mark_schemes/2500U10-1 WJEC GCE AS Comp Science Unit 1 MS S17 (New)-metadata.json"
+                      }
+                    ]
+                  },
+                  "name": "Unit 1",
+                  "exam_season": "Summer"
+                },
+                "Unit 2": {
+                  "unit_number": 2,
+                  "documents": {
+                    "Mark Scheme": [
+                      {
+                        "id": "2500U20-1 WJEC GCE AS Comp Science Unit 2 MS S17 (New)",
+                        "content_path": "Index/ocr_results/2500U20-1 WJEC GCE AS Comp Science Unit 2 MS S17 (New).json",
+                        "metadata_path": "Index/test_metadata/mark_schemes/2500U20-1 WJEC GCE AS Comp Science Unit 2 MS S17 (New)-metadata.json"
+                      }
+                    ],
+                    "Question Paper": [
+                      {
+                        "id": "2500U20-1(090617)",
+                        "content_path": "Index/ocr_results/2500U20-1(090617).json",
+                        "metadata_path": "Index/test_metadata/question_papers/2500U20-1(090617)-metadata.json"
+                      }
+                    ]
+                  },
+                  "name": "AS unit 2 Practical Programming to Solve Problems",
+                  "exam_season": "Summer",
+                  "exam_length": "2 hours",
+                  "total_marks": 60,
+                  "instructions_for_candidates": "Answer ALL questions. The question paper is divided into two main sections. Below are the recommended timings for this assessment. The number of marks is given in brackets at the end of each question or part-question. The total number of marks available is 60. Assessment will take into account the quality of written communication used in your answers. You will need a computer with an installed functional copy of the Integrated Development Environment (IDE) appropriate to your chosen programming language and word processing software. A calculator is allowed in this examination. Remember to save your work regularly.",
+                  "instructions_for_examiners": "It should be remembered that learners are writing under examination conditions and credit should be given for what the learner writes, rather than adopting the approach of penalising him/her for any omissions."
+                }
+              }
+            }
+          }
+        },
+        "2018": {
+          "qualifications": {
+            "A-Level": {
+              "exams": {
+                "Unit 3": {
+                  "unit_number": 3,
+                  "documents": {
+                    "Mark Scheme": [
+                      {
+                        "id": "1500U30-1 WJEC A Level Comp Science Unit 3 MS S18 (New)",
+                        "content_path": "Index/ocr_results/1500U30-1 WJEC A Level Comp Science Unit 3 MS S18 (New).json",
+                        "metadata_path": "Index/test_metadata/mark_schemes/1500U30-1 WJEC A Level Comp Science Unit 3 MS S18 (New)-metadata.json"
+                      }
+                    ]
+                  },
+                  "name": "Unit 3",
+                  "exam_season": "Summer"
+                },
+                "Unit 4": {
+                  "unit_number": 4,
+                  "documents": {
+                    "Mark Scheme": [
+                      {
+                        "id": "1500U40-1 WJEC A Level Comp Science Unit 4 MS S18 (New)",
+                        "content_path": "Index/ocr_results/1500U40-1 WJEC A Level Comp Science Unit 4 MS S18 (New).json",
+                        "metadata_path": "Index/test_metadata/mark_schemes/1500U40-1 WJEC A Level Comp Science Unit 4 MS S18 (New)-metadata.json"
+                      }
+                    ]
+                  },
+                  "name": "Unit 4",
+                  "exam_season": "Summer"
+                }
+              }
+            },
+            "A2-Level": {
+              "exams": {
+                "Unit 3": {
+                  "unit_number": 3,
+                  "documents": {
+                    "Question Paper": [
+                      {
+                        "id": "1500U30-1-110618",
+                        "content_path": "Index/ocr_results/1500U30-1-110618.json",
+                        "metadata_path": "Index/test_metadata/question_papers/1500U30-1-110618-metadata.json"
+                      }
+                    ]
+                  },
+                  "name": "Unit 3 - Programming and System Development",
+                  "exam_season": "Summer",
+                  "exam_length": "2 hours",
+                  "total_marks": 100,
+                  "instructions_for_candidates": "Answer all questions. Write your answers in the separate answer booklet provided. The number of marks is given in brackets at the end of each question or part-question; you are advised to divide your time accordingly. The total number of marks available is 100. Assessment will take into account the quality of written communication used in your answers."
+                },
+                "Unit 4": {
+                  "unit_number": 4,
+                  "documents": {
+                    "Question Paper": [
+                      {
+                        "id": "1500U40-1-150618",
+                        "content_path": "Index/ocr_results/1500U40-1-150618.json",
+                        "metadata_path": "Index/test_metadata/question_papers/1500U40-1-150618-metadata.json"
+                      }
+                    ]
+                  },
+                  "name": "Unit 4 Computer Architecture, Data, Communication and Applications",
+                  "exam_season": "Summer",
+                  "exam_length": "2 hours",
+                  "total_marks": 100,
+                  "instructions_for_candidates": "Answer all questions. Write your answers in the separate answer booklet provided."
+                }
+              }
+            },
+            "AS-Level": {
+              "exams": {
+                "Unit 1": {
+                  "unit_number": 1,
+                  "documents": {
+                    "Question Paper": [
+                      {
+                        "id": "2500U10-1-040618",
+                        "content_path": "Index/ocr_results/2500U10-1-040618.json",
+                        "metadata_path": "Index/test_metadata/question_papers/2500U10-1-040618-metadata.json"
+                      }
+                    ],
+                    "Mark Scheme": [
+                      {
+                        "id": "2500U10-1 WJEC AS Comp Science Unit 1 MS S18 (New)",
+                        "content_path": "Index/ocr_results/2500U10-1 WJEC AS Comp Science Unit 1 MS S18 (New).json",
+                        "metadata_path": "Index/test_metadata/mark_schemes/2500U10-1 WJEC AS Comp Science Unit 1 MS S18 (New)-metadata.json"
+                      }
+                    ]
+                  },
+                  "name": "Unit 1: Fundamentals of Computer Science",
+                  "exam_season": "Summer",
+                  "exam_length": "2 hours",
+                  "total_marks": 100,
+                  "instructions_for_candidates": "Use black ink or black ball-point pen. Answer all questions. Write your name, centre number and candidate number in the spaces at the top of this page. Write your answers in the spaces provided in this booklet. If you run out of space, use the continuation page at the back of the booklet, taking care to number the question(s) correctly."
+                },
+                "Unit 2": {
+                  "unit_number": 2,
+                  "documents": {
+                    "Question Paper": [
+                      {
+                        "id": "2500U20-1-080618",
+                        "content_path": "Index/ocr_results/2500U20-1-080618.json",
+                        "metadata_path": "Index/test_metadata/question_papers/2500U20-1-080618-metadata.json"
+                      }
+                    ],
+                    "Mark Scheme": [
+                      {
+                        "id": "2500U20-1 WJEC AS Comp Science Unit 2 MS S18 (New)",
+                        "content_path": "Index/ocr_results/2500U20-1 WJEC AS Comp Science Unit 2 MS S18 (New).json",
+                        "metadata_path": "Index/test_metadata/mark_schemes/2500U20-1 WJEC AS Comp Science Unit 2 MS S18 (New)-metadata.json"
+                      }
+                    ]
+                  },
+                  "name": "Unit 2",
+                  "exam_season": "Summer",
+                  "exam_length": "2 hours",
+                  "total_marks": 60,
+                  "instructions_for_candidates": "Answer ALL questions. The question paper is divided into two main sections. Below are the recommended timings for this assessment. You will need a computer with an installed functional copy of the Integrated Development Environment (IDE) appropriate to your chosen programming language and word processing software. A calculator is allowed in this examination. Remember to save your work regularly.",
+                  "instructions_for_examiners": "For Examiner's use only"
+                }
+              }
+            }
+          }
+        },
+        "2019": {
+          "qualifications": {
+            "A2-Level": {
+              "exams": {
+                "Unit 3": {
+                  "unit_number": 3,
+                  "documents": {
+                    "Question Paper": [
+                      {
+                        "id": "1500U30-1-030619",
+                        "content_path": "Index/ocr_results/1500U30-1-030619.json",
+                        "metadata_path": "Index/test_metadata/question_papers/1500U30-1-030619-metadata.json"
+                      }
+                    ]
+                  },
+                  "name": "A2 unit 3",
+                  "exam_season": "Summer",
+                  "exam_length": "2 hours",
+                  "total_marks": 100
+                },
+                "Unit 4": {
+                  "unit_number": 4,
+                  "documents": {
+                    "Question Paper": [
+                      {
+                        "id": "1500U40-1-110619",
+                        "content_path": "Index/ocr_results/1500U40-1-110619.json",
+                        "metadata_path": "Index/test_metadata/question_papers/1500U40-1-110619-metadata.json"
+                      }
+                    ]
+                  },
+                  "name": "Unit 4: Computer Architecture, Data, Communication and Applications",
+                  "exam_season": "Summer",
+                  "exam_length": "2 hours",
+                  "total_marks": 100,
+                  "instructions_for_candidates": "Answer all questions. Write your answers in the separate answer booklet provided."
+                }
+              }
+            },
+            "AS-Level": {
+              "exams": {
+                "Unit 1": {
+                  "unit_number": 1,
+                  "documents": {
+                    "Question Paper": [
+                      {
+                        "id": "2500U10-1-210519",
+                        "content_path": "Index/ocr_results/2500U10-1-210519.json",
+                        "metadata_path": "Index/test_metadata/question_papers/2500U10-1-210519-metadata.json"
+                      }
+                    ]
+                  },
+                  "name": "Unit 1: Fundamentals of Computer Science",
+                  "exam_season": "Summer",
+                  "exam_length": "2 hours",
+                  "total_marks": 100,
+                  "instructions_for_candidates": "Use black ink or black ball-point pen. Answer all questions. Write your name, centre number and candidate number in the spaces at the top of this page. Write your answers in the spaces provided in this booklet. If you run out of space, use the continuation pages at the back of the booklet, taking care to number the question(s) correctly."
+                },
+                "Unit 2": {
+                  "unit_number": 2,
+                  "documents": {
+                    "Question Paper": [
+                      {
+                        "id": "2500U20-1-240519",
+                        "content_path": "Index/ocr_results/2500U20-1-240519.json",
+                        "metadata_path": "Index/test_metadata/question_papers/2500U20-1-240519-metadata.json"
+                      }
+                    ]
+                  },
+                  "name": "AS unit 2 Practical Programming to Solve Problems",
+                  "exam_season": "Summer",
+                  "exam_length": "2 hours",
+                  "total_marks": 60,
+                  "instructions_for_candidates": "Answer ALL questions. The question paper is divided into two main sections. Below are the recommended timings for this assessment. You will need a computer with an installed functional copy of the Integrated Development Environment (IDE) appropriate to your chosen programming language and word processing software. A calculator is allowed in this examination. Remember to save your work regularly."
+                }
+              }
+            }
+          }
+        },
+        "2022": {
+          "qualifications": {
+            "A-Level": {
+              "exams": {
+                "Unit 3": {
+                  "unit_number": 3,
+                  "documents": {
+                    "Mark Scheme": [
+                      {
+                        "id": "1500U30-1 WJEC GCE A Level Computer Science - Unit 3 MS S22",
+                        "content_path": "Index/ocr_results/1500U30-1 WJEC GCE A Level Computer Science - Unit 3 MS S22.json",
+                        "metadata_path": "Index/test_metadata/mark_schemes/1500U30-1 WJEC GCE A Level Computer Science - Unit 3 MS S22-metadata.json"
+                      }
+                    ]
+                  },
+                  "name": "Unit 3",
+                  "exam_season": "Summer"
+                },
+                "Unit 4": {
+                  "unit_number": 4,
+                  "documents": {
+                    "Mark Scheme": [
+                      {
+                        "id": "1500U40-1 WJEC GCE A Level Computer Science - Unit 4 MS S22",
+                        "content_path": "Index/ocr_results/1500U40-1 WJEC GCE A Level Computer Science - Unit 4 MS S22.json",
+                        "metadata_path": "Index/test_metadata/mark_schemes/1500U40-1 WJEC GCE A Level Computer Science - Unit 4 MS S22-metadata.json"
+                      }
+                    ]
+                  },
+                  "name": "Unit 4 1500U40-1",
+                  "exam_season": "Summer"
+                }
+              }
+            },
+            "A2-Level": {
+              "exams": {
+                "Unit 3": {
+                  "unit_number": 3,
+                  "documents": {
+                    "Question Paper": [
+                      {
+                        "id": "1500U30-1-130622",
+                        "content_path": "Index/ocr_results/1500U30-1-130622.json",
+                        "metadata_path": "Index/test_metadata/question_papers/1500U30-1-130622-metadata.json"
+                      },
+                      {
+                        "id": "1500U30-1-130622 (1)",
+                        "content_path": "Index/ocr_results/1500U30-1-130622 (1).json",
+                        "metadata_path": "Index/test_metadata/question_papers/1500U30-1-130622 (1)-metadata.json"
+                      }
+                    ]
+                  },
+                  "name": "Unit 3: Programming and System Development",
+                  "exam_season": "Summer",
+                  "exam_length": "2 hours",
+                  "total_marks": 100,
+                  "instructions_for_candidates": "Answer all questions. Write your answers in the separate answer booklet provided. The number of marks is given in brackets at the end of each question or part-question; you are advised to divide your time accordingly. The total number of marks available is 100. Assessment will take into account the quality of written communication used in your answers."
+                },
+                "Unit 4": {
+                  "unit_number": 4,
+                  "documents": {
+                    "Question Paper": [
+                      {
+                        "id": "1500U40-1-240622",
+                        "content_path": "Index/ocr_results/1500U40-1-240622.json",
+                        "metadata_path": "Index/test_metadata/question_papers/1500U40-1-240622-metadata.json"
+                      }
+                    ]
+                  },
+                  "name": "Unit 4: Computer Architecture, Data, Communication and Applications",
+                  "exam_season": "Summer",
+                  "exam_length": "2 hours",
+                  "total_marks": 100
+                }
+              }
+            },
+            "AS-Level": {
+              "exams": {
+                "Unit 1": {
+                  "unit_number": 1,
+                  "documents": {
+                    "Mark Scheme": [
+                      {
+                        "id": "2500U10-1 WJEC GCE Computer Science - Unit 1 MS S22",
+                        "content_path": "Index/ocr_results/2500U10-1 WJEC GCE Computer Science - Unit 1 MS S22.json",
+                        "metadata_path": "Index/test_metadata/mark_schemes/2500U10-1 WJEC GCE Computer Science - Unit 1 MS S22-metadata.json"
+                      }
+                    ],
+                    "Question Paper": [
+                      {
+                        "id": "2500U10-1-170522",
+                        "content_path": "Index/ocr_results/2500U10-1-170522.json",
+                        "metadata_path": "Index/test_metadata/question_papers/2500U10-1-170522-metadata.json"
+                      }
+                    ]
+                  },
+                  "name": "Unit 1 2500U10-1",
+                  "exam_season": "Summer",
+                  "exam_length": "2 hours",
+                  "total_marks": 100,
+                  "instructions_for_candidates": "Use black ink or black ball-point pen. Answer all questions. Write your name, centre number and candidate number in the spaces at the top of this page. Write your answers in the spaces provided in this booklet. If you run out of space, use the continuation pages at the back of the booklet, taking care to number the question(s) correctly."
+                },
+                "Unit 2": {
+                  "unit_number": 2,
+                  "documents": {
+                    "Question Paper": [
+                      {
+                        "id": "2500U20-1A-270522",
+                        "content_path": "Index/ocr_results/2500U20-1A-270522.json",
+                        "metadata_path": "Index/test_metadata/question_papers/2500U20-1A-270522-metadata.json"
+                      },
+                      {
+                        "id": "2500U20-1-270522",
+                        "content_path": "Index/ocr_results/2500U20-1-270522.json",
+                        "metadata_path": "Index/test_metadata/question_papers/2500U20-1-270522-metadata.json"
+                      }
+                    ],
+                    "Mark Scheme": [
+                      {
+                        "id": "2500U20-1 WJEC GCE Computer Science - Unit 2 MS S22",
+                        "content_path": "Index/ocr_results/2500U20-1 WJEC GCE Computer Science - Unit 2 MS S22.json",
+                        "metadata_path": "Index/test_metadata/mark_schemes/2500U20-1 WJEC GCE Computer Science - Unit 2 MS S22-metadata.json"
+                      }
+                    ]
+                  },
+                  "name": "AS unit 2 Practical Programming to Solve Problems",
+                  "exam_season": "Summer",
+                  "exam_length": "1 hour 30 minutes",
+                  "total_marks": 60,
+                  "instructions_for_candidates": "You will be issued with a Question Paper and instructions for candidates. You will be using: A dedicated examination account for this examination only which should be inactive until the examination starts, 7-Zip pre-installed on each PC, A pre-installed functional copy of your chosen IDE (Visual Basic, Python or Java), Access to a word processing package (e.g. Microsoft Word) to produce your candidate responses, The encrypted media files pre-installed on each PC, the password for the media files, An 'empty' user area or storage device (with only the encrypted media files) on which to save the work. NB: You must not have access to the internet, any shared drives, virtual learning environments (VLEs) or email during the examination.",
+                  "instructions_for_examiners": "It should be remembered that learners are writing under examination conditions and credit should be given for what the learner writes, rather than adopting the approach of penalising him/her for any omissions. It should be possible for a very good response to achieve full marks and a very poor one to achieve zero marks. Marks should not be deducted for a less than perfect answer if it satisfies the criteria of the mark scheme."
+                }
+              }
+            }
+          }
+        },
+        "2023": {
+          "qualifications": {
+            "A-Level": {
+              "exams": {
+                "Unit 3": {
+                  "unit_number": 3,
+                  "documents": {
+                    "Mark Scheme": [
+                      {
+                        "id": "s23-1500u30-1-ms",
+                        "content_path": "Index/ocr_results/s23-1500u30-1-ms.json",
+                        "metadata_path": "Index/test_metadata/mark_schemes/s23-1500u30-1-ms-metadata.json"
+                      }
+                    ]
+                  },
+                  "name": "Unit 3",
+                  "exam_season": "Summer"
+                }
+              }
+            },
+            "A2-Level": {
+              "exams": {
+                "Unit 3": {
+                  "unit_number": 3,
+                  "documents": {
+                    "Question Paper": [
+                      {
+                        "id": "s23-1500u30-1",
+                        "content_path": "Index/ocr_results/s23-1500u30-1.json",
+                        "metadata_path": "Index/test_metadata/question_papers/s23-1500u30-1-metadata.json"
+                      }
+                    ]
+                  },
+                  "name": "Unit 3",
+                  "exam_season": "Summer",
+                  "exam_length": "2 hours",
+                  "total_marks": 100,
+                  "instructions_for_candidates": "Answer all questions. Write your answers in the separate answer booklet provided."
+                },
+                "Unit 4": {
+                  "unit_number": 4,
+                  "documents": {
+                    "Question Paper": [
+                      {
+                        "id": "s23-1500u40-1",
+                        "content_path": "Index/ocr_results/s23-1500u40-1.json",
+                        "metadata_path": "Index/test_metadata/question_papers/s23-1500u40-1-metadata.json"
+                      }
+                    ]
+                  },
+                  "name": "Unit 4 Computer Architecture, Data, Communication and Applications",
+                  "exam_season": "Summer",
+                  "exam_length": "2 hours",
+                  "total_marks": 100,
+                  "instructions_for_candidates": "Use black ink or black ball-point pen. Answer all questions. Write your answers in the separate answer booklet provided."
+                }
+              }
+            },
+            "AS-Level": {
+              "exams": {
+                "Unit 1": {
+                  "unit_number": 1,
+                  "documents": {
+                    "Question Paper": [
+                      {
+                        "id": "s23-2500u10-1",
+                        "content_path": "Index/ocr_results/s23-2500u10-1.json",
+                        "metadata_path": "Index/test_metadata/question_papers/s23-2500u10-1-metadata.json"
+                      }
+                    ],
+                    "Mark Scheme": [
+                      {
+                        "id": "s23-2500u10-1-ms",
+                        "content_path": "Index/ocr_results/s23-2500u10-1-ms.json",
+                        "metadata_path": "Index/test_metadata/mark_schemes/s23-2500u10-1-ms-metadata.json"
+                      }
+                    ]
+                  },
+                  "name": "AS unit 1: Fundamentals of Computer Science",
+                  "exam_season": "Summer",
+                  "exam_length": "2 hours",
+                  "total_marks": 100,
+                  "instructions_for_candidates": "Use black ink or black ball-point pen. Answer all questions. Write your name, centre number and candidate number in the spaces at the top of this page. Write your answers in the spaces provided in this booklet. If you run out of space, use the continuation pages at the back of the booklet, taking care to number the question(s) correctly."
+                },
+                "Unit 2": {
+                  "unit_number": 2,
+                  "documents": {
+                    "Mark Scheme": [
+                      {
+                        "id": "s23-2500u20-1-ms",
+                        "content_path": "Index/ocr_results/s23-2500u20-1-ms.json",
+                        "metadata_path": "Index/test_metadata/mark_schemes/s23-2500u20-1-ms-metadata.json"
+                      }
+                    ]
+                  },
+                  "name": "Unit 2",
+                  "exam_season": "Summer",
+                  "instructions_for_examiners": "It should be remembered that learners are writing under examination conditions and credit should be given for what the learner writes, rather than adopting the approach of penalising him/her for any omissions."
+                },
+                "Unit 10": {
+                  "unit_number": 10,
+                  "documents": {
+                    "Question Paper": [
+                      {
+                        "id": "2500U10-1(050617)",
+                        "content_path": "Index/ocr_results/2500U10-1(050617).json",
+                        "metadata_path": "Index/test_metadata/question_papers/2500U10-1(050617)-metadata.json"
+                      }
+                    ]
+                  },
+                  "name": "2500U10-1",
+                  "exam_season": "Summer"
+                },
+                "Unit 20": {
+                  "unit_number": 20,
+                  "documents": {
+                    "Question Paper": [
+                      {
+                        "id": "s23-2500u20-1a",
+                        "content_path": "Index/ocr_results/s23-2500u20-1a.json",
+                        "metadata_path": "Index/test_metadata/question_papers/s23-2500u20-1a-metadata.json"
+                      }
+                    ]
+                  },
+                  "name": "2500U20-1",
+                  "exam_season": "Summer",
+                  "exam_length": "2 hours",
+                  "total_marks": 60,
+                  "instructions_for_candidates": "The question paper is divided into two main sections. Below are the recommended timings for this assessment. The number of marks is given in brackets at the end of each question or part-question. You will need a computer with an installed functional copy of the Integrated Development Environment (IDE) appropriate to your chosen programming language and word processing software. A calculator is allowed in this examination."
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
