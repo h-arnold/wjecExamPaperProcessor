@@ -70,6 +70,70 @@ class MetadataExtractor:
         except Exception as e:
             raise ValueError(f"Metadata extraction failed: {str(e)}")
     
+    def identify_question_start_index(self, document_path: str, document_type: str) -> int:
+        """
+        Identifies the index where questions begin in a given document.
+        
+        Args:
+            document_path (str): Path to the OCR JSON document file
+            document_type (str): Type of document, either "Question Paper" or "Mark Scheme"
+            
+        Returns:
+            int: The index where questions start
+            
+        Raises:
+            ValueError: If the index cannot be determined or is invalid
+        """
+        from Prompts.prompt import QuestionIndexIdentifier
+        
+        # Validate document type
+        if document_type not in ["Question Paper", "Mark Scheme"]:
+            raise ValueError(f"Invalid document type: {document_type}. Must be 'Question Paper' or 'Mark Scheme'")
+            
+        # Create a QuestionIndexIdentifier prompt for this document
+        prompt = QuestionIndexIdentifier(document_type, document_path).get()
+        
+        try:
+            # Send the prompt to the LLM client
+            response = self.llm_client.generate_text(prompt)
+            
+            # Clean and validate the response
+            return self._validate_question_index_response(response)
+        except Exception as e:
+            raise ValueError(f"Failed to identify question start index: {str(e)}")
+    
+    def _validate_question_index_response(self, response: str) -> int:
+        """
+        Validates and extracts an integer index from the LLM response.
+        
+        Args:
+            response (str): The raw response from the LLM
+            
+        Returns:
+            int: The validated index
+            
+        Raises:
+            ValueError: If the response cannot be parsed as a valid index
+        """
+        # Clean the response by removing any non-digit characters
+        cleaned_response = ''.join(char for char in response if char.isdigit())
+        
+        # Handle empty response
+        if not cleaned_response:
+            raise ValueError("Could not extract a valid index number from LLM response")
+        
+        try:
+            # Convert to integer
+            index = int(cleaned_response)
+            
+            # Validate the index is reasonable (not negative and not too large)
+            if index < 0 or index > 10:  # 10 is a reasonable upper limit for question indices
+                raise ValueError(f"Extracted index {index} is outside reasonable range (0-100)")
+                
+            return index
+        except ValueError as e:
+            raise ValueError(f"Failed to parse question index: {str(e)}")
+    
     def _retry_metadata_extraction(self, initial_metadata: Dict[str, Any], 
                                  text_content: str, 
                                  missing_fields: List[str]) -> Dict[str, Any]:
