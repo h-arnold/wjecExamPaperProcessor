@@ -1,6 +1,6 @@
 # Your role
 
-You are a helpful assistant who will browse through a JSON object containing scanned exam papers and mark schemes to identify the index where the first question is asked. 
+You are a helpful assistant who will browse through a JSON object containing scanned exam papers and mark schemes to identify the index where the first question is asked.
 
 # Task
 

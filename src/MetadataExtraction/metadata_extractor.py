@@ -50,7 +50,7 @@ class MetadataExtractor:
         text_content = self._extract_text_from_ocr(ocr_content)
         
         # Create a metadata prompt using our specialized class
-        from Prompting.prompt import MetadataPrompt
+        from Prompts.prompt import MetadataPrompt
         formatted_prompt = MetadataPrompt(text_content).get()
         
         try:
@@ -96,7 +96,7 @@ class MetadataExtractor:
         )
         
         # Create a prompt object for the retry
-        from Prompting.prompt import Prompt
+        from Prompts.prompt import Prompt
         retry_prompt = Prompt(retry_prompt_text)
         
         # Try again with the enhanced prompt

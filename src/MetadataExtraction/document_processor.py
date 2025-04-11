@@ -5,8 +5,6 @@ This module integrates the various components of the system to process
 exam documents, extract metadata, and manage the document index.
 """
 
-import os
-import glob
 from pathlib import Path
 from typing import Dict, Any, List, Optional, Union
 
