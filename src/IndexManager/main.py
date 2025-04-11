@@ -1,188 +1,153 @@
 #!/usr/bin/env python3
 """
-Main script for updating the index with unit numbers and establishing document relationships.
-This uses the IndexManager class to organize documents by subject, year, qualification, and unit number.
+Unified command line interface for index management, transformation, and enhancement.
+This script combines the functionality of the previous scripts into a single interface.
 """
 
+import argparse
+import json
 import sys
-from typing import Dict, Any, List
+from pathlib import Path
 
-# Try relative import first (when used as a package), fall back to direct import (when run as script)
 try:
     from .index_manager import IndexManager
 except ImportError:
-    # When run directly as a script
+    # When run directly as script
     from index_manager import IndexManager
-
-class IndexUpdater:
-    """
-    Class for updating the index with unit numbers and establishing document relationships.
-    
-    This class extends the functionality of IndexManager by providing methods
-    to enhance the index with unit numbers and organize documents for better
-    searchability and relationship mapping.
-    """
-    
-    def __init__(self, index_path: str = "Index/index.json"):
-        """
-        Initialize the index updater.
-        
-        Args:
-            index_path (str): Path to the index file
-        """
-        self.index_manager = IndexManager(index_path)
-        
-    def update_unit_numbers(self) -> int:
-        """
-        Update unit numbers for all documents in the index.
-        
-        Returns:
-            int: Number of documents updated with unit numbers
-        """
-        documents_updated = 0
-        
-        for doc in self.index_manager.index['documents']:
-            if 'unit_number' not in doc or doc['unit_number'] is None:
-                # Use IndexManager's existing method to extract unit numbers
-                unit_number = None
-                if 'exam_paper' in doc and doc['exam_paper']:
-                    unit_number = self.index_manager._extract_unit_number(doc['exam_paper'])
-                
-                if unit_number is None and 'id' in doc:
-                    unit_number = self.index_manager._extract_unit_number(doc['id'])
-                
-                if unit_number is not None:
-                    doc['unit_number'] = unit_number
-                    documents_updated += 1
-                else:
-                    doc['unit_number'] = None
-        
-        return documents_updated
-        
-    def sort_index(self) -> List[Dict[str, Any]]:
-        """
-        Sort the index by subject, year, qualification, and unit_number.
-        
-        Returns:
-            List[Dict[str, Any]]: The sorted list of documents
-        """
-        # Simply use the IndexManager's sort_index method which already handles
-        # updating unit numbers internally
-        return self.index_manager.sort_index()
-        
-    def update_relationships(self) -> int:
-        """
-        Update document relationships based on unit numbers and naming patterns.
-        
-        This delegates to the IndexManager's update_all_document_relations method.
-        
-        Returns:
-            int: Number of relationships found
-        """
-        # Directly delegate to the IndexManager's method
-        return self.index_manager.update_all_document_relations()
-        
-    def get_unit_distribution(self) -> Dict[int, int]:
-        """
-        Get distribution of documents by unit number.
-        
-        Returns:
-            Dict[int, int]: Dictionary with unit numbers as keys and document counts as values
-        """
-        unit_counts = {}
-        for doc in self.index_manager.index['documents']:
-            if doc.get('unit_number') is not None:
-                unit_number = doc['unit_number']
-                unit_counts[unit_number] = unit_counts.get(unit_number, 0) + 1
-        
-        return unit_counts
-        
-    def get_documents_without_unit(self) -> List[str]:
-        """
-        Get list of documents without a unit number.
-        
-        Returns:
-            List[str]: List of document IDs without a unit number
-        """
-        return [doc['id'] for doc in self.index_manager.index['documents'] 
-                if doc.get('unit_number') is None]
-    
-    def save_index(self):
-        """
-        Save the updated index.
-        """
-        self.index_manager.save_index()
-        
-    def run_update_process(self) -> Dict[str, Any]:
-        """
-        Run the complete update process.
-        
-        Returns:
-            Dict[str, Any]: Dictionary with update statistics
-        """
-        stats = {}
-        
-        # Update unit numbers
-        docs_updated = self.update_unit_numbers()
-        stats['documents_updated_with_unit'] = docs_updated
-        
-        # Sort index
-        sorted_docs = self.sort_index()
-        stats['documents_sorted'] = len(sorted_docs)
-        
-        # Update relationships
-        relationships = self.update_relationships()
-        stats['relationships_found'] = relationships
-        
-        # Get distribution and missing units
-        stats['unit_distribution'] = self.get_unit_distribution()
-        stats['documents_without_unit'] = self.get_documents_without_unit()
-        
-        # Save index
-        self.save_index()
-        stats['index_path'] = self.index_manager.index_path
-        
-        return stats
-
 
 def main():
     """
-    Main function to update the index with unit numbers and document relationships.
+    Main function for the unified index management workflow.
     """
-    try:
-        updater = IndexUpdater("Index/index.json")
-        
-        print(f"Processing {len(updater.index_manager.index['documents'])} documents...")
-        
-        # Run the update process
-        stats = updater.run_update_process()
-        
-        # Output results
-        print(f"Added unit numbers to {stats['documents_updated_with_unit']} documents")
-        print(f"Index sorted by subject, year, qualification, and unit number")
-        print(f"Found {stats['relationships_found']} relationships between question papers and mark schemes")
-        print(f"Index successfully updated and saved to {stats['index_path']}")
-        
-        # Display unit distribution
-        print("\nDistribution of documents by unit number:")
-        for unit, count in sorted(stats['unit_distribution'].items()):
-            print(f"Unit {unit}: {count} documents")
-        
-        # Display null units
-        null_units = stats['documents_without_unit']
-        if null_units:
-            print(f"\nWarning: {len(null_units)} documents have no unit number:")
-            for doc_id in null_units[:10]:  # Show only first 10
-                print(f"  - {doc_id}")
-            if len(null_units) > 10:
-                print(f"  - ... and {len(null_units) - 10} more")
-        
-    except Exception as e:
-        print(f"Error: {str(e)}")
-        return 1
+    parser = argparse.ArgumentParser(
+        description='Manage, transform, and enhance exam document index'
+    )
+    parser.add_argument(
+        '--input',
+        default='Index/index.json',
+        help='Path to input flat index file (default: Index/index.json)'
+    )
+    parser.add_argument(
+        '--output',
+        default='Index/hierarchical_index.json',
+        help='Path for output hierarchical index file (default: Index/hierarchical_index.json)'
+    )
+    parser.add_argument(
+        '--non-interactive',
+        action='store_true',
+        help='Run in non-interactive mode (automatically select first option for conflicts)'
+    )
+    parser.add_argument(
+        '--update-only',
+        action='store_true',
+        help='Only update unit numbers and relationships (skip transformation and enhancement)'
+    )
+    parser.add_argument(
+        '--transform-only',
+        action='store_true',
+        help='Only transform the structure (skip enhancement)'
+    )
+    parser.add_argument(
+        '--enhance-only',
+        action='store_true',
+        help='Only enhance existing hierarchical structure (skip updating and transformation)'
+    )
+    parser.add_argument(
+        '--skip-metadata',
+        action='store_true',
+        help='Skip enhancing the structure with document metadata'
+    )
     
-    return 0
-
+    args = parser.parse_args()
+    
+    try:
+        # Initialize the index manager
+        index_manager = IndexManager(args.input)
+        
+        # Check for contradictory flags
+        if sum([args.update_only, args.transform_only, args.enhance_only]) > 1:
+            print("Error: Cannot specify more than one of --update-only, --transform-only, and --enhance-only")
+            return 1
+            
+        # Determine workflow based on flags
+        if args.update_only:
+            # Update unit numbers and relationships only
+            print(f"Processing {len(index_manager.index['documents'])} documents...")
+            
+            updated_count = index_manager.update_unit_numbers()
+            print(f"Added unit numbers to {updated_count} documents")
+            
+            index_manager.sort_index()
+            print(f"Index sorted by subject, year, qualification, and unit number")
+            
+            relationship_count = index_manager.update_all_document_relations()
+            print(f"Found {relationship_count} relationships between question papers and mark schemes")
+            
+            index_manager.save_index()
+            print(f"Index successfully updated and saved to {index_manager.index_path}")
+            
+            # Display unit distribution
+            unit_distribution = index_manager.get_unit_distribution()
+            print("\nDistribution of documents by unit number:")
+            for unit, count in sorted(unit_distribution.items()):
+                print(f"Unit {unit}: {count} documents")
+            
+            # Display null units
+            null_units = index_manager.get_documents_without_unit()
+            if null_units:
+                print(f"\nWarning: {len(null_units)} documents have no unit number:")
+                for doc_id in null_units[:10]:  # Show only first 10
+                    print(f"  - {doc_id}")
+                if len(null_units) > 10:
+                    print(f"  - ... and {len(null_units) - 10} more")
+        elif args.enhance_only:
+            # Enhance existing hierarchical structure only
+            index_manager.enhance_hierarchical_structure(
+                args.output, 
+                interactive=not args.non_interactive
+            )
+        elif args.transform_only:
+            # Transform only
+            index_manager.transform_to_hierarchical(
+                args.output, 
+                interactive=not args.non_interactive
+            )
+        else:
+            # Run full process
+            if not args.skip_metadata:
+                index_manager.run_full_process(
+                    args.output, 
+                    interactive=not args.non_interactive
+                )
+            else:
+                # Update and transform, but skip enhancement
+                print(f"Processing {len(index_manager.index['documents'])} documents...")
+                
+                updated_count = index_manager.update_unit_numbers()
+                print(f"Added unit numbers to {updated_count} documents")
+                
+                index_manager.sort_index()
+                print(f"Index sorted by subject, year, qualification, and unit number")
+                
+                relationship_count = index_manager.update_all_document_relations()
+                print(f"Found {relationship_count} relationships between question papers and mark schemes")
+                
+                index_manager.save_index()
+                print(f"Updated index saved to {index_manager.index_path}")
+                
+                index_manager.transform_to_hierarchical(
+                    args.output, 
+                    interactive=not args.non_interactive
+                )
+        
+        print("\nProcessing completed successfully!")
+        return 0
+            
+    except Exception as e:
+        print(f"Error during processing: {str(e)}")
+        import traceback
+        traceback.print_exc()
+        return 1
 
 if __name__ == "__main__":
     sys.exit(main())

@@ -58,7 +58,7 @@
                       }
                     ]
                   },
-                  "name": "Unit 1: Fundamentals of Computer Science",
+                  "name": "Unit 1: Fundamentals",
                   "exam_season": "Summer",
                   "exam_length": "2 hours",
                   "total_marks": 100,
@@ -82,7 +82,7 @@
                       }
                     ]
                   },
-                  "name": "Unit 2",
+                  "name": "Unit 2 Practical Programming to Solve Problems",
                   "exam_season": "Summer",
                   "exam_length": "2 hours",
                   "total_marks": 60,
@@ -301,7 +301,7 @@
                       }
                     ]
                   },
-                  "name": "Unit 1: Fundamentals of Computer Science",
+                  "name": "Unit 1",
                   "exam_season": "Summer",
                   "exam_length": "2 hours",
                   "total_marks": 100,
@@ -325,7 +325,7 @@
                       }
                     ]
                   },
-                  "name": "Unit 2",
+                  "name": "Unit 2 Practical Programming to Solve Problems",
                   "exam_season": "Summer",
                   "exam_length": "2 hours",
                   "total_marks": 60,
@@ -511,7 +511,7 @@
                       }
                     ]
                   },
-                  "name": "Unit 1 2500U10-1",
+                  "name": "AS unit 1: Fundamentals of Computer Science",
                   "exam_season": "Summer",
                   "exam_length": "2 hours",
                   "total_marks": 100,
@@ -629,7 +629,7 @@
                       }
                     ]
                   },
-                  "name": "AS unit 1: Fundamentals of Computer Science",
+                  "name": "Unit 1",
                   "exam_season": "Summer",
                   "exam_length": "2 hours",
                   "total_marks": 100,
@@ -650,8 +650,8 @@
                   "exam_season": "Summer",
                   "instructions_for_examiners": "It should be remembered that learners are writing under examination conditions and credit should be given for what the learner writes, rather than adopting the approach of penalising him/her for any omissions."
                 },
-                "Unit 10": {
-                  "unit_number": 10,
+                "Unit 1": {
+                  "unit_number": 1,
                   "documents": {
                     "Question Paper": [
                       {
@@ -664,8 +664,8 @@
                   "name": "2500U10-1",
                   "exam_season": "Summer"
                 },
-                "Unit 20": {
-                  "unit_number": 20,
+                "Unit 2": {
+                  "unit_number": 2,
                   "documents": {
                     "Question Paper": [
                       {

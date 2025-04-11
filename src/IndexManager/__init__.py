@@ -1,8 +1,10 @@
 """
 Index management module for the WJEC Exam Paper Processor.
+
+This module provides a unified IndexManager class that handles the entire workflow
+from index creation to hierarchical transformation.
 """
 
 from .index_manager import IndexManager
-from .index_transformer import IndexStructureTransformer
 
-__all__ = ["IndexManager", "IndexStructureTransformer"]
+__all__ = ["IndexManager"]

@@ -11,6 +11,8 @@ The WJEC Exam Paper Processor is a specialised tool designed to automate the ext
 - Support for various WJEC exam formats across different subject areas
 - Tools for comparing exam content across years and specifications
 - Export capabilities for further analysis in other systems
+- Unified index management system for organizing and relating exam documents
+- Hierarchical document structure generation for better content navigation
 
 ## Getting Started
 
@@ -49,7 +51,7 @@ The WJEC Exam Paper Processor is a specialised tool designed to automate the ext
 4. Create the required directories:
 
    ```bash
-   mkdir -p source_pdfs ocr_results
+   mkdir -p source_pdfs ocr_results Index
    ```
 
 ## Metadata Extraction
@@ -66,6 +68,8 @@ This metadata enables efficient searching, categorisation and analysis of exam p
 
 ## Usage
 
+### OCR Processing
+
 1. Place your PDF files in the `source_pdfs` directory.
 
 2. Run the main script:
@@ -78,6 +82,41 @@ This metadata enables efficient searching, categorisation and analysis of exam p
    - A JSON file with the OCR text data
    - An images directory containing extracted images (if any)
 
+### Index Management
+
+The system includes a powerful index management system that organizes exam documents, identifies relationships between question papers and mark schemes, and generates a hierarchical structure for easier navigation.
+
+1. To process and transform your document index in a single step:
+
+   ```bash
+   python -m src.IndexManager.main
+   ```
+
+2. Command-line options:
+
+   ```
+   usage: main.py [-h] [--input INPUT] [--output OUTPUT] [--non-interactive] [--update-only] [--transform-only] [--enhance-only] [--skip-metadata]
+
+   Manage, transform, and enhance exam document index
+
+   options:
+     -h, --help         show this help message and exit
+     --input INPUT      Path to input flat index file (default: Index/index.json)
+     --output OUTPUT    Path for output hierarchical index file (default: Index/hierarchical_index.json)
+     --non-interactive  Run in non-interactive mode (automatically select first option for conflicts)
+     --update-only      Only update unit numbers and relationships (skip transformation and enhancement)
+     --transform-only   Only transform the structure (skip enhancement)
+     --enhance-only     Only enhance existing hierarchical structure (skip updating and transformation)
+     --skip-metadata    Skip enhancing the structure with document metadata
+   ```
+
+3. The IndexManager workflow:
+   - Updates unit numbers based on document IDs and metadata
+   - Identifies relationships between question papers and mark schemes
+   - Sorts documents by subject, year, qualification, and unit number
+   - Transforms the flat index into a hierarchical structure
+   - Enhances the hierarchical structure with metadata from document files
+
 ## Configuration
 
 The application can be configured by modifying the following variables in `main.py`:
@@ -87,6 +126,8 @@ The application can be configured by modifying the following variables in `main.
 - The OCR model can be changed by modifying the `model` parameter when initializing `MistralOCRClient`
 
 ## Output Format
+
+### OCR Results
 
 The OCR results are saved as JSON files with the following structure:
 
@@ -109,6 +150,20 @@ The OCR results are saved as JSON files with the following structure:
   }
 ]
 ```
+
+### Index Structure
+
+The index is maintained in two formats:
+
+1. **Flat Index** (`index.json`): Lists all documents with their metadata and relationships.
+
+2. **Hierarchical Index** (`hierarchical_index.json`): Organizes documents by:
+   - Subject
+   - Year
+   - Qualification level
+   - Exam unit
+   
+   This structure groups related question papers and mark schemes together with exam-level metadata.
 
 ## Error Handling
 
