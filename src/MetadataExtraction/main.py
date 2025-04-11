@@ -9,19 +9,18 @@ independently as part of a multi-stage processing pipeline.
 import os
 import argparse
 from pathlib import Path
-from typing import Dict, Any, List, Optional, Union
+from typing import Dict, Any, List, Union
 
-from Llm_client.factory import LLMClientFactory
-from MetadataExtraction.document_processor import DocumentProcessor
-from FileManager.file_manager import MetadataFileManager
-from IndexManager.index_manager import IndexManager
-from Prompts.prompt import Prompt
+from src.Llm_client.factory import LLMClientFactory
+from src.MetadataExtraction.document_processor import DocumentProcessor
+from src.FileManager.file_manager import MetadataFileManager
+from src.IndexManager.index_manager import IndexManager
+
 
 
 def extract_metadata_from_file(
     ocr_file_path: Union[str, Path],
     api_key: str,
-    prompt_path: Optional[str] = None,
     base_metadata_dir: str = "metadata",
     index_path: str = "index.json",
     provider: str = "mistral"
@@ -32,7 +31,6 @@ def extract_metadata_from_file(
     Args:
         ocr_file_path: Path to the OCR JSON file
         api_key: API key for the LLM provider
-        prompt_path: Path to the metadata extraction prompt
         base_metadata_dir: Base directory for metadata files
         index_path: Path to the index file
         provider: LLM provider to use
@@ -82,7 +80,6 @@ def extract_metadata_from_file(
 def extract_metadata_from_directory(
     directory_path: Union[str, Path],
     api_key: str,
-    prompt_path: Optional[str] = None,
     pattern: str = "*.json",
     base_metadata_dir: str = "metadata",
     index_path: str = "index.json",
@@ -94,7 +91,6 @@ def extract_metadata_from_directory(
     Args:
         directory_path: Path to directory containing OCR JSON files
         api_key: API key for the LLM provider
-        prompt_path: Path to the metadata extraction prompt
         pattern: Glob pattern for matching OCR files
         base_metadata_dir: Base directory for metadata files
         index_path: Path to the index file
@@ -110,13 +106,6 @@ def extract_metadata_from_directory(
         model="mistral-small-latest" if provider == "mistral" else None
     )
     
-    # Load prompt using the Prompt class if prompt_path is provided
-    if prompt_path:
-        prompt_obj = Prompt({"metadata_extraction": prompt_path})
-        metadata_prompt = prompt_obj.get()
-    else:
-        prompt_obj = Prompt({"metadata_extraction": "./Prompts/metadataCreator.md"})
-        metadata_prompt = prompt_obj.get()
     
     # Create file and index managers first
     file_manager = MetadataFileManager(base_dir=base_metadata_dir)
@@ -126,14 +115,10 @@ def extract_metadata_from_directory(
     processor = DocumentProcessor(
         llm_client=llm_client,
         file_manager=file_manager,
-        index_manager=index_manager,
-        metadata_prompt_path=None  # We'll set the prompt directly below
+        index_manager=index_manager
     )
     
-    # If we loaded prompt using Prompt class, we need to set it directly
-    if metadata_prompt:
-        processor.metadata_prompt = metadata_prompt
-    
+
     # Process the directory
     results = processor.process_directory(directory_path, pattern)
     
@@ -165,7 +150,6 @@ def main():
         --file, -f: Path to a single OCR JSON file to process
         --directory, -d: Path to directory containing OCR JSON files
         --pattern, -p: Glob pattern for matching OCR files (default: *.json)
-        --prompt, -P: Path to metadata extraction prompt (default: Prompts/metadataCreator.md)
         --metadata-dir: Base directory for metadata files (default: metadata)
         --index: Path to the index file (default: index.json)
         --provider: LLM provider to use (default: mistral)
@@ -199,17 +183,13 @@ def main():
     )
     parser.add_argument(
         '--directory', '-d',
+        default="ocr_results",
         help='Path to directory containing OCR JSON files'
     )
     parser.add_argument(
         '--pattern', '-p',
         default='*.json',
         help='Glob pattern for matching OCR files (default: *.json)'
-    )
-    parser.add_argument(
-        '--prompt', '-P',
-        default='Prompts/metadataCreator.md',
-        help='Path to metadata extraction prompt (default: Prompts/metadataCreator.md)'
     )
     parser.add_argument(
         '--metadata-dir',
@@ -251,7 +231,6 @@ def main():
         extract_metadata_from_file(
             ocr_file_path=args.file,
             api_key=api_key,
-            prompt_path=args.prompt,
             base_metadata_dir=args.metadata_dir,
             index_path=args.index,
             provider=args.provider
@@ -260,7 +239,6 @@ def main():
         extract_metadata_from_directory(
             directory_path=args.directory,
             api_key=api_key,
-            prompt_path=args.prompt,
             pattern=args.pattern,
             base_metadata_dir=args.metadata_dir,
             index_path=args.index,

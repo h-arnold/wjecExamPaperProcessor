@@ -68,6 +68,49 @@ This metadata enables efficient searching, categorisation and analysis of exam p
 
 ## Usage
 
+### Using the Unified Command Line Interface
+
+The project provides a unified command line interface through `main.py` that serves as a single entry point for all functionality:
+
+```bash
+python main.py <command> [options]
+```
+
+Available commands:
+
+- `ocr`: Run the OCR processing pipeline
+- `metadata`: Extract metadata from OCR results
+- `index`: Manage, transform, and enhance the document index
+
+Each command has its own set of options. Use `--help` with any command to see available options:
+
+```bash
+python main.py ocr --help
+python main.py metadata --help
+python main.py index --help
+```
+
+#### Examples:
+
+**OCR Processing:**
+```bash
+python main.py ocr --source /path/to/pdfs --dest /path/to/results --api-key YOUR_MISTRAL_API_KEY
+```
+
+**Metadata Extraction:**
+```bash
+python main.py metadata --file path/to/ocr_file.json --api-key YOUR_MISTRAL_API_KEY
+```
+or
+```bash
+python main.py metadata --directory ocr_results --pattern "*.json" --api-key YOUR_MISTRAL_API_KEY
+```
+
+**Index Management:**
+```bash
+python main.py index --input Index/index.json --output Index/hierarchical_index.json
+```
+
 ### OCR Processing
 
 1. Place your PDF files in the `source_pdfs` directory.

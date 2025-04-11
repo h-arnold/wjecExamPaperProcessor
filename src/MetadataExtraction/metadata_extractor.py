@@ -8,7 +8,7 @@ from pathlib import Path
 from typing import Dict, Any, Optional, List
 from dotenv import load_dotenv
 
-from Llm_client.base_client import LLMClient
+from src.Llm_client.base_client import LLMClient
 
 
 class MetadataExtractor:
@@ -50,7 +50,7 @@ class MetadataExtractor:
         text_content = self._extract_text_from_ocr(ocr_content)
         
         # Create a metadata prompt using our specialized class
-        from Prompts.prompt import MetadataPrompt
+        from src.Prompts.prompt import MetadataPrompt
         formatted_prompt = MetadataPrompt(text_content).get()
         
         try:
@@ -84,7 +84,7 @@ class MetadataExtractor:
         Raises:
             ValueError: If the index cannot be determined or is invalid
         """
-        from Prompts.prompt import QuestionIndexIdentifier
+        from src.Prompts.prompt import QuestionIndexIdentifier
         
         # Validate document type
         if document_type not in ["Question Paper", "Mark Scheme"]:
@@ -160,7 +160,7 @@ class MetadataExtractor:
         )
         
         # Create a prompt object for the retry
-        from Prompts.prompt import Prompt
+        from src.Prompts.prompt import Prompt
         retry_prompt = Prompt(retry_prompt_text)
         
         # Try again with the enhanced prompt

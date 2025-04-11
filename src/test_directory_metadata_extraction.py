@@ -58,7 +58,6 @@ def test_directory_metadata_extraction(
     results = extract_metadata_from_directory(
         directory_path=ocr_directory_path,
         api_key=api_key,
-        prompt_path=prompt_path,
         pattern=pattern,
         base_metadata_dir=base_metadata_dir,
         index_path=index_path,
@@ -111,22 +110,19 @@ if __name__ == "__main__":
     API_KEY = None
     
     # Where to save test metadata (different from production to avoid mixing)
-    TEST_METADATA_DIR = "test_metadata"
+    TEST_METADATA_DIR = "Index/metadata"
     
     # Where to save test index (different from production to avoid mixing)
-    TEST_INDEX_PATH = "test_index.json"
+    TEST_INDEX_PATH = "Index/index.json"
     
     # LLM provider to use
     PROVIDER = "mistral"
     
-    # Path to prompt file
-    PROMPT_PATH = "Prompts/metadataCreator.md"
     
     # Run the test
     test_results = test_directory_metadata_extraction(
         ocr_directory_path=TEST_OCR_DIR,
         api_key=API_KEY,
-        prompt_path=PROMPT_PATH,
         pattern=TEST_PATTERN,
         base_metadata_dir=TEST_METADATA_DIR,
         index_path=TEST_INDEX_PATH,

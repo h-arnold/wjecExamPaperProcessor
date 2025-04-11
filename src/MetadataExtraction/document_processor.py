@@ -8,10 +8,10 @@ exam documents, extract metadata, and manage the document index.
 from pathlib import Path
 from typing import Dict, Any, List, Optional, Union
 
-from Llm_client.base_client import LLMClient
-from MetadataExtraction.metadata_extractor import MetadataExtractor
-from FileManager.file_manager import MetadataFileManager
-from IndexManager.index_manager import IndexManager
+from src.Llm_client.base_client import LLMClient
+from src.MetadataExtraction.metadata_extractor import MetadataExtractor
+from src.FileManager.file_manager import MetadataFileManager
+from src.IndexManager.index_manager import IndexManager
 
 
 class DocumentProcessor:

@@ -1,0 +1,13 @@
+{
+  "Type": "Question Paper",
+  "Qualification": "AS-Level",
+  "Year": 2017,
+  "Subject": "Computer Science",
+  "Exam Paper": "AS unit 2 Practical Programming to Solve Problems",
+  "Exam Season": "Summer",
+  "Exam Length": "2 hours",
+  "Information for Candidates": "Answer ALL questions. The question paper is divided into two main sections. Below are the recommended timings for this assessment. You will need a computer with an installed functional copy of the Integrated Development Environment (IDE) appropriate to your chosen programming language and word processing software. A calculator is allowed in this examination. Remember to save your work regularly.",
+  "Total Marks": 60,
+  "QuestionStartIndex": 1,
+  "FilePath": "/workspaces/wjecExamPaperProcessor/ocr_results/2500U20-1(090617).json"
+}
