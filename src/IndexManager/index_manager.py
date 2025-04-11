@@ -643,11 +643,15 @@ class IndexManager:
                 "metadata_path": doc["metadata_path"]
             }
             
+            # Add document-specific metadata
+            if "question_start_index" in doc:
+                doc_entry["question_start_index"] = doc["question_start_index"]
+            
             # Add document to the appropriate collection
             doc_type = doc.get("type", "Unknown")
             if doc_type not in exam_entry["documents"]:
                 exam_entry["documents"][doc_type] = []
-                
+            
             exam_entry["documents"][doc_type].append(doc_entry)
             
             # Update document mapping for validation
@@ -784,6 +788,30 @@ class IndexManager:
         
         return self.hierarchical_structure
     
+    def _extract_document_metadata(self, metadata: Dict[str, Any]) -> Dict[str, Any]:
+        """
+        Extract document-specific metadata fields from a metadata file.
+        
+        Args:
+            metadata (Dict[str, Any]): The document metadata
+            
+        Returns:
+            Dict[str, Any]: Dictionary of extracted document metadata
+        """
+        document_metadata = {}
+        
+        # Document-specific metadata field mapping
+        document_metadata_mapping = {
+            "QuestionStartIndex": "question_start_index"
+        }
+        
+        # Extract mapped fields
+        for source_field, target_field in document_metadata_mapping.items():
+            if source_field in metadata:
+                document_metadata[target_field] = metadata[source_field]
+                
+        return document_metadata
+
     def _process_hierarchical_structure(self, stats: Dict[str, int], metadata_field_mapping: Dict[str, str], 
                                       interactive: bool) -> None:
         """
@@ -811,11 +839,16 @@ class IndexManager:
                                 if metadata:
                                     stats["metadata_files_found"] += 1
                                     
-                                    # Collect metadata fields 
+                                    # Collect exam-level metadata fields 
                                     for file_field, struct_field in metadata_field_mapping.items():
                                         if file_field in metadata:
                                             value = metadata[file_field]
                                             collected_metadata[struct_field][value].append(doc["id"])
+                                    
+                                    # Extract and add document-specific metadata
+                                    document_metadata = self._extract_document_metadata(metadata)
+                                    for field, value in document_metadata.items():
+                                        doc[field] = value
                                 else:
                                     stats["metadata_files_missing"] += 1
                         

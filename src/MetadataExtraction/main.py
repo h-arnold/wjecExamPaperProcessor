@@ -56,8 +56,7 @@ def extract_metadata_from_file(
     processor = DocumentProcessor(
         llm_client=llm_client,
         file_manager=file_manager,
-        index_manager=index_manager,
-        metadata_prompt_path=None  # We'll set the prompt directly below
+        index_manager=index_manager
     )
     
    

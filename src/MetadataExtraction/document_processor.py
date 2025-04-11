@@ -29,8 +29,8 @@ class DocumentProcessor:
     def __init__(self, 
                  llm_client: LLMClient,
                  file_manager: Optional[MetadataFileManager] = None,
-                 index_manager: Optional[IndexManager] = None,
-                 metadata_prompt_path: Optional[str] = None):
+                 index_manager: Optional[IndexManager] = None
+    ):
         """
         Initialize the document processor.
         
@@ -45,16 +45,6 @@ class DocumentProcessor:
         self.index_manager = index_manager or IndexManager()
         self.metadata_extractor = MetadataExtractor(llm_client)
         
-        # Load metadata prompt if provided
-        if metadata_prompt_path:
-            self.metadata_prompt = Path(metadata_prompt_path).read_text(encoding='utf-8')
-        else:
-            # Default to looking in a standard location
-            default_prompt_path = Path("src/Prompts/metadataCreator.md")
-            if default_prompt_path.exists():
-                self.metadata_prompt = default_prompt_path.read_text(encoding='utf-8')
-            else:
-                raise ValueError("Metadata prompt not found. Please provide a valid path.")
     
     def process_document(self, ocr_file_path: Union[str, Path]) -> Dict[str, Any]:
         """
@@ -63,9 +53,10 @@ class DocumentProcessor:
         This method:
         1. Reads the OCR file
         2. Extracts metadata using LLM
-        3. Enriches metadata with file path
-        4. Saves metadata to file
-        5. Updates the document index
+        3. Identifies question start index
+        4. Enriches metadata with file path and question index
+        5. Saves metadata to file
+        6. Updates the document index
         
         Args:
             ocr_file_path (str or Path): Path to the OCR JSON file
@@ -84,7 +75,19 @@ class DocumentProcessor:
         ocr_content = self.file_manager.read_ocr_file(ocr_file_path)
         
         # Extract metadata
-        metadata = self.metadata_extractor.extract_metadata(ocr_content, self.metadata_prompt)
+        metadata = self.metadata_extractor.extract_metadata(ocr_content)
+        
+        # Identify question start index if document type is available
+        if "Type" in metadata and metadata["Type"] in ["Question Paper", "Mark Scheme"]:
+            try:
+                question_start_index = self.metadata_extractor.identify_question_start_index(
+                    str(ocr_file_path), 
+                    metadata["Type"]
+                )
+                # Add question start index to metadata
+                metadata["QuestionStartIndex"] = question_start_index
+            except Exception as e:
+                print(f"Warning: Could not identify question start index: {str(e)}")
         
         # Enrich metadata with file path
         enriched_metadata = self.metadata_extractor.enrich_metadata(metadata, str(ocr_file_path))

@@ -31,7 +31,7 @@ class MetadataExtractor:
         load_dotenv()
         self.max_index = int(os.getenv('MAX_INDEX_FOR_METADATA_SCANNING', '4'))
     
-    def extract_metadata(self, ocr_content: Dict[str, Any], metadata_prompt: str = None) -> Dict[str, Any]:
+    def extract_metadata(self, ocr_content: Dict[str, Any]) -> Dict[str, Any]:
         """
         Extract metadata from OCR content using the LLM client.
         
