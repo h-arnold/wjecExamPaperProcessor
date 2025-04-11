@@ -6,6 +6,7 @@ src/pdfOcrProcessor.py
 src/test_directory_metadata_extraction.py
 src/test_metadata_extraction.py
 src/FileManager/file_manager.py
+src/IndexManager/__init__.py
 src/IndexManager/index_manager.py
 src/IndexManager/main.py
 src/Llm_client/__init__.py
@@ -13,6 +14,7 @@ src/Llm_client/base_client.py
 src/Llm_client/factory.py
 src/Llm_client/mistral_client.py
 src/MetadataExtraction/document_processor.py
+src/MetadataExtraction/index_manager.py
 src/MetadataExtraction/main.py
 src/MetadataExtraction/metadata_extractor.py
 src/Prompts/prompt.py
@@ -21,3 +23,4 @@ src/wjecexampaperprocessor.egg-info/SOURCES.txt
 src/wjecexampaperprocessor.egg-info/dependency_links.txt
 src/wjecexampaperprocessor.egg-info/requires.txt
 src/wjecexampaperprocessor.egg-info/top_level.txt
+tests/test_index_manager.py

@@ -15,7 +15,7 @@ from Llm_client.factory import LLMClientFactory
 from MetadataExtraction.document_processor import DocumentProcessor
 from FileManager.file_manager import MetadataFileManager
 from IndexManager.index_manager import IndexManager
-from Prompting.prompt import Prompt
+from Prompts.prompt import Prompt
 
 
 def extract_metadata_from_file(
