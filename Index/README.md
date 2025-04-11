@@ -5,7 +5,7 @@
 The Index Update Tool is a utility script for managing the master index of exam documents in the WJEC Exam Paper Processor system. It provides several key functions:
 
 1. Adding missing `exam_season` field to index entries
-2. Organizing and relocating index files and referenced documents
+2. Organising and relocating index files and referenced documents
 3. Maintaining relationships between related documents (e.g., question papers and mark schemes)
 
 ## Features
