@@ -76,9 +76,9 @@ class MistralLLMClient(LLMClient):
             if first_brace != -1 and last_brace != -1:
                 text_response = text_response[first_brace:last_brace+1]
                 # Use json_repair to clean up any malformed JSON
-                repaired_json = repair_json(text_response)
+                repaired_json = repair_json(text_response,return_objects=True)
             
-            return json.loads(repaired_json)
+            return repaired_json
         except json.JSONDecodeError as e:
             raise ValueError(f"Failed to parse JSON response from Mistral API: {e}")
     

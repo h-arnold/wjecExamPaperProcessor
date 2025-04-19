@@ -233,8 +233,7 @@ class ExamContentParser:
             
             # Send to LLM client for processing
             try:
-                # Use generate_text instead of generate_from_prompt
-                # Access the prompt using the correct attribute name
+                # Use generate_json which already returns a dictionary
                 response = self.llm_client.generate_json(parser._prompt)
                 parsed_response = self._parse_llm_response(response, current_qp_index, current_ms_index)
                 
@@ -367,61 +366,22 @@ class ExamContentParser:
         # Implementation will go here
         pass
 
-    def _parse_llm_response(self, response: str, current_qp_index: int = None, current_ms_index: int = None) -> Dict[str, Any]:
+    def _parse_llm_response(self, response: Dict[str, Any], current_qp_index: int = None, current_ms_index: int = None) -> Dict[str, Any]:
         """
-        Parse and extract structured data from LLM response.
+        Process and validate structured data from LLM response.
         
         Args:
-            response (str): Raw response from LLM
+            response (Dict[str, Any]): Parsed response from LLM as a dictionary
             current_qp_index (int, optional): Current question paper index, used for fallback
             current_ms_index (int, optional): Current mark scheme index, used for fallback
             
         Returns:
-            Dict[str, Any]: Structured data including parsed questions and next indices
+            Dict[str, Any]: Validated data including parsed questions and next indices
             
         Raises:
-            ValueError: If response cannot be parsed or is missing required fields
+            ValueError: If response is missing required fields
         """
-        # Try to find and extract JSON from response
-        try:
-            # Look for JSON in the response (which might have non-JSON content as well)
-            json_pattern = r'```json\s*([\s\S]*?)\s*```'
-            json_matches = re.findall(json_pattern, response)
-            
-            # If we found JSON blocks, use the first one
-            if json_matches:
-                json_str = json_matches[0]
-                structured_data = json.loads(json_str)
-                
-            else:
-                # Try to parse the entire response as JSON
-                json_str = response.strip()
-                structured_data = json.loads(json_str)
-                
-        except (json.JSONDecodeError, IndexError) as e:
-            self.logger.error(f"Failed to parse LLM response as JSON: {str(e)}")
-            self.logger.debug(f"Problematic response: {response[:200]}...")  # Log just the start for debugging
-            
-            # Try fallback extraction (look for anything that might be JSON)
-            try:
-                # Look for content that looks like JSON (starts with { and ends with })
-                fallback_pattern = r'(\{[\s\S]*\})'
-                fallback_matches = re.findall(fallback_pattern, response)
-                
-                if fallback_matches:
-                    for potential_json in fallback_matches:
-                        try:
-                            structured_data = json.loads(potential_json)
-                            self.logger.warning("Used fallback JSON extraction")
-                            break
-                        except json.JSONDecodeError:
-                            continue
-                    else:  # No valid JSON found in fallback matches
-                        raise ValueError("No valid JSON found in fallback extraction")
-                else:
-                    raise ValueError("No JSON-like content found in response")
-            except Exception as fallback_error:
-                raise ValueError(f"Could not extract valid JSON from LLM response: {str(e)}\nFallback extraction failed: {str(fallback_error)}")
+        structured_data = response
             
         # Validate required fields
         required_fields = ["next_question_paper_index", "next_mark_scheme_index"]
