@@ -10,6 +10,7 @@ import json
 import logging
 import os
 import re
+import datetime
 from pathlib import Path
 from typing import Dict, List, Optional, Any, Tuple, Union
 
@@ -333,8 +334,30 @@ class ExamContentParser:
         Returns:
             Dict[str, Dict]: Dictionary of media files with their properties
         """
-        # Implementation will go here
-        pass
+        media_files = {}
+        
+        # Check if the page has images
+        if 'images' in page_content and page_content['images']:
+            for image in page_content['images']:
+                # Extract image ID and path
+                image_id = image.get('id')
+                if not image_id:
+                    continue
+                    
+                # Create media file entry with all properties
+                media_files[image_id] = {
+                    'id': image_id,
+                    'path': image.get('image_path'),
+                    'coordinates': {
+                        'top_left_x': image.get('top_left_x'),
+                        'top_left_y': image.get('top_left_y'),
+                        'bottom_right_x': image.get('bottom_right_x'),
+                        'bottom_right_y': image.get('bottom_right_y')
+                    },
+                    'page_index': page_content.get('index')
+                }
+            
+        return media_files
     
     def _add_media_file_references(self, parsed_questions: List[Dict], content: List[Dict]) -> None:
         """
@@ -344,8 +367,57 @@ class ExamContentParser:
             parsed_questions (List[Dict]): Parsed questions
             content (List[Dict]): Original content with media information
         """
-        # Implementation will go here
-        pass
+        # First, extract all media files from all pages
+        all_media = {}
+        for page in content:
+            page_media = self._extract_media_files(page)
+            all_media.update(page_media)
+            
+        if not all_media:
+            self.logger.info("No media files found in content")
+            return
+            
+        self.logger.info(f"Found {len(all_media)} media files in content")
+        
+        # Process each question to find references to media files
+        for question in parsed_questions:
+            # Initialize media_files array if not present
+            if 'media_files' not in question:
+                question['media_files'] = []
+                
+            # Check if question text contains image references
+            question_text = question.get('question_text', '')
+            
+            # Look for markdown image references: ![alt text](image_id)
+            image_references = re.findall(r'!\[.*?\]\((.*?)\)', question_text)
+            
+            # Add unique media files referenced in this question
+            for ref in image_references:
+                # Extract the image ID from the reference
+                # The reference might be just the ID or include file extension
+                image_id = ref.split('/')[-1]  # Handle paths like folder/img.jpeg
+                base_ref = image_id
+                
+                # Check if the reference exists in our media dictionary
+                if base_ref in all_media:
+                    media_info = all_media[base_ref]
+                    
+                    # Add if not already added (checking by ID)
+                    if not any(m.get('id') == media_info['id'] for m in question['media_files']):
+                        question['media_files'].append({
+                            'id': media_info['id'],
+                            'path': media_info['path'],
+                            'coordinates': media_info['coordinates'],
+                            'page_index': media_info['page_index']
+                        })
+                        self.logger.debug(f"Added media file {media_info['id']} to question {question.get('question_number')}")
+            
+            # Process sub-questions recursively if they exist
+            if 'sub_questions' in question and question['sub_questions']:
+                self._add_media_file_references(question['sub_questions'], content)
+                
+        # After processing all direct references, check for media on the same page as questions
+        self._associate_media_by_page(parsed_questions, content, all_media)
     
     def _update_index(
         self, 
@@ -363,8 +435,64 @@ class ExamContentParser:
             document_id (str, optional): ID of the document being processed
             document_record (Dict, optional): Original document record from the index
         """
-        # Implementation will go here
-        pass
+        if not document_id or not document_record:
+            raise ValueError("Document ID and document record are required to update the index")
+            
+        self.logger.info(f"Updating hierarchical index for document {document_id}")
+        
+        try:
+            # Load the hierarchical index
+            with open(self.index_path, 'r', encoding='utf-8') as f:
+                index_data = json.load(f)
+            
+            # Find the correct document record in the hierarchical index
+            document_updated = False
+            
+            # Traverse the index to find and update the document record
+            for subject_name, subject in index_data.get('subjects', {}).items():
+                for year, year_data in subject.get('years', {}).items():
+                    for qual_name, qualification in year_data.get('qualifications', {}).items():
+                        for exam_name, exam in qualification.get('exams', {}).items():
+                            for doc_type, documents in exam.get('documents', {}).items():
+                                for doc_idx, doc in enumerate(documents):
+                                    if doc.get('id') == document_id:
+                                        # Found the document record to update
+                                        self.logger.info(f"Found document record for {document_id} in {subject_name}, {year}, {qual_name}, {exam_name}")
+                                        
+                                        # Add parsed questions to the document record
+                                        doc['questions'] = parsed_questions
+                                        
+                                        # Add timestamp to track when the document was processed
+                                        doc['processed_at'] = datetime.datetime.now().isoformat()
+                                        
+                                        document_updated = True
+                                        break
+                                
+                                if document_updated:
+                                    break
+                            if document_updated:
+                                break
+                        if document_updated:
+                            break
+                    if document_updated:
+                        break
+                if document_updated:
+                    break
+            
+            if not document_updated:
+                self.logger.warning(f"Could not find document record for {document_id} in the index")
+            
+            # Save the updated index to a new file for development purposes
+            # Always save the file, even if the document wasn't found
+            output_path = Path(self.index_path).parent / "final_index.json"
+            with open(output_path, 'w', encoding='utf-8') as f:
+                json.dump(index_data, f, indent=2)
+            
+            self.logger.info(f"Updated hierarchical index saved to {output_path}")
+            
+        except Exception as e:
+            self.logger.error(f"Error updating index: {str(e)}", exc_info=True)
+            raise
 
     def _parse_llm_response(self, response: Dict[str, Any], current_qp_index: int = None, current_ms_index: int = None) -> Dict[str, Any]:
         """
@@ -572,3 +700,69 @@ class ExamContentParser:
         
         # Process the exam content
         return self.parse_exam_content(qp_id, ms_id)
+
+    def _associate_media_by_page(self, parsed_questions: List[Dict], content: List[Dict], all_media: Dict[str, Dict]) -> None:
+        """
+        Associate media files with questions based on their page location.
+        
+        This method associates media files with questions if they appear on the same page,
+        even if not directly referenced in the question text.
+        
+        Args:
+            parsed_questions (List[Dict]): Parsed questions
+            content (List[Dict]): Original content with media information
+            all_media (Dict[str, Dict]): Dictionary of all media files
+        """
+        # Build a mapping of page indices to questions
+        page_to_questions = {}
+        
+        # Function to map questions to pages
+        def map_questions_to_pages(questions, parent_question=None):
+            for question in questions:
+                # Try to determine which page this question is on
+                question_text = question.get('question_text', '')
+                
+                # Look for page index in question metadata if available
+                page_index = question.get('page_index')
+                
+                if page_index is None and parent_question is not None:
+                    # Inherit from parent if not available
+                    page_index = parent_question.get('page_index')
+                
+                # If we know the page, add the question to our mapping
+                if page_index is not None:
+                    if page_index not in page_to_questions:
+                        page_to_questions[page_index] = []
+                    page_to_questions[page_index].append(question)
+                
+                # Process sub-questions recursively
+                if 'sub_questions' in question and question['sub_questions']:
+                    map_questions_to_pages(question['sub_questions'], question)
+        
+        # Build the page-to-questions mapping
+        map_questions_to_pages(parsed_questions)
+        
+        # If we couldn't determine page indices for questions, log a warning and return
+        if not page_to_questions:
+            self.logger.warning("Could not determine page indices for questions, skipping page-based media association")
+            return
+        
+        # Associate media files with questions based on page
+        for media_id, media_info in all_media.items():
+            media_page = media_info.get('page_index')
+            if media_page is not None and media_page in page_to_questions:
+                # This media file belongs on a page with questions
+                for question in page_to_questions[media_page]:
+                    # Add this media file to the question if not already present
+                    if 'media_files' not in question:
+                        question['media_files'] = []
+                        
+                    # Check if already added
+                    if not any(m.get('id') == media_info['id'] for m in question['media_files']):
+                        question['media_files'].append({
+                            'id': media_info['id'],
+                            'path': media_info['path'],
+                            'coordinates': media_info['coordinates'],
+                            'page_index': media_info['page_index']
+                        })
+                        self.logger.debug(f"Associated media file {media_info['id']} with question {question.get('question_number')} based on page {media_page}")

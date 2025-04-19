@@ -13,6 +13,7 @@ import sys
 import json
 import tempfile
 import pytest
+import datetime
 from pathlib import Path
 from unittest.mock import patch, MagicMock, mock_open
 
@@ -498,7 +499,6 @@ class TestIndexIntegration:
             llm_client=mock_llm_client,
             index_path=temp_index_file,
             ocr_results_path=temp_ocr_results_dir,
-            metadata_path=temp_metadata_dir
         )
         
         # Create a mock exam entry from a hierarchical index
@@ -531,14 +531,13 @@ class TestIndexIntegration:
             assert result is True
     
     def test_process_exam_from_index_missing_documents(self, mock_llm_client, temp_index_file, 
-                                                   temp_ocr_results_dir, temp_metadata_dir):
+                                                   temp_ocr_results_dir):
         """Test process_exam_from_index error handling with missing documents."""
         # Create a parser
         parser = ExamContentParser(
             llm_client=mock_llm_client,
             index_path=temp_index_file,
-            ocr_results_path=temp_ocr_results_dir,
-            metadata_path=temp_metadata_dir
+            ocr_results_path=temp_ocr_results_dir
         )
         
         # Create invalid exam entries
@@ -557,3 +556,504 @@ class TestIndexIntegration:
         # Test with missing Mark Scheme
         with pytest.raises(ValueError, match="No Mark Scheme found"):
             parser.process_exam_from_index(missing_ms)
+            
+    def test_update_index(self, mock_llm_client, temp_dir):
+        """Test updating the hierarchical index with processed question data."""
+        # Create a mock index file with a structured hierarchical index
+        index_content = {
+            "subjects": {
+                "Computer Science": {
+                    "years": {
+                        "2023": {
+                            "qualifications": {
+                                "A-Level": {
+                                    "exams": {
+                                        "Unit 1": {
+                                            "documents": {
+                                                "Question Paper": [
+                                                    {
+                                                        "id": "test_doc_id",
+                                                        "content_path": "ocr_results/test_doc.json"
+                                                    }
+                                                ]
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        
+        # Write mock index to file
+        index_path = temp_dir / "test_index.json"
+        with open(index_path, 'w', encoding='utf-8') as f:
+            json.dump(index_content, f)
+        
+        # Create test parsed questions
+        parsed_questions = [
+            {
+                "question_number": "1",
+                "question_text": "Test question 1",
+                "mark_scheme": "Test mark scheme 1",
+                "max_marks": 5
+            },
+            {
+                "question_number": "2",
+                "question_text": "Test question 2",
+                "mark_scheme": "Test mark scheme 2",
+                "max_marks": 10
+            }
+        ]
+        
+        # Create metadata
+        metadata = {"QuestionStartIndex": 1}
+        
+        # Create the parser
+        parser = ExamContentParser(
+            llm_client=mock_llm_client,
+            index_path=index_path,
+            ocr_results_path=temp_dir
+        )
+        
+        # Update the index with the mock document and questions
+        document_record = {"id": "test_doc_id", "content_path": "ocr_results/test_doc.json"}
+        parser._update_index(parsed_questions, metadata, "test_doc_id", document_record)
+        
+        # Verify the output file was created
+        output_path = temp_dir / "final_index.json"
+        assert output_path.exists()
+        
+        # Load and verify the updated index
+        with open(output_path, 'r', encoding='utf-8') as f:
+            updated_index = json.load(f)
+        
+        # Check that the questions were added to the document record
+        doc_record = updated_index["subjects"]["Computer Science"]["years"]["2023"]["qualifications"]["A-Level"]["exams"]["Unit 1"]["documents"]["Question Paper"][0]
+        assert "questions" in doc_record
+        assert len(doc_record["questions"]) == 2
+        assert doc_record["questions"][0]["question_number"] == "1"
+        assert doc_record["questions"][1]["question_number"] == "2"
+        assert "processed_at" in doc_record
+        
+    def test_update_index_document_not_found(self, mock_llm_client, temp_dir):
+        """Test handling of document not found during index update."""
+        # Create a mock index file
+        index_content = {
+            "subjects": {
+                "Computer Science": {
+                    "years": {
+                        "2023": {
+                            "qualifications": {
+                                "A-Level": {
+                                    "exams": {
+                                        "Unit 1": {
+                                            "documents": {
+                                                "Question Paper": [
+                                                    {
+                                                        "id": "existing_doc",
+                                                        "content_path": "ocr_results/existing_doc.json"
+                                                    }
+                                                ]
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+        
+        # Write mock index to file
+        index_path = temp_dir / "test_index.json"
+        with open(index_path, 'w', encoding='utf-8') as f:
+            json.dump(index_content, f)
+        
+        # Create the parser
+        parser = ExamContentParser(
+            llm_client=mock_llm_client,
+            index_path=index_path,
+            ocr_results_path=temp_dir
+        )
+        
+        # Mock parsed questions and metadata
+        parsed_questions = [{"question_number": "1", "question_text": "Test"}]
+        metadata = {}
+        
+        # Try to update with non-existent document ID
+        with patch("logging.Logger.warning") as mock_warning:
+            parser._update_index(parsed_questions, metadata, "nonexistent_doc_id", {"id": "nonexistent_doc_id"})
+            mock_warning.assert_called_with("Could not find document record for nonexistent_doc_id in the index")
+            
+        # Verify the output file still exists (but was not updated with our document)
+        output_path = temp_dir / "final_index.json"
+        assert output_path.exists()
+        
+    def test_update_index_error_handling(self, mock_llm_client, temp_dir):
+        """Test error handling during index update."""
+        # Create a mock index file
+        index_path = temp_dir / "test_index.json"
+        with open(index_path, 'w', encoding='utf-8') as f:
+            f.write("{invalid json")  # Deliberately write invalid JSON
+        
+        # Create the parser
+        parser = ExamContentParser(
+            llm_client=mock_llm_client,
+            index_path=index_path,
+            ocr_results_path=temp_dir
+        )
+        
+        # Mock parsed questions and metadata
+        parsed_questions = [{"question_number": "1", "question_text": "Test"}]
+        metadata = {}
+        
+        # Try to update with invalid index file
+        with pytest.raises(Exception):
+            parser._update_index(parsed_questions, metadata, "test_id", {"id": "test_id"})
+            
+    def test_update_index_validation(self, mock_llm_client, temp_dir):
+        """Test validation of input parameters in _update_index."""
+        # Create a basic index file
+        index_path = temp_dir / "test_index.json"
+        with open(index_path, 'w', encoding='utf-8') as f:
+            json.dump({"subjects": {}}, f)
+        
+        # Create the parser
+        parser = ExamContentParser(
+            llm_client=mock_llm_client,
+            index_path=index_path,
+            ocr_results_path=temp_dir
+        )
+        
+        # Test with missing document_id
+        with pytest.raises(ValueError, match="Document ID and document record are required"):
+            parser._update_index([], {}, document_id=None, document_record={"id": "something"})
+            
+        # Test with missing document_record
+        with pytest.raises(ValueError, match="Document ID and document record are required"):
+            parser._update_index([], {}, document_id="test_id", document_record=None)
+
+
+class TestMediaFileHandling:
+    """Test media file extraction and handling functionality."""
+    
+    def test_extract_media_files(self, mock_llm_client, temp_index_file, 
+                               temp_ocr_results_dir):
+        """Test extracting media files from page content."""
+        # Create parser instance
+        parser = ExamContentParser(
+            llm_client=mock_llm_client,
+            index_path=temp_index_file,
+            ocr_results_path=temp_ocr_results_dir
+        )
+        
+        # Create page content with images
+        page_content = {
+            "index": 1,
+            "markdown": "# Test page with images\n\n![img-0.jpeg](img-0.jpeg)\nThis is a test page.\n\n![img-1.jpeg](img-1.jpeg)",
+            "images": [
+                {
+                    "id": "img-0.jpeg",
+                    "top_left_x": 100,
+                    "top_left_y": 100,
+                    "bottom_right_x": 300,
+                    "bottom_right_y": 300,
+                    "image_path": "test_paper/images/img_1_0.jpeg"
+                },
+                {
+                    "id": "img-1.jpeg",
+                    "top_left_x": 400,
+                    "top_left_y": 400,
+                    "bottom_right_x": 600,
+                    "bottom_right_y": 600,
+                    "image_path": "test_paper/images/img_1_1.jpeg"
+                }
+            ]
+        }
+        
+        # Extract media files
+        media_files = parser._extract_media_files(page_content)
+        
+        # Verify the extraction
+        assert len(media_files) == 2
+        assert "img-0.jpeg" in media_files
+        assert "img-1.jpeg" in media_files
+        
+        # Check first image properties
+        assert media_files["img-0.jpeg"]["path"] == "test_paper/images/img_1_0.jpeg"
+        assert media_files["img-0.jpeg"]["coordinates"]["top_left_x"] == 100
+        assert media_files["img-0.jpeg"]["coordinates"]["bottom_right_y"] == 300
+        assert media_files["img-0.jpeg"]["page_index"] == 1
+        
+        # Check second image properties
+        assert media_files["img-1.jpeg"]["path"] == "test_paper/images/img_1_1.jpeg"
+    
+    def test_extract_media_files_no_images(self, mock_llm_client, temp_index_file, 
+                                         temp_ocr_results_dir):
+        """Test extracting media files from a page with no images."""
+        parser = ExamContentParser(
+            llm_client=mock_llm_client,
+            index_path=temp_index_file,
+            ocr_results_path=temp_ocr_results_dir
+        )
+        
+        # Create page content with no images
+        page_content = {
+            "index": 1,
+            "markdown": "# Test page with no images\n\nThis is a test page.",
+            "images": []
+        }
+        
+        # Extract media files
+        media_files = parser._extract_media_files(page_content)
+        
+        # Verify the extraction - should be empty
+        assert isinstance(media_files, dict)
+        assert len(media_files) == 0
+    
+    def test_add_media_file_references(self, mock_llm_client, temp_index_file,
+                                     temp_ocr_results_dir):
+        """Test adding media file references to questions."""
+        parser = ExamContentParser(
+            llm_client=mock_llm_client,
+            index_path=temp_index_file,
+            ocr_results_path=temp_ocr_results_dir
+        )
+        
+        # Create parsed questions with image references
+        parsed_questions = [
+            {
+                "question_number": "1",
+                "question_text": "Explain the diagram ![img-0.jpeg](img-0.jpeg) and its components.",
+                "mark_scheme": "Components correctly identified (1 mark)",
+                "max_marks": 5,
+                "page_index": 1
+            },
+            {
+                "question_number": "2",
+                "question_text": "Analyze the structure shown in the second image ![img-1.jpeg](img-1.jpeg)",
+                "mark_scheme": "Structure analysis correct (2 marks)",
+                "max_marks": 10,
+                "page_index": 1,
+                "sub_questions": [
+                    {
+                        "question_number": "2.1",
+                        "question_text": "Identify part A in the diagram ![img-1.jpeg](img-1.jpeg)",
+                        "mark_scheme": "Part A identified correctly (1 mark)",
+                        "max_marks": 2,
+                        "page_index": 1
+                    }
+                ]
+            },
+            {
+                "question_number": "3",
+                "question_text": "This question has no image references",
+                "mark_scheme": "Answer should be textual (2 marks)",
+                "max_marks": 5,
+                "page_index": 2
+            }
+        ]
+        
+        # Create content with images
+        content = [
+            {
+                "index": 0,
+                "markdown": "# Test Paper",
+                "images": []
+            },
+            {
+                "index": 1,
+                "markdown": "# Questions with Images\n\n1. Explain the diagram ![img-0.jpeg](img-0.jpeg) and its components.\n\n2. Analyze the structure shown in the second image ![img-1.jpeg](img-1.jpeg)",
+                "images": [
+                    {
+                        "id": "img-0.jpeg",
+                        "top_left_x": 100,
+                        "top_left_y": 100,
+                        "bottom_right_x": 300,
+                        "bottom_right_y": 300,
+                        "image_path": "test_paper/images/img_1_0.jpeg"
+                    },
+                    {
+                        "id": "img-1.jpeg",
+                        "top_left_x": 400,
+                        "top_left_y": 400,
+                        "bottom_right_x": 600,
+                        "bottom_right_y": 600,
+                        "image_path": "test_paper/images/img_1_1.jpeg"
+                    }
+                ]
+            },
+            {
+                "index": 2,
+                "markdown": "3. This question has no image references",
+                "images": []
+            }
+        ]
+        
+        # Add media file references
+        parser._add_media_file_references(parsed_questions, content)
+        
+        # Verify question 1 has the correct media files
+        assert "media_files" in parsed_questions[0]
+        assert len(parsed_questions[0]["media_files"]) == 2  # Both images on page 1
+        # Verify one of the images is img-0.jpeg
+        assert any(m["id"] == "img-0.jpeg" for m in parsed_questions[0]["media_files"])
+        # Verify the other image is img-1.jpeg
+        assert any(m["id"] == "img-1.jpeg" for m in parsed_questions[0]["media_files"])
+        
+        # Verify question 2 has both media files from page 1
+        assert "media_files" in parsed_questions[1]
+        assert len(parsed_questions[1]["media_files"]) == 2
+        assert any(m["id"] == "img-0.jpeg" for m in parsed_questions[1]["media_files"])
+        assert any(m["id"] == "img-1.jpeg" for m in parsed_questions[1]["media_files"])
+        
+        # Verify sub-question 2.1 has both media files from page 1
+        assert "media_files" in parsed_questions[1]["sub_questions"][0]
+        assert len(parsed_questions[1]["sub_questions"][0]["media_files"]) == 2
+        assert any(m["id"] == "img-0.jpeg" for m in parsed_questions[1]["sub_questions"][0]["media_files"])
+        assert any(m["id"] == "img-1.jpeg" for m in parsed_questions[1]["sub_questions"][0]["media_files"])
+        
+        # Verify question 3 doesn't have media files
+        assert "media_files" in parsed_questions[2]
+        assert len(parsed_questions[2]["media_files"]) == 0
+    
+    def test_associate_media_by_page(self, mock_llm_client, temp_index_file,
+                                   temp_ocr_results_dir):
+        """Test associating media files with questions based on page location."""
+        parser = ExamContentParser(
+            llm_client=mock_llm_client,
+            index_path=temp_index_file,
+            ocr_results_path=temp_ocr_results_dir
+        )
+        
+        # Create parsed questions with page indices but no explicit image references
+        parsed_questions = [
+            {
+                "question_number": "1",
+                "question_text": "Explain this diagram and its components.",
+                "mark_scheme": "Components correctly identified (1 mark)",
+                "max_marks": 5,
+                "page_index": 1,
+                "media_files": []
+            },
+            {
+                "question_number": "2",
+                "question_text": "This question is on a page with no images",
+                "mark_scheme": "Answer should be textual (2 marks)",
+                "max_marks": 10,
+                "page_index": 2,
+                "media_files": []
+            }
+        ]
+        
+        # Create content with images
+        content = [
+            {
+                "index": 0,
+                "markdown": "# Test Paper",
+                "images": []
+            },
+            {
+                "index": 1,
+                "markdown": "# Questions with Images\n\n1. Explain this diagram and its components.",
+                "images": [
+                    {
+                        "id": "img-0.jpeg",
+                        "top_left_x": 100,
+                        "top_left_y": 100,
+                        "bottom_right_x": 300,
+                        "bottom_right_y": 300,
+                        "image_path": "test_paper/images/img_1_0.jpeg"
+                    }
+                ]
+            },
+            {
+                "index": 2,
+                "markdown": "2. This question is on a page with no images",
+                "images": []
+            }
+        ]
+        
+        # Extract all media
+        all_media = {}
+        for page in content:
+            page_media = parser._extract_media_files(page)
+            all_media.update(page_media)
+        
+        # Associate media by page
+        parser._associate_media_by_page(parsed_questions, content, all_media)
+        
+        # Verify question 1 has the image from page 1
+        assert len(parsed_questions[0]["media_files"]) == 1
+        assert parsed_questions[0]["media_files"][0]["id"] == "img-0.jpeg"
+        assert parsed_questions[0]["media_files"][0]["page_index"] == 1
+        
+        # Verify question 2 still has no media files
+        assert len(parsed_questions[1]["media_files"]) == 0
+    
+    def test_associate_media_by_page_no_page_indices(self, mock_llm_client, temp_index_file,
+                                                  temp_ocr_results_dir):
+        """Test handling when questions don't have page indices."""
+        parser = ExamContentParser(
+            llm_client=mock_llm_client,
+            index_path=temp_index_file,
+            ocr_results_path=temp_ocr_results_dir
+        )
+        
+        # Create parsed questions with no page indices
+        parsed_questions = [
+            {
+                "question_number": "1",
+                "question_text": "Explain this diagram and its components.",
+                "mark_scheme": "Components correctly identified (1 mark)",
+                "max_marks": 5,
+                "media_files": []
+            },
+            {
+                "question_number": "2",
+                "question_text": "This question is on a page with no images",
+                "mark_scheme": "Answer should be textual (2 marks)",
+                "max_marks": 10,
+                "media_files": []
+            }
+        ]
+        
+        # Create content with images
+        content = [
+            {
+                "index": 0,
+                "markdown": "# Test Paper",
+                "images": []
+            },
+            {
+                "index": 1,
+                "markdown": "# Questions with Images\n\n1. Explain this diagram and its components.",
+                "images": [
+                    {
+                        "id": "img-0.jpeg",
+                        "top_left_x": 100,
+                        "top_left_y": 100,
+                        "bottom_right_x": 300,
+                        "bottom_right_y": 300,
+                        "image_path": "test_paper/images/img_1_0.jpeg"
+                    }
+                ]
+            }
+        ]
+        
+        # Extract all media
+        all_media = {}
+        for page in content:
+            page_media = parser._extract_media_files(page)
+            all_media.update(page_media)
+        
+        # Associate media by page - should log a warning since no page indices
+        parser._associate_media_by_page(parsed_questions, content, all_media)
+        
+        # Verify questions don't have any media files since page indices are missing
+        assert len(parsed_questions[0]["media_files"]) == 0
+        assert len(parsed_questions[1]["media_files"]) == 0
