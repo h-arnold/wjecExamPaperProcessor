@@ -202,12 +202,14 @@ The `IndexManager` uses regular expressions to extract unit numbers from documen
 ### Document Relationship Detection
 
 Documents are related using two approaches:
+
 1. **Pattern matching**: Using filename patterns (e.g., s23-2500u20-1a.json and s23-2500u20-1-ms.json)
 2. **Metadata matching**: Matching unit numbers, years, subjects, and qualifications
 
 ## Error Handling
 
 The `IndexManager` includes error handling for:
+
 - Missing index files (creates new ones if needed)
 - JSON parsing errors
 - File I/O errors
@@ -216,6 +218,7 @@ The `IndexManager` includes error handling for:
 ## Contributing
 
 When extending or modifying the `IndexManager`, please:
+
 1. Maintain backward compatibility with existing index files
 2. Follow the existing code style and documentation standards
 3. Add unit tests for new functionality
