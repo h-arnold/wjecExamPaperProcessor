@@ -35,7 +35,11 @@ Your output must be a JSON object with the following fields:
   ],
   "next_question_paper_index": 3,
   "next_mark_scheme_index": 2,
-  "next_question_number": 2
+  "next_question_number": 2,
+  "context_complete": {
+    "question_paper": true,  // false if more context is needed from question paper
+    "mark_scheme": true      // false if more context is needed from mark scheme
+  }
 }
 ```
 
@@ -143,7 +147,11 @@ If a question has sub-parts (e.g. 1a, 1b or 2a(i), 2a(ii)), represent these usin
   ],
   "next_question_paper_index": 1,
   "next_mark_scheme_index": 2,
-  "next_question_number": 2
+  "next_question_number": 2,
+  "context_complete": {
+    "question_paper": true,
+    "mark_scheme": true
+  }
 }
 ```
 

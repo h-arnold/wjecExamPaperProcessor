@@ -1,0 +1,985 @@
+{
+  "subjects": {
+    "Computer Science": {
+      "years": {
+        "2016": {
+          "qualifications": {
+            "A-Level": {
+              "exams": {
+                "Unit 1": {
+                  "unit_number": 1,
+                  "documents": {
+                    "Mark Scheme": [
+                      {
+                        "id": "2500N10-1 GCE AS Computer Science Unit 1 MS Summer 2016 (New)-w",
+                        "content_path": "ocr_results/2500N10-1 GCE AS Computer Science Unit 1 MS Summer 2016 (New)-w.json",
+                        "metadata_path": "Index/metadata/mark_schemes/2500N10-1 GCE AS Computer Science Unit 1 MS Summer 2016 (New)-w-metadata.json",
+                        "question_start_index": 2
+                      }
+                    ]
+                  },
+                  "name": "Unit 1",
+                  "exam_season": "Summer",
+                  "instructions_for_examiners": "Defnyddiwyd fersiwn Saesneg gwreiddiol y cynllun marcio hwn gan CBAC ar gyfer arholiad 2016. Penderfynwyd arno'n derfynol yn dilyn trafodaeth fanwl mewn cynadleddau arholwyr gan yr holl arholwyr oedd yn ymwneud \u00e2'r asesiad. Cynhaliwyd y gynhadledd yn fuan ar \u00f4l sefyll y papur fel y gellid cyfeirio at yr amrediad llawn o ymatebion ymgeiswyr, gyda sgriptiau wedi'u llungop\u00eeo yn sail i'r drafodaeth. Amcan y gynhadledd oedd sicrhau bod y cynllun marcio wedi'i ddehongli a'i gymhwyso yn yr un modd gan yr holl arholwyr."
+                },
+                "Unit 2": {
+                  "unit_number": 2,
+                  "documents": {
+                    "Mark Scheme": [
+                      {
+                        "id": "2500N20-1 GCE AS Computer Science Unit 2 MS Summer 2016 (New)-w",
+                        "content_path": "ocr_results/2500N20-1 GCE AS Computer Science Unit 2 MS Summer 2016 (New)-w.json",
+                        "metadata_path": "Index/metadata/mark_schemes/2500N20-1 GCE AS Computer Science Unit 2 MS Summer 2016 (New)-w-metadata.json",
+                        "question_start_index": 4
+                      }
+                    ]
+                  },
+                  "name": "Unit 2",
+                  "exam_season": "Summer",
+                  "instructions_for_examiners": "Defnyddiwyd fersiwn Saesneg gwreiddiol y cynllun marcio hwn gan CBAC ar gyfer arholiad 2016. Penderfynwyd arno'n derfynol yn dilyn trafodaeth fanwl mewn cynadleddau arholwyr gan yr holl arholwyr oedd yn ymwneud \u00e2'r asesiad. Cynhaliwyd y gynhadledd yn fuan ar \u00f4l sefyll y papur fel y gellid cyfeirio at yr amrediad llawn o ymatebion ymgeiswyr, gyda sgriptiau wedi'u llungop\u00eeo yn sail i'r drafodaeth. Amcan y gynhadledd oedd sicrhau bod y cynllun marcio wedi'i ddehongli a'i gymhwyso yn yr un modd gan yr holl arholwyr."
+                }
+              }
+            },
+            "AS-Level": {
+              "exams": {
+                "Unit 1": {
+                  "unit_number": 1,
+                  "documents": {
+                    "Question Paper": [
+                      {
+                        "id": "2500U10-1(060616)",
+                        "content_path": "ocr_results/2500U10-1(060616).json",
+                        "metadata_path": "Index/metadata/question_papers/2500U10-1(060616)-metadata.json",
+                        "question_start_index": 1,
+                        "questions": [
+                          {
+                            "question_number": "1a",
+                            "question_text": "Explain the role of MOD in the algorithm above.",
+                            "mark_scheme": "- MOD checks if the number is divisible by 2 / calculates the remainder of the inputted number.\n- If the result of modulus is 0 then the number can be divided by 2 and is an even number.\n- If the modulus is not exactly 0 , then the number is not exactly divisible by 2 , hence it will be odd number.",
+                            "max_marks": 3,
+                            "assessment_objectives": [
+                              "AO2.1b"
+                            ],
+                            "media_files": []
+                          },
+                          {
+                            "question_number": "1b",
+                            "question_text": "Using an example from the algorithm, describe the purpose of selection.",
+                            "mark_scheme": "- Example: if num MOD $2=0$ Then\n- Selection outputs num & \" is an even number\" if the condition num MOD $2=0$ is met.",
+                            "max_marks": 2,
+                            "assessment_objectives": [
+                              "AO2.1b"
+                            ],
+                            "media_files": []
+                          },
+                          {
+                            "question_number": "1c",
+                            "question_text": "Using an example from the algorithm, describe the purpose of repetition.",
+                            "mark_scheme": "- Example: for i = 1 To numberstocheck\n- Repetition checks if numbers are even/odd until all numbers have been checked.",
+                            "max_marks": 2,
+                            "assessment_objectives": [
+                              "AO2.1b"
+                            ],
+                            "media_files": []
+                          },
+                          {
+                            "question_number": "2",
+                            "question_text": "Complete the following truth table:\n\n| $A$ | $B$ | $C$ | $A$ | $B . C$ | $A + B . C$ | $A .(A + B . C)$ |\n| :--: | :--: | :--: | :--: | :--: | :--: | :--: |\n| 1 | 1 | 1 |  |  |  |  |\n| 1 | 0 | 1 |  |  |  |  |\n| 0 | 1 | 1 |  |  |  |  |\n| 0 | 0 | 1 |  |  |  |  |\n",
+                            "mark_scheme": "Award 1 mark for each up to a maximum of 6",
+                            "max_marks": 6,
+                            "assessment_objectives": [
+                              "1.1b"
+                            ],
+                            "media_files": []
+                          },
+                          {
+                            "question_number": "3",
+                            "question_text": "Describe the function of the main components of the Von Neumann CPU architecture.",
+                            "mark_scheme": "Award 1 mark for each:\n- CPU: The Central Processing Unit is responsible for executing instructions and performing calculations.\n- Memory: This is where data and instructions are stored temporarily while being processed by the CPU.\n- Input: This is the means by which data and instructions are entered into the computer system.\n- Output: This is the means by which results are displayed or otherwise made available to the user.\nAccept use of CPU/processor interchangeably.",
+                            "max_marks": 4,
+                            "assessment_objectives": [
+                              "1.1b"
+                            ],
+                            "media_files": []
+                          },
+                          {
+                            "question_number": "4",
+                            "question_text": "Describe six Integrated Development Environment (IDE) tools used in the development and debugging of programs.\n[6]",
+                            "mark_scheme": "Award 1 mark for each up to a maximum of 6\n\u2022 Any six of:\n - Editor: this allows a programmer to enter and edit source code/annotation\n - Compiler: Translates source code into machine code\n - Interpreter: Translates each line/a single line of source code and executes it\n - Automatic formatting: Correctly indents code\n - Automatic colour coding: Changes key words, literals and annotation to different colours\n - Linker: this is a program which allows previously compiled code, from software libraries, to be linked together\n - Loader: this is a program which loads previously compiled code into memory.\n - Debugger: this is a program which helps locate, identify and rectify errors in a program\n - Syntax error detection: Highlighting syntax errors before code is translated\n - Trace: this is a facility which displays the order in which the lines of a program are executed, and possibly the values of variables as the program is being run\n - Break point: this is a facility which interrupts a program on a specific line of code, allowing the programmer to compare the values of variables against expected values. The program code can then usually be executed one line at a time. This is called single-stepping\n - Variable watch: this is a facility which displays the current value of any variable. The value can be 'watched' as the program code is single-stepped to see the effects of the code on the variable. Alternatively a variable watch may be set, which will interrupt the program flow if the watched variable reaches a specified value\n - Memory inspector: this is a facility which will display the contents of a section of memory\n - Error diagnostics: these are used when a program fails to compile or to run. Error messages are displayed to help the programmer diagnose what has gone wrong\n - Emulator: will provide an emulator to run the code/app so no physical device required\n - Context sensitive menu: IDE suggests available options\n - Statement completion: IDE will complete a statement such as adding an 'end if' to an 'if' statement\n - GUI creation: Allows programmer to create a GUI by dragging and dropping controls (buttons, etc...) onto a form.\n - Publisher: facility to package up and deploy program as an easy to install package\n - Code optimisation: Warning message when variables have been declared but not used.\nAccept use of IDE/SDE/SDK interchangeably",
+                            "max_marks": 6,
+                            "assessment_objectives": [
+                              "1.1b"
+                            ],
+                            "media_files": []
+                          },
+                          {
+                            "question_number": "5a",
+                            "question_text": "Data can be transmitted using different methods. Describe simplex, half-duplex and full duplex transmission methods.",
+                            "mark_scheme": "Award 1 mark for each\n\u2022 Simplex\n - Data transmission is possible in one direction only.\n\u2022 Half duplex\n - Data transmission is possible in both directions, but only in one direction at a time.\n\u2022 Full duplex\n - Data transmission is possible in both directions simultaneously.",
+                            "max_marks": 3,
+                            "assessment_objectives": [
+                              "1.1b"
+                            ],
+                            "media_files": []
+                          },
+                          {
+                            "question_number": "5b",
+                            "question_text": "Describe what is meant by a data collision on a bus network and how such collisions should be dealt with.",
+                            "mark_scheme": "Award 1 mark for each\n\u2022 Data collision occurs when two sets of data are detected on the network simultaneously.\n\u2022 Once detected, a computer waits for a short (random) time then sends again.",
+                            "max_marks": 2,
+                            "assessment_objectives": [
+                              "1.1b"
+                            ],
+                            "media_files": []
+                          },
+                          {
+                            "question_number": "5a",
+                            "question_text": "Data can be transmitted using different methods. Describe simplex, half-duplex and full duplex transmission methods.",
+                            "mark_scheme": "Award 1 mark for each:\n- Simplex: Data transmission is possible in one direction only.\n- Half duplex: Data transmission is possible in both directions, but only in one direction at a time.\n- Full duplex: Data transmission is possible in both directions simultaneously.",
+                            "max_marks": 3,
+                            "assessment_objectives": [
+                              "1.1b"
+                            ],
+                            "media_files": []
+                          },
+                          {
+                            "question_number": "5b",
+                            "question_text": "Describe what is meant by a data collision on a bus network and how such collisions should be dealt with.",
+                            "mark_scheme": "Award 1 mark for each:\n- Data collision occurs when two sets of data are detected on the network simultaneously.\n- Once detected, a computer waits for a short (random) time then sends again.",
+                            "max_marks": 2,
+                            "assessment_objectives": [
+                              "1.1b"
+                            ],
+                            "media_files": []
+                          },
+                          {
+                            "question_number": "6ai",
+                            "question_text": "State the meaning of the following terms:\n(i) Byte.",
+                            "mark_scheme": "Award 1 mark\nA byte is a collection of 8 bits, (e.g. $00101010_{2}$)",
+                            "max_marks": 1,
+                            "assessment_objectives": [
+                              "1.1a"
+                            ],
+                            "media_files": []
+                          },
+                          {
+                            "question_number": "6aii",
+                            "question_text": "State the meaning of the following terms:\n(ii) Word.",
+                            "mark_scheme": "Award 1 mark\nA word is the total number of bits that can be manipulated as a single unit by the CPU.",
+                            "max_marks": 1,
+                            "assessment_objectives": [
+                              "1.1b"
+                            ],
+                            "media_files": []
+                          },
+                          {
+                            "question_number": "6b",
+                            "question_text": "Convert the hexadecimal numbers $2 A_{16}$ and $B B_{16}$ into two binary numbers and, using binary addition, calculate the binary number that would result from adding them.\nYou must show all of your working.",
+                            "mark_scheme": "Award 1 mark for each:\n- Convert $2 A_{16}$ into binary: $00101010_{2}$\n- Convert $\\mathrm{BB}_{16}$ into binary: $10111011_{2}$\n- Binary addition:\n  $00101010_{2}$\n+ $10111011_{2}$\n  $11100101_{2}$\n$011101000$",
+                            "max_marks": 4,
+                            "assessment_objectives": [
+                              "2.1a"
+                            ],
+                            "media_files": []
+                          },
+                          {
+                            "question_number": "6a",
+                            "question_text": "State the meaning of the following terms:\n(i) Byte.\n(ii) Word.",
+                            "mark_scheme": "",
+                            "max_marks": 2,
+                            "assessment_objectives": [],
+                            "media_files": []
+                          },
+                          {
+                            "question_number": "6b",
+                            "question_text": "Convert the hexadecimal numbers $2 A_{16}$ and $B B_{16}$ into two binary numbers and, using binary addition, calculate the binary number that would result from adding them.\nYou must show all of your working.",
+                            "mark_scheme": "",
+                            "max_marks": 3,
+                            "assessment_objectives": [],
+                            "media_files": []
+                          },
+                          {
+                            "question_number": "6c",
+                            "question_text": "Using an example, describe two's complementation in an 8 bit register.",
+                            "mark_scheme": "",
+                            "max_marks": 3,
+                            "assessment_objectives": [],
+                            "media_files": []
+                          },
+                          {
+                            "question_number": "6d",
+                            "question_text": "In a certain computer system, real numbers are stored in floating point form using two's complementation, an 8 bit mantissa and a 4 bit exponent.\nThe following is a floating point representation of a real number:\nMantissa\n| 0 | 1 | 1 | 0 | 1 | 0 | 0 | 0 |\n| :-- | :-- | :-- | :-- | :-- | :-- | :-- | :-- |\n| 0 | 0 | 1 | 1 |\n| :-- | :-- | :-- |\nCalculate the denary value of the mantissa and exponent, and convert this floating point number into a denary number.",
+                            "mark_scheme": "Award 1 mark for each:\nMantissa = 13 / 16 OR 0.8125, Exponent = 3\nAnswer = 0.8125 \u00d7 2^3 = 6.510",
+                            "max_marks": 3,
+                            "assessment_objectives": [
+                              "2.1a"
+                            ],
+                            "media_files": []
+                          },
+                          {
+                            "question_number": "7c",
+                            "question_text": "Using an example, describe two's complementation in an 8 bit register.",
+                            "mark_scheme": "Award 1 mark for each up to a maximum of 6\n- Example of two's complement representation of a negative number in an 8-bit register\n- Explanation of how to obtain the two's complement of a binary number\n- Explanation of how to perform arithmetic operations using two's complement representation",
+                            "max_marks": 6,
+                            "assessment_objectives": [
+                              "1.1b"
+                            ],
+                            "media_files": []
+                          },
+                          {
+                            "question_number": "7d",
+                            "question_text": "In a certain computer system, real numbers are stored in floating point form using two's complementation, an 8 bit mantissa and a 4 bit exponent.\n\nThe following is a floating point representation of a real number:\n\nMantissa\n\n| 0 | 1 | 1 | 0 | 1 | 0 | 0 | 0 |\n| :-- | :-- | :-- | :-- | :-- | :-- | :-- | :-- |\n\n| 0 | 0 | 1 | 1 |\n| :-- | :-- | :-- |\n\nCalculate the denary value of the mantissa and exponent, and convert this floating point number into a denary number.",
+                            "mark_scheme": "1 mark for each correct step in the calculation of the denary value of the mantissa and exponent\n1 mark for the correct denary value of the floating point number\n\nAccepted methods for calculating the denary value include:\n- Multiplying each bit in the mantissa by its corresponding power of 2 and summing the results\n- Converting the binary exponent to denary and applying the exponent to the mantissa using the formula (-1)^s x 1.m x 2^e\n\nNote: The mark scheme does not provide specific values for the denary mantissa, exponent, or floating point number.",
+                            "max_marks": 2,
+                            "assessment_objectives": [],
+                            "media_files": []
+                          },
+                          {
+                            "question_number": "8e",
+                            "question_text": "Using the number $26.8_{10}$ as an example, describe truncation and rounding, and their effect upon accuracy.",
+                            "mark_scheme": "Truncation: number is approximated to whole number/tenth/hundredth etc. nearer zero. (condone lower, accept idea of shortened / cut off / removed)\nRounding: number is approximated to nearest whole number/tenth/hundredth, etc.\nExample\n- Truncation: $26_{10}$ \n- Error $-0.8_{10}$ \n- Rounding: $27_{10}$ \n- Error $+0.2_{10}$",
+                            "max_marks": null,
+                            "assessment_objectives": [
+                              "1.1b",
+                              "2.1a",
+                              "2.1b"
+                            ],
+                            "media_files": []
+                          },
+                          {
+                            "question_number": "7",
+                            "question_text": "Describe direct (random) access files in terms of hashing algorithms, overflow areas and the need for files to be re-organised on occasions.",
+                            "mark_scheme": "- The physical location of the record is calculated using a hashing algorithm.\n- This calculation is carried out on data in the key field(or other mandatory data item).\n- A data collision occurs when two data items are hashed to the same location.\n- In this case there needs to be an overflow areas where the latest data is stored.\n- When there are many items in the overflow area, access may become slow.\n- In which case a new hashing algorithm is required and a larger file may be needed.",
+                            "max_marks": 6,
+                            "assessment_objectives": [
+                              "AO1",
+                              "AO2"
+                            ],
+                            "media_files": []
+                          },
+                          {
+                            "question_number": "8",
+                            "question_text": "Write a binary search algorithm, using pseudo-code, for the following array.\n\n| myArray |  |  |  |  |  |  | \n| :--: | :--: | :--: | :--: | :--: | :--: | :--: |\n| 23 | 34 | 39 | 42 | 47 | 56 | 61 |\n| (0) | (1) | (2) | (3) | (4) | (5) | (6) |\n\nYour algorithm should output the position of the SearchValue if it is found or a suitable message if the SearchValue is not present in the array.\n\nYour algorithm should be written using self-documenting identifiers.",
+                            "mark_scheme": "1 Declare MyArray[0 to 6]\n2 Declare Start is integer\n3 Declare End is integer\n4 Declare Found is Boolean\n5 Declare Mid is integer\n6 \n7 set Start =0\n8 set End =6\n9 set Found = False\n10 \n11 input SearchValue\n12 \n13 repeat\n14 set Mid = (Start + End) DIV 2\n15 if SearchValue = MyArray[Mid] then\n16 set Found = True\n17 Output \"SearchValue found at position\", Mid\n18 endif\n19 \n20 if SearchValue > MyArray[Mid] then\n21 set Start = Mid +1\n22 endif\n23 \n24 if SearchValue < MyArray[Mid] then\n25 set End = Mid - 1\n26 endif\n27 until (Found = True) OR (End < Start)\n28 \n29 if Found = False\n30 Output \"SearchValue not found\"\n31 endif",
+                            "max_marks": 8,
+                            "assessment_objectives": [
+                              "AO1",
+                              "AO2",
+                              "AO3"
+                            ],
+                            "media_files": []
+                          },
+                          {
+                            "question_number": "9",
+                            "question_text": "Giving an example, describe standard modules and their benefits.\n[4]",
+                            "mark_scheme": "- A standard module is one which carries out a common / standard task / can be used for a standard situation in a (many) program(s)\nExample: print function / input validation / maths functions (e.g. square root)\nAward 1 mark per benefit (any two of):\n- No need to write again as has already been written/decreases development time\n- Less likely to have errors because it has already been tested/used (\"for real\")\n- Likely to be of high quality/efficient as may have been written by experts in the field",
+                            "max_marks": 4,
+                            "assessment_objectives": [
+                              "1.1b"
+                            ],
+                            "media_files": []
+                          },
+                          {
+                            "question_number": "11",
+                            "question_text": "Giving an example, describe standard modules and their benefits.\n[4]",
+                            "mark_scheme": "Department <br> \u2022 <br> Courses <br> \u2022 <br> Students\n\nMarking:\n\u2022 Award 1 mark for each up to a maximum of 4\n\u2022 All four correct entities\n\u2022 Correct relationship between Department and Courses\n\u2022 Correct relationship between Courses and Students\n\u2022 Correct relationship between Courses and Modules",
+                            "max_marks": 4,
+                            "assessment_objectives": [
+                              "AO1",
+                              "AO2"
+                            ],
+                            "media_files": []
+                          },
+                          {
+                            "question_number": "12",
+                            "question_text": "Clearly showing each step, simplify the following Boolean expression:\n\n$$\nA \\cdot(A+C)+C \\cdot(A+B)\n$$\n\n",
+                            "mark_scheme": "",
+                            "max_marks": 0,
+                            "assessment_objectives": [],
+                            "media_files": []
+                          },
+                          {
+                            "question_number": "12a",
+                            "question_text": "Award a maximum of 6 marks from any one changeover method.\n<br>N.B: <br>1 Mark for name <br>1 Mark for description\nDirect \"big bang\" approach can be adopted - sudden change to new system\n- Could be used where a failure would not be catastrophic\n- Can be cheaper to implement\n- New system is available immediately if required\n- Can be the least disruptive if implemented well\n- New system may not work as well until staff are fully used to using it\n- If new system fails organisation have no system which could be costly or dangerous\nParallel running - both systems running together for a time\n- Safest option as if new system fails they still have existing system\n- New system is available immediately if required\n- The outputs from the old and new systems can be compared to check that the new system is running correctly\n- Expensive as require temporary staff or overtime for current staff to operate both systems\n- Could cause confusion for staff / customers having two systems\nPhased changeover - part-by-part (by functionality)\n- Allows users to gradually get used to the new system\n- Staff training can be done in stages\n- All staff can focus on one area to resolve any problems\n- Problems can be fixed quicker as more experts to resolve one functionality problem at a time\n- Difficulties identified in one area can be resolved and managed in next area\n- Might cause problems in the changeover period when they need to communicate with each other and have different systems\n- Slower to get new system up and running compared to some other methods\n- If a part of the new system fails, there is no back-up system, so data can be lost\n- Some systems cannot easily be broken down by functionality",
+                            "mark_scheme": "Award a maximum of 6 marks from any one changeover method.\n<br>N.B: <br>1 Mark for name <br>1 Mark for description\nDirect \"big bang\" approach can be adopted - sudden change to new system\n- Could be used where a failure would not be catastrophic\n- Can be cheaper to implement\n- New system is available immediately if required\n- Can be the least disruptive if implemented well\n- New system may not work as well until staff are fully used to using it\n- If new system fails organisation have no system which could be costly or dangerous\nParallel running - both systems running together for a time\n- Safest option as if new system fails they still have existing system\n- New system is available immediately if required\n- The outputs from the old and new systems can be compared to check that the new system is running correctly\n- Expensive as require temporary staff or overtime for current staff to operate both systems\n- Could cause confusion for staff / customers having two systems\nPhased changeover - part-by-part (by functionality)\n- Allows users to gradually get used to the new system\n- Staff training can be done in stages\n- All staff can focus on one area to resolve any problems\n- Problems can be fixed quicker as more experts to resolve one functionality problem at a time\n- Difficulties identified in one area can be resolved and managed in next area\n- Might cause problems in the changeover period when they need to communicate with each other and have different systems\n- Slower to get new system up and running compared to some other methods\n- If a part of the new system fails, there is no back-up system, so data can be lost\n- Some systems cannot easily be broken down by functionality",
+                            "max_marks": 10,
+                            "assessment_objectives": [
+                              "1.1 b"
+                            ],
+                            "media_files": []
+                          }
+                        ],
+                        "processed_at": "2025-04-19T17:18:42.433633"
+                      }
+                    ],
+                    "Mark Scheme": [
+                      {
+                        "id": "2500U10-1 GCE AS Computer Science Unit 1 MS Summer 2016 (New)-e",
+                        "content_path": "ocr_results/2500U10-1 GCE AS Computer Science Unit 1 MS Summer 2016 (New)-e.json",
+                        "metadata_path": "Index/metadata/mark_schemes/2500U10-1 GCE AS Computer Science Unit 1 MS Summer 2016 (New)-e-metadata.json",
+                        "question_start_index": 2
+                      }
+                    ]
+                  },
+                  "name": "Unit 1",
+                  "exam_season": "Summer",
+                  "exam_length": "2 hours",
+                  "total_marks": 100,
+                  "instructions_for_candidates": "Use black ink or black ball-point pen. Answer all questions. Write your name, centre number and candidate number in the spaces at the top of this page. Write your answers in the spaces provided in this booklet. If you run out of space, use the continuation page at the back of the booklet, taking care to number the question(s) correctly."
+                },
+                "Unit 2": {
+                  "unit_number": 2,
+                  "documents": {
+                    "Question Paper": [
+                      {
+                        "id": "2500U20-1(140616)",
+                        "content_path": "ocr_results/2500U20-1(140616).json",
+                        "metadata_path": "Index/metadata/question_papers/2500U20-1(140616)-metadata.json",
+                        "question_start_index": 2
+                      }
+                    ],
+                    "Mark Scheme": [
+                      {
+                        "id": "2500U20-1 GCE AS Computer Science Unit 2 MS Summer 2016 (New)-e",
+                        "content_path": "ocr_results/2500U20-1 GCE AS Computer Science Unit 2 MS Summer 2016 (New)-e.json",
+                        "metadata_path": "Index/metadata/mark_schemes/2500U20-1 GCE AS Computer Science Unit 2 MS Summer 2016 (New)-e-metadata.json",
+                        "question_start_index": 4
+                      }
+                    ]
+                  },
+                  "name": "Unit 2 Practical Programming to Solve Problems",
+                  "exam_season": "Summer",
+                  "exam_length": "2 hours",
+                  "total_marks": 60,
+                  "instructions_for_candidates": "Answer ALL questions. The question paper is divided into two main sections. Below are the recommended timings for this assessment. The number of marks is given in brackets at the end of each question or part-question. The total number of marks available is 60. Assessment will take into account the quality of written communication used in your answers. You will need a computer with an installed functional copy of the Integrated Development Environment (IDE) appropriate to your chosen programming language and word processing software. A calculator is allowed in this examination. Remember to save your work regularly.",
+                  "instructions_for_examiners": "It should be remembered that learners are writing under examination conditions and credit should be given for what the learner writes, rather than adopting the approach of penalising him/her for any omissions."
+                }
+              }
+            }
+          }
+        },
+        "2017": {
+          "qualifications": {
+            "A-Level": {
+              "exams": {
+                "Unit 3": {
+                  "unit_number": 3,
+                  "documents": {
+                    "Mark Scheme": [
+                      {
+                        "id": "1500U30-1 WJEC GCE A Level Comp Science Unit 3 MS S17 (New)",
+                        "content_path": "ocr_results/1500U30-1 WJEC GCE A Level Comp Science Unit 3 MS S17 (New).json",
+                        "metadata_path": "Index/metadata/mark_schemes/1500U30-1 WJEC GCE A Level Comp Science Unit 3 MS S17 (New)-metadata.json",
+                        "question_start_index": 2
+                      }
+                    ]
+                  },
+                  "name": "Unit 3",
+                  "exam_season": "Summer"
+                },
+                "Unit 4": {
+                  "unit_number": 4,
+                  "documents": {
+                    "Mark Scheme": [
+                      {
+                        "id": "1500U40-1 WJEC GCE A Level Comp Science Unit 4 MS S17 (New)",
+                        "content_path": "ocr_results/1500U40-1 WJEC GCE A Level Comp Science Unit 4 MS S17 (New).json",
+                        "metadata_path": "Index/metadata/mark_schemes/1500U40-1 WJEC GCE A Level Comp Science Unit 4 MS S17 (New)-metadata.json",
+                        "question_start_index": 2
+                      }
+                    ]
+                  },
+                  "name": "Unit 4",
+                  "exam_season": "Summer"
+                }
+              }
+            },
+            "A2-Level": {
+              "exams": {
+                "Unit 3": {
+                  "unit_number": 3,
+                  "documents": {
+                    "Question Paper": [
+                      {
+                        "id": "1500U30-1(160617)",
+                        "content_path": "ocr_results/1500U30-1(160617).json",
+                        "metadata_path": "Index/metadata/question_papers/1500U30-1(160617)-metadata.json",
+                        "question_start_index": 1
+                      }
+                    ]
+                  },
+                  "name": "Unit 3 Programming and System Development",
+                  "exam_season": "Summer",
+                  "exam_length": "2 hours",
+                  "total_marks": 100
+                },
+                "Unit 4": {
+                  "unit_number": 4,
+                  "documents": {
+                    "Question Paper": [
+                      {
+                        "id": "1500U40-1(220617)",
+                        "content_path": "ocr_results/1500U40-1(220617).json",
+                        "metadata_path": "Index/metadata/question_papers/1500U40-1(220617)-metadata.json",
+                        "question_start_index": 1
+                      }
+                    ]
+                  },
+                  "name": "Unit 4 Computer Architecture, Data, Communication and Applications",
+                  "exam_season": "Summer",
+                  "exam_length": "2 hours",
+                  "total_marks": 100
+                }
+              }
+            },
+            "AS-Level": {
+              "exams": {
+                "Unit 1": {
+                  "unit_number": 1,
+                  "documents": {
+                    "Mark Scheme": [
+                      {
+                        "id": "2500U10-1 WJEC GCE AS Comp Science Unit 1 MS S17 (New)",
+                        "content_path": "ocr_results/2500U10-1 WJEC GCE AS Comp Science Unit 1 MS S17 (New).json",
+                        "metadata_path": "Index/metadata/mark_schemes/2500U10-1 WJEC GCE AS Comp Science Unit 1 MS S17 (New)-metadata.json",
+                        "question_start_index": 2
+                      }
+                    ]
+                  },
+                  "name": "Unit 1",
+                  "exam_season": "Summer"
+                },
+                "Unit 2": {
+                  "unit_number": 2,
+                  "documents": {
+                    "Mark Scheme": [
+                      {
+                        "id": "2500U20-1 WJEC GCE AS Comp Science Unit 2 MS S17 (New)",
+                        "content_path": "ocr_results/2500U20-1 WJEC GCE AS Comp Science Unit 2 MS S17 (New).json",
+                        "metadata_path": "Index/metadata/mark_schemes/2500U20-1 WJEC GCE AS Comp Science Unit 2 MS S17 (New)-metadata.json",
+                        "question_start_index": 4
+                      }
+                    ],
+                    "Question Paper": [
+                      {
+                        "id": "2500U20-1(090617)",
+                        "content_path": "ocr_results/2500U20-1(090617).json",
+                        "metadata_path": "Index/metadata/question_papers/2500U20-1(090617)-metadata.json",
+                        "question_start_index": 1
+                      }
+                    ]
+                  },
+                  "name": "AS unit 2 Practical Programming to Solve Problems",
+                  "exam_season": "Summer",
+                  "exam_length": "2 hours",
+                  "total_marks": 60,
+                  "instructions_for_candidates": "Answer ALL questions. The question paper is divided into two main sections. Below are the recommended timings for this assessment. You will need a computer with an installed functional copy of the Integrated Development Environment (IDE) appropriate to your chosen programming language and word processing software. A calculator is allowed in this examination. Remember to save your work regularly.",
+                  "instructions_for_examiners": "It should be remembered that learners are writing under examination conditions and credit should be given for what the learner writes, rather than adopting the approach of penalising him/her for any omissions."
+                }
+              }
+            }
+          }
+        },
+        "2018": {
+          "qualifications": {
+            "A-Level": {
+              "exams": {
+                "Unit 3": {
+                  "unit_number": 3,
+                  "documents": {
+                    "Mark Scheme": [
+                      {
+                        "id": "1500U30-1 WJEC A Level Comp Science Unit 3 MS S18 (New)",
+                        "content_path": "ocr_results/1500U30-1 WJEC A Level Comp Science Unit 3 MS S18 (New).json",
+                        "metadata_path": "Index/metadata/mark_schemes/1500U30-1 WJEC A Level Comp Science Unit 3 MS S18 (New)-metadata.json",
+                        "question_start_index": 2
+                      }
+                    ]
+                  },
+                  "name": "Unit 3",
+                  "exam_season": "Summer"
+                },
+                "Unit 4": {
+                  "unit_number": 4,
+                  "documents": {
+                    "Mark Scheme": [
+                      {
+                        "id": "1500U40-1 WJEC A Level Comp Science Unit 4 MS S18 (New)",
+                        "content_path": "ocr_results/1500U40-1 WJEC A Level Comp Science Unit 4 MS S18 (New).json",
+                        "metadata_path": "Index/metadata/mark_schemes/1500U40-1 WJEC A Level Comp Science Unit 4 MS S18 (New)-metadata.json",
+                        "question_start_index": 2
+                      }
+                    ]
+                  },
+                  "name": "Unit 4",
+                  "exam_season": "Summer"
+                }
+              }
+            },
+            "A2-Level": {
+              "exams": {
+                "Unit 3": {
+                  "unit_number": 3,
+                  "documents": {
+                    "Question Paper": [
+                      {
+                        "id": "1500U30-1-110618",
+                        "content_path": "ocr_results/1500U30-1-110618.json",
+                        "metadata_path": "Index/metadata/question_papers/1500U30-1-110618-metadata.json",
+                        "question_start_index": 1
+                      }
+                    ]
+                  },
+                  "name": "Unit 3 - Programming and System Development",
+                  "exam_season": "Summer",
+                  "exam_length": "2 hours",
+                  "total_marks": 100,
+                  "instructions_for_candidates": "Answer all questions. Write your answers in the separate answer booklet provided. The number of marks is given in brackets at the end of each question or part-question; you are advised to divide your time accordingly. The total number of marks available is 100. Assessment will take into account the quality of written communication used in your answers."
+                },
+                "Unit 4": {
+                  "unit_number": 4,
+                  "documents": {
+                    "Question Paper": [
+                      {
+                        "id": "1500U40-1-150618",
+                        "content_path": "ocr_results/1500U40-1-150618.json",
+                        "metadata_path": "Index/metadata/question_papers/1500U40-1-150618-metadata.json",
+                        "question_start_index": 1
+                      }
+                    ]
+                  },
+                  "name": "Unit 4 Computer Architecture, Data, Communication and Applications",
+                  "exam_season": "Summer",
+                  "exam_length": "2 hours",
+                  "total_marks": 100,
+                  "instructions_for_candidates": "Answer all questions. Write your answers in the separate answer booklet provided."
+                }
+              }
+            },
+            "AS-Level": {
+              "exams": {
+                "Unit 1": {
+                  "unit_number": 1,
+                  "documents": {
+                    "Question Paper": [
+                      {
+                        "id": "2500U10-1-040618",
+                        "content_path": "ocr_results/2500U10-1-040618.json",
+                        "metadata_path": "Index/metadata/question_papers/2500U10-1-040618-metadata.json",
+                        "question_start_index": 1
+                      }
+                    ],
+                    "Mark Scheme": [
+                      {
+                        "id": "2500U10-1 WJEC AS Comp Science Unit 1 MS S18 (New)",
+                        "content_path": "ocr_results/2500U10-1 WJEC AS Comp Science Unit 1 MS S18 (New).json",
+                        "metadata_path": "Index/metadata/mark_schemes/2500U10-1 WJEC AS Comp Science Unit 1 MS S18 (New)-metadata.json",
+                        "question_start_index": 2
+                      }
+                    ]
+                  },
+                  "name": "Unit 1",
+                  "exam_season": "Summer",
+                  "exam_length": "2 hours",
+                  "total_marks": 100,
+                  "instructions_for_candidates": "Use black ink or black ball-point pen. Answer all questions. Write your name, centre number and candidate number in the spaces at the top of this page. Write your answers in the spaces provided in this booklet. If you run out of space, use the continuation page at the back of the booklet, taking care to number the question(s) correctly."
+                },
+                "Unit 2": {
+                  "unit_number": 2,
+                  "documents": {
+                    "Question Paper": [
+                      {
+                        "id": "2500U20-1-080618",
+                        "content_path": "ocr_results/2500U20-1-080618.json",
+                        "metadata_path": "Index/metadata/question_papers/2500U20-1-080618-metadata.json",
+                        "question_start_index": 2
+                      }
+                    ],
+                    "Mark Scheme": [
+                      {
+                        "id": "2500U20-1 WJEC AS Comp Science Unit 2 MS S18 (New)",
+                        "content_path": "ocr_results/2500U20-1 WJEC AS Comp Science Unit 2 MS S18 (New).json",
+                        "metadata_path": "Index/metadata/mark_schemes/2500U20-1 WJEC AS Comp Science Unit 2 MS S18 (New)-metadata.json",
+                        "question_start_index": 4
+                      }
+                    ]
+                  },
+                  "name": "AS unit 2 Practical Programming to Solve Problems",
+                  "exam_season": "Summer",
+                  "exam_length": "2 hours",
+                  "total_marks": 60,
+                  "instructions_for_candidates": "Answer ALL questions. The question paper is divided into two main sections. Below are the recommended timings for this assessment. You will need a computer with an installed functional copy of the Integrated Development Environment (IDE) appropriate to your chosen programming language and word processing software. A calculator is allowed in this examination. Remember to save your work regularly.",
+                  "instructions_for_examiners": "For Examiner's use only"
+                }
+              }
+            }
+          }
+        },
+        "2019": {
+          "qualifications": {
+            "A2-Level": {
+              "exams": {
+                "Unit 3": {
+                  "unit_number": 3,
+                  "documents": {
+                    "Question Paper": [
+                      {
+                        "id": "1500U30-1-030619",
+                        "content_path": "ocr_results/1500U30-1-030619.json",
+                        "metadata_path": "Index/metadata/question_papers/1500U30-1-030619-metadata.json",
+                        "question_start_index": 1
+                      }
+                    ]
+                  },
+                  "name": "Unit 3",
+                  "exam_season": "Summer",
+                  "exam_length": "2 hours",
+                  "total_marks": 100
+                },
+                "Unit 4": {
+                  "unit_number": 4,
+                  "documents": {
+                    "Question Paper": [
+                      {
+                        "id": "1500U40-1-110619",
+                        "content_path": "ocr_results/1500U40-1-110619.json",
+                        "metadata_path": "Index/metadata/question_papers/1500U40-1-110619-metadata.json",
+                        "question_start_index": 1
+                      }
+                    ]
+                  },
+                  "name": "Unit 4 Computer Architecture, Data, Communication and Applications",
+                  "exam_season": "Summer",
+                  "exam_length": "2 hours",
+                  "total_marks": 100,
+                  "instructions_for_candidates": "Answer all questions. Write your answers in the separate answer booklet provided."
+                }
+              }
+            },
+            "AS-Level": {
+              "exams": {
+                "Unit 1": {
+                  "unit_number": 1,
+                  "documents": {
+                    "Question Paper": [
+                      {
+                        "id": "2500U10-1-210519",
+                        "content_path": "ocr_results/2500U10-1-210519.json",
+                        "metadata_path": "Index/metadata/question_papers/2500U10-1-210519-metadata.json",
+                        "question_start_index": 1
+                      }
+                    ]
+                  },
+                  "name": "AS unit 1: Fundamentals of Computer Science",
+                  "exam_season": "Summer",
+                  "exam_length": "2 hours",
+                  "total_marks": 100,
+                  "instructions_for_candidates": "Use black ink or black ball-point pen. Answer all questions. Write your name, centre number and candidate number in the spaces at the top of this page. Write your answers in the spaces provided in this booklet. If you run out of space, use the continuation pages at the back of the booklet, taking care to number the question(s) correctly."
+                },
+                "Unit 2": {
+                  "unit_number": 2,
+                  "documents": {
+                    "Question Paper": [
+                      {
+                        "id": "2500U20-1-240519",
+                        "content_path": "ocr_results/2500U20-1-240519.json",
+                        "metadata_path": "Index/metadata/question_papers/2500U20-1-240519-metadata.json",
+                        "question_start_index": 2
+                      }
+                    ]
+                  },
+                  "name": "AS unit 2 Practical Programming to Solve Problems",
+                  "exam_season": "Summer",
+                  "exam_length": "2 hours",
+                  "total_marks": 60,
+                  "instructions_for_candidates": "Answer ALL questions. The question paper is divided into two main sections. Below are the recommended timings for this assessment. You will need a computer with an installed functional copy of the Integrated Development Environment (IDE) appropriate to your chosen programming language and word processing software. A calculator is allowed in this examination. Remember to save your work regularly."
+                }
+              }
+            }
+          }
+        },
+        "2022": {
+          "qualifications": {
+            "A-Level": {
+              "exams": {
+                "Unit 3": {
+                  "unit_number": 3,
+                  "documents": {
+                    "Mark Scheme": [
+                      {
+                        "id": "1500U30-1 WJEC GCE A Level Computer Science - Unit 3 MS S22",
+                        "content_path": "ocr_results/1500U30-1 WJEC GCE A Level Computer Science - Unit 3 MS S22.json",
+                        "metadata_path": "Index/metadata/mark_schemes/1500U30-1 WJEC GCE A Level Computer Science - Unit 3 MS S22-metadata.json",
+                        "question_start_index": 2
+                      }
+                    ]
+                  },
+                  "name": "Unit 3",
+                  "exam_season": "Summer"
+                },
+                "Unit 4": {
+                  "unit_number": 4,
+                  "documents": {
+                    "Mark Scheme": [
+                      {
+                        "id": "1500U40-1 WJEC GCE A Level Computer Science - Unit 4 MS S22",
+                        "content_path": "ocr_results/1500U40-1 WJEC GCE A Level Computer Science - Unit 4 MS S22.json",
+                        "metadata_path": "Index/metadata/mark_schemes/1500U40-1 WJEC GCE A Level Computer Science - Unit 4 MS S22-metadata.json",
+                        "question_start_index": 2
+                      }
+                    ]
+                  },
+                  "name": "Unit 4",
+                  "exam_season": "Summer"
+                }
+              }
+            },
+            "A2-Level": {
+              "exams": {
+                "Unit 3": {
+                  "unit_number": 3,
+                  "documents": {
+                    "Question Paper": [
+                      {
+                        "id": "1500U30-1-130622",
+                        "content_path": "ocr_results/1500U30-1-130622.json",
+                        "metadata_path": "Index/metadata/question_papers/1500U30-1-130622-metadata.json",
+                        "question_start_index": 1
+                      },
+                      {
+                        "id": "1500U30-1-130622 (1)",
+                        "content_path": "ocr_results/1500U30-1-130622 (1).json",
+                        "metadata_path": "Index/metadata/question_papers/1500U30-1-130622 (1)-metadata.json",
+                        "question_start_index": 1
+                      }
+                    ]
+                  },
+                  "name": "Unit 3 - Programming and System Development",
+                  "exam_season": "Summer",
+                  "exam_length": "2 hours",
+                  "total_marks": 100,
+                  "instructions_for_candidates": "Answer all questions. Write your answers in the separate answer booklet provided."
+                },
+                "Unit 4": {
+                  "unit_number": 4,
+                  "documents": {
+                    "Question Paper": [
+                      {
+                        "id": "1500U40-1-240622",
+                        "content_path": "ocr_results/1500U40-1-240622.json",
+                        "metadata_path": "Index/metadata/question_papers/1500U40-1-240622-metadata.json",
+                        "question_start_index": 1
+                      }
+                    ]
+                  },
+                  "name": "Unit 4: Computer Architecture, Data, Communication and Applications",
+                  "exam_season": "Summer",
+                  "exam_length": "2 hours",
+                  "total_marks": 100,
+                  "instructions_for_candidates": "Answer all questions. Write your answers in the separate answer booklet provided."
+                }
+              }
+            },
+            "AS-Level": {
+              "exams": {
+                "Unit 1": {
+                  "unit_number": 1,
+                  "documents": {
+                    "Mark Scheme": [
+                      {
+                        "id": "2500U10-1 WJEC GCE Computer Science - Unit 1 MS S22",
+                        "content_path": "ocr_results/2500U10-1 WJEC GCE Computer Science - Unit 1 MS S22.json",
+                        "metadata_path": "Index/metadata/mark_schemes/2500U10-1 WJEC GCE Computer Science - Unit 1 MS S22-metadata.json",
+                        "question_start_index": 2
+                      }
+                    ],
+                    "Question Paper": [
+                      {
+                        "id": "2500U10-1-170522",
+                        "content_path": "ocr_results/2500U10-1-170522.json",
+                        "metadata_path": "Index/metadata/question_papers/2500U10-1-170522-metadata.json",
+                        "question_start_index": 1
+                      }
+                    ]
+                  },
+                  "name": "Unit 1: Fundamentals",
+                  "exam_season": "Summer",
+                  "exam_length": "2 hours",
+                  "total_marks": 100,
+                  "instructions_for_candidates": "Use black ink or black ball-point pen. Answer all questions. Write your name, centre number and candidate number in the spaces at the top of this page. Write your answers in the spaces provided in this booklet. If you run out of space, use the continuation pages at the back of the booklet, taking care to number the question(s) correctly."
+                },
+                "Unit 2": {
+                  "unit_number": 2,
+                  "documents": {
+                    "Question Paper": [
+                      {
+                        "id": "2500U20-1A-270522",
+                        "content_path": "ocr_results/2500U20-1A-270522.json",
+                        "metadata_path": "Index/metadata/question_papers/2500U20-1A-270522-metadata.json",
+                        "question_start_index": 2
+                      },
+                      {
+                        "id": "2500U20-1-270522",
+                        "content_path": "ocr_results/2500U20-1-270522.json",
+                        "metadata_path": "Index/metadata/question_papers/2500U20-1-270522-metadata.json",
+                        "question_start_index": 2
+                      }
+                    ],
+                    "Mark Scheme": [
+                      {
+                        "id": "2500U20-1 WJEC GCE Computer Science - Unit 2 MS S22",
+                        "content_path": "ocr_results/2500U20-1 WJEC GCE Computer Science - Unit 2 MS S22.json",
+                        "metadata_path": "Index/metadata/mark_schemes/2500U20-1 WJEC GCE Computer Science - Unit 2 MS S22-metadata.json",
+                        "question_start_index": 4
+                      }
+                    ]
+                  },
+                  "name": "AS unit 2 Practical Programming to Solve Problems",
+                  "exam_season": "Summer",
+                  "exam_length": "2 hours",
+                  "total_marks": 60,
+                  "instructions_for_candidates": "You will be issued with a Question Paper and instructions for candidates. You will be using: A dedicated examination account for this examination only which should be inactive until the examination starts, 7-Zip pre-installed on each PC, A pre-installed functional copy of your chosen IDE (Visual Basic, Python or Java), Access to a word processing package (e.g. Microsoft Word) to produce your candidate responses, The encrypted media files pre-installed on each PC, the password for the media files, An 'empty' user area or storage device (with only the encrypted media files) on which to save the work. NB: You must not have access to the internet, any shared drives, virtual learning environments (VLEs) or email during the examination.\\n\\n"
+                }
+              }
+            }
+          }
+        },
+        "2023": {
+          "qualifications": {
+            "A-Level": {
+              "exams": {
+                "Unit 3": {
+                  "unit_number": 3,
+                  "documents": {
+                    "Mark Scheme": [
+                      {
+                        "id": "s23-1500u30-1-ms",
+                        "content_path": "ocr_results/s23-1500u30-1-ms.json",
+                        "metadata_path": "Index/metadata/mark_schemes/s23-1500u30-1-ms-metadata.json",
+                        "question_start_index": 2
+                      }
+                    ]
+                  },
+                  "name": "Unit 3",
+                  "exam_season": "Summer"
+                }
+              }
+            },
+            "A2-Level": {
+              "exams": {
+                "Unit 3": {
+                  "unit_number": 3,
+                  "documents": {
+                    "Question Paper": [
+                      {
+                        "id": "s23-1500u30-1",
+                        "content_path": "ocr_results/s23-1500u30-1.json",
+                        "metadata_path": "Index/metadata/question_papers/s23-1500u30-1-metadata.json",
+                        "question_start_index": 1
+                      }
+                    ]
+                  },
+                  "name": "Unit 3 - Programming and System Development",
+                  "exam_season": "Summer",
+                  "exam_length": "2 hours",
+                  "total_marks": 100,
+                  "instructions_for_candidates": "Answer all questions. Write your answers in the separate answer booklet provided. The number of marks is given in brackets at the end of each question or part-question; you are advised to divide your time accordingly. The total number of marks available is 100. Assessment will take into account the quality of written communication used in your answers."
+                },
+                "Unit 4": {
+                  "unit_number": 4,
+                  "documents": {
+                    "Question Paper": [
+                      {
+                        "id": "s23-1500u40-1",
+                        "content_path": "ocr_results/s23-1500u40-1.json",
+                        "metadata_path": "Index/metadata/question_papers/s23-1500u40-1-metadata.json",
+                        "question_start_index": 1
+                      }
+                    ]
+                  },
+                  "name": "Unit 4 Computer Architecture, Data, Communication and Applications",
+                  "exam_season": "Summer",
+                  "exam_length": "2 hours",
+                  "total_marks": 100,
+                  "instructions_for_candidates": "Use black ink or black ball-point pen. Answer all questions. Write your answers in the separate answer booklet provided."
+                }
+              }
+            },
+            "AS-Level": {
+              "exams": {
+                "Unit 1": {
+                  "unit_number": 1,
+                  "documents": {
+                    "Question Paper": [
+                      {
+                        "id": "s23-2500u10-1",
+                        "content_path": "ocr_results/s23-2500u10-1.json",
+                        "metadata_path": "Index/metadata/question_papers/s23-2500u10-1-metadata.json",
+                        "question_start_index": 1
+                      }
+                    ],
+                    "Mark Scheme": [
+                      {
+                        "id": "s23-2500u10-1-ms",
+                        "content_path": "ocr_results/s23-2500u10-1-ms.json",
+                        "metadata_path": "Index/metadata/mark_schemes/s23-2500u10-1-ms-metadata.json",
+                        "question_start_index": 2
+                      }
+                    ]
+                  },
+                  "name": "Unit 1",
+                  "exam_season": "Summer",
+                  "exam_length": "2 hours",
+                  "total_marks": 100,
+                  "instructions_for_candidates": "Use black ink or black ball-point pen. Answer all questions. Write your name, centre number and candidate number in the spaces at the top of this page. Write your answers in the spaces provided in this booklet. If you run out of space, use the continuation pages at the back of the booklet, taking care to number the question(s) correctly."
+                },
+                "Unit 2": {
+                  "unit_number": 2,
+                  "documents": {
+                    "Mark Scheme": [
+                      {
+                        "id": "s23-2500u20-1-ms",
+                        "content_path": "ocr_results/s23-2500u20-1-ms.json",
+                        "metadata_path": "Index/metadata/mark_schemes/s23-2500u20-1-ms-metadata.json",
+                        "question_start_index": 4
+                      }
+                    ],
+                    "Question Paper": [
+                      {
+                        "id": "s23-2500u20-1a",
+                        "content_path": "ocr_results/s23-2500u20-1a.json",
+                        "metadata_path": "Index/metadata/question_papers/s23-2500u20-1a-metadata.json",
+                        "question_start_index": 2
+                      }
+                    ]
+                  },
+                  "name": "AS unit 2 Practical Programming to Solve Problems",
+                  "exam_season": "Summer",
+                  "exam_length": "2 hours",
+                  "total_marks": 60,
+                  "instructions_for_candidates": "The question paper is divided into two main sections. Below are the recommended timings for this assessment. Section A: Answer ALL questions in Section A. You are advised to spend no more than 60 minutes on this section. You will be required to analyse and deconstruct the scenario to consider its component parts in terms that can be addressed through automated computation. Section B: Select the programming language of your choice from section BI, BII or BIII and answer all questions within your chosen section. You are advised to spend no more than 60 minutes on this section. You will be required to develop programs that solve computing problems referring to the initial scenario. The number of marks is given in brackets at the end of each question or part-question. The total number of marks available is 60. You will need a computer with an installed functional copy of the Integrated Development Environment (IDE) appropriate to your chosen programming language and word processing software. A calculator is allowed in this examination.",
+                  "instructions_for_examiners": "It should be remembered that learners are writing under examination conditions and credit should be given for what the learner writes, rather than adopting the approach of penalising him/her for any omissions."
+                },
+                "Unit 10": {
+                  "unit_number": 10,
+                  "documents": {
+                    "Question Paper": [
+                      {
+                        "id": "2500U10-1(050617)",
+                        "content_path": "ocr_results/2500U10-1(050617).json",
+                        "metadata_path": "Index/metadata/question_papers/2500U10-1(050617)-metadata.json",
+                        "question_start_index": 1
+                      }
+                    ]
+                  },
+                  "name": "2500U10-1",
+                  "exam_season": "Summer"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
