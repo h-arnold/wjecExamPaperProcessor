@@ -6,8 +6,6 @@ This script can be run with the VS Code debugger to test the directory metadata 
 
 import os
 import sys
-import json
-from pathlib import Path
 
 # Add project root directory to path to ensure imports work
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))

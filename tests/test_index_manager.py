@@ -23,7 +23,7 @@ from src.IndexManager.index_manager import IndexManager
 @pytest.fixture
 def temp_index_file():
     """Create a temporary index file for testing."""
-    with tempfile.NamedTemporaryFile(delete=False, suffix='.json') as f:
+    with tempfile.NamedTemporaryFile(delete=False, suffix='.json', mode='w+') as f:
         # Create a minimal valid index file
         json.dump({"documents": []}, f)
         path = f.name
@@ -38,7 +38,7 @@ def temp_index_file():
 @pytest.fixture
 def temp_hierarchical_index_file():
     """Create a temporary hierarchical index file for testing."""
-    with tempfile.NamedTemporaryFile(delete=False, suffix='.json') as f:
+    with tempfile.NamedTemporaryFile(delete=False, suffix='.json', mode='w+') as f:
         # Create a minimal valid hierarchical index file
         json.dump({"subjects": {}}, f)
         path = f.name
