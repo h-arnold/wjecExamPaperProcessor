@@ -88,47 +88,45 @@ class ExamContentParser:
                 index_data = json.load(f)
             
             # Initialize path variables
-            qp_metadata_path = None
-            ms_metadata_path = None
             qp_content_path = None
             ms_content_path = None
+            qp_start_index = 0
+            ms_start_index = 0
             
             # Find the document records in the hierarchical index
             qp_record = self._find_document_in_index(index_data, question_paper_id, "Question Paper")
             ms_record = self._find_document_in_index(index_data, mark_scheme_id, "Mark Scheme")
             
-            # Extract paths from the records if found
+            # Extract paths and start indices from the records if found
             if qp_record:
-                qp_metadata_path = qp_record.get('metadata_path')
                 qp_content_path = qp_record.get('content_path')
+                qp_start_index = qp_record.get('question_start_index', 0)
                 
             if ms_record:
-                ms_metadata_path = ms_record.get('metadata_path')
                 ms_content_path = ms_record.get('content_path')
+                ms_start_index = ms_record.get('question_start_index', 0)
             
-            if not qp_metadata_path or not ms_metadata_path:
-                raise ValueError(f"Could not find metadata paths for documents: {question_paper_id}, {mark_scheme_id}")
-                
             if not qp_content_path or not ms_content_path:
                 raise ValueError(f"Could not find content paths for documents: {question_paper_id}, {mark_scheme_id}")
                 
             self.logger.info(f"Loading content for paper {question_paper_id} and mark scheme {mark_scheme_id}")
             
-            # 1. Load question paper and mark scheme content and metadata using the paths from the index
-            qp_content, qp_metadata = self._load_exam_content_and_metadata_by_paths(
-                qp_content_path, qp_metadata_path)
-            ms_content, ms_metadata = self._load_exam_content_and_metadata_by_paths(
-                ms_content_path, ms_metadata_path)
+            # 1. Load question paper and mark scheme content
+            qp_content = self._load_exam_content(qp_content_path)
+            ms_content = self._load_exam_content(ms_content_path)
             
-            # 2. Process content to extract questions and mark scheme data
+            # 2. Process content to extract questions and mark scheme data using start indices from index
+            qp_metadata = {'QuestionStartIndex': qp_start_index}
+            ms_metadata = {'MarkSchemeStartIndex': ms_start_index}
             parsed_questions = self._process_exam_content(
                 qp_content, qp_metadata, ms_content, ms_metadata)
             
             # 3. Add media file references
             self._add_media_file_references(parsed_questions, qp_content)
             
-            # 4. Update the hierarchical index
-            self._update_index(parsed_questions, qp_metadata)
+            # 4. Update the hierarchical index - also pass document ID and document record
+            self._update_index(parsed_questions, qp_metadata, 
+                              document_id=question_paper_id, document_record=qp_record)
             
             self.logger.info(f"Successfully processed exam paper {question_paper_id}")
             return True
@@ -136,7 +134,7 @@ class ExamContentParser:
         except Exception as e:
             self.logger.error(f"Error processing exam content: {str(e)}", exc_info=True)
             return False
-            
+    
     def _find_document_in_index(self, index_data: Dict, document_id: str, document_type: str) -> Optional[Dict]:
         """
         Find a document record in the hierarchical index by ID and type.
@@ -159,71 +157,20 @@ class ExamContentParser:
                                     return doc
         return None
     
-    def _load_exam_content_and_metadata_by_paths(self, content_path: str, metadata_path: str) -> Tuple[List[Dict], Dict]:
+    def _load_exam_content(self, content_path: str) -> List[Dict]:
         """
-        Load exam content and metadata using direct paths from the index.
+        Load exam content from a file.
         
         Args:
             content_path (str): Path to the content file
-            metadata_path (str): Path to the metadata file
             
         Returns:
-            Tuple[List[Dict], Dict]: Tuple containing content and metadata
-        """
-        # Convert string paths to Path objects if needed
-        content_file_path = Path(content_path)
-        metadata_file_path = Path(metadata_path)
-        
-        # Load metadata
-        try:
-            with open(metadata_file_path, 'r', encoding='utf-8') as f:
-                metadata = json.load(f)
-        except FileNotFoundError:
-            raise FileNotFoundError(f"Metadata file not found: {metadata_file_path}")
-            
-        # Load content
-        try:
-            with open(content_file_path, 'r', encoding='utf-8') as f:
-                content = json.load(f)
-        except FileNotFoundError:
-            raise FileNotFoundError(f"Content file not found: {content_file_path}")
-            
-        return content, metadata
-    
-    def _load_exam_content_and_metadata(self, doc_id: str, metadata_subdir: str) -> Tuple[List[Dict], Dict]:
-        """
-        Legacy method for loading exam content and metadata for a given document ID.
-        This method assumes metadata is stored in a specific directory structure.
-        
-        Note: This method is kept for backward compatibility but should be avoided in favor of
-        _load_exam_content_and_metadata_by_paths which uses explicit paths from the index.
-        
-        Args:
-            doc_id (str): Document identifier
-            metadata_subdir (str): Subdirectory within metadata path (e.g., "question_papers")
-            
-        Returns:
-            Tuple[List[Dict], Dict]: Tuple containing content and metadata
+            List[Dict]: The loaded content
             
         Raises:
-            ValueError: If metadata path is not available or files cannot be found
+            FileNotFoundError: If the content file cannot be found
         """
-        # Build paths using the repository structure convention
-        metadata_root = Path(self.index_path).parent / "metadata"
-        metadata_file_path = metadata_root / metadata_subdir / f"{doc_id}-metadata.json"
-        
-        # Load metadata
-        try:
-            with open(metadata_file_path, 'r', encoding='utf-8') as f:
-                metadata = json.load(f)
-        except FileNotFoundError:
-            raise FileNotFoundError(f"Metadata file not found: {metadata_file_path}")
-            
-        # Get content path from metadata
-        if "FilePath" not in metadata:
-            raise ValueError(f"FilePath not specified in metadata for {doc_id}")
-            
-        content_file_path = Path(metadata["FilePath"])
+        content_file_path = Path(content_path)
         
         # Load content
         try:
@@ -232,7 +179,8 @@ class ExamContentParser:
         except FileNotFoundError:
             raise FileNotFoundError(f"Content file not found: {content_file_path}")
             
-        return content, metadata
+        return content
+    
     
     def _process_exam_content(
         self,
@@ -246,9 +194,9 @@ class ExamContentParser:
         
         Args:
             question_paper_content (List[Dict]): Question paper content
-            question_paper_metadata (Dict): Question paper metadata
+            question_paper_metadata (Dict): Question paper metadata (with QuestionStartIndex)
             mark_scheme_content (List[Dict]): Mark scheme content
-            mark_scheme_metadata (Dict): Mark scheme metadata
+            mark_scheme_metadata (Dict): Mark scheme metadata (with MarkSchemeStartIndex)
             
         Returns:
             List[Dict]: List of parsed questions with mark schemes
@@ -400,13 +348,21 @@ class ExamContentParser:
         # Implementation will go here
         pass
     
-    def _update_index(self, parsed_questions: List[Dict], metadata: Dict) -> None:
+    def _update_index(
+        self, 
+        parsed_questions: List[Dict], 
+        metadata: Dict, 
+        document_id: str = None,
+        document_record: Dict = None
+    ) -> None:
         """
         Update the hierarchical index with processed question data.
         
         Args:
             parsed_questions (List[Dict]): Parsed questions
-            metadata (Dict): Metadata for the exam paper
+            metadata (Dict): Basic metadata for the exam paper
+            document_id (str, optional): ID of the document being processed
+            document_record (Dict, optional): Original document record from the index
         """
         # Implementation will go here
         pass
