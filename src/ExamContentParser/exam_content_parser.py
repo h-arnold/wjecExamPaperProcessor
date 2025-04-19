@@ -36,7 +36,6 @@ class ExamContentParser:
         llm_client: MistralLLMClient,
         index_path: Union[str, Path],
         ocr_results_path: Union[str, Path],
-        metadata_path: Union[str, Path],
         log_level: int = logging.INFO
     ):
         """
@@ -45,8 +44,7 @@ class ExamContentParser:
         Args:
             llm_client (MistralLLMClient): Client for interacting with the Mistral LLM API
             index_path (Union[str, Path]): Path to the hierarchical index JSON file
-            ocr_results_path (Union[str, Path]): Path to the directory containing OCR results
-            metadata_path (Union[str, Path]): Path to the directory containing metadata files
+            ocr_results_path (Union[str, Path]): Path to the directory containing OCR resultsd
             log_level (int): Logging level (default: logging.INFO)
         """
         # Initialize logger
@@ -64,15 +62,12 @@ class ExamContentParser:
         self.llm_client = llm_client
         self.index_path = Path(index_path)
         self.ocr_results_path = Path(ocr_results_path)
-        self.metadata_path = Path(metadata_path)
         
         # Validate paths
         if not self.index_path.exists():
             raise FileNotFoundError(f"Index file not found at: {self.index_path}")
         if not self.ocr_results_path.exists():
             raise FileNotFoundError(f"OCR results directory not found at: {self.ocr_results_path}")
-        if not self.metadata_path.exists():
-            raise FileNotFoundError(f"Metadata directory not found at: {self.metadata_path}")
             
         self.logger.info("ExamContentParser initialized successfully")
     
@@ -88,13 +83,42 @@ class ExamContentParser:
             bool: True if parsing and index update was successful, False otherwise
         """
         try:
-            # 1. Load question paper and mark scheme content and metadata
+            # Load the hierarchical index
+            with open(self.index_path, 'r', encoding='utf-8') as f:
+                index_data = json.load(f)
+            
+            # Initialize path variables
+            qp_metadata_path = None
+            ms_metadata_path = None
+            qp_content_path = None
+            ms_content_path = None
+            
+            # Find the document records in the hierarchical index
+            qp_record = self._find_document_in_index(index_data, question_paper_id, "Question Paper")
+            ms_record = self._find_document_in_index(index_data, mark_scheme_id, "Mark Scheme")
+            
+            # Extract paths from the records if found
+            if qp_record:
+                qp_metadata_path = qp_record.get('metadata_path')
+                qp_content_path = qp_record.get('content_path')
+                
+            if ms_record:
+                ms_metadata_path = ms_record.get('metadata_path')
+                ms_content_path = ms_record.get('content_path')
+            
+            if not qp_metadata_path or not ms_metadata_path:
+                raise ValueError(f"Could not find metadata paths for documents: {question_paper_id}, {mark_scheme_id}")
+                
+            if not qp_content_path or not ms_content_path:
+                raise ValueError(f"Could not find content paths for documents: {question_paper_id}, {mark_scheme_id}")
+                
             self.logger.info(f"Loading content for paper {question_paper_id} and mark scheme {mark_scheme_id}")
             
-            qp_content, qp_metadata = self._load_exam_content_and_metadata(
-                question_paper_id, "question_papers")
-            ms_content, ms_metadata = self._load_exam_content_and_metadata(
-                mark_scheme_id, "mark_schemes")
+            # 1. Load question paper and mark scheme content and metadata using the paths from the index
+            qp_content, qp_metadata = self._load_exam_content_and_metadata_by_paths(
+                qp_content_path, qp_metadata_path)
+            ms_content, ms_metadata = self._load_exam_content_and_metadata_by_paths(
+                ms_content_path, ms_metadata_path)
             
             # 2. Process content to extract questions and mark scheme data
             parsed_questions = self._process_exam_content(
@@ -112,10 +136,64 @@ class ExamContentParser:
         except Exception as e:
             self.logger.error(f"Error processing exam content: {str(e)}", exc_info=True)
             return False
+            
+    def _find_document_in_index(self, index_data: Dict, document_id: str, document_type: str) -> Optional[Dict]:
+        """
+        Find a document record in the hierarchical index by ID and type.
+        
+        Args:
+            index_data (Dict): The hierarchical index data
+            document_id (str): The document ID to find
+            document_type (str): The type of document ("Question Paper" or "Mark Scheme")
+            
+        Returns:
+            Optional[Dict]: The document record if found, None otherwise
+        """
+        for subject_name, subject in index_data.get('subjects', {}).items():
+            for year, year_data in subject.get('years', {}).items():
+                for qual_name, qualification in year_data.get('qualifications', {}).items():
+                    for exam_name, exam in qualification.get('exams', {}).items():
+                        if document_type in exam.get('documents', {}):
+                            for doc in exam.get('documents', {}).get(document_type, []):
+                                if doc.get('id') == document_id:
+                                    return doc
+        return None
+    
+    def _load_exam_content_and_metadata_by_paths(self, content_path: str, metadata_path: str) -> Tuple[List[Dict], Dict]:
+        """
+        Load exam content and metadata using direct paths from the index.
+        
+        Args:
+            content_path (str): Path to the content file
+            metadata_path (str): Path to the metadata file
+            
+        Returns:
+            Tuple[List[Dict], Dict]: Tuple containing content and metadata
+        """
+        # Convert string paths to Path objects if needed
+        content_file_path = Path(content_path)
+        metadata_file_path = Path(metadata_path)
+        
+        # Load metadata
+        try:
+            with open(metadata_file_path, 'r', encoding='utf-8') as f:
+                metadata = json.load(f)
+        except FileNotFoundError:
+            raise FileNotFoundError(f"Metadata file not found: {metadata_file_path}")
+            
+        # Load content
+        try:
+            with open(content_file_path, 'r', encoding='utf-8') as f:
+                content = json.load(f)
+        except FileNotFoundError:
+            raise FileNotFoundError(f"Content file not found: {content_file_path}")
+            
+        return content, metadata
     
     def _load_exam_content_and_metadata(self, doc_id: str, metadata_subdir: str) -> Tuple[List[Dict], Dict]:
         """
         Load exam content and metadata for a given document ID.
+        This is a legacy method kept for backward compatibility.
         
         Args:
             doc_id (str): Document identifier
