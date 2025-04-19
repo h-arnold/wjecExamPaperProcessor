@@ -3,6 +3,8 @@ pyproject.toml
 src/main.py
 src/mistralOCRClient.py
 src/pdfOcrProcessor.py
+src/ExamContentParser/exam_content_parser.py
+src/ExamContentParser/main.py
 src/FileManager/file_manager.py
 src/IndexManager/__init__.py
 src/IndexManager/index_manager.py
@@ -26,6 +28,7 @@ src/wjecexampaperprocessor.egg-info/dependency_links.txt
 src/wjecexampaperprocessor.egg-info/requires.txt
 src/wjecexampaperprocessor.egg-info/top_level.txt
 tests/test_directory_metadata_extraction.py
+tests/test_exam_content_parser.py
 tests/test_index_manager.py
 tests/test_metadata_extraction.py
 tests/test_prompt_generation.py

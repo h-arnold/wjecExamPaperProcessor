@@ -8,6 +8,7 @@ Requires-Dist: json-repair>=0.41.0
 Requires-Dist: mistralai>=1.6.0
 Requires-Dist: pytest>=8.3.5
 Requires-Dist: python-dotenv>=1.1.0
+Requires-Dist: tqdm>=4.67.1
 
 # WJEC Exam Paper Processor
 
@@ -24,6 +25,7 @@ The WJEC Exam Paper Processor is a specialised tool designed to automate the ext
 - Export capabilities for further analysis in other systems
 - Unified index management system for organizing and relating exam documents
 - Hierarchical document structure generation for better content navigation
+- Extraction and structuring of questions and mark schemes into machine-readable format
 
 ## Getting Started
 
@@ -92,6 +94,7 @@ Available commands:
 - `ocr`: Run the OCR processing pipeline
 - `metadata`: Extract metadata from OCR results
 - `index`: Manage, transform, and enhance the document index
+- `exam-content`: Parse and extract structured question and mark scheme data
 
 Each command has its own set of options. Use `--help` with any command to see available options:
 
@@ -99,6 +102,7 @@ Each command has its own set of options. Use `--help` with any command to see av
 python main.py ocr --help
 python main.py metadata --help
 python main.py index --help
+python main.py exam-content --help
 ```
 
 #### Examples:
@@ -120,6 +124,27 @@ python main.py metadata --directory ocr_results --pattern "*.json" --api-key YOU
 **Index Management:**
 ```bash
 python main.py index --input Index/index.json --output Index/hierarchical_index.json
+```
+
+**Exam Content Parsing:**
+```bash
+# Test the parser on the first valid exam with both question paper and mark scheme
+python main.py exam-content test
+
+# Test with a specific exam ID
+python main.py exam-content test --exam-id "1500U30-1-110618"
+
+# Process multiple exams with filtering
+python main.py exam-content process --subject "Computer Science" --year 2018 --skip-processed
+
+# Process exams with a specific qualification and limit the number processed
+python main.py exam-content process --qualification "AS-Level" --limit 5 --continue-on-error
+
+# Process a single exam by its ID
+python main.py exam-content process-single 2500U10-1-040618
+
+# Advanced options with custom paths and logging
+python main.py exam-content process --subject "Computer Science" --logs-dir ./logs --log-level DEBUG
 ```
 
 ### OCR Processing
@@ -171,6 +196,51 @@ The system includes a powerful index management system that organizes exam docum
    - Transforms the flat index into a hierarchical structure
    - Enhances the hierarchical structure with metadata from document files
 
+### Exam Content Parsing
+
+The ExamContentParser module processes OCR results from exam papers and mark schemes to extract structured question data.
+
+1. Key features:
+   - Extracts questions and their corresponding mark schemes
+   - Identifies question numbering and hierarchical structure
+   - Associates marks with each question/sub-question
+   - Links questions with assessment objectives where available
+   - Includes references to media (images, diagrams) in questions
+   - Updates the hierarchical index with structured content
+
+2. Command-line options:
+   ```
+   usage: main.py exam-content [-h] [--index INDEX] [--ocr-results OCR_RESULTS] [--output OUTPUT]
+                               [--log-level {DEBUG,INFO,WARNING,ERROR,CRITICAL}] [--model MODEL]
+                               [--api-key API_KEY] [--logs-dir LOGS_DIR]
+                               {test,process,process-single} ...
+
+   options:
+     -h, --help            show this help message and exit
+     --index INDEX         Path to hierarchical index file (default: Index/hierarchical_index.json)
+     --ocr-results OCR_RESULTS
+                          Path to OCR results directory (default: ocr_results)
+     --output OUTPUT       Path for output questions index file (default: Index/questions_index.json)
+     --log-level {DEBUG,INFO,WARNING,ERROR,CRITICAL}
+                          Set the logging level (default: INFO)
+     --model MODEL         Mistral model to use for content parsing (default: mistral-medium)
+     --api-key API_KEY     Mistral API key (if not set via MISTRAL_API_KEY environment variable)
+     --logs-dir LOGS_DIR   Directory where log files should be saved (optional)
+
+   commands:
+     {test,process,process-single}
+       test                Test exam content parsing on a specific exam or the first valid exam
+       process             Process multiple exams based on criteria
+       process-single      Process a single exam by its ID
+   ```
+
+3. The ExamContentParser workflow:
+   - Loads question paper and mark scheme content from OCR results
+   - Uses a sliding window approach to process content in manageable chunks
+   - Extracts questions, subquestions, and associated mark schemes
+   - Identifies media references and associates them with questions
+   - Updates the hierarchical index with the structured question data
+
 ## Configuration
 
 The application can be configured by modifying the following variables in `main.py`:
@@ -219,6 +289,14 @@ The index is maintained in two formats:
    
    This structure groups related question papers and mark schemes together with exam-level metadata.
 
+3. **Questions Index**: Contains structured question data:
+   - Question numbers and text
+   - Mark scheme information
+   - Mark allocation
+   - Associated Assessment Objectives
+   - Media file references
+   - Hierarchical structure with parent/child relationships for questions and sub-questions
+
 ## Error Handling
 
 The application includes comprehensive logging to help diagnose issues:
@@ -226,6 +304,7 @@ The application includes comprehensive logging to help diagnose issues:
 - Information messages track the processing progress
 - Error messages capture exceptions during processing
 - Each file is processed independently, so errors with one file won't affect others
+- Optional file logging available for exam content parsing operations
 
 ## License
 

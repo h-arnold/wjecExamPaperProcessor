@@ -7,6 +7,7 @@ It can:
 1. Run the OCR processing pipeline (src/main.py)
 2. Extract metadata from OCR results (src/MetadataExtraction/main.py)
 3. Manage, transform, and enhance the index (src/IndexManager/main.py)
+4. Process exam content to extract structured questions (src/ExamContentParser/main.py)
 """
 
 import os
@@ -122,6 +123,109 @@ def main():
         help='Skip enhancing the structure with document metadata'
     )
     
+    # Exam content parser subcommand
+    exam_content_parser = subparsers.add_parser('exam-content', help='Process exam content to extract questions and mark schemes')
+    exam_content_parser.add_argument(
+        '--index',
+        default='Index/hierarchical_index.json',
+        help='Path to hierarchical index file (default: Index/hierarchical_index.json)'
+    )
+    exam_content_parser.add_argument(
+        '--ocr-results',
+        default='ocr_results',
+        help='Path to OCR results directory (default: ocr_results)'
+    )
+    exam_content_parser.add_argument(
+        '--output',
+        default='Index/questions_index.json',
+        help='Path for output questions index file (default: Index/questions_index.json)'
+    )
+    exam_content_parser.add_argument(
+        '--log-level',
+        default='INFO',
+        choices=['DEBUG', 'INFO', 'WARNING', 'ERROR', 'CRITICAL'],
+        help='Set the logging level (default: INFO)'
+    )
+    exam_content_parser.add_argument(
+        '--model',
+        default='mistral-medium',
+        help='Mistral model to use for content parsing (default: mistral-medium)'
+    )
+    exam_content_parser.add_argument(
+        '--api-key',
+        help='Mistral API key (if not set via MISTRAL_API_KEY environment variable)'
+    )
+    exam_content_parser.add_argument(
+        '--logs-dir',
+        help='Directory where log files should be saved (optional)'
+    )
+    
+    # Add exam-content subcommands
+    exam_content_subparsers = exam_content_parser.add_subparsers(
+        title='exam-content-commands',
+        dest='exam_content_command',
+        help='Exam content command to execute'
+    )
+    
+    # Test command for exam content
+    exam_test_parser = exam_content_subparsers.add_parser(
+        'test',
+        help='Test exam content parsing on a specific exam or the first valid exam'
+    )
+    exam_test_parser.add_argument(
+        '--exam-id',
+        help='ID of a specific exam to test'
+    )
+    
+    # Process command for batch processing
+    exam_process_parser = exam_content_subparsers.add_parser(
+        'process',
+        help='Process multiple exams based on criteria'
+    )
+    exam_process_parser.add_argument(
+        '--subject',
+        help='Process exams for a specific subject'
+    )
+    exam_process_parser.add_argument(
+        '--year',
+        type=int,
+        help='Process exams from a specific year'
+    )
+    exam_process_parser.add_argument(
+        '--qualification',
+        help='Process exams for a specific qualification (AS-Level, A2-Level, etc.)'
+    )
+    exam_process_parser.add_argument(
+        '--unit',
+        type=int,
+        help='Process exams for a specific unit number'
+    )
+    exam_process_parser.add_argument(
+        '--limit',
+        type=int,
+        help='Maximum number of exams to process'
+    )
+    exam_process_parser.add_argument(
+        '--skip-processed',
+        action='store_true',
+        help='Skip exams that have already been processed'
+    )
+    exam_process_parser.add_argument(
+        '--continue-on-error',
+        action='store_true',
+        help='Continue processing exams even if one fails'
+    )
+    
+    # Single exam command
+    exam_single_parser = exam_content_subparsers.add_parser(
+        'process-single',
+        help='Process a single exam by its ID'
+    )
+    exam_single_parser.add_argument(
+        'exam_id',
+        help='ID of the exam to process'
+    )
+    
     # Parse arguments
     args = parser.parse_args()
     
@@ -191,6 +295,57 @@ def main():
                 sys.argv.append('--skip-metadata')
                 
             return index_main()
+            
+        elif args.command == 'exam-content':
+            # Run the exam content parser
+            from src.ExamContentParser.main import main as exam_content_main
+            
+            # Build command line arguments for the exam content parser
+            sys.argv = [sys.argv[0]]
+            
+            # Add common arguments
+            if args.index:
+                sys.argv.extend(['--index', args.index])
+            if args.ocr_results:
+                sys.argv.extend(['--ocr-results', args.ocr_results])
+            if args.output:
+                sys.argv.extend(['--output', args.output])
+            if args.log_level:
+                sys.argv.extend(['--log-level', args.log_level])
+            if args.model:
+                sys.argv.extend(['--model', args.model])
+            if args.api_key:
+                sys.argv.extend(['--api-key', args.api_key])
+            if args.logs_dir:
+                sys.argv.extend(['--logs-dir', args.logs_dir])
+            
+            # Add subcommand and its arguments
+            if args.exam_content_command:
+                sys.argv.append(args.exam_content_command)
+                
+                if args.exam_content_command == 'test' and args.exam_id:
+                    sys.argv.extend(['--exam-id', args.exam_id])
+                    
+                elif args.exam_content_command == 'process':
+                    if args.subject:
+                        sys.argv.extend(['--subject', args.subject])
+                    if args.year:
+                        sys.argv.extend(['--year', str(args.year)])
+                    if args.qualification:
+                        sys.argv.extend(['--qualification', args.qualification])
+                    if args.unit:
+                        sys.argv.extend(['--unit', str(args.unit)])
+                    if args.limit:
+                        sys.argv.extend(['--limit', str(args.limit)])
+                    if args.skip_processed:
+                        sys.argv.append('--skip-processed')
+                    if args.continue_on_error:
+                        sys.argv.append('--continue-on-error')
+                        
+                elif args.exam_content_command == 'process-single' and args.exam_id:
+                    sys.argv.append(args.exam_id)
+            
+            return exam_content_main()
     
     except Exception as e:
         print(f"Error: {str(e)}")
