@@ -9,11 +9,11 @@ import sys
 import json
 from pathlib import Path
 
-# Add parent directory to path to ensure imports work
-sys.path.insert(0, os.path.abspath(os.path.dirname(__file__)))
+# Add project root directory to path to ensure imports work
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 # Import necessary modules from the project
-from MetadataExtraction.main import extract_metadata_from_directory
+from src.MetadataExtraction.main import extract_metadata_from_directory
 
 def test_directory_metadata_extraction(
     ocr_directory_path: str,
