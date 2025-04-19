@@ -203,7 +203,7 @@ class ExamContentParser:
                 # Use generate_text instead of generate_from_prompt
                 # Access the prompt using the correct attribute name
                 response = self.llm_client.generate_json(parser._prompt)
-                parsed_response = self._parse_llm_response(response)
+                parsed_response = self._parse_llm_response(response, current_qp_index, current_ms_index)
                 
                 # Add parsed questions to our collection
                 if "questions" in parsed_response:
@@ -326,12 +326,14 @@ class ExamContentParser:
         # Implementation will go here
         pass
 
-    def _parse_llm_response(self, response: str) -> Dict[str, Any]:
+    def _parse_llm_response(self, response: str, current_qp_index: int = None, current_ms_index: int = None) -> Dict[str, Any]:
         """
         Parse and extract structured data from LLM response.
         
         Args:
             response (str): Raw response from LLM
+            current_qp_index (int, optional): Current question paper index, used for fallback
+            current_ms_index (int, optional): Current mark scheme index, used for fallback
             
         Returns:
             Dict[str, Any]: Structured data including parsed questions and next indices
@@ -358,7 +360,27 @@ class ExamContentParser:
         except (json.JSONDecodeError, IndexError) as e:
             self.logger.error(f"Failed to parse LLM response as JSON: {str(e)}")
             self.logger.debug(f"Problematic response: {response[:200]}...")  # Log just the start for debugging
-            raise ValueError(f"Could not extract valid JSON from LLM response: {str(e)}")
+            
+            # Try fallback extraction (look for anything that might be JSON)
+            try:
+                # Look for content that looks like JSON (starts with { and ends with })
+                fallback_pattern = r'(\{[\s\S]*\})'
+                fallback_matches = re.findall(fallback_pattern, response)
+                
+                if fallback_matches:
+                    for potential_json in fallback_matches:
+                        try:
+                            structured_data = json.loads(potential_json)
+                            self.logger.warning("Used fallback JSON extraction")
+                            break
+                        except json.JSONDecodeError:
+                            continue
+                    else:  # No valid JSON found in fallback matches
+                        raise ValueError("No valid JSON found in fallback extraction")
+                else:
+                    raise ValueError("No JSON-like content found in response")
+            except Exception as fallback_error:
+                raise ValueError(f"Could not extract valid JSON from LLM response: {str(e)}\nFallback extraction failed: {str(fallback_error)}")
             
         # Validate required fields
         required_fields = ["next_question_paper_index", "next_mark_scheme_index"]
@@ -367,9 +389,22 @@ class ExamContentParser:
         if missing_fields:
             self.logger.warning(f"LLM response missing required fields: {missing_fields}")
             
-            # If no valid indices provided, we need to stop processing
-            if "next_question_paper_index" in missing_fields or "next_mark_scheme_index" in missing_fields:
-                raise ValueError(f"LLM response missing critical navigation fields: {missing_fields}")
+            # Try to infer missing navigation fields if possible
+            if "next_question_paper_index" in missing_fields:
+                if current_qp_index is not None and "questions" in structured_data and structured_data["questions"]:
+                    # Assume we need to advance one page if processing was successful
+                    self.logger.warning("Inferring next_question_paper_index")
+                    structured_data["next_question_paper_index"] = current_qp_index + 1
+                else:
+                    raise ValueError("Cannot infer next_question_paper_index")
+                    
+            if "next_mark_scheme_index" in missing_fields:
+                if current_ms_index is not None and "questions" in structured_data and structured_data["questions"]:
+                    # Assume we need to advance one page if processing was successful
+                    self.logger.warning("Inferring next_mark_scheme_index")
+                    structured_data["next_mark_scheme_index"] = current_ms_index + 1
+                else:
+                    raise ValueError("Cannot infer next_mark_scheme_index")
         
         # Validate questions field if present
         if "questions" in structured_data:
@@ -378,24 +413,116 @@ class ExamContentParser:
                 # If questions is a single item, wrap it in a list
                 structured_data["questions"] = [structured_data["questions"]]
                 
-            # Ensure each question has required fields
+            # Process and validate each question
+            validated_questions = []
             for i, question in enumerate(structured_data["questions"]):
                 if not isinstance(question, dict):
                     self.logger.warning(f"Question {i} is not a dictionary, skipping")
                     continue
                     
-                question_required = ["question_number", "question_text"]
+                # Required question fields
+                question_required = ["question_number", "question_text", "mark_scheme"]
                 question_missing = [field for field in question_required if field not in question]
                 
                 if question_missing:
                     self.logger.warning(f"Question {i} missing fields: {question_missing}")
                     # Add placeholder values for missing fields
                     for field in question_missing:
-                        question[field] = f"MISSING_{field}_PLACEHOLDER"
+                        if field == "question_text":
+                            question[field] = "Missing question text"
+                        elif field == "mark_scheme":
+                            question[field] = "Missing mark scheme"
+                        elif field == "question_number":
+                            # Try to infer question number from context
+                            if i > 0 and "question_number" in validated_questions[-1]:
+                                prev_number = validated_questions[-1]["question_number"]
+                                # Try to increment the number based on common patterns
+                                if re.match(r'^\d+$', prev_number):  # Simple number like "1"
+                                    question[field] = str(int(prev_number) + 1)
+                                elif re.match(r'^\d+[a-z]$', prev_number):  # Like "1a"
+                                    base = prev_number[:-1]
+                                    suffix = chr(ord(prev_number[-1]) + 1)
+                                    question[field] = f"{base}{suffix}"
+                                else:
+                                    question[field] = f"Unknown_{i}"
+                            else:
+                                question[field] = f"Unknown_{i}"
+                            
+                            self.logger.warning(f"Inferred question_number: {question[field]}")
+                
+                # Optional fields with defaults
+                if "max_marks" not in question:
+                    # Try to extract marks from question text
+                    marks_pattern = r'\[(\d+)\s*(?:marks|mark)\]'
+                    marks_match = re.search(marks_pattern, question.get("question_text", ""), re.IGNORECASE)
+                    if marks_match:
+                        question["max_marks"] = int(marks_match.group(1))
+                        self.logger.debug(f"Extracted max_marks={question['max_marks']} from question text")
+                    else:
+                        question["max_marks"] = 0  # Default if not found
+                        
+                if "assessment_objectives" not in question:
+                    # Try to extract AO references from mark scheme
+                    ao_pattern = r'AO(\d+)'
+                    ao_matches = re.findall(ao_pattern, question.get("mark_scheme", ""))
+                    if ao_matches:
+                        question["assessment_objectives"] = [f"AO{ao}" for ao in set(ao_matches)]
+                        self.logger.debug(f"Extracted assessment_objectives={question['assessment_objectives']} from mark scheme")
+                    else:
+                        question["assessment_objectives"] = []  # Default if not found
+                
+                # Check for sub-questions
+                if "sub_questions" in question and question["sub_questions"]:
+                    # Recursively validate sub-questions using the same logic
+                    if not isinstance(question["sub_questions"], list):
+                        question["sub_questions"] = [question["sub_questions"]]
+                    
+                    validated_sub_questions = []
+                    for j, sub_q in enumerate(question["sub_questions"]):
+                        if not isinstance(sub_q, dict):
+                            continue
+                            
+                        # Validate required fields for sub-question
+                        for req_field in question_required:
+                            if req_field not in sub_q:
+                                if req_field == "question_number":
+                                    # Infer from parent question
+                                    parent_num = question.get("question_number", f"Unknown_{i}")
+                                    sub_q[req_field] = f"{parent_num}.{j+1}"
+                                else:
+                                    sub_q[req_field] = f"Missing {req_field}"
+                        
+                        # Add optional fields with defaults for sub-question
+                        if "max_marks" not in sub_q:
+                            marks_match = re.search(r'\[(\d+)\s*(?:marks|mark)\]', sub_q.get("question_text", ""), re.IGNORECASE)
+                            sub_q["max_marks"] = int(marks_match.group(1)) if marks_match else 0
+                            
+                        if "assessment_objectives" not in sub_q:
+                            ao_matches = re.findall(r'AO(\d+)', sub_q.get("mark_scheme", ""))
+                            sub_q["assessment_objectives"] = [f"AO{ao}"] if ao_matches else []
+                            
+                        validated_sub_questions.append(sub_q)
+                    
+                    question["sub_questions"] = validated_sub_questions
+                
+                # Check for incomplete questions (spanning multiple windows)
+                incomplete_markers = ["...", "continues", "continued", "incomplete"]
+                is_incomplete = any(marker in question.get("question_text", "").lower() for marker in incomplete_markers)
+                if is_incomplete:
+                    question["is_incomplete"] = True
+                    self.logger.warning(f"Question {question.get('question_number', i)} appears to be incomplete")
+                
+                validated_questions.append(question)
+            
+            # Replace original questions with validated ones
+            structured_data["questions"] = validated_questions
         else:
             self.logger.warning("No questions found in LLM response")
             structured_data["questions"] = []
-            
+        
+        # Add validation flags
+        structured_data["is_valid"] = len(missing_fields) == 0 and len(structured_data["questions"]) > 0
+        
         return structured_data
 
     def process_exam_from_index(self, exam_entry: Dict[str, Any]) -> bool:

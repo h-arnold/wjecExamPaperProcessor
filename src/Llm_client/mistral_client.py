@@ -23,7 +23,11 @@ class MistralLLMClient(LLMClient):
         """
         self.client = Mistral(api_key=api_key)
         self.model = model
-        self.options = kwargs
+        default_options = {
+            "temperature": 0.0,
+            "max_tokens": 6000
+        }
+        self.options = {**default_options, **kwargs}  # User options override defaults
         
     def generate_text(self, prompt: str, **kwargs) -> str:
         """

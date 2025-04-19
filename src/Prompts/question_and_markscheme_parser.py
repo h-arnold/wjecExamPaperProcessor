@@ -19,8 +19,7 @@ class QuestionAndMarkschemeParser(Prompt):
     def __init__(self, params: Dict[str, Any], template_path: Optional[Union[str, Path]] = None):
         """
         Initialize the QuestionAndMarkschemeParser with necessary parameters.
-
-        Args:
+       Args:
             params (Dict[str, Any]): A dictionary containing:
                 - 'question_paper_content': JSON content of the question paper.
                 - 'mark_scheme_content': JSON content of the mark scheme.
