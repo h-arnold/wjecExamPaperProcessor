@@ -24,7 +24,18 @@
 - `extract_media_files`: Method to identify and process media file references
 
 ### Implementation Progress
-<!-- Progress updates for class structure implementation -->
+- ✅ Implemented core class structure in exam_content_parser.py
+- ✅ Added necessary imports for related modules
+- ✅ Implemented `__init__` method with proper parameter validation
+- ✅ Created `parse_exam_content` method framework with error handling
+- ✅ Implemented `_load_exam_content_and_metadata` method
+- ✅ Added method signatures for remaining core methods:
+  - `_process_exam_content`
+  - `_extract_media_files`
+  - `_add_media_file_references`
+  - `_update_index`
+- ✅ Designed sliding window approach for data processing
+- ⏳ Next steps: Implement sliding window content processor (Step 2)
 
 ## 2. Data Loading and Preparation
 
@@ -32,47 +43,60 @@
 
 - Load JSON files for exam papers and mark schemes
 - Extract metadata from corresponding metadata files
-- Determine question boundaries using metadata indices
-- Group related question paper and mark scheme content
-- Validate content structure before processing
+- Create sliding window approach for content processing
+- Generate content windows for the LLM to process
+- Track progress through exam content based on LLM feedback
 
 **Implementation Details:**
 
 - Use Python's json module to load content
 - Use pathlib for cross-platform path manipulation
-- Process files incrementally to manage memory usage
-- Extract unit number, qualification, and year from metadata
-- Create maps of question content to mark scheme content
+- Process content in windows of approximately two pages at a time
+- Allow question paper and mark scheme indices to advance at different rates
+- Extract content based on current indices and window size
+- Create generator pattern for iterative processing
 
 ### Implementation Progress
-<!-- Progress updates for data loading functionality -->
+- ✅ Designed sliding window approach for content processing
+- ✅ Implemented `_process_exam_content` method with a sliding window approach in `exam_content_parser.py`
+- ✅ Implemented `_create_content_window` method to prepare content for LLM processing
+- ✅ Implemented `_parse_llm_response` to extract structured data from LLM responses
+- ✅ Added `process_exam_from_index` method to process exams directly from hierarchical index
+- ✅ Developed error handling for LLM response parsing
+- ✅ Integrated with `QuestionAndMarkschemeParser` for content preparation
+- ⏳ Next steps: Implement LLM-based parsing of question and mark scheme content (Step 3)
 
-## 3. Processing Pipeline
+## 3. LLM-Based Content Parsing
 
 **Processing Workflow:**
 
-- Create batches of question and mark scheme content
-- Generate prompts for each batch using QuestionAndMarkschemeParser
-- Submit prompts to MistralLLMClient
-- Parse structured responses into question objects
-- Extract and add media file references
-- Update index with processed questions
-
-**Batching Strategy:**
-
-- Process one question at a time when possible
-- For complex questions, may need to include context from adjacent content
-- Use question numbers and section headers to determine logical splits
+- Process exam content using the sliding window approach implemented in Step 2
+- Leverage the LLM to identify questions and mark schemes within each content window
+- Track progress through documents using indices returned by the LLM
+- Assemble structured question and mark scheme data from multiple windows if needed
 
 **LLM Interaction:**
 
-- Format prompts according to LLM requirements
-- Request JSON-formatted responses for consistent parsing
-- Handle retry logic for API failures
-- Implement backoff strategy for rate limits
+- Format prompts using `QuestionAndMarkschemeParser` with content from both documents
+- Request JSON-formatted responses containing:
+  - Parsed questions with their text and mark scheme information
+  - Next indices for question paper and mark scheme to continue processing
+  - Next question number to maintain continuity
+- Parse and validate LLM responses using the `_parse_llm_response` method
+
+**Integration with Step 2:**
+
+- Use the sliding window approach to provide the LLM with manageable content chunks
+- Allow asynchronous progress through question papers and mark schemes
+- Handle cases where question and mark scheme indices progress at different rates
+- Collect parsed questions from all windows into a comprehensive result
 
 ### Implementation Progress
-<!-- Progress updates for processing pipeline implementation -->
+- ⏳ Next steps:
+  - Implement content processing in `QuestionAndMarkschemeParser` with specific prompts
+  - Define JSON output schema for LLM responses
+  - Develop test cases with representative exam content
+  - Create validation logic for parsed questions
 
 ## 4. Media File Handling
 
