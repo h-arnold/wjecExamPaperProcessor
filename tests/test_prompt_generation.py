@@ -1,7 +1,7 @@
 import pytest
 import json
 from pathlib import Path
-from src.Prompts.prompt import QuestionAndMarkschemeParser
+from src.Prompts import QuestionAndMarkschemeParser
 
 # Define paths relative to the project root
 TEST_DIR = Path(__file__).parent
