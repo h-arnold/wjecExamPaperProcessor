@@ -192,8 +192,11 @@ class ExamContentParser:
     
     def _load_exam_content_and_metadata(self, doc_id: str, metadata_subdir: str) -> Tuple[List[Dict], Dict]:
         """
-        Load exam content and metadata for a given document ID.
-        This is a legacy method kept for backward compatibility.
+        Legacy method for loading exam content and metadata for a given document ID.
+        This method assumes metadata is stored in a specific directory structure.
+        
+        Note: This method is kept for backward compatibility but should be avoided in favor of
+        _load_exam_content_and_metadata_by_paths which uses explicit paths from the index.
         
         Args:
             doc_id (str): Document identifier
@@ -201,9 +204,13 @@ class ExamContentParser:
             
         Returns:
             Tuple[List[Dict], Dict]: Tuple containing content and metadata
+            
+        Raises:
+            ValueError: If metadata path is not available or files cannot be found
         """
-        # Build paths
-        metadata_file_path = self.metadata_path / metadata_subdir / f"{doc_id}-metadata.json"
+        # Build paths using the repository structure convention
+        metadata_root = Path(self.index_path).parent / "metadata"
+        metadata_file_path = metadata_root / metadata_subdir / f"{doc_id}-metadata.json"
         
         # Load metadata
         try:

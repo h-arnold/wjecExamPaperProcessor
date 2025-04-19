@@ -1,0 +1,13 @@
+{
+  "Type": "Question Paper",
+  "Qualification": "AS-Level",
+  "Year": 2022,
+  "Subject": "Computer Science",
+  "Exam Paper": "AS unit 2 Practical Programming to Solve Problems",
+  "Exam Season": "Summer",
+  "Exam Length": "2 hours",
+  "Information for Candidates": "The number of marks is given in brackets at the end of each question or part-question. You will need a computer with an installed functional copy of the Integrated Development Environment (IDE) appropriate to your chosen programming language and word processing software. A calculator is allowed in this examination.",
+  "Total Marks": 60,
+  "QuestionStartIndex": 2,
+  "FilePath": "/workspaces/wjecExamPaperProcessor/ocr_results/2500U20-1-270522.json"
+}

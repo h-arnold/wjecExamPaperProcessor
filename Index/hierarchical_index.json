@@ -62,7 +62,7 @@
                       }
                     ]
                   },
-                  "name": "Unit 1: Fundamentals of Computer Science",
+                  "name": "Unit 1",
                   "exam_season": "Summer",
                   "exam_length": "2 hours",
                   "total_marks": 100,
@@ -210,7 +210,7 @@
                       }
                     ]
                   },
-                  "name": "Unit 2",
+                  "name": "AS unit 2 Practical Programming to Solve Problems",
                   "exam_season": "Summer",
                   "exam_length": "2 hours",
                   "total_marks": 60,
@@ -319,7 +319,7 @@
                       }
                     ]
                   },
-                  "name": "AS unit 1: Fundamentals of Computer Science",
+                  "name": "Unit 1",
                   "exam_season": "Summer",
                   "exam_length": "2 hours",
                   "total_marks": 100,
@@ -345,7 +345,7 @@
                       }
                     ]
                   },
-                  "name": "Unit 2",
+                  "name": "AS unit 2 Practical Programming to Solve Problems",
                   "exam_season": "Summer",
                   "exam_length": "2 hours",
                   "total_marks": 60,
@@ -495,7 +495,7 @@
                       }
                     ]
                   },
-                  "name": "Unit 3: Programming and System Development",
+                  "name": "Unit 3 - Programming and System Development",
                   "exam_season": "Summer",
                   "exam_length": "2 hours",
                   "total_marks": 100,
@@ -575,11 +575,11 @@
                       }
                     ]
                   },
-                  "name": "Unit 2",
+                  "name": "AS unit 2 Practical Programming to Solve Problems",
                   "exam_season": "Summer",
                   "exam_length": "2 hours",
                   "total_marks": 60,
-                  "instructions_for_candidates": "You will be issued with a Question Paper and instructions for candidates. You will be using: A dedicated examination account for this examination only which should be inactive until the examination starts, 7-Zip pre-installed on each PC, A pre-installed functional copy of your chosen IDE (Visual Basic, Python or Java), Access to a word processing package (e.g. Microsoft Word) to produce your candidate responses, The encrypted media files pre-installed on each PC, the password for the media files, An 'empty' user area or storage device (with only the encrypted media files) on which to save the work. NB: You must not have access to the internet, any shared drives, virtual learning environments (VLEs) or email during the examination. \\n\\n"
+                  "instructions_for_candidates": "You will be issued with a Question Paper and instructions for candidates. You will be using: A dedicated examination account for this examination only which should be inactive until the examination starts, 7-Zip pre-installed on each PC, A pre-installed functional copy of your chosen IDE (Visual Basic, Python or Java), Access to a word processing package (e.g. Microsoft Word) to produce your candidate responses, The encrypted media files pre-installed on each PC, the password for the media files, An 'empty' user area or storage device (with only the encrypted media files) on which to save the work. NB: You must not have access to the internet, any shared drives, virtual learning environments (VLEs) or email during the examination.\\n\\n"
                 }
               }
             }
@@ -668,7 +668,7 @@
                       }
                     ]
                   },
-                  "name": "AS unit 1: Fundamentals of Computer Science",
+                  "name": "Unit 1",
                   "exam_season": "Summer",
                   "exam_length": "2 hours",
                   "total_marks": 100,
@@ -694,7 +694,7 @@
                       }
                     ]
                   },
-                  "name": "Unit 2",
+                  "name": "AS unit 2 Practical Programming to Solve Problems",
                   "exam_season": "Summer",
                   "exam_length": "2 hours",
                   "total_marks": 60,

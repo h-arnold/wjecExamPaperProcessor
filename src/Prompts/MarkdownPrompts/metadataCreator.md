@@ -22,7 +22,6 @@ You must return a valid JSON object with the following fields:
   - `"Question Paper"`
   - `"Mark Scheme"`
 - `Qualification`: one of the following:
-  - `"A-Level"`
   - `"AS-Level"`
   - `"A2-Level"`
   - `"GCSE"`
