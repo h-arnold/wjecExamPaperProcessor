@@ -11,7 +11,8 @@ The Exam Paper Metadata Extraction System will process OCR-extracted JSON files 
 ```
 /workspaces/wjecExamPaperProcessor/
 ├── ocr_results/                  # OCR JSON files (existing)
-├── metadata/                     # Generated metadata files
+├── metadata/                     # Generated metadata 
+files
 │   ├── question_papers/          # Question paper metadata
 │   └── mark_schemes/             # Mark scheme metadata
 ├── index.json                    # Master index file 
