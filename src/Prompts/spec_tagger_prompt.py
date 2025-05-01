@@ -23,6 +23,7 @@ class SpecTaggerPrompt:
         question (str): The question text to be tagged
         mark_scheme (Optional[str]): The corresponding mark scheme text, if available
         qualification (Qualification): The qualification level (AS-Level or A2-Level)
+        questionContext (Optional[str]): When you're tagging a sub-quesiton, it is helpful for the LLM to have access to the whole quesiton so that it can tag it accurately. This gets provided here.
         _system_prompt (str): The generated system prompt with specification and instructions
         _content_prompt (str): The generated content prompt with question and mark scheme
     """
@@ -39,7 +40,8 @@ class SpecTaggerPrompt:
     def __init__(self, 
                  question: str, 
                  qualification: Qualification, 
-                 mark_scheme: Optional[str] = None):
+                 mark_scheme: Optional[str] = None,
+                 questionContext: Optional[str] = None):
         """
         Initialize the SpecTaggerPrompt with question, qualification, and optional mark scheme.
         
@@ -48,10 +50,13 @@ class SpecTaggerPrompt:
             qualification (Qualification): The qualification level (AS-Level or A2-Level)
             mark_scheme (Optional[str]): The corresponding mark scheme text, if available
                                       Default: None
+            questionContext (Optional[str]): Additional context for the question
+                                          Default: None
         """
         self.question = question
         self.mark_scheme = mark_scheme
         self.qualification = qualification
+        self.questionContext = questionContext
         
         # Check if the specification file exists
         spec_path = self.SPEC_PATHS.get(qualification)
@@ -101,15 +106,25 @@ class SpecTaggerPrompt:
         Returns:
             str: The formatted content prompt
         """
-        sources = [
-            "# Question:\n",
+        sources = []
+        
+        # Add context if provided
+        if self.questionContext:
+            sources.extend([
+                "# Question Context:\n",
+                self.questionContext.strip(),
+                "\n"
+            ])
+            
+        sources.extend([
+            "# Question to Tag:\n",
             self.question.strip()
-        ]
+        ])
         
         # Add mark scheme if provided
         if self.mark_scheme:
             sources.extend([
-                "\n# Mark Scheme:\n",
+                "\n# Mark Scheme to Tag:\n",
                 self.mark_scheme.strip()
             ])
         

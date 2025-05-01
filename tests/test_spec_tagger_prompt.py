@@ -80,6 +80,16 @@ def spec_tagger_prompt_a2_level():
         mark_scheme=None  # Test without mark scheme
     )
 
+@pytest.fixture
+def spec_tagger_prompt_with_context():
+    """Fixture that creates a SpecTaggerPrompt instance with question context"""
+    return SpecTaggerPrompt(
+        question=SAMPLE_QUESTION,
+        qualification=Qualification.AS_LEVEL,
+        mark_scheme=SAMPLE_MARK_SCHEME,
+        questionContext="This question relates to CPU architecture and optimization techniques."
+    )
+
 
 def test_spec_tagger_prompt_initialization():
     """Test that the SpecTaggerPrompt can be initialized with valid parameters"""
@@ -147,12 +157,27 @@ def test_spec_tagger_prompt_content_prompt_with_mark_scheme(spec_tagger_prompt_a
     content_prompt = spec_tagger_prompt_as_level.get_content_prompt()
     
     # Check that the content prompt contains the question heading and content
-    assert "# Question:" in content_prompt
+    assert "# Question to Tag:" in content_prompt
     assert "Describe the fetch-execute cycle" in content_prompt
     
     # Check that the content prompt contains the mark scheme heading and content
-    assert "# Mark Scheme:" in content_prompt
+    assert "# Mark Scheme to Tag:" in content_prompt
     assert "Award 1 mark for each valid point made" in content_prompt
+
+def test_spec_tagger_prompt_with_context(spec_tagger_prompt_with_context):
+    """Test that the content prompt includes question context when provided"""
+    content_prompt = spec_tagger_prompt_with_context.get_content_prompt()
+    
+    # Check that the context is included and in correct order
+    assert "# Question Context:" in content_prompt
+    assert "CPU architecture and optimization techniques" in content_prompt
+    
+    # Verify order of sections
+    context_pos = content_prompt.find("# Question Context:")
+    question_pos = content_prompt.find("# Question to Tag:")
+    mark_scheme_pos = content_prompt.find("# Mark Scheme to Tag:")
+    
+    assert context_pos < question_pos < mark_scheme_pos
 
 
 def test_spec_tagger_prompt_content_prompt_without_mark_scheme(spec_tagger_prompt_a2_level):
@@ -164,11 +189,11 @@ def test_spec_tagger_prompt_content_prompt_without_mark_scheme(spec_tagger_promp
     content_prompt = spec_tagger_prompt_a2_level.get_content_prompt()
     
     # Check that the content prompt contains the question heading and content
-    assert "# Question:" in content_prompt
+    assert "# Question to Tag:" in content_prompt
     assert "Describe the fetch-execute cycle" in content_prompt
     
     # Check that the content prompt does not contain mark scheme heading
-    assert "# Mark Scheme:" not in content_prompt
+    assert "# Mark Scheme to Tag:" not in content_prompt
 
 
 def test_spec_tagger_prompt_combined_prompt(spec_tagger_prompt_as_level):
