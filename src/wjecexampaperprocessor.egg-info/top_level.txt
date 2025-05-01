@@ -4,6 +4,7 @@ IndexManager
 Llm_client
 MetadataExtraction
 Prompts
+QuestionTagger
 main
 mistralOCRClient
 pdfOcrProcessor

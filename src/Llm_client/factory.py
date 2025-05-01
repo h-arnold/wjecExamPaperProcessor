@@ -1,39 +1,48 @@
 """
-Factory for creating LLM clients based on provider name.
+Factory module for creating LLM clients.
+
+This module provides a factory class for creating different LLM clients
+based on the provider name.
 """
 
-from typing import Any, Optional
-from .base_client import LLMClient
-from .mistral_client import MistralLLMClient
-from .openai_client import OpenAILLMClient
+import os
+import logging
+from typing import Dict, Any, Optional
 
+from .base_client import LLMClient
+from .openai_client import OpenAIClient
+from .mistral_client import MistralClient
 
 class LLMClientFactory:
-    """Factory for creating LLM clients based on provider name"""
+    """
+    Factory class for creating LLM clients.
     
-    @staticmethod
-    def create_client(provider: str, api_key: str, system_prompt: Optional[str] = None, **kwargs) -> LLMClient:
+    This class provides methods to create different LLM clients based on the
+    provider name.
+    """
+    
+    def __init__(self):
+        """Initialize the LLMClientFactory."""
+        self.logger = logging.getLogger(__name__)
+    
+    def create_client(self, provider: str, **kwargs) -> LLMClient:
         """
-        Create and return an LLM client based on the specified provider.
+        Create an LLM client using an API key from environment variables.
         
         Args:
-            provider (str): Name of the LLM provider ("mistral", "openai", etc.)
-            api_key (str): API key for the selected provider
-            system_prompt (Optional[str]): An optional system prompt to pass to the client.
-            **kwargs: Additional options to pass to the client
+            provider (str): Name of the LLM provider ("openai", "mistral", etc.)
+            **kwargs: Additional options for the client, including model name
             
         Returns:
-            LLMClient: An instance of LLMClient for the specified provider
+            LLMClient: A client for the specified provider and model
             
         Raises:
-            ValueError: If the specified provider is not supported
+            ValueError: If the API key is missing or provider is not supported
         """
-        if provider.lower() == "mistral":
-            return MistralLLMClient(api_key, system_prompt=system_prompt, **kwargs)
-        elif provider.lower() == "openai":
-            return OpenAILLMClient(api_key, system_prompt=system_prompt, **kwargs)
-        # Placeholder for future providers
-        # elif provider.lower() == "anthropic":
-        #     return AnthropicClient(api_key, system_prompt=system_prompt, **kwargs)
-        else:
-            raise ValueError(f"Unsupported LLM provider: {provider}")
+        provider = provider.lower()
+        api_key = os.environ.get(f"{provider.upper()}_API_KEY")
+        
+        if not api_key:
+            raise ValueError(f"Missing API key for {provider}. Set {provider.upper()}_API_KEY environment variable.")
+        
+        return self.create_client(provider, api_key, **kwargs)

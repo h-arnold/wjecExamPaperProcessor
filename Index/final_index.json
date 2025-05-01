@@ -360,40 +360,6 @@
         },
         "2017": {
           "qualifications": {
-            "A-Level": {
-              "exams": {
-                "Unit 3": {
-                  "unit_number": 3,
-                  "documents": {
-                    "Mark Scheme": [
-                      {
-                        "id": "1500U30-1 WJEC GCE A Level Comp Science Unit 3 MS S17 (New)",
-                        "content_path": "ocr_results/1500U30-1 WJEC GCE A Level Comp Science Unit 3 MS S17 (New).json",
-                        "metadata_path": "Index/metadata/mark_schemes/1500U30-1 WJEC GCE A Level Comp Science Unit 3 MS S17 (New)-metadata.json",
-                        "question_start_index": 2
-                      }
-                    ]
-                  },
-                  "name": "Unit 3",
-                  "exam_season": "Summer"
-                },
-                "Unit 4": {
-                  "unit_number": 4,
-                  "documents": {
-                    "Mark Scheme": [
-                      {
-                        "id": "1500U40-1 WJEC GCE A Level Comp Science Unit 4 MS S17 (New)",
-                        "content_path": "ocr_results/1500U40-1 WJEC GCE A Level Comp Science Unit 4 MS S17 (New).json",
-                        "metadata_path": "Index/metadata/mark_schemes/1500U40-1 WJEC GCE A Level Comp Science Unit 4 MS S17 (New)-metadata.json",
-                        "question_start_index": 2
-                      }
-                    ]
-                  },
-                  "name": "Unit 4",
-                  "exam_season": "Summer"
-                }
-              }
-            },
             "A2-Level": {
               "exams": {
                 "Unit 3": {
@@ -482,40 +448,6 @@
         },
         "2018": {
           "qualifications": {
-            "A-Level": {
-              "exams": {
-                "Unit 3": {
-                  "unit_number": 3,
-                  "documents": {
-                    "Mark Scheme": [
-                      {
-                        "id": "1500U30-1 WJEC A Level Comp Science Unit 3 MS S18 (New)",
-                        "content_path": "ocr_results/1500U30-1 WJEC A Level Comp Science Unit 3 MS S18 (New).json",
-                        "metadata_path": "Index/metadata/mark_schemes/1500U30-1 WJEC A Level Comp Science Unit 3 MS S18 (New)-metadata.json",
-                        "question_start_index": 2
-                      }
-                    ]
-                  },
-                  "name": "Unit 3",
-                  "exam_season": "Summer"
-                },
-                "Unit 4": {
-                  "unit_number": 4,
-                  "documents": {
-                    "Mark Scheme": [
-                      {
-                        "id": "1500U40-1 WJEC A Level Comp Science Unit 4 MS S18 (New)",
-                        "content_path": "ocr_results/1500U40-1 WJEC A Level Comp Science Unit 4 MS S18 (New).json",
-                        "metadata_path": "Index/metadata/mark_schemes/1500U40-1 WJEC A Level Comp Science Unit 4 MS S18 (New)-metadata.json",
-                        "question_start_index": 2
-                      }
-                    ]
-                  },
-                  "name": "Unit 4",
-                  "exam_season": "Summer"
-                }
-              }
-            },
             "A2-Level": {
               "exams": {
                 "Unit 3": {

@@ -72,11 +72,7 @@ def main():
         action='store_true',
         help='Disable validation of specification tags'
     )
-    parser.add_argument(
-        '--test-mode',
-        action='store_true',
-        help='Run in test mode (only process the first exam with questions)'
-    )
+
     parser.add_argument(
         '--verbose',
         action='store_true',
@@ -90,12 +86,7 @@ def main():
         logging.getLogger().setLevel(logging.DEBUG)
         logger.debug("Verbose logging enabled")
     
-    # Check for API key
-    api_key_var = f"{args.llm_provider.upper()}_API_KEY"
-    if not args.dry_run and not os.environ.get(api_key_var):
-        logger.error(f"Missing API key for {args.llm_provider}. Set {api_key_var} environment variable.")
-        return 1
-    
+   
     try:
         # Initialize the question tagger
         logger.info(f"Initializing QuestionTagger with {args.llm_provider}/{args.llm_model}")
@@ -109,21 +100,11 @@ def main():
             validateTags=not args.no_validate
         )
         
-        # Run in test mode or full process mode
-        if args.test_mode:
-            logger.info("Running in test mode - processing only the first exam with questions")
-            result = tagger.testWithFirstExam()
-            if result:
-                logger.info("Test completed successfully")
-                return 0
-            else:
-                logger.error("Test failed - no exams with questions found")
-                return 1
-        else:
-            logger.info("Processing all questions in the index")
-            tagger.processIndex()
-            logger.info("Processing completed successfully")
-            return 0
+
+        logger.info("Processing all questions in the index")
+        tagger.processIndex()
+        logger.info("Processing completed successfully")
+        return 0
             
     except Exception as e:
         logger.error(f"Error during processing: {str(e)}")

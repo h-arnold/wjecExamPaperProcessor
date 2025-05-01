@@ -7,43 +7,18 @@ the appropriate specification content areas using an LLM.
 
 import json
 import logging
-import os
 import re
 from pathlib import Path
 from typing import Dict, List, Optional, Any, Union, Tuple
 
 from ..Prompts.spec_tagger_prompt import SpecTaggerPrompt, Qualification
 from ..Llm_client.factory import LLMClientFactory
-from ..Llm_client.base_client import LLMClient
 
 # Configure logging
 logging.basicConfig(
     level=logging.INFO,
     format='%(asctime)s - %(name)s - %(levelname)s - %(message)s'
 )
-
-
-def create_client(llmProvider: str, llmModel: str, **kwargs) -> LLMClient:
-    """
-    Create an LLM client using the factory pattern.
-    
-    Args:
-        llmProvider (str): Name of the LLM provider ("openai", "mistral", etc.)
-        llmModel (str): Model name to use (e.g., "gpt-4.1-mini")
-        **kwargs: Additional options for the client
-        
-    Returns:
-        LLMClient: A client for the specified provider and model
-        
-    Raises:
-        ValueError: If the API key is missing or provider is not supported
-    """
-    api_key = os.environ.get(f"{llmProvider.upper()}_API_KEY")
-    if not api_key:
-        raise ValueError(f"Missing API key for {llmProvider}. Set {llmProvider.upper()}_API_KEY environment variable.")
-    
-    factory = LLMClientFactory()
-    return factory.create_client(llmProvider, api_key, model=llmModel, **kwargs)
 
 
 class QuestionTagger:
@@ -69,7 +44,7 @@ class QuestionTagger:
         self, 
         indexPath: Union[str, Path], 
         llmProvider: str = "openai",
-        llmModel: str = "gpt-4.1-mini",
+        llmModel: str = "gpt-4.1-mini", # We'll use OpenAI models here because the prompt for the question tagging is very long and they enable prompt caching by default.
         dryRun: bool = False,
         outputPath: Optional[Union[str, Path]] = None,
         validateTags: bool = True
@@ -94,7 +69,11 @@ class QuestionTagger:
         self.llmClient = None
         if not dryRun:
             try:
-                self.llmClient = create_client(llmProvider, llmModel)
+                factory = LLMClientFactory()
+                self.llmClient = factory.create_client(
+                    llmProvider, 
+                    model=llmModel
+                )
             except Exception as e:
                 self.logger.error(f"Failed to create LLM client: {e}")
                 raise
@@ -390,122 +369,6 @@ class QuestionTagger:
         self._saveIndex(indexData)
         self.logger.info("Question tagging complete!")
         
-    def testWithFirstExam(self):
-        """
-        Test the QuestionTagger with only the first exam that has questions.
-        This is a useful function for testing the tagging process without processing the entire index.
-        
-        Returns:
-            Dict: A dictionary containing the first exam with tagged questions
-        """
-        # Load the index
-        self.logger.info(f"Loading index from {self.indexPath}")
-        indexData = self._loadIndex()
-        
-        # Create a copy of the structure to hold just the first exam
-        testData = {
-            "subjects": {}
-        }
-        
-        # Find the first exam with questions and process it
-        foundFirstExam = False
-        for subjectName, subjectData in indexData.get('subjects', {}).items():
-            if foundFirstExam:
-                break
-                
-            testData["subjects"][subjectName] = {"years": {}}
-            
-            for year, yearData in subjectData.get('years', {}).items():
-                if foundFirstExam:
-                    break
-                    
-                testData["subjects"][subjectName]["years"][year] = {"qualifications": {}}
-                
-                for qualName, qualData in yearData.get('qualifications', {}).items():
-                    if foundFirstExam:
-                        break
-                        
-                    # Map the qualification name to our enum
-                    qualification = self.qualificationMap.get(qualName)
-                    if not qualification:
-                        self.logger.warning(f"Unknown qualification: {qualName}, skipping")
-                        continue
-                    
-                    testData["subjects"][subjectName]["years"][year]["qualifications"][qualName] = {"exams": {}}
-                    
-                    # Process each exam in the qualification
-                    for unitName, unitData in qualData.get('exams', {}).items():
-                        if foundFirstExam:
-                            break
-                            
-                        testData["subjects"][subjectName]["years"][year]["qualifications"][qualName]["exams"][unitName] = {
-                            "documents": {}
-                        }
-                        
-                        # Copy other exam metadata
-                        for key, value in unitData.items():
-                            if key != "documents":
-                                testData["subjects"][subjectName]["years"][year]["qualifications"][qualName]["exams"][unitName][key] = value
-                        
-                        # Process each document type (Question Paper, Mark Scheme)
-                        for docType, documents in unitData.get('documents', {}).items():
-                            if foundFirstExam or docType != "Question Paper":
-                                continue  # Only process question papers
-                            
-                            testData["subjects"][subjectName]["years"][year]["qualifications"][qualName]["exams"][unitName]["documents"][docType] = []
-                            
-                            for docIndex, doc in enumerate(documents):
-                                # Check if document has questions
-                                if 'questions' not in doc or not doc['questions']:
-                                    continue
-                                
-                                # Found an exam with questions!
-                                foundFirstExam = True
-                                self.logger.info(f"Found first exam with questions: {subjectName} {year} {qualName} {unitName}")
-                                
-                                # Create a copy of the document
-                                testDoc = doc.copy()
-                                testDoc["questions"] = []
-                                
-                                # Process each question
-                                totalQuestions = len(doc['questions'])
-                                for qIndex, question in enumerate(doc['questions']):
-                                    questionNumber = question.get('question_number', f"Unknown-{qIndex}")
-                                    self.logger.info(
-                                        f"Processing {subjectName} {year} {qualName} {unitName} "
-                                        f"Question {questionNumber} ({qIndex+1}/{totalQuestions})"
-                                    )
-                                    
-                                    # Process the question
-                                    taggedQuestion = self._processQuestion(
-                                        question=question.copy(),  # Important to make a copy
-                                        qualification=qualification
-                                    )
-                                    
-                                    # Add the tagged question to our test document
-                                    testDoc["questions"].append(taggedQuestion)
-                                
-                                # Add the test document to our test data
-                                testData["subjects"][subjectName]["years"][year]["qualifications"][qualName]["exams"][unitName]["documents"][docType].append(testDoc)
-                                break  # We've found and processed one exam, so break
-        
-        if not foundFirstExam:
-            self.logger.warning("No exams with questions found in the index")
-            return None
-        
-        # Save the test data to a file
-        testOutputPath = self.outputPath.with_name(f"{self.indexPath.stem}_test_tagged.json")
-        try:
-            with open(testOutputPath, 'w', encoding='utf-8') as f:
-                json.dump(testData, f, indent=2, ensure_ascii=False)
-            self.logger.info(f"Test results saved to {testOutputPath}")
-        except Exception as e:
-            self.logger.error(f"Failed to save test results: {e}")
-        
-        return testData
-
-
-
 def main():
     """
     Main function to run the QuestionTagger on the full index.
