@@ -292,21 +292,21 @@ class QuestionTagger:
         
         # Add the tags to the question
         question['spec_tags'] = tags
-        
-        # Process any subquestions by checking if this is a nested structure
-        # with keys like "a", "b", "c" or "i", "ii", "iii" that contain question data
-        for key, value in question.items():
-            if isinstance(value, dict) and 'question_text' in value:
-                # This is a subquestion - get parent context plus current question
+
+        # Process sub_questions list if present
+        if isinstance(question.get('sub_questions'), list):
+            processedSubs = []
+            for sub in question['sub_questions']:
                 subContext = parentContext.copy() if parentContext else []
                 subContext.append(question)
-                
-                # Process the subquestion
-                question[key] = self._processQuestion(
-                    question=value,
-                    qualification=qualification,
-                    parentContext=subContext
+                processedSubs.append(
+                    self._processQuestion(
+                        question=sub,
+                        qualification=qualification,
+                        parentContext=subContext
+                    )
                 )
+            question['sub_questions'] = processedSubs
         
         return question
     
