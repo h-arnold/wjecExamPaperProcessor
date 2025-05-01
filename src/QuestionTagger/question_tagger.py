@@ -210,7 +210,7 @@ class QuestionTagger:
         
         try:
             # Call the LLM
-            response = self.llmClient.generate_text(content_prompt, system_prompt=system_prompt)
+            response = self.llmClient.generate_text(content_prompt, system_prompt)
             
             # Parse the response to extract the specification array
             # The expected format is [1.1.1.2] or [1.1.1.2, 1.2.3.1]
@@ -364,9 +364,11 @@ class QuestionTagger:
                                     
                                     processedQuestions += 1
         
-        # Save the updated index
-        self.logger.info(f"Processed {processedQuestions} questions. Saving updated index...")
-        self._saveIndex(indexData)
+                    # Save the updated index after each exam is processed.
+                    self.logger.info(f"Processed {processedQuestions} questions. Saving updated index...")
+                    self._saveIndex(indexData)
+                    
+        
         self.logger.info("Question tagging complete!")
         
 def main():

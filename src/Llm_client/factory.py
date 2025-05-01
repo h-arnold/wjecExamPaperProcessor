@@ -7,11 +7,10 @@ based on the provider name.
 
 import os
 import logging
-from typing import Dict, Any, Optional
 
 from .base_client import LLMClient
-from .openai_client import OpenAIClient
-from .mistral_client import MistralClient
+from .openai_client import OpenAILLMClient
+from .mistral_client import MistralLLMClient
 
 class LLMClientFactory:
     """
@@ -45,4 +44,28 @@ class LLMClientFactory:
         if not api_key:
             raise ValueError(f"Missing API key for {provider}. Set {provider.upper()}_API_KEY environment variable.")
         
-        return self.create_client(provider, api_key, **kwargs)
+        return self.create_specific_client(provider, api_key, **kwargs)
+    
+    def create_specific_client(self, provider: str, api_key: str, **kwargs) -> LLMClient:
+        """
+        Create an LLM client for the specified provider.
+        
+        Args:
+            provider (str): Name of the LLM provider ("openai", "mistral")
+            api_key (str): API key for the provider
+            **kwargs: Additional options for the client
+            
+        Returns:
+            LLMClient: A client for the specified provider
+            
+        Raises:
+            ValueError: If the provider is not supported
+        """
+        provider = provider.lower()
+        
+        if provider == "openai":
+            return OpenAILLMClient(api_key, **kwargs)
+        elif provider == "mistral":
+            return MistralLLMClient(api_key, **kwargs)
+        else:
+            raise ValueError(f"Unsupported LLM provider: {provider}")

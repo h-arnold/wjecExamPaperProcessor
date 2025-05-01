@@ -31,7 +31,7 @@ class MistralLLMClient(LLMClient):
         }
         self.options = {**default_options, **kwargs}  # User options override defaults
         
-    def generate_text(self, prompt: str, system_prompt_override: Optional[str] = None, **kwargs) -> str:
+    def generate_text(self, prompt: str, system_prompt: Optional[str] = None, **kwargs) -> str:
         """
         Generate text from Mistral API.
         
@@ -47,7 +47,7 @@ class MistralLLMClient(LLMClient):
         
         messages = []
         # Prioritize override, then default, then none
-        active_system_prompt = system_prompt_override if system_prompt_override is not None else self.system_prompt
+        active_system_prompt = system_prompt if system_prompt is not None else self.system_prompt
         if active_system_prompt:
             messages.append({"role":"system", "content": active_system_prompt})
         messages.append({"role":"user", "content":prompt})

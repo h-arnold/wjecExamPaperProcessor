@@ -50,7 +50,7 @@ class OpenAILLMClient(LLMClient):
         
         messages = []
         if system_prompt:
-            messages.append({"role": "system", "content": system_prompt})
+            messages.append({"role": "developer", "content": system_prompt})
         messages.append({"role": "user", "content": prompt})
         
         response = self.client.chat.completions.create(

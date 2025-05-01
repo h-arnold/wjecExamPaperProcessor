@@ -34,7 +34,7 @@ class LLMClient(ABC):
         pass
     
     @abstractmethod
-    def generate_json(self, prompt: str, system_prompt_override: Optional[str] = None, **kwargs) -> Dict[str, Any]:
+    def generate_json(self, prompt: str, system_prompt: Optional[str] = None, **kwargs) -> Dict[str, Any]:
         """
         Generate structured JSON response from a prompt.
         

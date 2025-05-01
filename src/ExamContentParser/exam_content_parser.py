@@ -8,11 +8,10 @@ index with the processed content including references to media files.
 
 import json
 import logging
-import os
 import re
 import datetime
 from pathlib import Path
-from typing import Dict, List, Optional, Any, Tuple, Union
+from typing import Dict, List, Optional, Any, Union
 
 # Import related modules
 from ..Prompts.question_and_markscheme_parser import QuestionAndMarkschemeParser

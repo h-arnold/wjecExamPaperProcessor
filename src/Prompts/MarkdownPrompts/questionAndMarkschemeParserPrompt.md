@@ -28,8 +28,23 @@ Your output must be a JSON object with the following fields:
       "question_text": "...",
       "mark_scheme": "...",
       "max_marks": 5,
-      "assessment_objectives": ["AO1", "AO2"]
-      // Additional sub-questions if present
+      "assessment_objectives": ["AO1", "AO2"],
+      "sub_questions": [
+        {
+          "question_number": "1a",
+          "question_text": "...",
+          "mark_scheme": "...",
+          "max_marks": 2,
+          "assessment_objectives": ["AO1"]
+        },
+        {
+          "question_number": "1b",
+          "question_text": "...",
+          "mark_scheme": "...",
+          "max_marks": 3,
+          "assessment_objectives": ["AO2"]
+        }
+      ]
     }
     // More questions as available
   ],
@@ -61,6 +76,13 @@ Your output must be a JSON object with the following fields:
 
 If a question has sub-parts (e.g. 1a, 1b or 2a(i), 2a(ii)), represent these using a nested structure under `"sub_questions"`.
 
+For example:
+- Main question "1" should contain all sub-parts "1a", "1b", etc. in its "sub_questions" array
+- Sub-question "2a" should contain all sub-parts "2a(i)", "2a(ii)", etc. in its own "sub_questions" array
+- Maintain this hierarchical nesting for any level of sub-question depth
+
+Each sub-question must include all the same required fields as main questions (question_number, question_text, mark_scheme, max_marks, assessment_objectives).
+
 ---
 
 ## Processing Rules
@@ -71,6 +93,7 @@ If a question has sub-parts (e.g. 1a, 1b or 2a(i), 2a(ii)), represent these usin
 - **Provide comprehensive information**: For each question, include all required fields.
 - **Preserve question numbering**: Maintain the exact same question numbering structure across windows.
 - **Extract assessment objectives**: Identify all assessment objectives (AO values) mentioned in the mark scheme.
+- **Maintain question hierarchy**: Properly nest sub-questions within their parent questions, preserving the hierarchical structure.
 
 ---
 
@@ -131,18 +154,27 @@ If a question has sub-parts (e.g. 1a, 1b or 2a(i), 2a(ii)), represent these usin
 {
   "questions": [
     {
-      "question_number": "1a",
-      "question_text": "What is the purpose of a compiler? [2]",
-      "mark_scheme": "One mark for each:\n• A compiler translates high-level code into machine code.\n• The entire program is translated at once.",
-      "max_marks": 2,
-      "assessment_objectives": ["AO1"]
-    },
-    {
-      "question_number": "1b",
-      "question_text": "Explain the difference between a compiler and an **interpreter**. [4]",
-      "mark_scheme": "• A compiler translates the entire program before execution.\n• An interpreter translates and executes line by line.\n• Compiled code runs **faster** than interpreted code.\n• Interpreted code is easier to debug.\n1 mark for each valid point.",
-      "max_marks": 4,
-      "assessment_objectives": ["AO1", "AO2"]
+      "question_number": "1",
+      "question_text": "",
+      "mark_scheme": "",
+      "max_marks": 6,
+      "assessment_objectives": ["AO1", "AO2"],
+      "sub_questions": [
+        {
+          "question_number": "1a",
+          "question_text": "What is the purpose of a compiler? [2]",
+          "mark_scheme": "One mark for each:\n• A compiler translates high-level code into machine code.\n• The entire program is translated at once.",
+          "max_marks": 2,
+          "assessment_objectives": ["AO1"]
+        },
+        {
+          "question_number": "1b",
+          "question_text": "Explain the difference between a compiler and an **interpreter**. [4]",
+          "mark_scheme": "• A compiler translates the entire program before execution.\n• An interpreter translates and executes line by line.\n• Compiled code runs **faster** than interpreted code.\n• Interpreted code is easier to debug.\n1 mark for each valid point.",
+          "max_marks": 4,
+          "assessment_objectives": ["AO1", "AO2"]
+        }
+      ]
     }
   ],
   "next_question_paper_index": 1,
@@ -166,6 +198,12 @@ If a question has sub-parts (e.g. 1a, 1b or 2a(i), 2a(ii)), represent these usin
 3. **Formatting Anomalies**: Do your best to interpret variations in formatting while preserving the original style.
 
 4. **Reaching End of Content**: If you reach the end of either the question paper or mark scheme content, set the next index to the length of the respective content array.
+
+5. **Parent Questions Without Text**: Some parent questions (e.g. question "1") might not have their own text, only sub-questions. In this case:
+   - Include the parent question with empty text and mark scheme
+   - Calculate the total marks from all sub-questions
+   - Include all assessment objectives from all sub-questions
+   - Properly nest all sub-questions under this parent
 
 ---
 
