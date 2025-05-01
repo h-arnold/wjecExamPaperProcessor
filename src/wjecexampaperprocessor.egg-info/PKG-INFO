@@ -6,6 +6,7 @@ Requires-Python: >=3.12
 Description-Content-Type: text/markdown
 Requires-Dist: json-repair>=0.41.0
 Requires-Dist: mistralai>=1.6.0
+Requires-Dist: openai>=1.76.2
 Requires-Dist: pytest>=8.3.5
 Requires-Dist: python-dotenv>=1.1.0
 Requires-Dist: tqdm>=4.67.1
@@ -105,28 +106,34 @@ python main.py index --help
 python main.py exam-content --help
 ```
 
-#### Examples:
+#### Examples
 
 **OCR Processing:**
+
 ```bash
 python main.py ocr --source /path/to/pdfs --dest /path/to/results --api-key YOUR_MISTRAL_API_KEY
 ```
 
 **Metadata Extraction:**
+
 ```bash
 python main.py metadata --file path/to/ocr_file.json --api-key YOUR_MISTRAL_API_KEY
 ```
+
 or
+
 ```bash
 python main.py metadata --directory ocr_results --pattern "*.json" --api-key YOUR_MISTRAL_API_KEY
 ```
 
 **Index Management:**
+
 ```bash
 python main.py index --input Index/index.json --output Index/hierarchical_index.json
 ```
 
 **Exam Content Parsing:**
+
 ```bash
 # Test the parser on the first valid exam with both question paper and mark scheme
 python main.py exam-content test
@@ -209,6 +216,7 @@ The ExamContentParser module processes OCR results from exam papers and mark sch
    - Updates the hierarchical index with structured content
 
 2. Command-line options:
+
    ```
    usage: main.py exam-content [-h] [--index INDEX] [--ocr-results OCR_RESULTS] [--output OUTPUT]
                                [--log-level {DEBUG,INFO,WARNING,ERROR,CRITICAL}] [--model MODEL]
@@ -286,7 +294,7 @@ The index is maintained in two formats:
    - Year
    - Qualification level
    - Exam unit
-   
+
    This structure groups related question papers and mark schemes together with exam-level metadata.
 
 3. **Questions Index**: Contains structured question data:

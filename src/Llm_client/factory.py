@@ -5,6 +5,7 @@ Factory for creating LLM clients based on provider name.
 from typing import Dict, Any
 from .base_client import LLMClient
 from .mistral_client import MistralLLMClient
+from .openai_client import OpenAILLMClient
 
 
 class LLMClientFactory:
@@ -28,9 +29,9 @@ class LLMClientFactory:
         """
         if provider.lower() == "mistral":
             return MistralLLMClient(api_key, **kwargs)
+        elif provider.lower() == "openai":
+            return OpenAILLMClient(api_key, **kwargs)
         # Placeholder for future providers
-        # elif provider.lower() == "openai":
-        #     return OpenAIClient(api_key, **kwargs)
         # elif provider.lower() == "anthropic":
         #     return AnthropicClient(api_key, **kwargs)
         else:
