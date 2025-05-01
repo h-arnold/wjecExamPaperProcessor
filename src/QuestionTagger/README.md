@@ -33,9 +33,6 @@ python -m src.QuestionTagger.main --input path/to/index.json --output path/to/ou
 # Use a different LLM provider and model
 python -m src.QuestionTagger.main --llm-provider mistral --llm-model mistral-medium
 
-# Run in test mode (processes only the first exam with questions)
-python -m src.QuestionTagger.main --test-mode
-
 # Run in dry-run mode (no API calls)
 python -m src.QuestionTagger.main --dry-run
 ```
@@ -48,7 +45,6 @@ python -m src.QuestionTagger.main --dry-run
 - `--llm-model`: LLM model to use (default: gpt-4)
 - `--dry-run`: Run in dry-run mode (does not make actual API calls)
 - `--no-validate`: Disable validation of specification tags
-- `--test-mode`: Run in test mode (only process the first exam with questions)
 - `--verbose`: Enable verbose logging
 
 ### Python API
@@ -70,9 +66,6 @@ tagger = QuestionTagger(
 
 # Process the entire index
 tagger.processIndex()
-
-# Or process just the first exam with questions (for testing)
-tagger.testWithFirstExam()
 ```
 
 ## Environment Variables

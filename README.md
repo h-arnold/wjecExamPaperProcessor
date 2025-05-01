@@ -236,6 +236,42 @@ The ExamContentParser module processes OCR results from exam papers and mark sch
    - Identifies media references and associates them with questions
    - Updates the hierarchical index with the structured question data
 
+### Question Tagging
+
+Process and tag questions in the hierarchical index with specification areas using an LLM.
+
+```bash
+python main.py question-tag --index Index/hierarchical_index.json --output Index/hierarchical_index_tagged.json \
+    --llm-provider openai --llm-model gpt-4.1-mini --dry-run
+```
+
+Options:
+
+- `--index`: Path to hierarchical index file (default: `Index/hierarchical_index.json`)
+- `--output`: Path for output tagged index file (default: input filename suffixed with `_tagged.json`)
+- `--llm-provider`: LLM provider to use (default: `openai`)
+- `--llm-model`: LLM model to use (default: `gpt-4`)
+- `--dry-run`: Run in dry-run mode (no API calls)
+- `--no-validate`: Disable validation of specification tags
+- `--verbose`: Enable verbose logging
+
+Python API:
+
+```python
+from src.QuestionTagger.question_tagger import QuestionTagger
+
+tagger = QuestionTagger(
+    indexPath="Index/hierarchical_index.json",
+    llmProvider="openai",
+    llmModel="gpt-4",
+    dryRun=False,
+    outputPath="Index/hierarchical_index_tagged.json",
+    validateTags=True
+)
+
+tagger.processIndex()
+```
+
 ## Configuration
 
 The application can be configured by modifying the following variables in `main.py`:
