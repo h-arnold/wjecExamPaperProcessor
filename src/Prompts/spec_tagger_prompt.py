@@ -158,3 +158,44 @@ class SpecTaggerPrompt:
             str: The combined system and content prompts
         """
         return f"{self._system_prompt}\n\n{self._content_prompt}"
+    
+    def generateQuestionContext(self, questions: list[dict], include_markscheme: bool = False, current_question_number: Optional[str] = None) -> str:
+        """
+        Generate a markdown formatted context string from a list of related questions.
+
+        Args:
+            questions (list[dict]): List of dictionaries containing question data including question_number,
+                                  question_text, mark_scheme, max_marks, and assessment_objectives
+            include_markscheme (bool, optional): Whether to include mark scheme in output. Defaults to False.
+            current_question_number (Optional[str], optional): Current question number for context. Defaults to None.
+
+        Returns:
+            str: Markdown formatted string containing concatenated question context
+        """
+        output_parts = []
+
+        # Add current question number context if provided
+        if current_question_number:
+            output_parts.append(f"Current Question: {current_question_number}\n")
+
+        # Process each question in the list
+        for question in questions:
+            # Add question number and text
+            output_parts.extend([
+                f"Question {question['question_number']}",
+                question['question_text']
+            ])
+
+            # Add mark scheme if requested and available
+            if include_markscheme and 'mark_scheme' in question:
+                output_parts.extend([
+                    "\nMark Scheme:",
+                    question['mark_scheme']
+                ])
+            
+            # Add a blank line between questions
+            output_parts.append("")
+
+        # Join all parts with newlines and return
+        # Remove any trailing newlines
+        return "\n".join(output_parts).strip()

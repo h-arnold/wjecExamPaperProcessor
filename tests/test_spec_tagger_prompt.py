@@ -234,3 +234,109 @@ def test_file_existence():
     
     # Check that tagger instructions file exists
     assert TAGGER_INSTRUCTIONS_PATH.exists(), f"Spec tagger instructions file not found at: {TAGGER_INSTRUCTIONS_PATH}"
+
+
+# Sample questions data for testing generateQuestionContext
+SAMPLE_QUESTIONS = [
+    {
+        "question_number": "1a",
+        "question_text": "Explain the role of MOD in the algorithm above.",
+        "mark_scheme": "- MOD checks if the number is divisible by 2 / calculates the remainder of the inputted number.\n- If the result of modulus is 0 then the number can be divided by 2 and is an even number.\n- If the modulus is not exactly 0 , then the number is not exactly divisible by 2 , hence it will be odd number.",
+        "max_marks": 3,
+        "assessment_objectives": [
+            "AO2.1b"
+        ],
+        "media_files": []
+    },
+    {
+        "question_number": "1b",
+        "question_text": "Using an example from the algorithm, describe the purpose of selection.",
+        "mark_scheme": "- Example: if num MOD $2=0$ Then\n- Selection outputs num & \" is an even number\" if the condition num MOD $2=0$ is met.",
+        "max_marks": 2,
+        "assessment_objectives": [
+            "AO2.1b"
+        ],
+        "media_files": []
+    },
+    {
+        "question_number": "1c",
+        "question_text": "Using an example from the algorithm, describe the purpose of repetition.",
+        "mark_scheme": "- Example: for i = 1 To numberstocheck\n- Repetition checks if numbers are even/odd until all numbers have been checked.",
+        "max_marks": 2,
+        "assessment_objectives": [
+            "AO2.1b"
+        ],
+        "media_files": []
+    }
+]
+
+def test_generate_question_context_without_markscheme(spec_tagger_prompt_as_level):
+    """Test that generateQuestionContext correctly formats questions without mark schemes"""
+    # Skip if supporting files don't exist
+    if not AS_LEVEL_SPEC_PATH.exists():
+        pytest.skip(f"Required file missing: {AS_LEVEL_SPEC_PATH}")
+    
+    context = spec_tagger_prompt_as_level.generateQuestionContext(
+        questions=SAMPLE_QUESTIONS,
+        include_markscheme=False
+    )
+    
+    # Check that the context contains all question numbers
+    assert "Question 1a" in context
+    assert "Question 1b" in context
+    assert "Question 1c" in context
+    
+    # Check that question text is included
+    assert "Explain the role of MOD in the algorithm above." in context
+    assert "Using an example from the algorithm, describe the purpose of selection." in context
+    assert "Using an example from the algorithm, describe the purpose of repetition." in context
+    
+    # Check that mark schemes are NOT included
+    assert "MOD checks if the number is divisible by 2" not in context
+    assert "Mark Scheme:" not in context
+
+
+def test_generate_question_context_with_markscheme(spec_tagger_prompt_as_level):
+    """Test that generateQuestionContext correctly formats questions with mark schemes"""
+    # Skip if supporting files don't exist
+    if not AS_LEVEL_SPEC_PATH.exists():
+        pytest.skip(f"Required file missing: {AS_LEVEL_SPEC_PATH}")
+    
+    context = spec_tagger_prompt_as_level.generateQuestionContext(
+        questions=SAMPLE_QUESTIONS,
+        include_markscheme=True
+    )
+    
+    # Check that the context contains all question numbers
+    assert "Question 1a" in context
+    assert "Question 1b" in context
+    assert "Question 1c" in context
+    
+    # Check that question text is included
+    assert "Explain the role of MOD in the algorithm above." in context
+    
+    # Check that mark schemes ARE included
+    assert "Mark Scheme:" in context
+    assert "MOD checks if the number is divisible by 2" in context
+    assert "Example: if num MOD $2=0$ Then" in context
+    assert "Example: for i = 1 To numberstocheck" in context
+
+
+def test_generate_question_context_with_current_question_number(spec_tagger_prompt_as_level):
+    """Test that generateQuestionContext correctly includes the current question number when provided"""
+    # Skip if supporting files don't exist
+    if not AS_LEVEL_SPEC_PATH.exists():
+        pytest.skip(f"Required file missing: {AS_LEVEL_SPEC_PATH}")
+    
+    context = spec_tagger_prompt_as_level.generateQuestionContext(
+        questions=SAMPLE_QUESTIONS,
+        include_markscheme=True,
+        current_question_number="1"
+    )
+    
+    # Check that the current question number is included
+    assert "Current Question: 1" in context
+    
+    # Check that other elements are still present
+    assert "Question 1a" in context
+    assert "Mark Scheme:" in context
