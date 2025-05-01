@@ -1,6 +1,6 @@
 from pathlib import Path
-from typing import List, Optional, Union, Dict, Any
-import json
+from typing import Optional, Union, Dict, Any, List
+
 from .base_prompt import Prompt
 
 
@@ -14,12 +14,13 @@ class QuestionAndMarkschemeParser(Prompt):
     """
 
     # Default location of the prompt template
-    TEMPLATE_PATH = Path(__file__).parent.parent / "Prompts" / "MarkdownPrompts" / "questionAndMarkschemeParserPrompt.md"
+    TEMPLATE_PATH = Path(__file__).parent / "MarkdownPrompts" / "questionAndMarkschemeParserPrompt.md"
 
     def __init__(self, params: Dict[str, Any], template_path: Optional[Union[str, Path]] = None):
         """
         Initialize the QuestionAndMarkschemeParser with necessary parameters.
-       Args:
+
+        Args:
             params (Dict[str, Any]): A dictionary containing:
                 - 'question_paper_content': JSON content of the question paper.
                 - 'mark_scheme_content': JSON content of the mark scheme.

@@ -1,5 +1,6 @@
 from pathlib import Path
 from typing import Optional, Union
+
 from .base_prompt import Prompt
 
 
@@ -12,7 +13,7 @@ class MetadataPrompt(Prompt):
     """
     
     # Default location of the metadata prompt template
-    TEMPLATE_PATH = Path(__file__).parent.parent / "Prompts" / "MarkdownPrompts" / "metadataCreator.md"
+    TEMPLATE_PATH = Path(__file__).parent / "MarkdownPrompts" / "metadataCreator.md"
     
     def __init__(self, text_content: str, template_path: Optional[Union[str, Path]] = None):
         """

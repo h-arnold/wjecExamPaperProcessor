@@ -1,7 +1,8 @@
 from pathlib import Path
-from typing import List, Optional, Union, Dict, Any
+from typing import Optional, Union, Dict, Any, List
 import os
 import json
+
 from .base_prompt import Prompt
 
 
@@ -14,7 +15,7 @@ class QuestionIndexIdentifier(Prompt):
     """
     
     # Default location of the prompt template
-    TEMPLATE_PATH = Path(__file__).parent.parent / "Prompts" / "MarkdownPrompts" / "identifyIndexForQuestions.md"
+    TEMPLATE_PATH = Path(__file__).parent / "MarkdownPrompts" / "identifyIndexForQuestions.md"
     
     def __init__(self, document_type: str, document_contents: Union[str, Dict[str, Any]], template_path: Optional[Union[str, Path]] = None):
         """
