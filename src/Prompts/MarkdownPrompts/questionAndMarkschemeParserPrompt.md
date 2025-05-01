@@ -77,6 +77,7 @@ Your output must be a JSON object with the following fields:
 If a question has sub-parts (e.g. 1a, 1b or 2a(i), 2a(ii)), represent these using a nested structure under `"sub_questions"`.
 
 For example:
+
 - Main question "1" should contain all sub-parts "1a", "1b", etc. in its "sub_questions" array
 - Sub-question "2a" should contain all sub-parts "2a(i)", "2a(ii)", etc. in its own "sub_questions" array
 - Maintain this hierarchical nesting for any level of sub-question depth
@@ -115,6 +116,7 @@ Each sub-question must include all the same required fields as main questions (q
 ## Example Input
 
 ### Question Paper Content
+
 ```
 [
   {
@@ -129,6 +131,7 @@ Each sub-question must include all the same required fields as main questions (q
 ```
 
 ### Mark Scheme Content
+
 ```
 [
   {

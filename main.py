@@ -148,7 +148,7 @@ def main():
     )
     exam_content_parser.add_argument(
         '--model',
-        default='mistral-medium',
+        default='mistral-small-latest',
         help='Mistral model to use for content parsing (default: mistral-medium)'
     )
     exam_content_parser.add_argument(

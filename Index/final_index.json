@@ -53,50 +53,83 @@
                         "question_start_index": 1,
                         "questions": [
                           {
-                            "question_number": "1a",
-                            "question_text": "Explain the role of MOD in the algorithm above.",
-                            "mark_scheme": "- MOD checks if the number is divisible by 2 / calculates the remainder of the inputted number.\n- If the result of modulus is 0 then the number can be divided by 2 and is an even number.\n- If the modulus is not exactly 0 , then the number is not exactly divisible by 2 , hence it will be odd number.",
-                            "max_marks": 3,
+                            "question_number": "1",
+                            "question_text": "The following algorithm checks if the numbers entered are even or odd numbers.\n\n```markdown\n1 Start Procedure EvenOdd\n2 numberstocheck is integer\n3 num is integer\n\n4 input numberstocheck\n\n5 for i = 1 To numberstocheck\n6 input num\n\n7 if num MOD 2 = 0 Then\n8 output num & \" is an even number\"\n9 else\n10 output num & \" is an odd number\"\n11 end if\n12 next i\n\n13 End Procedure\n```",
+                            "mark_scheme": "1a: Award 1 mark per response.\n- MOD checks if the number is divisible by 2 / calculates the remainder of the inputted number.\n- If the result of modulus is 0 then the number can be divided by 2 and is an even number.\n- If the modulus is not exactly 0, then the number is not exactly divisible by 2, hence it will be odd number.\n\n1b: Award 1 mark per response.\n- Example: if num MOD 2 = 0 Then\n- Selection outputs num & \" is an even number\" if the condition num MOD 2 = 0 is met.\n\n1c: Award 1 mark per response.\n- Example: for i = 1 To numberstocheck\n- Repetition checks if numbers are even/odd until all numbers have been checked.",
+                            "max_marks": 7,
                             "assessment_objectives": [
-                              "AO2.1b"
+                              "AO2"
                             ],
-                            "media_files": []
-                          },
-                          {
-                            "question_number": "1b",
-                            "question_text": "Using an example from the algorithm, describe the purpose of selection.",
-                            "mark_scheme": "- Example: if num MOD $2=0$ Then\n- Selection outputs num & \" is an even number\" if the condition num MOD $2=0$ is met.",
-                            "max_marks": 2,
-                            "assessment_objectives": [
-                              "AO2.1b"
-                            ],
-                            "media_files": []
-                          },
-                          {
-                            "question_number": "1c",
-                            "question_text": "Using an example from the algorithm, describe the purpose of repetition.",
-                            "mark_scheme": "- Example: for i = 1 To numberstocheck\n- Repetition checks if numbers are even/odd until all numbers have been checked.",
-                            "max_marks": 2,
-                            "assessment_objectives": [
-                              "AO2.1b"
+                            "sub_questions": [
+                              {
+                                "question_number": "1a",
+                                "question_text": "(a) Explain the role of MOD in the algorithm above.",
+                                "mark_scheme": "Award 1 mark per response.\n- MOD checks if the number is divisible by 2 / calculates the remainder of the inputted number.\n- If the result of modulus is 0 then the number can be divided by 2 and is an even number.\n- If the modulus is not exactly 0, then the number is not exactly divisible by 2, hence it will be odd number.",
+                                "max_marks": 3,
+                                "assessment_objectives": [
+                                  "AO2"
+                                ],
+                                "media_files": []
+                              },
+                              {
+                                "question_number": "1b",
+                                "question_text": "(b) Using an example from the algorithm, describe the purpose of selection.",
+                                "mark_scheme": "Award 1 mark per response.\n- Example: if num MOD 2 = 0 Then\n- Selection outputs num & \" is an even number\" if the condition num MOD 2 = 0 is met.",
+                                "max_marks": 2,
+                                "assessment_objectives": [
+                                  "AO2"
+                                ],
+                                "media_files": []
+                              },
+                              {
+                                "question_number": "1c",
+                                "question_text": "(c) Using an example from the algorithm, describe the purpose of repetition.",
+                                "mark_scheme": "Award 1 mark per response.\n- Example: for i = 1 To numberstocheck\n- Repetition checks if numbers are even/odd until all numbers have been checked.",
+                                "max_marks": 2,
+                                "assessment_objectives": [
+                                  "AO2"
+                                ],
+                                "media_files": []
+                              }
                             ],
                             "media_files": []
                           },
                           {
                             "question_number": "2",
-                            "question_text": "Complete the following truth table:\n\n| $A$ | $B$ | $C$ | $A$ | $B . C$ | $A + B . C$ | $A .(A + B . C)$ |\n| :--: | :--: | :--: | :--: | :--: | :--: | :--: |\n| 1 | 1 | 1 |  |  |  |  |\n| 1 | 0 | 1 |  |  |  |  |\n| 0 | 1 | 1 |  |  |  |  |\n| 0 | 0 | 1 |  |  |  |  |\n",
-                            "mark_scheme": "Award 1 mark for each up to a maximum of 6",
-                            "max_marks": 6,
+                            "question_text": "Complete the following truth table:\n\n| $\\boldsymbol{A}$ | $\\boldsymbol{B}$ | $\\boldsymbol{C}$ | $\\boldsymbol{A}$ | $\\boldsymbol{B} . \\boldsymbol{C}$ | $\\boldsymbol{A}+\\boldsymbol{B} . \\boldsymbol{C}$ | $\\boldsymbol{A} .(\\boldsymbol{A}+\\boldsymbol{B} . \\boldsymbol{C})$ |\n| :--: | :--: | :--: | :--: | :--: | :--: | :--: |\n| 1 | 1 | 1 |  |  |  |  |\n| 1 | 0 | 1 |  |  |  |  |\n| 0 | 1 | 1 |  |  |  |  |\n| 0 | 0 | 1 |  |  |  |  |\n",
+                            "mark_scheme": "| $\\bar{A}$ | B.C | $\\bar{A}+\\boldsymbol{B} . \\boldsymbol{C}$ | $\\bar{A} .(\\boldsymbol{A}+\\boldsymbol{B} . \\boldsymbol{C})$ |\n| 0 | 1 | 1 | 0 |\n| 0 | 0 | 0 | 0 |\n| 1 | 1 | 1 | 1 |\n| 1 | 0 | 1 | 0 |\nAward One mark for each correct column.",
+                            "max_marks": 4,
                             "assessment_objectives": [
-                              "1.1b"
+                              "AO1"
                             ],
+                            "media_files": []
+                          },
+                          {
+                            "question_number": "2",
+                            "question_text": "Complete the following truth table:\n\n| $\\boldsymbol{A}$ | $\\boldsymbol{B}$ | $\\boldsymbol{C}$ | $\\boldsymbol{A}$ | $\\boldsymbol{B} . \\boldsymbol{C}$ | $\\boldsymbol{A}+\\boldsymbol{B} . \\boldsymbol{C}$ | $\\boldsymbol{A} .(\\boldsymbol{A}+\\boldsymbol{B} . \\boldsymbol{C})$ |\n| :--: | :--: | :--: | :--: | :--: | :--: | :--: |\n| 1 | 1 | 1 |  |  |  |  |\n| 1 | 0 | 1 |  |  |  |  |\n| 0 | 1 | 1 |  |  |  |  |\n| 0 | 0 | 1 |  |  |  |  |\n\n[4]",
+                            "mark_scheme": "",
+                            "max_marks": 4,
+                            "assessment_objectives": [],
+                            "sub_questions": [],
                             "media_files": []
                           },
                           {
                             "question_number": "3",
                             "question_text": "Describe the function of the main components of the Von Neumann CPU architecture.",
-                            "mark_scheme": "Award 1 mark for each:\n- CPU: The Central Processing Unit is responsible for executing instructions and performing calculations.\n- Memory: This is where data and instructions are stored temporarily while being processed by the CPU.\n- Input: This is the means by which data and instructions are entered into the computer system.\n- Output: This is the means by which results are displayed or otherwise made available to the user.\nAccept use of CPU/processor interchangeably.",
-                            "max_marks": 4,
+                            "mark_scheme": "Award 1 mark for naming \u00d7 4\nAward 1 mark for describing the function of the named component \u00d7 4\n\nControl unit / clock\n- Manages the Fetch/Decode/Execute cycle OR Fetches each instruction in sequence, decodes and synchronises it by sending control signals to other parts of the computer.\n\nArithmetic Logic Unit (Accept ALU)\n- The processing and manipulation of data which normally consists of arithmetic operations or logical comparisons, allowing a program to take decisions.\n\nRegisters (MAR/MDR/CIR etc)\n- A small/fast access/temporary storage typically addressed by mechanisms other than main memory. (Or a description of MAR MDR etc)\n\nBuses(Data Bus / Control Bus / Address Bus)\n- Connects all the internal components of a computer, such as CPU and memory, to the motherboard.(Or specific role of named bus)\n\nCache memory /Internal Memory (L1, L2)\n- Cache memory can be accessed by a CPU more quickly than it can access regular RAM to execute frequently accessed items of code (e.g. loops).",
+                            "max_marks": 8,
+                            "assessment_objectives": [
+                              "1.1a",
+                              "1.1b"
+                            ],
+                            "sub_questions": [],
+                            "media_files": []
+                          },
+                          {
+                            "question_number": "4",
+                            "question_text": "Describe six Integrated Development Environment (IDE) tools used in the development and debugging of programs. [6]",
+                            "mark_scheme": "Award 1 mark for each up to a maximum of 6\n\nAny six of:\n- Editor: this allows a programmer to enter and edit source code/annotation\n- Compiler: Translates source code into machine code\n- Interpreter: Translates each line/a single line of source code and executes it\n- Automatic formatting: Correctly indents code\n- Automatic colour coding: Changes key words, literals and annotation to different colours\n- Linker: this is a program which allows previously compiled code, from software libraries, to be linked together\n- Loader: this is a program which loads previously compiled code into memory.\n- Debugger: this is a program which helps locate, identify and rectify errors in a program\n- Syntax error detection: Highlighting syntax errors before code is translated\n- Trace: this is a facility which displays the order in which the lines of a program are executed, and possibly the values of variables as the program is being run\n- Break point: this is a facility which interrupts a program on a specific line of code, allowing the programmer to compare the values of variables against expected values. The program code can then usually be executed one line at a time. This is called single-stepping\n- Variable watch: this is a facility which displays the current value of any variable. The value can be 'watched' as the program code is single-stepped to see the effects of the code on the variable. Alternatively a variable watch may be set, which will interrupt the program flow if the watched variable reaches a specified value\n- Memory inspector: this is a facility which will display the contents of a section of memory\n- Error diagnostics: these are used when a program fails to compile or to run. Error messages are displayed to help the programmer diagnose what has gone wrong\n- Emulator: will provide an emulator to run the code/app so no physical device required\n- Context sensitive menu: IDE suggests available options\n- Statement completion: IDE will complete a statement such as adding an 'end if' to an 'if' statement\n- GUI creation: Allows programmer to create a GUI by dragging and dropping controls (buttons, etc...) onto a form.\n- Publisher: facility to package up and deploy program as an easy to install package\n- Code optimisation: Warning message when variables have been declared but not used.\nAccept use of IDE/SDE/SDK interchangeably",
+                            "max_marks": 6,
                             "assessment_objectives": [
                               "1.1b"
                             ],
@@ -104,212 +137,79 @@
                           },
                           {
                             "question_number": "4",
-                            "question_text": "Describe six Integrated Development Environment (IDE) tools used in the development and debugging of programs.\n[6]",
-                            "mark_scheme": "Award 1 mark for each up to a maximum of 6\n\u2022 Any six of:\n - Editor: this allows a programmer to enter and edit source code/annotation\n - Compiler: Translates source code into machine code\n - Interpreter: Translates each line/a single line of source code and executes it\n - Automatic formatting: Correctly indents code\n - Automatic colour coding: Changes key words, literals and annotation to different colours\n - Linker: this is a program which allows previously compiled code, from software libraries, to be linked together\n - Loader: this is a program which loads previously compiled code into memory.\n - Debugger: this is a program which helps locate, identify and rectify errors in a program\n - Syntax error detection: Highlighting syntax errors before code is translated\n - Trace: this is a facility which displays the order in which the lines of a program are executed, and possibly the values of variables as the program is being run\n - Break point: this is a facility which interrupts a program on a specific line of code, allowing the programmer to compare the values of variables against expected values. The program code can then usually be executed one line at a time. This is called single-stepping\n - Variable watch: this is a facility which displays the current value of any variable. The value can be 'watched' as the program code is single-stepped to see the effects of the code on the variable. Alternatively a variable watch may be set, which will interrupt the program flow if the watched variable reaches a specified value\n - Memory inspector: this is a facility which will display the contents of a section of memory\n - Error diagnostics: these are used when a program fails to compile or to run. Error messages are displayed to help the programmer diagnose what has gone wrong\n - Emulator: will provide an emulator to run the code/app so no physical device required\n - Context sensitive menu: IDE suggests available options\n - Statement completion: IDE will complete a statement such as adding an 'end if' to an 'if' statement\n - GUI creation: Allows programmer to create a GUI by dragging and dropping controls (buttons, etc...) onto a form.\n - Publisher: facility to package up and deploy program as an easy to install package\n - Code optimisation: Warning message when variables have been declared but not used.\nAccept use of IDE/SDE/SDK interchangeably",
+                            "question_text": "Describe six Integrated Development Environment (IDE) tools used in the development and debugging of programs. [6]",
+                            "mark_scheme": "",
                             "max_marks": 6,
-                            "assessment_objectives": [
-                              "1.1b"
-                            ],
+                            "assessment_objectives": [],
+                            "sub_questions": [],
                             "media_files": []
                           },
                           {
-                            "question_number": "5a",
-                            "question_text": "Data can be transmitted using different methods. Describe simplex, half-duplex and full duplex transmission methods.",
-                            "mark_scheme": "Award 1 mark for each\n\u2022 Simplex\n - Data transmission is possible in one direction only.\n\u2022 Half duplex\n - Data transmission is possible in both directions, but only in one direction at a time.\n\u2022 Full duplex\n - Data transmission is possible in both directions simultaneously.",
-                            "max_marks": 3,
-                            "assessment_objectives": [
-                              "1.1b"
-                            ],
-                            "media_files": []
-                          },
-                          {
-                            "question_number": "5b",
-                            "question_text": "Describe what is meant by a data collision on a bus network and how such collisions should be dealt with.",
-                            "mark_scheme": "Award 1 mark for each\n\u2022 Data collision occurs when two sets of data are detected on the network simultaneously.\n\u2022 Once detected, a computer waits for a short (random) time then sends again.",
-                            "max_marks": 2,
-                            "assessment_objectives": [
-                              "1.1b"
-                            ],
-                            "media_files": []
-                          },
-                          {
-                            "question_number": "5a",
-                            "question_text": "Data can be transmitted using different methods. Describe simplex, half-duplex and full duplex transmission methods.",
-                            "mark_scheme": "Award 1 mark for each:\n- Simplex: Data transmission is possible in one direction only.\n- Half duplex: Data transmission is possible in both directions, but only in one direction at a time.\n- Full duplex: Data transmission is possible in both directions simultaneously.",
-                            "max_marks": 3,
-                            "assessment_objectives": [
-                              "1.1b"
-                            ],
-                            "media_files": []
-                          },
-                          {
-                            "question_number": "5b",
-                            "question_text": "Describe what is meant by a data collision on a bus network and how such collisions should be dealt with.",
-                            "mark_scheme": "Award 1 mark for each:\n- Data collision occurs when two sets of data are detected on the network simultaneously.\n- Once detected, a computer waits for a short (random) time then sends again.",
-                            "max_marks": 2,
-                            "assessment_objectives": [
-                              "1.1b"
-                            ],
-                            "media_files": []
-                          },
-                          {
-                            "question_number": "6ai",
-                            "question_text": "State the meaning of the following terms:\n(i) Byte.",
-                            "mark_scheme": "Award 1 mark\nA byte is a collection of 8 bits, (e.g. $00101010_{2}$)",
-                            "max_marks": 1,
-                            "assessment_objectives": [
-                              "1.1a"
-                            ],
-                            "media_files": []
-                          },
-                          {
-                            "question_number": "6aii",
-                            "question_text": "State the meaning of the following terms:\n(ii) Word.",
-                            "mark_scheme": "Award 1 mark\nA word is the total number of bits that can be manipulated as a single unit by the CPU.",
-                            "max_marks": 1,
-                            "assessment_objectives": [
-                              "1.1b"
-                            ],
-                            "media_files": []
-                          },
-                          {
-                            "question_number": "6b",
-                            "question_text": "Convert the hexadecimal numbers $2 A_{16}$ and $B B_{16}$ into two binary numbers and, using binary addition, calculate the binary number that would result from adding them.\nYou must show all of your working.",
-                            "mark_scheme": "Award 1 mark for each:\n- Convert $2 A_{16}$ into binary: $00101010_{2}$\n- Convert $\\mathrm{BB}_{16}$ into binary: $10111011_{2}$\n- Binary addition:\n  $00101010_{2}$\n+ $10111011_{2}$\n  $11100101_{2}$\n$011101000$",
-                            "max_marks": 4,
-                            "assessment_objectives": [
-                              "2.1a"
-                            ],
-                            "media_files": []
-                          },
-                          {
-                            "question_number": "6a",
-                            "question_text": "State the meaning of the following terms:\n(i) Byte.\n(ii) Word.",
+                            "question_number": "5",
+                            "question_text": "",
                             "mark_scheme": "",
-                            "max_marks": 2,
-                            "assessment_objectives": [],
-                            "media_files": []
-                          },
-                          {
-                            "question_number": "6b",
-                            "question_text": "Convert the hexadecimal numbers $2 A_{16}$ and $B B_{16}$ into two binary numbers and, using binary addition, calculate the binary number that would result from adding them.\nYou must show all of your working.",
-                            "mark_scheme": "",
-                            "max_marks": 3,
-                            "assessment_objectives": [],
-                            "media_files": []
-                          },
-                          {
-                            "question_number": "6c",
-                            "question_text": "Using an example, describe two's complementation in an 8 bit register.",
-                            "mark_scheme": "",
-                            "max_marks": 3,
-                            "assessment_objectives": [],
-                            "media_files": []
-                          },
-                          {
-                            "question_number": "6d",
-                            "question_text": "In a certain computer system, real numbers are stored in floating point form using two's complementation, an 8 bit mantissa and a 4 bit exponent.\nThe following is a floating point representation of a real number:\nMantissa\n| 0 | 1 | 1 | 0 | 1 | 0 | 0 | 0 |\n| :-- | :-- | :-- | :-- | :-- | :-- | :-- | :-- |\n| 0 | 0 | 1 | 1 |\n| :-- | :-- | :-- |\nCalculate the denary value of the mantissa and exponent, and convert this floating point number into a denary number.",
-                            "mark_scheme": "Award 1 mark for each:\nMantissa = 13 / 16 OR 0.8125, Exponent = 3\nAnswer = 0.8125 \u00d7 2^3 = 6.510",
-                            "max_marks": 3,
+                            "max_marks": 5,
                             "assessment_objectives": [
-                              "2.1a"
+                              "AO1",
+                              "AO2"
                             ],
-                            "media_files": []
-                          },
-                          {
-                            "question_number": "7c",
-                            "question_text": "Using an example, describe two's complementation in an 8 bit register.",
-                            "mark_scheme": "Award 1 mark for each up to a maximum of 6\n- Example of two's complement representation of a negative number in an 8-bit register\n- Explanation of how to obtain the two's complement of a binary number\n- Explanation of how to perform arithmetic operations using two's complement representation",
-                            "max_marks": 6,
-                            "assessment_objectives": [
-                              "1.1b"
-                            ],
-                            "media_files": []
-                          },
-                          {
-                            "question_number": "7d",
-                            "question_text": "In a certain computer system, real numbers are stored in floating point form using two's complementation, an 8 bit mantissa and a 4 bit exponent.\n\nThe following is a floating point representation of a real number:\n\nMantissa\n\n| 0 | 1 | 1 | 0 | 1 | 0 | 0 | 0 |\n| :-- | :-- | :-- | :-- | :-- | :-- | :-- | :-- |\n\n| 0 | 0 | 1 | 1 |\n| :-- | :-- | :-- |\n\nCalculate the denary value of the mantissa and exponent, and convert this floating point number into a denary number.",
-                            "mark_scheme": "1 mark for each correct step in the calculation of the denary value of the mantissa and exponent\n1 mark for the correct denary value of the floating point number\n\nAccepted methods for calculating the denary value include:\n- Multiplying each bit in the mantissa by its corresponding power of 2 and summing the results\n- Converting the binary exponent to denary and applying the exponent to the mantissa using the formula (-1)^s x 1.m x 2^e\n\nNote: The mark scheme does not provide specific values for the denary mantissa, exponent, or floating point number.",
-                            "max_marks": 2,
-                            "assessment_objectives": [],
-                            "media_files": []
-                          },
-                          {
-                            "question_number": "8e",
-                            "question_text": "Using the number $26.8_{10}$ as an example, describe truncation and rounding, and their effect upon accuracy.",
-                            "mark_scheme": "Truncation: number is approximated to whole number/tenth/hundredth etc. nearer zero. (condone lower, accept idea of shortened / cut off / removed)\nRounding: number is approximated to nearest whole number/tenth/hundredth, etc.\nExample\n- Truncation: $26_{10}$ \n- Error $-0.8_{10}$ \n- Rounding: $27_{10}$ \n- Error $+0.2_{10}$",
-                            "max_marks": null,
-                            "assessment_objectives": [
-                              "1.1b",
-                              "2.1a",
-                              "2.1b"
+                            "sub_questions": [
+                              {
+                                "question_number": "5a",
+                                "question_text": "Data can be transmitted using different methods. Describe simplex, half-duplex and full duplex transmission methods.",
+                                "mark_scheme": "Award 1 mark for each:\n- Simplex: Data transmission is possible in one direction only.\n- Half duplex: Data transmission is possible in both directions, but only in one direction at a time.\n- Full duplex: Data transmission is possible in both directions simultaneously.",
+                                "max_marks": 3,
+                                "assessment_objectives": [
+                                  "AO1"
+                                ],
+                                "media_files": []
+                              },
+                              {
+                                "question_number": "5b",
+                                "question_text": "Describe what is meant by a data collision on a bus network and how such collisions should be dealt with.",
+                                "mark_scheme": "Award 1 mark for each:\n- Data collision occurs when two sets of data are detected on the network simultaneously.\n- Once detected, a computer waits for a short (random) time then sends again.",
+                                "max_marks": 2,
+                                "assessment_objectives": [
+                                  "AO1"
+                                ],
+                                "media_files": []
+                              }
                             ],
                             "media_files": []
                           },
                           {
                             "question_number": "7",
                             "question_text": "Describe direct (random) access files in terms of hashing algorithms, overflow areas and the need for files to be re-organised on occasions.",
-                            "mark_scheme": "- The physical location of the record is calculated using a hashing algorithm.\n- This calculation is carried out on data in the key field(or other mandatory data item).\n- A data collision occurs when two data items are hashed to the same location.\n- In this case there needs to be an overflow areas where the latest data is stored.\n- When there are many items in the overflow area, access may become slow.\n- In which case a new hashing algorithm is required and a larger file may be needed.",
-                            "max_marks": 6,
-                            "assessment_objectives": [
-                              "AO1",
-                              "AO2"
-                            ],
+                            "mark_scheme": "",
+                            "max_marks": 0,
+                            "assessment_objectives": [],
+                            "sub_questions": [],
                             "media_files": []
                           },
                           {
-                            "question_number": "8",
-                            "question_text": "Write a binary search algorithm, using pseudo-code, for the following array.\n\n| myArray |  |  |  |  |  |  | \n| :--: | :--: | :--: | :--: | :--: | :--: | :--: |\n| 23 | 34 | 39 | 42 | 47 | 56 | 61 |\n| (0) | (1) | (2) | (3) | (4) | (5) | (6) |\n\nYour algorithm should output the position of the SearchValue if it is found or a suitable message if the SearchValue is not present in the array.\n\nYour algorithm should be written using self-documenting identifiers.",
-                            "mark_scheme": "1 Declare MyArray[0 to 6]\n2 Declare Start is integer\n3 Declare End is integer\n4 Declare Found is Boolean\n5 Declare Mid is integer\n6 \n7 set Start =0\n8 set End =6\n9 set Found = False\n10 \n11 input SearchValue\n12 \n13 repeat\n14 set Mid = (Start + End) DIV 2\n15 if SearchValue = MyArray[Mid] then\n16 set Found = True\n17 Output \"SearchValue found at position\", Mid\n18 endif\n19 \n20 if SearchValue > MyArray[Mid] then\n21 set Start = Mid +1\n22 endif\n23 \n24 if SearchValue < MyArray[Mid] then\n25 set End = Mid - 1\n26 endif\n27 until (Found = True) OR (End < Start)\n28 \n29 if Found = False\n30 Output \"SearchValue not found\"\n31 endif",
-                            "max_marks": 8,
+                            "question_number": "10",
+                            "question_text": "Clearly showing each step, simplify the following Boolean expression:\n\n$$A \\cdot (A+C) + C \\cdot (A+B)$$",
+                            "mark_scheme": "",
+                            "max_marks": 0,
+                            "assessment_objectives": [],
+                            "sub_questions": [],
+                            "media_files": []
+                          },
+                          {
+                            "question_number": "12",
+                            "question_text": "12. (a) Compare two methods of changeover that a systems analyst may suggest to an organisation.",
+                            "mark_scheme": "Cloud storage / upload to a third party storage provider\n- Speed of access - very fast transfer achievable (depending on network speed) for daily updates\n- Cost per unit of storage - could be cheaper or more expensive than external disk - accept either with justification\n- Data is stored securely and safely on protected servers (or should be!)\n- Suitability: Suitable for a large company if justified (i.e. contract in place for location of storage etc)\n\nFlash memory stick\n- Speed of access - Very fast transfer which is important as daily updates\n- Cost per unit of storage - pen drive is quite cheap\n- Portability reason - pen drive is physically small and can be easily stored securely and safely for example in a fire proof safe\n- Suitability: Not Suitable for a large company\n\nMagnetic tape\n- Speed of access reason - Access to tape is serial and can be slow but could only back up files amended that day\n- Cost per unit of storage reason - Tape is relatively (but drive can be expensive!) cheap compared with other secondary storage mediums\n- Portability reason - Tape is physically small and can be easily stored securely and safely for example in a fire proof safe.\n- Suitability: Used widely by large companies historically\n\n\n| Band | AO1.1b <br> Max 10 marks |\n| :--: | :--: |\n| 3 | Award 8 - 10 marks\nThe candidate has:\n- written an extended response that has a sustained line of reasoning which is coherent, relevant, and logically structured\n- shown clear understanding of the requirements of the question and a clear knowledge of the indicative content. Clear knowledge is defined as a response that provides eight to ten (up to a maximum of four for backup) relevant detailed points on backup routines and suitable secondary storage mediums, which relate to an extensive amount of the indicative content\n- addressed the question appropriately with minimal repetition and no irrelevant material\n- has presented a balanced discussion and justified their answer with examples\n- used appropriate technical terminology referring to the indicative content confidently and accurately. |\n| 2 | Award 4 - 7 marks\nThe candidate has:\n- written a response that has an adequate line of reasoning with elements of coherence, relevance, and logical structure\n- shown adequate understanding of the requirements of the question and a satisfactory knowledge of backup routines and suitable secondary storage mediums as specified in the indicative content. Satisfactory knowledge is defined as a response that provides four to seven points (up to a maximum of four for backup) as signalled in the indicative content\n- has presented a discussion with limited examples\n- used appropriate technical terminology referring to the indicative content. |\n| 1 | Award 1 - 3 marks\nThe candidate has:\n- written a response that that lacks sufficient reasoning and structure\n- produced a discussion which is not well developed\n- attempted to address the question but has demonstrated superficial knowledge of the topics specified in the indicative content. Superficial knowledge is defined as a response that provides one to three points on backup routines and suitable secondary storage mediums as signalled in the indicative content\n- used limited technical terminology referring to the indicative content. |\n| 0 | Award 0 marks\n- Response not credit worthy or not attempted. |\n|  | Total | 100 | 60 | 32 | 8 | 100 |",
+                            "max_marks": 10,
                             "assessment_objectives": [
                               "AO1",
                               "AO2",
                               "AO3"
                             ],
-                            "media_files": []
-                          },
-                          {
-                            "question_number": "9",
-                            "question_text": "Giving an example, describe standard modules and their benefits.\n[4]",
-                            "mark_scheme": "- A standard module is one which carries out a common / standard task / can be used for a standard situation in a (many) program(s)\nExample: print function / input validation / maths functions (e.g. square root)\nAward 1 mark per benefit (any two of):\n- No need to write again as has already been written/decreases development time\n- Less likely to have errors because it has already been tested/used (\"for real\")\n- Likely to be of high quality/efficient as may have been written by experts in the field",
-                            "max_marks": 4,
-                            "assessment_objectives": [
-                              "1.1b"
-                            ],
-                            "media_files": []
-                          },
-                          {
-                            "question_number": "11",
-                            "question_text": "Giving an example, describe standard modules and their benefits.\n[4]",
-                            "mark_scheme": "Department <br> \u2022 <br> Courses <br> \u2022 <br> Students\n\nMarking:\n\u2022 Award 1 mark for each up to a maximum of 4\n\u2022 All four correct entities\n\u2022 Correct relationship between Department and Courses\n\u2022 Correct relationship between Courses and Students\n\u2022 Correct relationship between Courses and Modules",
-                            "max_marks": 4,
-                            "assessment_objectives": [
-                              "AO1",
-                              "AO2"
-                            ],
-                            "media_files": []
-                          },
-                          {
-                            "question_number": "12",
-                            "question_text": "Clearly showing each step, simplify the following Boolean expression:\n\n$$\nA \\cdot(A+C)+C \\cdot(A+B)\n$$\n\n",
-                            "mark_scheme": "",
-                            "max_marks": 0,
-                            "assessment_objectives": [],
-                            "media_files": []
-                          },
-                          {
-                            "question_number": "12a",
-                            "question_text": "Award a maximum of 6 marks from any one changeover method.\n<br>N.B: <br>1 Mark for name <br>1 Mark for description\nDirect \"big bang\" approach can be adopted - sudden change to new system\n- Could be used where a failure would not be catastrophic\n- Can be cheaper to implement\n- New system is available immediately if required\n- Can be the least disruptive if implemented well\n- New system may not work as well until staff are fully used to using it\n- If new system fails organisation have no system which could be costly or dangerous\nParallel running - both systems running together for a time\n- Safest option as if new system fails they still have existing system\n- New system is available immediately if required\n- The outputs from the old and new systems can be compared to check that the new system is running correctly\n- Expensive as require temporary staff or overtime for current staff to operate both systems\n- Could cause confusion for staff / customers having two systems\nPhased changeover - part-by-part (by functionality)\n- Allows users to gradually get used to the new system\n- Staff training can be done in stages\n- All staff can focus on one area to resolve any problems\n- Problems can be fixed quicker as more experts to resolve one functionality problem at a time\n- Difficulties identified in one area can be resolved and managed in next area\n- Might cause problems in the changeover period when they need to communicate with each other and have different systems\n- Slower to get new system up and running compared to some other methods\n- If a part of the new system fails, there is no back-up system, so data can be lost\n- Some systems cannot easily be broken down by functionality",
-                            "mark_scheme": "Award a maximum of 6 marks from any one changeover method.\n<br>N.B: <br>1 Mark for name <br>1 Mark for description\nDirect \"big bang\" approach can be adopted - sudden change to new system\n- Could be used where a failure would not be catastrophic\n- Can be cheaper to implement\n- New system is available immediately if required\n- Can be the least disruptive if implemented well\n- New system may not work as well until staff are fully used to using it\n- If new system fails organisation have no system which could be costly or dangerous\nParallel running - both systems running together for a time\n- Safest option as if new system fails they still have existing system\n- New system is available immediately if required\n- The outputs from the old and new systems can be compared to check that the new system is running correctly\n- Expensive as require temporary staff or overtime for current staff to operate both systems\n- Could cause confusion for staff / customers having two systems\nPhased changeover - part-by-part (by functionality)\n- Allows users to gradually get used to the new system\n- Staff training can be done in stages\n- All staff can focus on one area to resolve any problems\n- Problems can be fixed quicker as more experts to resolve one functionality problem at a time\n- Difficulties identified in one area can be resolved and managed in next area\n- Might cause problems in the changeover period when they need to communicate with each other and have different systems\n- Slower to get new system up and running compared to some other methods\n- If a part of the new system fails, there is no back-up system, so data can be lost\n- Some systems cannot easily be broken down by functionality",
-                            "max_marks": 10,
-                            "assessment_objectives": [
-                              "1.1 b"
-                            ],
+                            "sub_questions": [],
                             "media_files": []
                           }
                         ],
-                        "processed_at": "2025-04-19T17:18:42.433633"
+                        "processed_at": "2025-05-01T20:55:20.861734"
                       }
                     ],
                     "Mark Scheme": [
@@ -360,6 +260,40 @@
         },
         "2017": {
           "qualifications": {
+            "A-Level": {
+              "exams": {
+                "Unit 3": {
+                  "unit_number": 3,
+                  "documents": {
+                    "Mark Scheme": [
+                      {
+                        "id": "1500U30-1 WJEC GCE A Level Comp Science Unit 3 MS S17 (New)",
+                        "content_path": "ocr_results/1500U30-1 WJEC GCE A Level Comp Science Unit 3 MS S17 (New).json",
+                        "metadata_path": "Index/metadata/mark_schemes/1500U30-1 WJEC GCE A Level Comp Science Unit 3 MS S17 (New)-metadata.json",
+                        "question_start_index": 2
+                      }
+                    ]
+                  },
+                  "name": "Unit 3",
+                  "exam_season": "Summer"
+                },
+                "Unit 4": {
+                  "unit_number": 4,
+                  "documents": {
+                    "Mark Scheme": [
+                      {
+                        "id": "1500U40-1 WJEC GCE A Level Comp Science Unit 4 MS S17 (New)",
+                        "content_path": "ocr_results/1500U40-1 WJEC GCE A Level Comp Science Unit 4 MS S17 (New).json",
+                        "metadata_path": "Index/metadata/mark_schemes/1500U40-1 WJEC GCE A Level Comp Science Unit 4 MS S17 (New)-metadata.json",
+                        "question_start_index": 2
+                      }
+                    ]
+                  },
+                  "name": "Unit 4",
+                  "exam_season": "Summer"
+                }
+              }
+            },
             "A2-Level": {
               "exams": {
                 "Unit 3": {
@@ -448,6 +382,40 @@
         },
         "2018": {
           "qualifications": {
+            "A-Level": {
+              "exams": {
+                "Unit 3": {
+                  "unit_number": 3,
+                  "documents": {
+                    "Mark Scheme": [
+                      {
+                        "id": "1500U30-1 WJEC A Level Comp Science Unit 3 MS S18 (New)",
+                        "content_path": "ocr_results/1500U30-1 WJEC A Level Comp Science Unit 3 MS S18 (New).json",
+                        "metadata_path": "Index/metadata/mark_schemes/1500U30-1 WJEC A Level Comp Science Unit 3 MS S18 (New)-metadata.json",
+                        "question_start_index": 2
+                      }
+                    ]
+                  },
+                  "name": "Unit 3",
+                  "exam_season": "Summer"
+                },
+                "Unit 4": {
+                  "unit_number": 4,
+                  "documents": {
+                    "Mark Scheme": [
+                      {
+                        "id": "1500U40-1 WJEC A Level Comp Science Unit 4 MS S18 (New)",
+                        "content_path": "ocr_results/1500U40-1 WJEC A Level Comp Science Unit 4 MS S18 (New).json",
+                        "metadata_path": "Index/metadata/mark_schemes/1500U40-1 WJEC A Level Comp Science Unit 4 MS S18 (New)-metadata.json",
+                        "question_start_index": 2
+                      }
+                    ]
+                  },
+                  "name": "Unit 4",
+                  "exam_season": "Summer"
+                }
+              }
+            },
             "A2-Level": {
               "exams": {
                 "Unit 3": {

@@ -15,7 +15,8 @@ from typing import Dict, List, Optional, Any, Union
 
 # Import related modules
 from ..Prompts.question_and_markscheme_parser import QuestionAndMarkschemeParser
-from ..Llm_client.mistral_client import MistralLLMClient
+from ..Llm_client.base_client import LLMClient
+from ..Llm_client.factory import LLMClientFactory
 
 
 class ExamContentParser:
@@ -33,19 +34,25 @@ class ExamContentParser:
     
     def __init__(
         self,
-        llm_client: MistralLLMClient,
-        index_path: Union[str, Path],
-        ocr_results_path: Union[str, Path],
-        log_level: int = logging.INFO
+        llm_client: LLMClient = None,
+        index_path: Union[str, Path] = None,
+        ocr_results_path: Union[str, Path] = None,
+        metadata_path: Union[str, Path] = None,
+        llm_provider: str = "mistral",
+        log_level: int = logging.INFO,
+        **llm_options
     ):
         """
         Initialize the ExamContentParser.
         
         Args:
-            llm_client (MistralLLMClient): Client for interacting with the Mistral LLM API
-            index_path (Union[str, Path]): Path to the hierarchical index JSON file
-            ocr_results_path (Union[str, Path]): Path to the directory containing OCR resultsd
-            log_level (int): Logging level (default: logging.INFO)
+            llm_client (LLMClient, optional): Client for interacting with the LLM API
+            index_path (Union[str, Path], optional): Path to the hierarchical index JSON file
+            ocr_results_path (Union[str, Path], optional): Path to the directory containing OCR results
+            metadata_path (Union[str, Path], optional): Path to the directory containing metadata
+            llm_provider (str, optional): LLM provider to use if no client is provided. Default is 'mistral'
+            log_level (int, optional): Logging level (default: logging.INFO)
+            **llm_options: Additional options to pass to the LLM client if created
         """
         # Initialize logger
         self.logger = logging.getLogger(__name__)
@@ -58,17 +65,39 @@ class ExamContentParser:
             handler.setFormatter(formatter)
             self.logger.addHandler(handler)
         
-        # Store init parameters
-        self.llm_client = llm_client
-        self.index_path = Path(index_path)
-        self.ocr_results_path = Path(ocr_results_path)
-        
-        # Validate paths
-        if not self.index_path.exists():
-            raise FileNotFoundError(f"Index file not found at: {self.index_path}")
-        if not self.ocr_results_path.exists():
-            raise FileNotFoundError(f"OCR results directory not found at: {self.ocr_results_path}")
+        # Initialize LLM client if not provided
+        if llm_client is None:
+            factory = LLMClientFactory()
+            self.llm_client = factory.create_client(llm_provider, **llm_options)
+            self.logger.info(f"Created new LLM client for {llm_provider}")
+        else:
+            self.llm_client = llm_client
             
+        # Store paths
+        if index_path:
+            self.index_path = Path(index_path)
+            # Validate index path
+            if not self.index_path.exists():
+                raise FileNotFoundError(f"Index file not found at: {self.index_path}")
+        else:
+            self.index_path = None
+            
+        if ocr_results_path:
+            self.ocr_results_path = Path(ocr_results_path)
+            # Validate OCR results path
+            if not self.ocr_results_path.exists():
+                raise FileNotFoundError(f"OCR results directory not found at: {self.ocr_results_path}")
+        else:
+            self.ocr_results_path = None
+
+        if metadata_path:
+            self.metadata_path = Path(metadata_path)
+            # Validate metadata path
+            if not self.metadata_path.exists():
+                raise FileNotFoundError(f"Metadata directory not found at: {self.metadata_path}")
+        else:
+            self.metadata_path = None
+
         self.logger.info("ExamContentParser initialized successfully")
     
     def parse_exam_content(self, question_paper_id: str, mark_scheme_id: str) -> bool:
@@ -83,6 +112,10 @@ class ExamContentParser:
             bool: True if parsing and index update was successful, False otherwise
         """
         try:
+            # Check if index path is set
+            if not self.index_path:
+                raise ValueError("Index path not set. Provide a valid index_path during initialization.")
+                
             # Load the hierarchical index
             with open(self.index_path, 'r', encoding='utf-8') as f:
                 index_data = json.load(f)
@@ -181,6 +214,34 @@ class ExamContentParser:
             
         return content
     
+    def _load_exam_content_and_metadata(self, file_id: str, content_type: str) -> (List[Dict], Dict):
+        """
+        Load exam content and its metadata for a given file ID and content type.
+        
+        Args:
+            file_id (str): Identifier of the file (without extension)
+            content_type (str): Subdirectory name for content and metadata (e.g., 'question_papers')
+        Returns:
+            Tuple[List[Dict], Dict]: Content list and metadata dict
+        Raises:
+            FileNotFoundError: If either file cannot be found
+        """
+        # Construct paths
+        metadata_file = self.metadata_path / content_type / f"{file_id}.json"
+        content_file = self.ocr_results_path / content_type / f"{file_id}.json"
+        # Load metadata
+        try:
+            with open(metadata_file, 'r', encoding='utf-8') as mf:
+                metadata = json.load(mf)
+        except FileNotFoundError:
+            raise FileNotFoundError(f"Metadata file not found: {metadata_file}")
+        # Load content
+        try:
+            with open(content_file, 'r', encoding='utf-8') as cf:
+                content = json.load(cf)
+        except FileNotFoundError:
+            raise FileNotFoundError(f"Content file not found: {content_file}")
+        return content, metadata
     
     def _process_exam_content(
         self,
@@ -536,8 +597,22 @@ class ExamContentParser:
         Raises:
             ValueError: If response is missing required fields
         """
-        structured_data = response
-        
+        # Handle raw string responses by extracting and parsing JSON
+        if isinstance(response, str):
+            # Extract JSON block if present
+            json_block = None
+            match = re.search(r"```json\s*(\{.*?\})\s*```", response, re.DOTALL)
+            if match:
+                json_block = match.group(1)
+            else:
+                json_block = response
+            try:
+                structured_data = json.loads(json_block)
+            except Exception:
+                raise ValueError("Invalid JSON in LLM response")
+        else:
+            structured_data = response
+
         # Initialize context completion flags if not present
         if "context_complete" not in structured_data:
             structured_data["context_complete"] = {
@@ -561,11 +636,10 @@ class ExamContentParser:
             if "next_question_paper_index" in missing_fields:
                 needs_more_context = not structured_data["context_complete"]["question_paper"]
                 if needs_more_context and current_qp_index is not None:
-                    # If we need more context, increment the index to expand the window
                     structured_data["next_question_paper_index"] = current_qp_index + 1
                     self.logger.info("Incrementing question paper index for more context")
-                elif "questions" in structured_data and structured_data["questions"]:
-                    # If processing was successful but index is missing, advance by one
+                elif current_qp_index is not None and structured_data.get("questions"):
+                    # Advance by one when current index is known
                     structured_data["next_question_paper_index"] = current_qp_index + 1
                     self.logger.info("Advancing question paper index by default")
                 else:
@@ -574,11 +648,10 @@ class ExamContentParser:
             if "next_mark_scheme_index" in missing_fields:
                 needs_more_context = not structured_data["context_complete"]["mark_scheme"]
                 if needs_more_context and current_ms_index is not None:
-                    # If we need more context, increment the index to expand the window
                     structured_data["next_mark_scheme_index"] = current_ms_index + 1
                     self.logger.info("Incrementing mark scheme index for more context")
-                elif "questions" in structured_data and structured_data["questions"]:
-                    # If processing was successful but index is missing, advance by one
+                elif current_ms_index is not None and structured_data.get("questions"):
+                    # Advance by one when current index is known
                     structured_data["next_mark_scheme_index"] = current_ms_index + 1
                     self.logger.info("Advancing mark scheme index by default")
                 else:

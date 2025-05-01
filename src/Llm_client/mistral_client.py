@@ -18,7 +18,7 @@ class MistralLLMClient(LLMClient):
         
         Args:
             api_key (str): The Mistral API key
-            model (str): The model name to use. Default is 'mistral-large-latest'
+            model (str): The model name to use. Default is 'mistral-small-latest'
             system_prompt (Optional[str]): Optional system prompt to use in all requests
                         **kwargs: Additional configuration options
         """
@@ -46,20 +46,20 @@ class MistralLLMClient(LLMClient):
         options = {**self.options, **kwargs}
         
         messages = []
-        # Prioritize override, then default, then none
-        active_system_prompt = system_prompt if system_prompt is not None else self.system_prompt
-        if active_system_prompt:
-            messages.append({"role":"system", "content": active_system_prompt})
+    
+    
+        if system_prompt:
+            messages.append({"role":"system", "content": system_prompt})
         messages.append({"role":"user", "content":prompt})
         
-        response = self.client.chat(
+        response = self.client.chat.complete(
             model=self.model,
             messages=messages,
             **options
         )
         return response.choices[0].message.content
         
-    def generate_json(self, prompt: str, system_prompt_override: Optional[str] = None, **kwargs) -> Dict[str, Any]:
+    def generate_json(self, prompt: str, system_prompt: Optional[str] = None, **kwargs) -> Dict[str, Any]:
         """
         Generate JSON from Mistral API with explicit formatting instructions.
         
@@ -73,16 +73,13 @@ class MistralLLMClient(LLMClient):
         """
         options = {**self.options, **kwargs}
         
-        json_prompt = f"{prompt}\n\nPlease format your response as valid JSON."
-
         messages = []
-        # Prioritize override, then default, then none
-        active_system_prompt = system_prompt_override if system_prompt_override is not None else self.system_prompt
-        if active_system_prompt:
-            messages.append({"role":"system", "content": active_system_prompt})
+
+        if system_prompt:
+            messages.append({"role":"system", "content": system_prompt})
         messages.append({"role":"user", "content":prompt})
         
-        response = self.client.chat(
+        response = self.client.chat.complete(
             model=self.model,
             messages=messages,
             **options
