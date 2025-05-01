@@ -11,6 +11,7 @@
             "program": "${file}",
             "console": "integratedTerminal",
             "justMyCode": true,
+            "cwd": "${workspaceFolder}",
             "env": {
                 "VIRTUAL_ENV": "${workspaceFolder}/.venv",
                 "PATH": "${workspaceFolder}/.venv/bin:${env:PATH}"
@@ -24,6 +25,7 @@
             "args": ["${file}"],
             "console": "integratedTerminal",
             "justMyCode": true,
+            "cwd": "${workspaceFolder}",
             "env": {
                 "VIRTUAL_ENV": "${workspaceFolder}/.venv",
                 "PATH": "${workspaceFolder}/.venv/bin:${env:PATH}"
@@ -37,10 +39,32 @@
             "args": ["${workspaceFolder}/main.py"],
             "console": "integratedTerminal",
             "justMyCode": true,
+            "cwd": "${workspaceFolder}",
             "env": {
                 "VIRTUAL_ENV": "${workspaceFolder}/.venv",
                 "PATH": "${workspaceFolder}/.venv/bin:${env:PATH}"
             }
+        },
+        {
+            "name": "Python Debugger: QuestionTagger Module",
+            "type": "debugpy",
+            "request": "launch",
+            "module": "src.QuestionTagger.question_tagger", // Specify the module path
+            "console": "integratedTerminal",
+            "justMyCode": true,
+            "cwd": "${workspaceFolder}", // Ensure CWD is the project root
+            "env": {
+                "VIRTUAL_ENV": "${workspaceFolder}/.venv",
+                "PATH": "${workspaceFolder}/.venv/bin:${env:PATH}"
+            },
+            "args": [
+                "--verbose"
+                // Add your command-line arguments here as strings
+                // For example:
+                // "--input-file", "Index/another_index.json",
+                // "--output-file", "Index/tagged_output.json",
+                // "--dry-run"
+            ] 
         }
     ]
 }

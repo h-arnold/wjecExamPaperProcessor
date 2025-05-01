@@ -4,7 +4,7 @@ OpenAILLMClient implementation for interacting with OpenAI's API.
 
 from .base_client import LLMClient
 from openai import OpenAI
-from typing import Dict, Any
+from typing import Dict, Any, Optional
 import json
 from json_repair import repair_json
 
@@ -12,24 +12,26 @@ from json_repair import repair_json
 class OpenAILLMClient(LLMClient):
     """Implementation of LLMClient for OpenAI"""
     
-    def __init__(self, api_key: str, model: str = "gpt-4.1-mini", **kwargs):
+    def __init__(self, api_key: str, model: str = "gpt-4.1-mini", system_prompt: Optional[str] = None, **kwargs):
         """
         Initialize the OpenAI client with API key and model.
         
         Args:
             api_key (str): The OpenAI API key
             model (str): The model name to use. Default is 'gpt-4.1-mini'
+            system_prompt (Optional[str]): An optional system prompt to guide the model's behavior.
             **kwargs: Additional configuration options
         """
         self.client = OpenAI(api_key=api_key)
         self.model = model
+        self.system_prompt = system_prompt
         default_options = {
             "temperature": 0.0,
             "max_tokens": 4096
         }
         self.options = {**default_options, **kwargs}  # User options override defaults
         
-    def generate_text(self, prompt: str, **kwargs) -> str:
+    def generate_text(self, prompt: str, system_prompt: Optional[str], **kwargs) -> str:
         """
         Generate text from OpenAI API.
         
@@ -46,9 +48,14 @@ class OpenAILLMClient(LLMClient):
         max_tokens = options.pop('max_tokens', 4096)
         temperature = options.pop('temperature', 0.0)
         
+        messages = []
+        if system_prompt:
+            messages.append({"role": "system", "content": system_prompt})
+        messages.append({"role": "user", "content": prompt})
+        
         response = self.client.chat.completions.create(
             model=self.model,
-            messages=[{"role": "user", "content": prompt}],
+            messages=messages,
             temperature=temperature,
             max_tokens=max_tokens,
             **options
@@ -76,9 +83,14 @@ class OpenAILLMClient(LLMClient):
         max_tokens = options.pop('max_tokens', 4096)
         temperature = options.pop('temperature', 0.0)
         
+        messages = []
+        if self.system_prompt:
+            messages.append({"role": "system", "content": self.system_prompt})
+        messages.append({"role": "user", "content": json_prompt})
+        
         response = self.client.chat.completions.create(
             model=self.model,
-            messages=[{"role": "user", "content": json_prompt}],
+            messages=messages,
             temperature=temperature,
             max_tokens=max_tokens,
             **options

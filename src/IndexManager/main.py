@@ -5,7 +5,6 @@ This script combines the functionality of the previous scripts into a single int
 """
 
 import argparse
-import json
 import sys
 from pathlib import Path
 

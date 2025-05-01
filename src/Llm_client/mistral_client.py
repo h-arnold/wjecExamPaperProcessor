@@ -12,48 +12,60 @@ from json_repair import repair_json
 class MistralLLMClient(LLMClient):
     """Implementation of LLMClient for Mistral AI"""
     
-    def __init__(self, api_key: str, model: str = "mistral-large-latest", **kwargs):
+    def __init__(self, api_key: str, model: str = "mistral-small-latest", system_prompt: Optional[str] = None, **kwargs):
         """
         Initialize the Mistral client with API key and model.
         
         Args:
             api_key (str): The Mistral API key
             model (str): The model name to use. Default is 'mistral-large-latest'
-            **kwargs: Additional configuration options
+            system_prompt (Optional[str]): Optional system prompt to use in all requests
+                        **kwargs: Additional configuration options
         """
         self.client = Mistral(api_key=api_key)
         self.model = model
+        self.system_prompt = system_prompt
         default_options = {
             "temperature": 0.0,
             "max_tokens": 6000
         }
         self.options = {**default_options, **kwargs}  # User options override defaults
         
-    def generate_text(self, prompt: str, **kwargs) -> str:
+    def generate_text(self, prompt: str, system_prompt_override: Optional[str] = None, **kwargs) -> str:
         """
         Generate text from Mistral API.
         
         Args:
             prompt (str): The input prompt to send to the model
+            system_prompt_override (Optional[str]): A system prompt to use for this specific call, overriding the default.
             **kwargs: Additional parameters to pass to the API call
             
         Returns:
             str: The generated text response
         """
         options = {**self.options, **kwargs}
-        response = self.client.chat.complete(
+        
+        messages = []
+        # Prioritize override, then default, then none
+        active_system_prompt = system_prompt_override if system_prompt_override is not None else self.system_prompt
+        if active_system_prompt:
+            messages.append({"role":"system", "content": active_system_prompt})
+        messages.append({"role":"user", "content":prompt})
+        
+        response = self.client.chat(
             model=self.model,
-            messages=[{"role": "user", "content": prompt}],
+            messages=messages,
             **options
         )
         return response.choices[0].message.content
         
-    def generate_json(self, prompt: str, **kwargs) -> Dict[str, Any]:
+    def generate_json(self, prompt: str, system_prompt_override: Optional[str] = None, **kwargs) -> Dict[str, Any]:
         """
         Generate JSON from Mistral API with explicit formatting instructions.
         
         Args:
             prompt (str): The input prompt to send to the model
+            system_prompt_override (Optional[str]): A system prompt to use for this specific call, overriding the default.
             **kwargs: Additional parameters to pass to the API call
             
         Returns:
@@ -61,9 +73,18 @@ class MistralLLMClient(LLMClient):
         """
         options = {**self.options, **kwargs}
         
-        response = self.client.chat.complete(
+        json_prompt = f"{prompt}\n\nPlease format your response as valid JSON."
+
+        messages = []
+        # Prioritize override, then default, then none
+        active_system_prompt = system_prompt_override if system_prompt_override is not None else self.system_prompt
+        if active_system_prompt:
+            messages.append({"role":"system", "content": active_system_prompt})
+        messages.append({"role":"user", "content":prompt})
+        
+        response = self.client.chat(
             model=self.model,
-            messages=[{"role": "user", "content": prompt}],
+            messages=messages,
             **options
         )
         
@@ -73,7 +94,7 @@ class MistralLLMClient(LLMClient):
             # Strip everything before the first { and after the last }
             first_brace = text_response.find('{')
             last_brace = text_response.rfind('}')
-            if first_brace != -1 and last_brace != -1:
+            if (first_brace != -1 and last_brace != -1):
                 text_response = text_response[first_brace:last_brace+1]
                 # Use json_repair to clean up any malformed JSON
                 repaired_json = repair_json(text_response,return_objects=True)
@@ -82,14 +103,15 @@ class MistralLLMClient(LLMClient):
         except json.JSONDecodeError as e:
             raise ValueError(f"Failed to parse JSON response from Mistral API: {e}")
     
-    def extract_metadata(self, prompt: str) -> Dict[str, Any]:
+    def extract_metadata(self, prompt: str, system_prompt_override: Optional[str] = None) -> Dict[str, Any]:
         """
         Extract metadata using Mistral's understanding of the content.
         
         Args:
             prompt (str): The prompt that guides the metadata extraction process
+            system_prompt_override (Optional[str]): A system prompt to use for this specific call, overriding the default.
             
         Returns:
             Dict[str, Any]: The extracted metadata as a structured dictionary
         """
-        return self.generate_json(prompt)
+        return self.generate_json(prompt, system_prompt_override=system_prompt_override)

@@ -13,17 +13,19 @@ class LLMClient(ABC):
     """
     
     @abstractmethod
-    def __init__(self, api_key: str, **kwargs):
+    def __init__(self, api_key: str, system_prompt: Optional[str] = None, **kwargs):
         """Initialize the LLM client with API key and additional parameters"""
-        pass
+        self.api_key = api_key
+        self.default_system_prompt = system_prompt # Store the default system prompt
         
     @abstractmethod
-    def generate_text(self, prompt: str, **kwargs) -> str:
+    def generate_text(self, prompt: str, system_prompt: Optional[str] = None, **kwargs) -> str:
         """
         Generate text response from a prompt.
         
         Args:
             prompt (str): The input prompt to send to the LLM
+            system_prompt_override (Optional[str]): A system prompt to use for this specific call, overriding the default.
             **kwargs: Additional provider-specific parameters
             
         Returns:
@@ -32,12 +34,13 @@ class LLMClient(ABC):
         pass
     
     @abstractmethod
-    def generate_json(self, prompt: str, **kwargs) -> Dict[str, Any]:
+    def generate_json(self, prompt: str, system_prompt_override: Optional[str] = None, **kwargs) -> Dict[str, Any]:
         """
         Generate structured JSON response from a prompt.
         
         Args:
             prompt (str): The input prompt to send to the LLM
+            system_prompt_override (Optional[str]): A system prompt to use for this specific call, overriding the default.
             **kwargs: Additional provider-specific parameters
             
         Returns:
