@@ -27,7 +27,7 @@ class OpenAILLMClient(LLMClient):
         self.system_prompt = system_prompt
         default_options = {
             "temperature": 0.0,
-            "max_tokens": 4096
+            "max_tokens": 10000,
         }
         self.options = {**default_options, **kwargs}  # User options override defaults
         
