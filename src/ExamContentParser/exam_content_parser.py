@@ -503,9 +503,6 @@ class ExamContentParser:
             # Process sub-questions recursively if they exist
             if 'sub_questions' in question and question['sub_questions']:
                 self._add_media_file_references(question['sub_questions'], content)
-                
-        # After processing all direct references, check for media on the same page as questions
-        self._associate_media_by_page(parsed_questions, content, all_media)
     
     def _update_index(
         self, 
@@ -770,70 +767,4 @@ class ExamContentParser:
         
         # Process the exam content
         return self.parse_exam_content(qp_id, ms_id)
-
-    def _associate_media_by_page(self, parsed_questions: List[Dict], content: List[Dict], all_media: Dict[str, Dict]) -> None:
-        """
-        Associate media files with questions based on their page location.
-        
-        This method associates media files with questions if they appear on the same page,
-        even if not directly referenced in the question text.
-        
-        Args:
-            parsed_questions (List[Dict]): Parsed questions
-            content (List[Dict]): Original content with media information
-            all_media (Dict[str, Dict]): Dictionary of all media files
-        """
-        # Build a mapping of page indices to questions
-        page_to_questions = {}
-        
-        # Function to map questions to pages
-        def map_questions_to_pages(questions, parent_question=None):
-            for question in questions:
-                # Try to determine which page this question is on
-                question_text = question.get('question_text', '')
-                
-                # Look for page index in question metadata if available
-                page_index = question.get('page_index')
-                
-                if page_index is None and parent_question is not None:
-                    # Inherit from parent if not available
-                    page_index = parent_question.get('page_index')
-                
-                # If we know the page, add the question to our mapping
-                if page_index is not None:
-                    if page_index not in page_to_questions:
-                        page_to_questions[page_index] = []
-                    page_to_questions[page_index].append(question)
-                
-                # Process sub-questions recursively
-                if 'sub_questions' in question and question['sub_questions']:
-                    map_questions_to_pages(question['sub_questions'], question)
-        
-        # Build the page-to-questions mapping
-        map_questions_to_pages(parsed_questions)
-        
-        # If we couldn't determine page indices for questions, log a warning and return
-        if not page_to_questions:
-            self.logger.warning("Could not determine page indices for questions, skipping page-based media association")
-            return
-        
-        # Associate media files with questions based on page
-        for media_id, media_info in all_media.items():
-            media_page = media_info.get('page_index')
-            if media_page is not None and media_page in page_to_questions:
-                # This media file belongs on a page with questions
-                for question in page_to_questions[media_page]:
-                    # Add this media file to the question if not already present
-                    if 'media_files' not in question:
-                        question['media_files'] = []
-                        
-                    # Check if already added
-                    if not any(m.get('id') == media_info['id'] for m in question['media_files']):
-                        question['media_files'].append({
-                            'id': media_info['id'],
-                            'path': media_info['path'],
-                            'coordinates': media_info['coordinates'],
-                            'page_index': media_info['page_index']
-                        })
-                        self.logger.debug(f"Associated media file {media_info['id']} with question {question.get('question_number')} based on page {media_page}")
 ``` 

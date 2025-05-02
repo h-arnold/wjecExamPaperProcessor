@@ -50,127 +50,7 @@
                         "id": "2500U10-1(060616)",
                         "content_path": "ocr_results/2500U10-1(060616).json",
                         "metadata_path": "Index/metadata/question_papers/2500U10-1(060616)-metadata.json",
-                        "question_start_index": 1,
-                        "questions": [
-                          {
-                            "question_number": "1",
-                            "question_text": "The following algorithm checks if the numbers entered are even or odd numbers.\n\n```markdown\n1 Start Procedure EvenOdd\n2 numberstocheck is integer\n3 num is integer\n\n4 input numberstocheck\n\n5 for i = 1 To numberstocheck\n6 input num\n\n7 if num MOD 2 = 0 Then\n8 output num & \" is an even number\"\n9 else\n10 output num & \" is an odd number\"\n11 end if\n12 next i\n\n13 End Procedure\n```",
-                            "mark_scheme": "1a: Award 1 mark per response.\n- MOD checks if the number is divisible by 2 / calculates the remainder of the inputted number.\n- If the result of modulus is 0 then the number can be divided by 2 and is an even number.\n- If the modulus is not exactly 0, then the number is not exactly divisible by 2, hence it will be odd number.\n\n1b: Award 1 mark per response.\n- Example: if num MOD 2 = 0 Then\n- Selection outputs num & \" is an even number\" if the condition num MOD 2 = 0 is met.\n\n1c: Award 1 mark per response.\n- Example: for i = 1 To numberstocheck\n- Repetition checks if numbers are even/odd until all numbers have been checked.",
-                            "max_marks": 7,
-                            "assessment_objectives": [
-                              "AO2"
-                            ],
-                            "sub_questions": [
-                              {
-                                "question_number": "1a",
-                                "question_text": "(a) Explain the role of MOD in the algorithm above.",
-                                "mark_scheme": "Award 1 mark per response.\n- MOD checks if the number is divisible by 2 / calculates the remainder of the inputted number.\n- If the result of modulus is 0 then the number can be divided by 2 and is an even number.\n- If the modulus is not exactly 0, then the number is not exactly divisible by 2, hence it will be odd number.",
-                                "max_marks": 3,
-                                "assessment_objectives": [
-                                  "AO2"
-                                ],
-                                "media_files": []
-                              },
-                              {
-                                "question_number": "1b",
-                                "question_text": "(b) Using an example from the algorithm, describe the purpose of selection.",
-                                "mark_scheme": "Award 1 mark per response.\n- Example: if num MOD 2 = 0 Then\n- Selection outputs num & \" is an even number\" if the condition num MOD 2 = 0 is met.",
-                                "max_marks": 2,
-                                "assessment_objectives": [
-                                  "AO2"
-                                ],
-                                "media_files": []
-                              },
-                              {
-                                "question_number": "1c",
-                                "question_text": "(c) Using an example from the algorithm, describe the purpose of repetition.",
-                                "mark_scheme": "Award 1 mark per response.\n- Example: for i = 1 To numberstocheck\n- Repetition checks if numbers are even/odd until all numbers have been checked.",
-                                "max_marks": 2,
-                                "assessment_objectives": [
-                                  "AO2"
-                                ],
-                                "media_files": []
-                              }
-                            ],
-                            "media_files": []
-                          },
-                          {
-                            "question_number": "2",
-                            "question_text": "Complete the following truth table:\n\n| $\\boldsymbol{A}$ | $\\boldsymbol{B}$ | $\\boldsymbol{C}$ | $\\boldsymbol{A}$ | $\\boldsymbol{B} . \\boldsymbol{C}$ | $\\boldsymbol{A}+\\boldsymbol{B} . \\boldsymbol{C}$ | $\\boldsymbol{A} .(\\boldsymbol{A}+\\boldsymbol{B} . \\boldsymbol{C})$ |\n| :--: | :--: | :--: | :--: | :--: | :--: | :--: |\n| 1 | 1 | 1 |  |  |  |  |\n| 1 | 0 | 1 |  |  |  |  |\n| 0 | 1 | 1 |  |  |  |  |\n| 0 | 0 | 1 |  |  |  |  |\n",
-                            "mark_scheme": "| $\\bar{A}$ | B.C | $\\bar{A}+\\boldsymbol{B} . \\boldsymbol{C}$ | $\\bar{A} .(\\boldsymbol{A}+\\boldsymbol{B} . \\boldsymbol{C})$ |\n| 0 | 1 | 1 | 0 |\n| 0 | 0 | 0 | 0 |\n| 1 | 1 | 1 | 1 |\n| 1 | 0 | 1 | 0 |\nAward One mark for each correct column.",
-                            "max_marks": 4,
-                            "assessment_objectives": [
-                              "AO1"
-                            ],
-                            "media_files": []
-                          },
-                          {
-                            "question_number": "2",
-                            "question_text": "Complete the following truth table:\n\n| $\\boldsymbol{A}$ | $\\boldsymbol{B}$ | $\\boldsymbol{C}$ | $\\boldsymbol{A}$ | $\\boldsymbol{B} . \\boldsymbol{C}$ | $\\boldsymbol{A}+\\boldsymbol{B} . \\boldsymbol{C}$ | $\\boldsymbol{A} .(\\boldsymbol{A}+\\boldsymbol{B} . \\boldsymbol{C})$ |\n| :--: | :--: | :--: | :--: | :--: | :--: | :--: |\n| 1 | 1 | 1 |  |  |  |  |\n| 1 | 0 | 1 |  |  |  |  |\n| 0 | 1 | 1 |  |  |  |  |\n| 0 | 0 | 1 |  |  |  |  |\n\n[4]",
-                            "mark_scheme": "",
-                            "max_marks": 4,
-                            "assessment_objectives": [],
-                            "sub_questions": [],
-                            "media_files": []
-                          },
-                          {
-                            "question_number": "3",
-                            "question_text": "Describe the function of the main components of the Von Neumann CPU architecture.",
-                            "mark_scheme": "Award 1 mark for naming \u00d7 4\nAward 1 mark for describing the function of the named component \u00d7 4\n\nControl unit / clock\n- Manages the Fetch/Decode/Execute cycle OR Fetches each instruction in sequence, decodes and synchronises it by sending control signals to other parts of the computer.\n\nArithmetic Logic Unit (Accept ALU)\n- The processing and manipulation of data which normally consists of arithmetic operations or logical comparisons, allowing a program to take decisions.\n\nRegisters (MAR/MDR/CIR etc)\n- A small/fast access/temporary storage typically addressed by mechanisms other than main memory. (Or a description of MAR MDR etc)\n\nBuses(Data Bus / Control Bus / Address Bus)\n- Connects all the internal components of a computer, such as CPU and memory, to the motherboard.(Or specific role of named bus)\n\nCache memory /Internal Memory (L1, L2)\n- Cache memory can be accessed by a CPU more quickly than it can access regular RAM to execute frequently accessed items of code (e.g. loops).",
-                            "max_marks": 8,
-                            "assessment_objectives": [
-                              "1.1a",
-                              "1.1b"
-                            ],
-                            "sub_questions": [],
-                            "media_files": []
-                          },
-                          {
-                            "question_number": "4",
-                            "question_text": "Describe six Integrated Development Environment (IDE) tools used in the development and debugging of programs. [6]",
-                            "mark_scheme": "Award 1 mark for each up to a maximum of 6\n\nAny six of:\n- Editor: this allows a programmer to enter and edit source code/annotation\n- Compiler: Translates source code into machine code\n- Interpreter: Translates each line/a single line of source code and executes it\n- Automatic formatting: Correctly indents code\n- Automatic colour coding: Changes key words, literals and annotation to different colours\n- Linker: this is a program which allows previously compiled code, from software libraries, to be linked together\n- Loader: this is a program which loads previously compiled code into memory.\n- Debugger: this is a program which helps locate, identify and rectify errors in a program\n- Syntax error detection: Highlighting syntax errors before code is translated\n- Trace: this is a facility which displays the order in which the lines of a program are executed, and possibly the values of variables as the program is being run\n- Break point: this is a facility which interrupts a program on a specific line of code, allowing the programmer to compare the values of variables against expected values. The program code can then usually be executed one line at a time. This is called single-stepping\n- Variable watch: this is a facility which displays the current value of any variable. The value can be 'watched' as the program code is single-stepped to see the effects of the code on the variable. Alternatively a variable watch may be set, which will interrupt the program flow if the watched variable reaches a specified value\n- Memory inspector: this is a facility which will display the contents of a section of memory\n- Error diagnostics: these are used when a program fails to compile or to run. Error messages are displayed to help the programmer diagnose what has gone wrong\n- Emulator: will provide an emulator to run the code/app so no physical device required\n- Context sensitive menu: IDE suggests available options\n- Statement completion: IDE will complete a statement such as adding an 'end if' to an 'if' statement\n- GUI creation: Allows programmer to create a GUI by dragging and dropping controls (buttons, etc...) onto a form.\n- Publisher: facility to package up and deploy program as an easy to install package\n- Code optimisation: Warning message when variables have been declared but not used.\nAccept use of IDE/SDE/SDK interchangeably",
-                            "max_marks": 6,
-                            "assessment_objectives": [
-                              "AO1",
-                              "AO2"
-                            ],
-                            "sub_questions": [],
-                            "media_files": []
-                          },
-                          {
-                            "question_number": "5",
-                            "question_text": "",
-                            "mark_scheme": "",
-                            "max_marks": 5,
-                            "assessment_objectives": [
-                              "AO1"
-                            ],
-                            "sub_questions": [
-                              {
-                                "question_number": "5a",
-                                "question_text": "Data can be transmitted using different methods. Describe simplex, half-duplex and full duplex transmission methods.",
-                                "mark_scheme": "Award 1 mark for each:\n- Simplex: Data transmission is possible in one direction only.\n- Half duplex: Data transmission is possible in both directions, but only in one direction at a time.\n- Full duplex: Data transmission is possible in both directions simultaneously.",
-                                "max_marks": 3,
-                                "assessment_objectives": [
-                                  "AO1"
-                                ],
-                                "media_files": []
-                              },
-                              {
-                                "question_number": "5b",
-                                "question_text": "Describe what is meant by a data collision on a bus network and how such collisions should be dealt with.",
-                                "mark_scheme": "Award 1 mark for each:\n- Data collision occurs when two sets of data are detected on the network simultaneously.\n- Once detected, a computer waits for a short (random) time then sends again.",
-                                "max_marks": 2,
-                                "assessment_objectives": [
-                                  "AO1"
-                                ],
-                                "media_files": []
-                              }
-                            ],
-                            "media_files": []
-                          }
-                        ],
-                        "processed_at": "2025-05-02T07:53:43.637416"
+                        "question_start_index": 1
                       }
                     ],
                     "Mark Scheme": [
@@ -810,7 +690,191 @@
                         "id": "s23-2500u20-1a",
                         "content_path": "ocr_results/s23-2500u20-1a.json",
                         "metadata_path": "Index/metadata/question_papers/s23-2500u20-1a-metadata.json",
-                        "question_start_index": 2
+                        "question_start_index": 2,
+                        "questions": [
+                          {
+                            "question_number": "1",
+                            "question_text": "From the algorithm given identify an example of the following and describe its role in the algorithm:\n\n- Constant\n- Local variable\n- Global variable\n- Self-documenting identifier\n- Annotation\n- Procedure calling\n- Parameter passing\n- Return a value.",
+                            "mark_scheme": "Indicative content:\n- Constant\n  - Example: `PASSENGERWEIGHT = 150`\n  - Role: Sets the value of PASSENGERWEIGHT to 150 and is not changeable later in the program.\n- Local variable\n  - Example: `passengers is integer`\n  - Role: Sets up a variable that is accessible only within the subroutine / main program.\n- Global variable\n  - Example: `weight[4,2] is real`\n  - Role: Sets a variable that can be accessed by the whole program at any time.\n- Self-documenting identifier\n  - Example: `PASSENGERWEIGHT`\n  - Role: A variable or subroutine declaration which is self-explanatory.\n- Annotation\n  - Example: `(average weight of a passenger)`\n  - Role: A line of non-code/natural language which is intended to add explanation to a programmer.\n- Procedure calling\n  - Example: `completed = fillArray(passengers)`\n  - Role: A line of code that calls for the execution of a different routine.\n- Parameter passing\n  - Example: `fillArray(passengers)`\n  - Role: Passing information to a different routine.\n- Return a value\n  - Example: `return TRUE`\n  - Role: Returning a value from a subroutine when the program continues.",
+                            "max_marks": 8,
+                            "assessment_objectives": [
+                              "AO2",
+                              "AO3"
+                            ],
+                            "sub_questions": [
+                              {
+                                "question_number": "1a",
+                                "question_text": "Constant",
+                                "mark_scheme": "Example: `PASSENGERWEIGHT = 150`\nRole: Sets the value of PASSENGERWEIGHT to 150 and is not changeable later in the program.",
+                                "max_marks": 1,
+                                "assessment_objectives": [
+                                  "AO3"
+                                ],
+                                "media_files": []
+                              },
+                              {
+                                "question_number": "1b",
+                                "question_text": "Local variable",
+                                "mark_scheme": "Example: `passengers is integer`\nRole: Sets up a variable that is accessible only within the subroutine / main program.",
+                                "max_marks": 1,
+                                "assessment_objectives": [
+                                  "AO3"
+                                ],
+                                "media_files": []
+                              },
+                              {
+                                "question_number": "1c",
+                                "question_text": "Global variable",
+                                "mark_scheme": "Example: `weight[4,2] is real`\nRole: Sets a variable that can be accessed by the whole program at any time.",
+                                "max_marks": 1,
+                                "assessment_objectives": [
+                                  "AO3"
+                                ],
+                                "media_files": []
+                              },
+                              {
+                                "question_number": "1d",
+                                "question_text": "Self-documenting identifier",
+                                "mark_scheme": "Example: `PASSENGERWEIGHT`\nRole: A variable or subroutine declaration which is self-explanatory.",
+                                "max_marks": 1,
+                                "assessment_objectives": [
+                                  "AO3"
+                                ],
+                                "media_files": []
+                              },
+                              {
+                                "question_number": "1e",
+                                "question_text": "Annotation",
+                                "mark_scheme": "Example: `(average weight of a passenger)`\nRole: A line of non-code/natural language which is intended to add explanation to a programmer.",
+                                "max_marks": 1,
+                                "assessment_objectives": [
+                                  "AO3"
+                                ],
+                                "media_files": []
+                              },
+                              {
+                                "question_number": "1f",
+                                "question_text": "Procedure calling",
+                                "mark_scheme": "Example: `completed = fillArray(passengers)`\nRole: A line of code that calls for the execution of a different routine.",
+                                "max_marks": 1,
+                                "assessment_objectives": [
+                                  "AO3"
+                                ],
+                                "media_files": []
+                              },
+                              {
+                                "question_number": "1g",
+                                "question_text": "Parameter passing",
+                                "mark_scheme": "Example: `fillArray(passengers)`\nRole: Passing information to a different routine.",
+                                "max_marks": 1,
+                                "assessment_objectives": [
+                                  "AO3"
+                                ],
+                                "media_files": []
+                              },
+                              {
+                                "question_number": "1h",
+                                "question_text": "Return a value",
+                                "mark_scheme": "Example: `return TRUE`\nRole: Returning a value from a subroutine when the program continues.",
+                                "max_marks": 1,
+                                "assessment_objectives": [
+                                  "AO3"
+                                ],
+                                "media_files": []
+                              }
+                            ],
+                            "media_files": []
+                          },
+                          {
+                            "question_number": "2",
+                            "question_text": "Sky Balloon Park wants a prototype computer system to be developed using Visual Basic.\n\n1. Open the file skycustomers\n\n- Read through the code and familiarise yourself with its contents.\n- The file contains incomplete code which attempts to save customer details and return the number of customers on file that match the search criteria entered.\n\nComplete this code.\nSave the changes made to the file.\n2. Using the internal facility of your chosen language, annotate the code from Question BI above to clearly explain the design of this program to another software developer.\n\nSave the annotation within the file.\n3. Create a new program to allow Sky Balloon Park to record details about upcoming trips.\n\nThe new program must accept:\n- TripID\n- Date\n- Time\n- Description\nThe program should have a Save facility and a Load facility.\nSave the new program as Trips.",
+                            "mark_scheme": "Section B\n\n| Question | Answer | Mark | AO1 | AO2 | AO3 | Total |\n| :--: | :--: | :--: | :--: | :--: | :--: | :--: |\n| 1. | Award 1 mark for each corrected line of code: <br> Indicative content: <br> - Declaration of main program <br> - Declaration of Save subroutine <br> - Declaration of count subroutine <br> - Declaration for data type/structure etc. | 4 |  |  | 3.1b | 4 |\n| 2. | Award one mark for each clear annotation of up to four of the following steps within the following routines: <br> - Setting up a data structure <br> - Creating a new blank file <br> - Copying data from screen textboxes to data structure <br> - Writing of data to file <br> - Retrieving data from file <br> - Splitting into array/textboxes/variables <br> - Looking/counting of items required <br> - Validation <br> Max 4 marks. | 4 |  |  | 3.1a | 4 |\n| 3. | Award 1 mark for each functional aspect of code from bullets below. <br> Indicative content: <br> - New program exists and can be run Includes: <br> - TripID <br> - Date <br> - Time (AM/PM) <br> - Description <br> - Save Button/function exists <br> - Load/recall Button/option exists <br> - Usable/clear UI (GUI or CLI) | 8 |  |  | 3.1b | 8 |",
+                            "max_marks": 16,
+                            "assessment_objectives": [
+                              "AO1",
+                              "AO2",
+                              "AO3"
+                            ],
+                            "sub_questions": [
+                              {
+                                "question_number": "2.1",
+                                "question_text": "Open the file skycustomers\n\n- Read through the code and familiarise yourself with its contents.\n- The file contains incomplete code which attempts to save customer details and return the number of customers on file that match the search criteria entered.\n\nComplete this code.\nSave the changes made to the file.",
+                                "mark_scheme": "Award 1 mark for each corrected line of code: <br> Indicative content: <br> - Declaration of main program <br> - Declaration of Save subroutine <br> - Declaration of count subroutine <br> - Declaration for data type/structure etc.",
+                                "max_marks": 4,
+                                "assessment_objectives": [
+                                  "AO3"
+                                ],
+                                "media_files": []
+                              },
+                              {
+                                "question_number": "2.2",
+                                "question_text": "Using the internal facility of your chosen language, annotate the code from Question BI above to clearly explain the design of this program to another software developer.\n\nSave the annotation within the file.",
+                                "mark_scheme": "Award one mark for each clear annotation of up to four of the following steps within the following routines: <br> - Setting up a data structure <br> - Creating a new blank file <br> - Copying data from screen textboxes to data structure <br> - Writing of data to file <br> - Retrieving data from file <br> - Splitting into array/textboxes/variables <br> - Looking/counting of items required <br> - Validation <br> Max 4 marks.",
+                                "max_marks": 4,
+                                "assessment_objectives": [
+                                  "AO3"
+                                ],
+                                "media_files": []
+                              },
+                              {
+                                "question_number": "2.3",
+                                "question_text": "Create a new program to allow Sky Balloon Park to record details about upcoming trips.\n\nThe new program must accept:\n- TripID\n- Date\n- Time\n- Description\nThe program should have a Save facility and a Load facility.\nSave the new program as Trips.",
+                                "mark_scheme": "Award 1 mark for each functional aspect of code from bullets below. <br> Indicative content: <br> - New program exists and can be run Includes: <br> - TripID <br> - Date <br> - Time (AM/PM) <br> - Description <br> - Save Button/function exists <br> - Load/recall Button/option exists <br> - Usable/clear UI (GUI or CLI)",
+                                "max_marks": 8,
+                                "assessment_objectives": [
+                                  "AO3"
+                                ],
+                                "media_files": []
+                              }
+                            ],
+                            "media_files": []
+                          },
+                          {
+                            "question_number": "3",
+                            "question_text": "Sky Balloon Park wants a prototype computer system to be developed using Java\n\n1. Open the file skycustomers\n\n- Read through the code and familiarise yourself with its contents.\n- The file contains incomplete code which attempts to save customer details and return the number of customers on file that match the search criteria entered.\n\nComplete this code.\nSave the changes made to the file.\n2. Using the internal facility of your chosen language, annotate the code from Question BII above to clearly explain the design of this program to another software developer.\n\nSave the annotation within the file.\n3. Create a new program to allow Sky Balloon Park to record details about upcoming trips.\n\nThe new program must accept:\n- TripID\n- Date\n- Time\n- Description\nThe program should have a Save facility and a Load facility.\nSave the new program as Trips.",
+                            "mark_scheme": "Section B\n\n| Question | Answer | Mark | AO1 | AO2 | AO3 | Total |\n| :--: | :--: | :--: | :--: | :--: | :--: | :--: |\n| 1. | Award 1 mark for each corrected line of code: <br> Indicative content: <br> - Declaration of main program <br> - Declaration of Save subroutine <br> - Declaration of count subroutine <br> - Declaration for data type/structure etc. | 4 |  |  | 3.1b | 4 |\n| 2. | Award one mark for each clear annotation of up to four of the following steps within the following routines: <br> - Setting up a data structure <br> - Creating a new blank file <br> - Copying data from screen textboxes to data structure <br> - Writing of data to file <br> - Retrieving data from file <br> - Splitting into array/textboxes/variables <br> - Looking/counting of items required <br> - Validation <br> Max 4 marks. | 4 |  |  | 3.1a | 4 |\n| 3. | Award 1 mark for each functional aspect of code from bullets below. <br> Indicative content: <br> - New program exists and can be run Includes: <br> - TripID <br> - Date <br> - Time (AM/PM) <br> - Description <br> - Save Button/function exists <br> - Load/recall Button/option exists <br> - Usable/clear UI (GUI or CLI) | 8 |  |  | 3.1b | 8 |",
+                            "max_marks": 16,
+                            "assessment_objectives": [
+                              "AO1",
+                              "AO2",
+                              "AO3"
+                            ],
+                            "sub_questions": [
+                              {
+                                "question_number": "3.1",
+                                "question_text": "Open the file skycustomers\n\n- Read through the code and familiarise yourself with its contents.\n- The file contains incomplete code which attempts to save customer details and return the number of customers on file that match the search criteria entered.\n\nComplete this code.\nSave the changes made to the file.",
+                                "mark_scheme": "Award 1 mark for each corrected line of code: <br> Indicative content: <br> - Declaration of main program <br> - Declaration of Save subroutine <br> - Declaration of count subroutine <br> - Declaration for data type/structure etc.",
+                                "max_marks": 4,
+                                "assessment_objectives": [
+                                  "AO3"
+                                ],
+                                "media_files": []
+                              },
+                              {
+                                "question_number": "3.2",
+                                "question_text": "Using the internal facility of your chosen language, annotate the code from Question BII above to clearly explain the design of this program to another software developer.\n\nSave the annotation within the file.",
+                                "mark_scheme": "Award one mark for each clear annotation of up to four of the following steps within the following routines: <br> - Setting up a data structure <br> - Creating a new blank file <br> - Copying data from screen textboxes to data structure <br> - Writing of data to file <br> - Retrieving data from file <br> - Splitting into array/textboxes/variables <br> - Looking/counting of items required <br> - Validation <br> Max 4 marks.",
+                                "max_marks": 4,
+                                "assessment_objectives": [
+                                  "AO3"
+                                ],
+                                "media_files": []
+                              },
+                              {
+                                "question_number": "3.3",
+                                "question_text": "Create a new program to allow Sky Balloon Park to record details about upcoming trips.\n\nThe new program must accept:\n- TripID\n- Date\n- Time\n- Description\nThe program should have a Save facility and a Load facility.\nSave the new program as Trips.",
+                                "mark_scheme": "Award 1 mark for each functional aspect of code from bullets below. <br> Indicative content: <br> - New program exists and can be run Includes: <br> - TripID <br> - Date <br> - Time (AM/PM) <br> - Description <br> - Save Button/function exists <br> - Load/recall Button/option exists <br> - Usable/clear UI (GUI or CLI)",
+                                "max_marks": 8,
+                                "assessment_objectives": [
+                                  "AO3"
+                                ],
+                                "media_files": []
+                              }
+                            ],
+                            "media_files": []
+                          }
+                        ],
+                        "processed_at": "2025-05-02T09:00:45.413947"
                       }
                     ]
                   },
