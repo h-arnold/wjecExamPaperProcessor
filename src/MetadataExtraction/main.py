@@ -2,8 +2,7 @@
 Metadata extraction script for WJEC Exam Paper Processor.
 
 This module provides functionality to extract metadata from OCR results
-without interfering with the existing OCR process. It can be called
-independently as part of a multi-stage processing pipeline.
+and store it in MongoDB.
 """
 
 import os
@@ -14,29 +13,21 @@ from typing import Dict, Any, List, Union
 from src.Llm_client.factory import LLMClientFactory
 from src.MetadataExtraction.document_processor import DocumentProcessor
 from src.FileManager.file_manager import MetadataFileManager
-from src.IndexManager.index_manager import IndexManager
 from src.DBManager.db_manager import DBManager
-
 
 
 def extract_metadata_from_file(
     ocr_file_path: Union[str, Path],
     api_key: str,
-    base_metadata_dir: str = "metadata",
-    index_path: str = "index.json",
-    provider: str = "mistral",
-    use_db: bool = True
+    provider: str = "mistral"
 ) -> Dict[str, Any]:
     """
-    Extract metadata from a single OCR JSON file.
+    Extract metadata from a single OCR JSON file and store in MongoDB.
     
     Args:
         ocr_file_path: Path to the OCR JSON file
         api_key: API key for the LLM provider
-        base_metadata_dir: Base directory for metadata files
-        index_path: Path to the index file
         provider: LLM provider to use
-        use_db: Whether to use database functionality (default True)
         
     Returns:
         Dict containing the extracted metadata and processing information
@@ -49,36 +40,30 @@ def extract_metadata_from_file(
         model="mistral-small-latest" if provider == "mistral" else None
     )
     
-   
-    # Create file and index managers first
-    file_manager = MetadataFileManager(base_dir=base_metadata_dir)
-    index_manager = IndexManager(index_path=index_path)
+    # Create file manager for reading OCR files
+    file_manager = MetadataFileManager()
     
-    # Create document processor with properly instantiated managers
+    # Get MongoDB connection string from environment variable
+    mongo_uri = os.environ.get("MONGODB_URI")
+    if not mongo_uri:
+        raise ValueError("MONGODB_URI environment variable must be set for MongoDB connection")
+    
+    # Create DB manager with the MongoDB connection
+    db_manager = DBManager(connection_string=mongo_uri)
+    
+    # Create document processor with MongoDB connection
     processor = DocumentProcessor(
         llm_client=llm_client,
         file_manager=file_manager,
-        index_manager=index_manager,
-        use_db=use_db
+        db_manager=db_manager
     )
     
-   
     # Process the document
-    store_in_db = use_db  # Only try to store in DB if use_db is True
-    result = processor.process_document(ocr_file_path, store_in_db=store_in_db, store_in_file=True)
+    result = processor.process_document(ocr_file_path)
     
     print(f"\nSuccessfully processed document: {ocr_file_path}")
     print(f"Document ID: {result['document_id']}")
     print(f"Document Type: {result['metadata']['Type']}")
-    print(f"Metadata saved to: {result['metadata_path']}")
-    
-    # Print related documents if any
-    if result['related_documents']:
-        print("\nRelated documents:")
-        for doc in result['related_documents']:
-            print(f"- {doc['id']} ({doc['type']})")
-    else:
-        print("\nNo related documents found.")
     
     return result
 
@@ -87,22 +72,18 @@ def extract_metadata_from_directory(
     directory_path: Union[str, Path],
     api_key: str,
     pattern: str = "*.json",
-    base_metadata_dir: str = "metadata",
-    index_path: str = "index.json",
     provider: str = "mistral",
-    use_db: bool = True
+    batch_size: int = 20
 ) -> List[Dict[str, Any]]:
     """
-    Extract metadata from all JSON files in a directory.
+    Extract metadata from all JSON files in a directory and store in MongoDB.
     
     Args:
         directory_path: Path to directory containing OCR JSON files
         api_key: API key for the LLM provider
         pattern: Glob pattern for matching OCR files
-        base_metadata_dir: Base directory for metadata files
-        index_path: Path to the index file
         provider: LLM provider to use
-        use_db: Whether to use database functionality (default True)
+        batch_size: Size of batches for bulk operations
         
     Returns:
         List of dictionaries containing extraction results
@@ -115,23 +96,26 @@ def extract_metadata_from_directory(
         model="mistral-small-latest" if provider == "mistral" else None
     )
     
+    # Create file manager for reading OCR files
+    file_manager = MetadataFileManager()
     
-    # Create file and index managers first
-    file_manager = MetadataFileManager(base_dir=base_metadata_dir)
-    index_manager = IndexManager(index_path=index_path)
+    # Get MongoDB connection string from environment variable
+    mongo_uri = os.environ.get("MONGODB_URI")
+    if not mongo_uri:
+        raise ValueError("MONGODB_URI environment variable must be set for MongoDB connection")
     
-    # Create document processor with properly instantiated managers
+    # Create DB manager with the MongoDB connection
+    db_manager = DBManager(connection_string=mongo_uri)
+    
+    # Create document processor with MongoDB connection
     processor = DocumentProcessor(
         llm_client=llm_client,
         file_manager=file_manager,
-        index_manager=index_manager,
-        use_db=use_db
+        db_manager=db_manager
     )
     
-
     # Process the directory
-    store_in_db = use_db  # Only try to store in DB if use_db is True
-    results = processor.process_directory(directory_path, pattern, store_in_db=store_in_db, store_in_file=True)
+    results = processor.process_directory(directory_path, pattern, batch_size=batch_size)
     
     # Print summary
     print(f"\nProcessed {len(results)} documents from {directory_path}")
@@ -139,7 +123,8 @@ def extract_metadata_from_directory(
     
     types = {}
     for result in results:
-        doc_type = result['metadata'].get('Type')
+        doc_type = result['metadata'].get('paper_type', 
+                 result['metadata'].get('Type', 'Unknown')) if 'metadata' in result else 'Unknown'
         if doc_type in types:
             types[doc_type] += 1
         else:
@@ -152,39 +137,44 @@ def extract_metadata_from_directory(
 
 
 def main():
-    """Command-line entry point for metadata extraction.
-    This function provides a CLI interface for extracting metadata from WJEC exam paper OCR results.
-    It handles processing either a single file or multiple files in a directory,
-    and manages the LLM API keys and other configuration options.
+    """
+    Command-line entry point for metadata extraction.
+    
+    This function provides a CLI interface for extracting metadata from WJEC exam paper OCR results
+    and storing it in MongoDB.
+    
     Arguments:
         No direct arguments, but accepts command-line arguments:
         --file, -f: Path to a single OCR JSON file to process
         --directory, -d: Path to directory containing OCR JSON files
         --pattern, -p: Glob pattern for matching OCR files (default: *.json)
-        --metadata-dir: Base directory for metadata files (default: metadata)
-        --index: Path to the index file (default: index.json)
         --provider: LLM provider to use (default: mistral)
         --api-key, -k: LLM API key (can also be set via environment variable)
+        --db-connection: MongoDB connection string (can also be set via MONGODB_URI environment variable)
+        --batch-size: Size of batches for bulk operations (default: 20)
+    
     Returns:
         int: 0 for success, 1 for error conditions
+    
     Examples:
         # Process a single file
         python metadata_extraction.py --file path/to/ocr_result.json
+        
         # Process all JSON files in a directory
         python metadata_extraction.py --directory path/to/ocr_results
+        
         # Process only specific JSON files
         python metadata_extraction.py --directory path/to/ocr_results --pattern "*_ocr.json"
-        # Specify a custom prompt
-        python metadata_extraction.py --file path/to/ocr_result.json --prompt custom_prompt.md
+        
         # Use a specific API key
         python metadata_extraction.py --file path/to/ocr_result.json --api-key YOUR_API_KEY
+        
         # Use an environment variable for the API key
         # export MISTRAL_API_KEY=your_key
         python metadata_extraction.py --file path/to/ocr_result.json
     """
-    """Command-line entry point for metadata extraction."""
     parser = argparse.ArgumentParser(
-        description='Extract metadata from WJEC exam paper OCR results.'
+        description='Extract metadata from WJEC exam paper OCR results and store in MongoDB.'
     )
     
     # Define command-line arguments
@@ -203,16 +193,6 @@ def main():
         help='Glob pattern for matching OCR files (default: *.json)'
     )
     parser.add_argument(
-        '--metadata-dir',
-        default='metadata',
-        help='Base directory for metadata files (default: metadata)'
-    )
-    parser.add_argument(
-        '--index',
-        default='index.json',
-        help='Path to the index file (default: index.json)'
-    )
-    parser.add_argument(
         '--provider',
         default='mistral',
         choices=['mistral'],  # Can add more providers later
@@ -223,14 +203,14 @@ def main():
         help='LLM API key (can also be set via environment variable)'
     )
     parser.add_argument(
-        '--use-db',
-        action='store_true',
-        default=True,
-        help='Store metadata in MongoDB instead of/in addition to files'
-    )
-    parser.add_argument(
         '--db-connection',
         help='MongoDB connection string (can also be set via MONGODB_URI environment variable)'
+    )
+    parser.add_argument(
+        '--batch-size',
+        type=int,
+        default=20,
+        help='Size of batches for bulk operations (default: 20)'
     )
     
     args = parser.parse_args()
@@ -247,53 +227,40 @@ def main():
         print(f"Use --api-key or set {args.provider.upper()}_API_KEY environment variable.")
         return 1
     
-    # Set up database connection if requested
-    db_manager = None
-    if args.use_db:
-        # Get connection string from args or environment
-        db_connection = args.db_connection or os.environ.get('MONGODB_URI')
-        if not db_connection:
-            print("Warning: Database storage requested but no connection string provided.")
-            print("Using default connection. Set --db-connection or MONGODB_URI environment variable for custom connection.")
-        
-        # Create DB manager
-        try:
-            db_manager = DBManager(connection_string=db_connection)
-            print(f"Successfully connected to MongoDB database.")
-        except Exception as e:
-            print(f"Error connecting to MongoDB: {e}")
-            print("Falling back to file-based storage only.")
-            args.use_db = False
+    # Set up database connection
+    db_connection = args.db_connection or os.environ.get('MONGODB_URI')
+    if not db_connection:
+        print("Note: No MongoDB connection string provided.")
+        print("Using default connection. Set --db-connection or MONGODB_URI environment variable for custom connection.")
+    
+    # Configure MongoDB via environment variable for the DBManager to use
+    if db_connection:
+        os.environ['MONGODB_URI'] = db_connection
     
     # Process file or directory
-    if args.file:
-        extract_metadata_from_file(
-            ocr_file_path=args.file,
-            api_key=api_key,
-            base_metadata_dir=args.metadata_dir,
-            index_path=args.index,
-            provider=args.provider,
-            use_db=args.use_db
-        )
-    elif args.directory:
-        extract_metadata_from_directory(
-            directory_path=args.directory,
-            api_key=api_key,
-            pattern=args.pattern,
-            base_metadata_dir=args.metadata_dir,
-            index_path=args.index,
-            provider=args.provider,
-            use_db=args.use_db
-        )
-    else:
-        print("Error: Either --file or --directory must be specified.")
-        parser.print_help()
+    try:
+        if args.file:
+            extract_metadata_from_file(
+                ocr_file_path=args.file,
+                api_key=api_key,
+                provider=args.provider
+            )
+        elif args.directory:
+            extract_metadata_from_directory(
+                directory_path=args.directory,
+                api_key=api_key,
+                pattern=args.pattern,
+                provider=args.provider,
+                batch_size=args.batch_size
+            )
+        else:
+            print("Error: Either --file or --directory must be specified.")
+            parser.print_help()
+            return 1
+            
+    except ValueError as e:
+        print(f"Error: {str(e)}")
         return 1
-    
-    # Close database connection if it was opened
-    if db_manager:
-        db_manager.disconnect()
-        print("Closed MongoDB connection.")
     
     return 0
 

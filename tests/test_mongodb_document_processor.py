@@ -17,10 +17,9 @@ from unittest.mock import patch, MagicMock, call
 sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
 
 from src.MetadataExtraction.document_processor import DocumentProcessor
-from src.DBManager.dbManager import DBManager
+from src.DBManager.db_manager import DBManager
 from src.Llm_client.base_client import LLMClient
 from src.FileManager.file_manager import MetadataFileManager
-from src.IndexManager.index_manager import IndexManager
 from src.MetadataExtraction.metadata_extractor import MetadataExtractor
 
 
@@ -54,25 +53,6 @@ def mock_file_manager():
     # Configure read_ocr_file to return some dummy content
     mock_manager.read_ocr_file.return_value = [{"page_number": 1, "text": "Sample OCR content"}]
     
-    # Configure save_metadata to return a file path
-    mock_manager.save_metadata.return_value = Path("mock/path/test-doc-id-metadata.json")
-    
-    return mock_manager
-
-
-@pytest.fixture
-def mock_index_manager():
-    """Mock index manager for testing."""
-    mock_manager = MagicMock(spec=IndexManager)
-    
-    # Configure update_index to return an index entry
-    mock_manager.update_index.return_value = {"id": "test-doc-id", "type": "Question Paper"}
-    
-    # Configure find_related_documents to return a list of related documents
-    mock_manager.find_related_documents.return_value = [
-        {"id": "test-doc-id-ms", "type": "Mark Scheme"}
-    ]
-    
     return mock_manager
 
 
@@ -94,12 +74,11 @@ def mock_db_manager():
 
 
 @pytest.fixture
-def setup_document_processor(mock_llm_client, mock_file_manager, mock_index_manager, mock_db_manager):
+def setup_document_processor(mock_llm_client, mock_file_manager, mock_db_manager):
     """Set up DocumentProcessor with mock dependencies."""
     processor = DocumentProcessor(
         llm_client=mock_llm_client,
         file_manager=mock_file_manager,
-        index_manager=mock_index_manager,
         db_manager=mock_db_manager
     )
     
@@ -172,20 +151,27 @@ class TestDocumentProcessorInitialization:
             assert kwargs.get('connection_string') == mongodb_config['connection_string']
             assert kwargs.get('database_name') == mongodb_config['database_name']
             assert kwargs.get('timeout_ms') == mongodb_config['timeout_ms']
+    
+    def test_init_without_db_manager_raises_error(self, mock_llm_client):
+        """Test that initialization without a DBManager raises an error."""
+        with pytest.raises(ValueError, match="DBManager is required"):
+            DocumentProcessor(
+                llm_client=mock_llm_client,
+                db_manager=None,
+                mongodb_config=None  # No MongoDB config either
+            )
 
 
 class TestProcessDocument:
     """Test processing individual documents with MongoDB integration."""
     
-    def test_process_document_mongodb_only(self, setup_document_processor):
-        """Test processing a document with MongoDB storage only."""
+    def test_process_document_mongodb_storage(self, setup_document_processor):
+        """Test processing a document with MongoDB storage."""
         processor = setup_document_processor
         
-        # Process document with MongoDB storage only
+        # Process document with MongoDB storage
         result = processor.process_document(
-            ocr_file_path="mock/path/test-doc-id.json",
-            store_in_db=True,
-            store_in_file=False
+            ocr_file_path="mock/path/test-doc-id.json"
         )
         
         # Verify document was checked for existence
@@ -194,94 +180,13 @@ class TestProcessDocument:
         # Verify metadata was extracted
         processor.metadata_extractor.extract_metadata.assert_called_once()
         
-        # Verify metadata was not saved to file
-        processor.file_manager.save_metadata.assert_not_called()
-        
         # Verify metadata was saved to MongoDB
         processor.db_manager.save_exam_metadata.assert_called_once()
         
         # Verify result contains expected fields
         assert result["document_id"] == "test-doc-id"
         assert "metadata" in result
-        assert "stored_in_db" in result
-        assert result["stored_in_db"] is True
         assert "mongodb_id" in result
-        
-        # Verify index was not updated (file storage disabled)
-        processor.index_manager.update_index.assert_not_called()
-    
-    def test_process_document_file_only(self, setup_document_processor):
-        """Test processing a document with file storage only."""
-        processor = setup_document_processor
-        
-        # Process document with file storage only
-        result = processor.process_document(
-            ocr_file_path="mock/path/test-doc-id.json",
-            store_in_db=False,
-            store_in_file=True
-        )
-        
-        # Verify document existence was not checked (DB storage disabled)
-        processor.db_manager.document_exists.assert_not_called()
-        
-        # Verify metadata was extracted
-        processor.metadata_extractor.extract_metadata.assert_called_once()
-        
-        # Verify metadata was saved to file
-        processor.file_manager.save_metadata.assert_called_once()
-        
-        # Verify metadata was not saved to MongoDB
-        processor.db_manager.save_exam_metadata.assert_not_called()
-        
-        # Verify result contains expected fields
-        assert result["document_id"] == "test-doc-id"
-        assert "metadata" in result
-        assert "metadata_path" in result
-        assert "index_entry" in result
-        
-        # Verify index was updated
-        processor.index_manager.update_index.assert_called_once()
-        
-        # Verify related documents were found
-        processor.index_manager.find_related_documents.assert_called_once_with("test-doc-id")
-    
-    def test_process_document_both_storage_options(self, setup_document_processor):
-        """Test processing a document with both storage options."""
-        processor = setup_document_processor
-        
-        # Process document with both storage options
-        result = processor.process_document(
-            ocr_file_path="mock/path/test-doc-id.json",
-            store_in_db=True,
-            store_in_file=True
-        )
-        
-        # Verify document was checked for existence
-        processor.db_manager.document_exists.assert_called_once_with("test-doc-id")
-        
-        # Verify metadata was extracted
-        processor.metadata_extractor.extract_metadata.assert_called_once()
-        
-        # Verify metadata was saved to file
-        processor.file_manager.save_metadata.assert_called_once()
-        
-        # Verify metadata was saved to MongoDB
-        processor.db_manager.save_exam_metadata.assert_called_once()
-        
-        # Verify result contains expected fields
-        assert result["document_id"] == "test-doc-id"
-        assert "metadata" in result
-        assert "metadata_path" in result
-        assert "stored_in_db" in result
-        assert result["stored_in_db"] is True
-        assert "mongodb_id" in result
-        assert "index_entry" in result
-        
-        # Verify index was updated
-        processor.index_manager.update_index.assert_called_once()
-        
-        # Verify related documents were found
-        processor.index_manager.find_related_documents.assert_called_once_with("test-doc-id")
     
     def test_process_document_existing_in_mongodb(self, setup_document_processor):
         """Test processing a document that already exists in MongoDB."""
@@ -303,9 +208,7 @@ class TestProcessDocument:
         
         # Process document
         result = processor.process_document(
-            ocr_file_path="mock/path/test-doc-id.json",
-            store_in_db=True,
-            store_in_file=False
+            ocr_file_path="mock/path/test-doc-id.json"
         )
         
         # Verify document was checked for existence
@@ -327,8 +230,8 @@ class TestProcessDocument:
 class TestProcessDirectory:
     """Test processing directories with MongoDB integration."""
     
-    def test_process_directory_with_mongodb(self, setup_document_processor):
-        """Test directory processing with MongoDB storage."""
+    def test_process_directory_batch_processing(self, setup_document_processor):
+        """Test directory processing with batch processing."""
         processor = setup_document_processor
         
         # Mock glob to return a list of file paths
@@ -344,52 +247,18 @@ class TestProcessDirectory:
                 # Process directory
                 results = processor.process_directory(
                     directory_path="mock/path",
-                    pattern="*.json",
-                    store_in_db=True,
-                    store_in_file=False
+                    pattern="*.json"
                 )
                 
                 # Verify _process_directory_with_mongodb was called with correct parameters
                 mock_process_with_mongo.assert_called_once_with(
-                    test_files, False, 20
+                    test_files, 20
                 )
                 
                 # Verify results were returned from _process_directory_with_mongodb
                 assert len(results) == 2
                 assert results[0]["document_id"] == "file1"
                 assert results[1]["document_id"] == "file2"
-    
-    def test_process_directory_without_mongodb(self, setup_document_processor):
-        """Test directory processing without MongoDB storage."""
-        processor = setup_document_processor
-        
-        # Mock glob to return a list of file paths
-        test_files = [Path("mock/path/file1.json"), Path("mock/path/file2.json")]
-        with patch('pathlib.Path.glob', return_value=test_files):
-            # Mock process_document
-            with patch.object(processor, 'process_document') as mock_process_document:
-                mock_process_document.side_effect = [
-                    {"document_id": "file1", "status": "new"},
-                    {"document_id": "file2", "status": "new"}
-                ]
-                
-                # Process directory without MongoDB
-                results = processor.process_directory(
-                    directory_path="mock/path",
-                    pattern="*.json",
-                    store_in_db=False,
-                    store_in_file=True
-                )
-                
-                # Verify process_document was called for each file
-                assert mock_process_document.call_count == 2
-                mock_process_document.assert_has_calls([
-                    call(test_files[0], store_in_db=False, store_in_file=True),
-                    call(test_files[1], store_in_db=False, store_in_file=True)
-                ])
-                
-                # Verify results were aggregated correctly
-                assert len(results) == 2
     
     def test_process_directory_empty(self, setup_document_processor):
         """Test processing an empty directory."""
@@ -441,7 +310,6 @@ class TestProcessDirectoryWithMongoDB:
         with patch.object(processor, '_prepare_metadata_for_db', return_value={"subject": "Computer Science"}):
             results = processor._process_directory_with_mongodb(
                 file_paths=test_files,
-                store_in_file=False,
                 batch_size=3  # Use batch size of 3 to ensure a single batch for all files
             )
         

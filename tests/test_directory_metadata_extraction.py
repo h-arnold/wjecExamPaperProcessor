@@ -16,11 +16,9 @@ from src.MetadataExtraction.main import extract_metadata_from_directory
 def test_directory_metadata_extraction(
     ocr_directory_path: str,
     api_key: str = None,
-    prompt_path: str = "Prompts/metadataCreator.md",
     pattern: str = "*.json",
-    base_metadata_dir: str = "test_metadata",
-    index_path: str = "test_index.json",
-    provider: str = "mistral"
+    provider: str = "mistral",
+    batch_size: int = 20
 ):
     """
     Test metadata extraction on a directory of files with configurable parameters.
@@ -28,11 +26,9 @@ def test_directory_metadata_extraction(
     Args:
         ocr_directory_path: Path to directory containing OCR JSON files
         api_key: API key for the LLM provider (will use env var if None)
-        prompt_path: Path to metadata extraction prompt
         pattern: Glob pattern for matching OCR files
-        base_metadata_dir: Base directory for metadata files
-        index_path: Path to the index file
         provider: LLM provider to use
+        batch_size: Number of documents to process in each batch
         
     Returns:
         List of extraction result dictionaries
@@ -45,21 +41,24 @@ def test_directory_metadata_extraction(
         if api_key is None:
             raise ValueError(f"API key not provided and {provider.upper()}_API_KEY not set in environment")
     
+    # Check if MongoDB environment variables are set
+    mongodb_uri = os.environ.get("MONGODB_URI")
+    if not mongodb_uri:
+        raise ValueError("MONGODB_URI not set in environment. MongoDB connection is required.")
+    
     print(f"\n=== Testing directory metadata extraction on: {ocr_directory_path} ===")
     print(f"Using pattern: {pattern}")
-    print(f"Using prompt: {prompt_path}")
     print(f"Using provider: {provider}")
-    print(f"Metadata will be saved to: {base_metadata_dir}")
-    print(f"Index will be saved to: {index_path}")
+    print(f"Batch size: {batch_size}")
+    print(f"MongoDB URI: {mongodb_uri.split('@')[0]}@...")  # Hide sensitive connection details
     
     # Call the extraction function
     results = extract_metadata_from_directory(
         directory_path=ocr_directory_path,
         api_key=api_key,
         pattern=pattern,
-        base_metadata_dir=base_metadata_dir,
-        index_path=index_path,
-        provider=provider
+        provider=provider,
+        batch_size=batch_size
     )
     
     # Display summary of results
@@ -68,7 +67,7 @@ def test_directory_metadata_extraction(
     # Group documents by type
     types = {}
     for result in results:
-        doc_type = result['metadata'].get('Type')
+        doc_type = result['metadata'].get('paper_type', result['metadata'].get('Type', 'Unknown'))
         if doc_type in types:
             types[doc_type] += 1
         else:
@@ -86,11 +85,11 @@ def test_directory_metadata_extraction(
             result = results[i]
             print(f"\nDocument {i+1}:")
             print(f"ID: {result['document_id']}")
-            print(f"Type: {result['metadata']['Type']}")
-            print(f"Year: {result['metadata'].get('Year', 'N/A')}")
-            print(f"Qualification: {result['metadata'].get('Qualification', 'N/A')}")
-            print(f"Subject: {result['metadata'].get('Subject', 'N/A')}")
-            print(f"Metadata saved to: {result['metadata_path']}")
+            print(f"Type: {result['metadata'].get('paper_type', result['metadata'].get('Type', 'Unknown'))}")
+            print(f"Year: {result['metadata'].get('year', result['metadata'].get('Year', 'N/A'))}")
+            print(f"Qualification: {result['metadata'].get('qualification', result['metadata'].get('Qualification', 'N/A'))}")
+            print(f"Subject: {result['metadata'].get('subject', result['metadata'].get('Subject', 'N/A'))}")
+            print(f"MongoDB ID: {result.get('mongodb_id', 'Not stored')}")
     
     return results
 
@@ -107,24 +106,19 @@ if __name__ == "__main__":
     # API key - leave as None to use environment variable
     API_KEY = None
     
-    # Where to save test metadata (different from production to avoid mixing)
-    TEST_METADATA_DIR = "Index/metadata"
-    
-    # Where to save test index (different from production to avoid mixing)
-    TEST_INDEX_PATH = "Index/index.json"
-    
     # LLM provider to use
     PROVIDER = "mistral"
     
+    # Batch size for processing multiple documents
+    BATCH_SIZE = 20
     
     # Run the test
     test_results = test_directory_metadata_extraction(
         ocr_directory_path=TEST_OCR_DIR,
         api_key=API_KEY,
         pattern=TEST_PATTERN,
-        base_metadata_dir=TEST_METADATA_DIR,
-        index_path=TEST_INDEX_PATH,
-        provider=PROVIDER
+        provider=PROVIDER,
+        batch_size=BATCH_SIZE
     )
     
     # Execution will stop here if you've set a breakpoint in the VS Code debugger
