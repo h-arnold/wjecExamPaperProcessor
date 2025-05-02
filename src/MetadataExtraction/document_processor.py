@@ -32,7 +32,8 @@ class DocumentProcessor:
                  file_manager: Optional[MetadataFileManager] = None,
                  index_manager: Optional[IndexManager] = None,
                  db_manager: Optional[DBManager] = None,
-                 mongodb_config: Optional[Dict[str, Any]] = None
+                 mongodb_config: Optional[Dict[str, Any]] = None,
+                 use_db: bool = True
     ):
         """
         Initialize the document processor.
@@ -43,13 +44,17 @@ class DocumentProcessor:
             index_manager (IndexManager, optional): Index manager
             db_manager (DBManager, optional): Database manager
             mongodb_config (Dict[str, Any], optional): MongoDB configuration options
+            use_db (bool): Whether to use database functionality (default True)
         """
         self.llm_client = llm_client
         self.file_manager = file_manager or MetadataFileManager()
         self.index_manager = index_manager or IndexManager()
+        self.use_db = use_db
         
         # Handle the DBManager creation with proper config
-        if db_manager is not None:
+        if not use_db:
+            self.db_manager = None
+        elif db_manager is not None:
             self.db_manager = db_manager
         elif mongodb_config is not None:
             # Extract config values and pass them as individual parameters
@@ -60,7 +65,12 @@ class DocumentProcessor:
             )
         else:
             # Create with default parameters
-            self.db_manager = DBManager()
+            try:
+                self.db_manager = DBManager()
+            except ValueError:
+                print("Warning: Cannot connect to MongoDB. Database operations will be disabled.")
+                self.db_manager = None
+                self.use_db = False
             
         self.metadata_extractor = MetadataExtractor(llm_client)
         

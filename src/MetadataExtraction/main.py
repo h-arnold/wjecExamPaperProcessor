@@ -23,7 +23,8 @@ def extract_metadata_from_file(
     api_key: str,
     base_metadata_dir: str = "metadata",
     index_path: str = "index.json",
-    provider: str = "mistral"
+    provider: str = "mistral",
+    use_db: bool = True
 ) -> Dict[str, Any]:
     """
     Extract metadata from a single OCR JSON file.
@@ -34,12 +35,14 @@ def extract_metadata_from_file(
         base_metadata_dir: Base directory for metadata files
         index_path: Path to the index file
         provider: LLM provider to use
+        use_db: Whether to use database functionality (default True)
         
     Returns:
         Dict containing the extracted metadata and processing information
     """
-    # Create LLM client
-    llm_client = LLMClientFactory.create_client(
+    # Create LLM client using the factory instance
+    factory = LLMClientFactory()
+    llm_client = factory.create_specific_client(
         provider=provider,
         api_key=api_key,
         model="mistral-small-latest" if provider == "mistral" else None
@@ -54,12 +57,14 @@ def extract_metadata_from_file(
     processor = DocumentProcessor(
         llm_client=llm_client,
         file_manager=file_manager,
-        index_manager=index_manager
+        index_manager=index_manager,
+        use_db=use_db
     )
     
    
     # Process the document
-    result = processor.process_document(ocr_file_path)
+    store_in_db = use_db  # Only try to store in DB if use_db is True
+    result = processor.process_document(ocr_file_path, store_in_db=store_in_db, store_in_file=True)
     
     print(f"\nSuccessfully processed document: {ocr_file_path}")
     print(f"Document ID: {result['document_id']}")
@@ -99,8 +104,9 @@ def extract_metadata_from_directory(
     Returns:
         List of dictionaries containing extraction results
     """
-    # Create LLM client
-    llm_client = LLMClientFactory.create_client(
+    # Create LLM client using the factory instance
+    factory = LLMClientFactory()
+    llm_client = factory.create_specific_client(
         provider=provider,
         api_key=api_key,
         model="mistral-small-latest" if provider == "mistral" else None

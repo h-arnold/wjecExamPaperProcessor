@@ -7,10 +7,14 @@ This script can be run with the VS Code debugger to test the metadata extraction
 import os
 import sys
 import json
-from pathlib import Path
+from dotenv import load_dotenv
 
 # Add project root directory to path to ensure imports work
-sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
+project_root = os.path.abspath(os.path.join(os.path.dirname(__file__), '..'))
+sys.path.insert(0, project_root)
+
+# Load environment variables from root .env file
+load_dotenv(os.path.join(project_root, '.env'))
 
 # Import necessary modules from the project
 from src.MetadataExtraction.main import extract_metadata_from_file
@@ -45,19 +49,27 @@ def test_metadata_extraction(
         if api_key is None:
             raise ValueError(f"API key not provided and {provider.upper()}_API_KEY not set in environment")
     
+    # Check if MongoDB environment variables are set
+    mongodb_uri = os.environ.get("MONGODB_URI")
+    use_db = mongodb_uri is not None
+    if not use_db:
+        print("Warning: MONGODB_URI not set in environment. Database operations will be disabled.")
+    
     print(f"\n=== Testing metadata extraction on: {ocr_file_path} ===")
     print(f"Using prompt: {prompt_path}")
     print(f"Using provider: {provider}")
     print(f"Metadata will be saved to: {base_metadata_dir}")
     print(f"Index will be saved to: {index_path}")
+    print(f"Database operations enabled: {use_db}")
     
-    # Call the extraction function
+    # Call the extraction function with use_db parameter
     result = extract_metadata_from_file(
         ocr_file_path=ocr_file_path,
         api_key=api_key,
         base_metadata_dir=base_metadata_dir,
         index_path=index_path,
-        provider=provider
+        provider=provider,
+        use_db=use_db
     )
     
     # Display detailed results for debugging

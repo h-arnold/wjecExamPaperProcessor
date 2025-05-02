@@ -100,7 +100,7 @@ class MistralLLMClient(LLMClient):
         except json.JSONDecodeError as e:
             raise ValueError(f"Failed to parse JSON response from Mistral API: {e}")
     
-    def extract_metadata(self, prompt: str, system_prompt_override: Optional[str] = None) -> Dict[str, Any]:
+    def extract_metadata(self, prompt: str, system_prompt: Optional[str] = None) -> Dict[str, Any]:
         """
         Extract metadata using Mistral's understanding of the content.
         
@@ -111,4 +111,4 @@ class MistralLLMClient(LLMClient):
         Returns:
             Dict[str, Any]: The extracted metadata as a structured dictionary
         """
-        return self.generate_json(prompt, system_prompt_override=system_prompt_override)
+        return self.generate_json(prompt, system_prompt)
