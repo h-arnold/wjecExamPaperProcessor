@@ -597,6 +597,9 @@ class ExamContentParser:
         Raises:
             ValueError: If response is missing required fields
         """
+        # Store original response for logging purposes
+        original_response = response
+        
         # Handle raw string responses by extracting and parsing JSON
         if isinstance(response, str):
             # Extract JSON block if present
@@ -608,7 +611,10 @@ class ExamContentParser:
                 json_block = response
             try:
                 structured_data = json.loads(json_block)
-            except Exception:
+            except Exception as e:
+                # Log the failed response
+                self.logger.error(f"Failed to parse JSON from LLM response: {str(e)}")
+                self.logger.error(f"Raw response: {original_response}")
                 raise ValueError("Invalid JSON in LLM response")
         else:
             structured_data = response
@@ -631,6 +637,7 @@ class ExamContentParser:
         
         if missing_fields:
             self.logger.warning(f"LLM response missing required fields: {missing_fields}")
+            self.logger.warning(f"Full response structure: {json.dumps(structured_data, indent=2)}")
             
             # Use context completion flags to determine next indices
             if "next_question_paper_index" in missing_fields:
@@ -643,6 +650,7 @@ class ExamContentParser:
                     structured_data["next_question_paper_index"] = current_qp_index + 1
                     self.logger.info("Advancing question paper index by default")
                 else:
+                    self.logger.error(f"Cannot determine next_question_paper_index. Original response: {original_response}")
                     raise ValueError("Cannot determine next_question_paper_index")
                     
             if "next_mark_scheme_index" in missing_fields:
@@ -655,12 +663,14 @@ class ExamContentParser:
                     structured_data["next_mark_scheme_index"] = current_ms_index + 1
                     self.logger.info("Advancing mark scheme index by default")
                 else:
+                    self.logger.error(f"Cannot determine next_mark_scheme_index. Original response: {original_response}")
                     raise ValueError("Cannot determine next_mark_scheme_index")
         
         # Validate questions field if present
         if "questions" in structured_data:
             if not isinstance(structured_data["questions"], list):
                 self.logger.warning("Questions field is not a list, converting to list")
+                self.logger.debug(f"Original questions data: {structured_data['questions']}")
                 # If questions is a single item, wrap it in a list
                 structured_data["questions"] = [structured_data["questions"]]
                 
@@ -673,6 +683,7 @@ class ExamContentParser:
                 
                 if missing_question_fields:
                     self.logger.warning(f"Question {i} missing required fields: {missing_question_fields}")
+                    self.logger.warning(f"Question data: {json.dumps(question, indent=2)}")
                     # Add any missing fields with default values
                     for field in missing_question_fields:
                         if field == "max_marks":
@@ -698,9 +709,18 @@ class ExamContentParser:
         else:
             # Initialize empty questions list if not present
             structured_data["questions"] = []
+            self.logger.warning("No questions found in LLM response")
+            self.logger.debug(f"Full response: {json.dumps(structured_data, indent=2)}")
         
         # Add validation flags
-        structured_data["is_valid"] = len(missing_fields) == 0 and len(structured_data["questions"]) > 0
+        is_valid = len(missing_fields) == 0 and len(structured_data["questions"]) > 0
+        structured_data["is_valid"] = is_valid
+        
+        if not is_valid:
+            # Log the entire response if validation failed
+            self.logger.warning("LLM response validation failed")
+            self.logger.debug(f"Full original response: {original_response}")
+            self.logger.debug(f"Processed response structure: {json.dumps(structured_data, indent=2)}")
         
         return structured_data
 
@@ -816,3 +836,4 @@ class ExamContentParser:
                             'page_index': media_info['page_index']
                         })
                         self.logger.debug(f"Associated media file {media_info['id']} with question {question.get('question_number')} based on page {media_page}")
+``` 
