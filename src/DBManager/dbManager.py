@@ -515,3 +515,85 @@ class DBManager:
         except Exception as e:
             self.logger.error(f"Error checking document existence: {str(e)}")
             raise
+
+    def bulk_save_exam_metadata(self, metadata_list, document_ids=None):
+        """
+        Store multiple exam metadata records in MongoDB efficiently as a batch.
+        
+        Args:
+            metadata_list (list): List of metadata dictionaries to be stored
+            document_ids (list, optional): List of document IDs to use. If provided,
+                                          must match the length of metadata_list
+        
+        Returns:
+            list: List of document IDs of the saved metadata records
+            
+        Raises:
+            ValueError: If any metadata item doesn't contain required fields
+                       or if document_ids is provided but length doesn't match metadata_list
+            ConnectionError: If database connection fails
+        """
+        try:
+            # Validate document_ids if provided
+            if document_ids and len(document_ids) != len(metadata_list):
+                raise ValueError(f"Document IDs list length ({len(document_ids)}) doesn't match metadata list length ({len(metadata_list)})")
+            
+            # Ensure we have a database connection
+            collection = self.get_collection('exams')
+            saved_ids = []
+            bulk_operations = []
+            
+            # Process each metadata record
+            for i, metadata in enumerate(metadata_list):
+                # Validate required fields in metadata
+                required_fields = ['subject', 'qualification', 'year', 'season', 'unit']
+                missing_fields = [field for field in required_fields if field not in metadata]
+                
+                if missing_fields:
+                    raise ValueError(f"Metadata at index {i} missing required fields: {', '.join(missing_fields)}")
+                
+                # Set examId if not in metadata
+                doc_id = None
+                if document_ids:
+                    doc_id = document_ids[i]
+                    metadata['examId'] = doc_id
+                elif 'examId' not in metadata:
+                    # Generate an examId if neither is provided
+                    doc_id = f"{metadata['subject']}_{metadata['qualification']}_{metadata['unit']}_{metadata['year']}_{metadata['season']}"
+                    metadata['examId'] = doc_id
+                else:
+                    doc_id = metadata['examId']
+                
+                # Add timestamp for when the document was processed
+                if 'metadata' not in metadata:
+                    metadata['metadata'] = {}
+                
+                metadata['metadata']['processed_date'] = datetime.datetime.now(UTC)
+                
+                # Add to list of saved IDs
+                saved_ids.append(doc_id)
+                
+                # Create update operation for bulk execution
+                bulk_operations.append(
+                    pymongo.UpdateOne(
+                        {'examId': doc_id},
+                        {'$set': metadata},
+                        upsert=True
+                    )
+                )
+            
+            # Execute the bulk operation if there are items to process
+            if bulk_operations:
+                result = collection.bulk_write(bulk_operations, ordered=False)
+                self.logger.info(f"Bulk save completed: {result.upserted_count} inserted, {result.modified_count} modified")
+            else:
+                self.logger.warning("No metadata records to save")
+            
+            return saved_ids
+            
+        except ValueError as ve:
+            self.logger.error(f"Validation error in bulk save: {str(ve)}")
+            raise
+        except Exception as e:
+            self.logger.error(f"Error performing bulk save of exam metadata: {str(e)}")
+            raise

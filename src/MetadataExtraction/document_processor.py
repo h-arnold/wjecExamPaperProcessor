@@ -6,12 +6,13 @@ exam documents, extract metadata, and manage the document index.
 """
 
 from pathlib import Path
-from typing import Dict, Any, List, Optional, Union
+from typing import Dict, Any, List, Optional, Union, Tuple
 
 from src.Llm_client.base_client import LLMClient
 from src.MetadataExtraction.metadata_extractor import MetadataExtractor
 from src.FileManager.file_manager import MetadataFileManager
 from src.IndexManager.index_manager import IndexManager
+from src.DBManager.dbManager import DBManager
 
 
 class DocumentProcessor:
@@ -29,7 +30,9 @@ class DocumentProcessor:
     def __init__(self, 
                  llm_client: LLMClient,
                  file_manager: Optional[MetadataFileManager] = None,
-                 index_manager: Optional[IndexManager] = None
+                 index_manager: Optional[IndexManager] = None,
+                 db_manager: Optional[DBManager] = None,
+                 mongodb_config: Optional[Dict[str, Any]] = None
     ):
         """
         Initialize the document processor.
@@ -38,15 +41,34 @@ class DocumentProcessor:
             llm_client (LLMClient): An initialized LLM client
             file_manager (MetadataFileManager, optional): File manager
             index_manager (IndexManager, optional): Index manager
-            metadata_prompt_path (str, optional): Path to the metadata extraction prompt
+            db_manager (DBManager, optional): Database manager
+            mongodb_config (Dict[str, Any], optional): MongoDB configuration options
         """
         self.llm_client = llm_client
         self.file_manager = file_manager or MetadataFileManager()
         self.index_manager = index_manager or IndexManager()
+        
+        # Handle the DBManager creation with proper config
+        if db_manager is not None:
+            self.db_manager = db_manager
+        elif mongodb_config is not None:
+            # Extract config values and pass them as individual parameters
+            self.db_manager = DBManager(
+                connection_string=mongodb_config.get("connection_string"),
+                database_name=mongodb_config.get("database_name"),
+                timeout_ms=mongodb_config.get("timeout_ms")
+            )
+        else:
+            # Create with default parameters
+            self.db_manager = DBManager()
+            
         self.metadata_extractor = MetadataExtractor(llm_client)
         
     
-    def process_document(self, ocr_file_path: Union[str, Path]) -> Dict[str, Any]:
+    def process_document(self, 
+                         ocr_file_path: Union[str, Path], 
+                         store_in_db: bool = True,
+                         store_in_file: bool = False) -> Dict[str, Any]:
         """
         Process a single document end-to-end.
         
@@ -55,11 +77,14 @@ class DocumentProcessor:
         2. Extracts metadata using LLM
         3. Identifies question start index
         4. Enriches metadata with file path and question index
-        5. Saves metadata to file
-        6. Updates the document index
+        5. Saves metadata to file (if store_in_file is True)
+        6. Stores metadata in MongoDB (if store_in_db is True)
+        7. Updates the document index
         
         Args:
             ocr_file_path (str or Path): Path to the OCR JSON file
+            store_in_db (bool): Whether to store metadata in MongoDB
+            store_in_file (bool): Whether to store metadata in local file
             
         Returns:
             Dict[str, Any]: Processed document metadata and related info
@@ -70,6 +95,18 @@ class DocumentProcessor:
         """
         ocr_file_path = Path(ocr_file_path)
         document_id = self.file_manager.extract_document_id(ocr_file_path)
+        
+        # Check if document exists in MongoDB (if enabled)
+        if store_in_db and self.db_manager and self.db_manager.document_exists(document_id):
+            print(f"Document {document_id} already exists in MongoDB, retrieving metadata")
+            mongodb_metadata = self.db_manager.get_exam_metadata(document_id)
+            if mongodb_metadata:
+                return {
+                    "document_id": document_id,
+                    "metadata": mongodb_metadata,
+                    "source": "mongodb",
+                    "status": "existing"
+                }
         
         # Read OCR file
         ocr_content = self.file_manager.read_ocr_file(ocr_file_path)
@@ -92,37 +129,62 @@ class DocumentProcessor:
         # Enrich metadata with file path
         enriched_metadata = self.metadata_extractor.enrich_metadata(metadata, str(ocr_file_path))
         
-        # Save metadata to file
-        metadata_file_path = self.file_manager.save_metadata(enriched_metadata, document_id)
-        
-        # Update document index
-        index_entry = self.index_manager.update_index(
-            metadata=enriched_metadata,
-            content_path=str(ocr_file_path),
-            metadata_path=str(metadata_file_path)
-        )
-        
-        # Find related documents
-        related_docs = self.index_manager.find_related_documents(document_id)
-        
-        # Return result
-        return {
+        # Create response object
+        result = {
             "document_id": document_id,
-            "metadata": enriched_metadata,
-            "metadata_path": str(metadata_file_path),
-            "index_entry": index_entry,
-            "related_documents": related_docs
+            "metadata": enriched_metadata
         }
+        
+        # Save metadata to file if requested
+        if store_in_file:
+            metadata_file_path = self.file_manager.save_metadata(enriched_metadata, document_id)
+            result["metadata_path"] = str(metadata_file_path)
+        
+        # Store in MongoDB if requested
+        if store_in_db and self.db_manager:
+            try:
+                # Convert the metadata to ensure it is MongoDB-compatible
+                db_metadata = self._prepare_metadata_for_db(enriched_metadata)
+                # Save to MongoDB
+                saved_id = self.db_manager.save_exam_metadata(db_metadata, document_id)
+                result["mongodb_id"] = saved_id
+                result["stored_in_db"] = True
+            except Exception as e:
+                print(f"Error storing metadata in MongoDB: {str(e)}")
+                result["stored_in_db"] = False
+                result["db_error"] = str(e)
+        
+        # Update document index (if we're still using the file-based index)
+        if store_in_file:
+            metadata_path = result.get("metadata_path", "")
+            index_entry = self.index_manager.update_index(
+                metadata=enriched_metadata,
+                content_path=str(ocr_file_path),
+                metadata_path=metadata_path
+            )
+            result["index_entry"] = index_entry
+            
+            # Find related documents from the file-based index
+            related_docs = self.index_manager.find_related_documents(document_id)
+            result["related_documents"] = related_docs
+        
+        return result
     
     def process_directory(self, 
                          directory_path: Union[str, Path], 
-                         pattern: str = "*.json") -> List[Dict[str, Any]]:
+                         pattern: str = "*.json",
+                         store_in_db: bool = True,
+                         store_in_file: bool = True,
+                         batch_size: int = 20) -> List[Dict[str, Any]]:
         """
         Process all matching documents in a directory.
         
         Args:
             directory_path (str or Path): Path to directory containing OCR files
             pattern (str): Glob pattern for matching OCR files
+            store_in_db (bool): Whether to store metadata in MongoDB
+            store_in_file (bool): Whether to store metadata in local files
+            batch_size (int): Size of batches for bulk operations
             
         Returns:
             List[Dict[str, Any]]: Results for all processed documents
@@ -136,16 +198,21 @@ class DocumentProcessor:
         if not file_paths:
             print(f"No files matching pattern '{pattern}' found in {directory_path}")
             return results
-            
-        # Process each file
-        for file_path in file_paths:
-            try:
-                result = self.process_document(file_path)
-                results.append(result)
-                print(f"Successfully processed {file_path}")
-            except Exception as e:
-                print(f"Error processing {file_path}: {str(e)}")
-                
+        
+        # Process the files based on the storage options
+        if store_in_db and self.db_manager:
+            # Process files in batches for MongoDB
+            return self._process_directory_with_mongodb(file_paths, store_in_file, batch_size)
+        else:
+            # Process files individually using the standard approach
+            for file_path in file_paths:
+                try:
+                    result = self.process_document(file_path, store_in_db=False, store_in_file=store_in_file)
+                    results.append(result)
+                    print(f"Successfully processed {file_path}")
+                except Exception as e:
+                    print(f"Error processing {file_path}: {str(e)}")
+                    
         return results
     
     def find_related_documents(self, document_id: str) -> List[Dict[str, Any]]:
@@ -159,3 +226,212 @@ class DocumentProcessor:
             List[Dict[str, Any]]: List of related documents
         """
         return self.index_manager.find_related_documents(document_id)
+    
+    def _prepare_metadata_for_db(self, metadata: Dict[str, Any]) -> Dict[str, Any]:
+        """
+        Convert metadata to ensure it is MongoDB-compatible.
+        
+        Args:
+            metadata (Dict[str, Any]): The metadata to be prepared for MongoDB storage
+            
+        Returns:
+            Dict[str, Any]: MongoDB-compatible metadata
+        """
+        # Create a new dict to avoid modifying the original
+        db_metadata = metadata.copy()
+        
+        # Map the original metadata fields to required MongoDB fields
+        field_mappings = {
+            'Subject': 'subject',
+            'Qualification': 'qualification',
+            'Year': 'year',
+            'Exam Season': 'season',
+            'Exam Paper': 'unit',
+            'Type': 'paper_type',
+            'Exam Board': 'exam_board'
+        }
+        
+        # Apply mappings to standard fields
+        for orig_field, db_field in field_mappings.items():
+            if orig_field in db_metadata and db_field not in db_metadata:
+                db_metadata[db_field] = db_metadata[orig_field]
+        
+        # Ensure we have the required fields
+        required_fields = ['subject', 'qualification', 'year', 'season', 'unit']
+        for field in required_fields:
+            if field not in db_metadata:
+                # Try to derive the field from other metadata if possible
+                if field == 'year' and 'Date' in db_metadata:
+                    # Try to extract year from date
+                    import re
+                    year_match = re.search(r'20\d\d', db_metadata['Date'])
+                    if year_match:
+                        db_metadata['year'] = int(year_match.group(0))
+                elif field == 'unit' and 'Exam Paper' in db_metadata:
+                    # Extract unit information from Exam Paper field
+                    db_metadata['unit'] = db_metadata['Exam Paper']
+                    
+        # Ensure year is an integer
+        if 'year' in db_metadata and isinstance(db_metadata['year'], str):
+            try:
+                db_metadata['year'] = int(db_metadata['year'])
+            except ValueError:
+                pass  # Keep as string if conversion fails
+                
+        return db_metadata
+    
+    def _process_directory_with_mongodb(self, 
+                                file_paths: List[Path], 
+                                store_in_file: bool = False,
+                                batch_size: int = 20) -> List[Dict[str, Any]]:
+        """
+        Process directory using MongoDB bulk operations for better performance.
+        
+        Args:
+            file_paths (List[Path]): List of file paths to process
+            store_in_file (bool): Whether to also store metadata in local files
+            batch_size (int): Number of documents to process in each batch
+            
+        Returns:
+            List[Dict[str, Any]]: Results for all processed documents
+        """
+        results = []
+        total_files = len(file_paths)
+        processed = 0
+        
+        # Process files in batches
+        for i in range(0, total_files, batch_size):
+            batch_files = file_paths[i:i+batch_size]
+            batch_metadata = []
+            document_ids = []
+            batch_results = []
+            
+            print(f"Processing batch {i//batch_size + 1}/{(total_files-1)//batch_size + 1} ({len(batch_files)} files)")
+            
+            # First, check which documents already exist in MongoDB
+            for file_path in batch_files:
+                try:
+                    document_id = self.file_manager.extract_document_id(file_path)
+                    document_ids.append(document_id)
+                    
+                    # Check if document already exists in MongoDB
+                    if self.db_manager.document_exists(document_id):
+                        # Retrieve existing document
+                        mongodb_metadata = self.db_manager.get_exam_metadata(document_id)
+                        batch_results.append({
+                            "document_id": document_id,
+                            "metadata": mongodb_metadata,
+                            "source": "mongodb",
+                            "status": "existing"
+                        })
+                    else:
+                        # Document needs processing
+                        batch_results.append(None)  # Placeholder for later
+                except Exception as e:
+                    print(f"Error checking document existence: {str(e)}")
+                    batch_results.append({
+                        "document_id": document_id if 'document_id' in locals() else "unknown",
+                        "error": str(e),
+                        "status": "error"
+                    })
+            
+            # Process documents that don't exist yet
+            new_metadata_list = []
+            new_document_ids = []
+            new_indices = []
+            
+            for i, (file_path, result) in enumerate(zip(batch_files, batch_results)):
+                if result is None:  # Need to process this document
+                    try:
+                        # Extract metadata but don't save to DB yet
+                        document_id = document_ids[i]
+                        ocr_content = self.file_manager.read_ocr_file(file_path)
+                        metadata = self.metadata_extractor.extract_metadata(ocr_content)
+                        
+                        # Process question start index
+                        if "Type" in metadata and metadata["Type"] in ["Question Paper", "Mark Scheme"]:
+                            try:
+                                question_start_index = self.metadata_extractor.identify_question_start_index(
+                                    str(file_path), 
+                                    metadata["Type"]
+                                )
+                                metadata["QuestionStartIndex"] = question_start_index
+                            except Exception as e:
+                                print(f"Warning: Could not identify question start index: {str(e)}")
+                        
+                        # Enrich metadata
+                        enriched_metadata = self.metadata_extractor.enrich_metadata(metadata, str(file_path))
+                        
+                        # Save to file if requested
+                        if store_in_file:
+                            metadata_file_path = self.file_manager.save_metadata(enriched_metadata, document_id)
+                            
+                            # Update document index
+                            index_entry = self.index_manager.update_index(
+                                metadata=enriched_metadata,
+                                content_path=str(file_path),
+                                metadata_path=str(metadata_file_path)
+                            )
+                        
+                        # Convert for MongoDB and add to batch
+                        db_metadata = self._prepare_metadata_for_db(enriched_metadata)
+                        new_metadata_list.append(db_metadata)
+                        new_document_ids.append(document_id)
+                        new_indices.append(i)
+                        
+                    except Exception as e:
+                        print(f"Error processing {file_path}: {str(e)}")
+                        batch_results[i] = {
+                            "document_id": document_ids[i],
+                            "error": str(e),
+                            "status": "error"
+                        }
+            
+            # Bulk save to MongoDB if we have new items
+            if new_metadata_list:
+                try:
+                    saved_ids = self.db_manager.bulk_save_exam_metadata(new_metadata_list, new_document_ids)
+                    
+                    # Update results with saved information
+                    for j, idx in enumerate(new_indices):
+                        metadata = new_metadata_list[j]
+                        document_id = new_document_ids[j]
+                        
+                        result = {
+                            "document_id": document_id,
+                            "metadata": metadata,
+                            "stored_in_db": True,
+                            "mongodb_id": saved_ids[j],
+                            "status": "new"
+                        }
+                        
+                        if store_in_file:
+                            # Add file-based info
+                            result["stored_in_file"] = True
+                            
+                            # Find related documents if needed
+                            related_docs = self.index_manager.find_related_documents(document_id)
+                            result["related_documents"] = related_docs
+                            
+                        batch_results[idx] = result
+                        
+                except Exception as e:
+                    print(f"Error during bulk save to MongoDB: {str(e)}")
+                    # Update all new documents with the error
+                    for idx in new_indices:
+                        if batch_results[idx] is None:
+                            batch_results[idx] = {
+                                "document_id": document_ids[idx],
+                                "error": f"Bulk save error: {str(e)}",
+                                "status": "error"
+                            }
+            
+            # Add batch results to overall results
+            for result in batch_results:
+                if result is not None:
+                    results.append(result)
+            
+            processed += len(batch_files)
+            print(f"Processed {processed}/{total_files} files ({processed/total_files*100:.1f}%)")
+            
+        return results
