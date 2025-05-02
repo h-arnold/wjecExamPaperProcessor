@@ -1,6 +1,8 @@
 import logging
 import os
 import pymongo
+import datetime  # Import datetime module
+from datetime import UTC  # Import UTC for timezone-aware datetimes
 from pymongo import MongoClient
 from pymongo.errors import ConnectionFailure, ServerSelectionTimeoutError
 from dotenv import load_dotenv
@@ -328,7 +330,7 @@ class DBManager:
                 'year_introduced': year_introduced,
                 'version': version,
                 'units': units,
-                'imported_at': pymongo.datetime.datetime.utcnow()
+                'imported_at': datetime.datetime.now(UTC)
             }
             
             # Insert or update specification document
@@ -365,3 +367,151 @@ class DBManager:
         Closes the MongoDB connection and resets client and database references.
         """
         return self.close_connection()
+    
+    def save_exam_metadata(self, metadata, document_id=None):
+        """
+        Store extracted exam metadata in MongoDB.
+        
+        Args:
+            metadata (dict): The metadata to be stored in the database
+            document_id (str, optional): The document ID to use. If not provided,
+                                         the system will use metadata['examId'] or generate a new ID
+        
+        Returns:
+            str: The document ID of the saved metadata
+            
+        Raises:
+            ValueError: If metadata doesn't contain required fields
+            ConnectionError: If database connection fails
+            pymongo.errors.DuplicateKeyError: If a document with the same examId already exists
+        """
+        try:
+            # Validate required fields in metadata
+            required_fields = ['subject', 'qualification', 'year', 'season', 'unit']
+            missing_fields = [field for field in required_fields if field not in metadata]
+            
+            if missing_fields:
+                raise ValueError(f"Metadata missing required fields: {', '.join(missing_fields)}")
+            
+            # Ensure we have a database connection
+            collection = self.get_collection('exams')
+            
+            # Set examId if not in metadata
+            if 'examId' not in metadata and document_id:
+                metadata['examId'] = document_id
+            elif 'examId' not in metadata:
+                # Generate an examId if neither is provided
+                metadata['examId'] = f"{metadata['subject']}_{metadata['qualification']}_{metadata['unit']}_{metadata['year']}_{metadata['season']}"
+            
+            # Use specified document_id or the one from metadata
+            doc_id = document_id or metadata['examId']
+            
+            # Add timestamp for when the document was processed
+            if 'metadata' not in metadata:
+                metadata['metadata'] = {}
+            
+            metadata['metadata']['processed_date'] = datetime.datetime.now(UTC)
+            
+            # Insert or update the document
+            result = collection.update_one(
+                {'examId': doc_id},
+                {'$set': metadata},
+                upsert=True
+            )
+            
+            if result.upserted_id:
+                self.logger.info(f"New exam metadata inserted with ID: {doc_id}")
+            else:
+                self.logger.info(f"Exam metadata updated for ID: {doc_id}")
+            
+            return doc_id
+            
+        except ValueError as ve:
+            self.logger.error(f"Validation error: {str(ve)}")
+            raise
+        except pymongo.errors.DuplicateKeyError as dke:
+            self.logger.error(f"Duplicate key error: {str(dke)}")
+            raise
+        except Exception as e:
+            self.logger.error(f"Error saving exam metadata: {str(e)}")
+            raise
+    
+    def get_exam_metadata(self, document_id):
+        """
+        Retrieve a specific exam document from MongoDB by ID.
+        
+        Args:
+            document_id (str): The unique identifier of the document to retrieve
+            
+        Returns:
+            dict: The exam metadata document or None if not found
+            
+        Raises:
+            ConnectionError: If database connection fails
+        """
+        try:
+            # Ensure we have a database connection
+            collection = self.get_collection('exams')
+            
+            # Query for the document
+            document = collection.find_one({'examId': document_id})
+            
+            if document:
+                self.logger.info(f"Retrieved exam metadata for ID: {document_id}")
+            else:
+                self.logger.warning(f"No exam metadata found with ID: {document_id}")
+            
+            return document
+            
+        except Exception as e:
+            self.logger.error(f"Error retrieving exam metadata: {str(e)}")
+            raise
+    
+    def delete_exam_metadata(self, document_id):
+        """
+        Remove a specific exam document from MongoDB by ID.
+        
+        Args:
+            document_id (str): The unique identifier of the document to delete
+            
+        Returns:
+            bool: True if document was deleted, False if document was not found
+            
+        Raises:
+            ConnectionError: If database connection fails
+        """
+        try:
+            # Ensure we have a database connection
+            collection = self.get_collection('exams')
+            
+            # Delete the document
+            result = collection.delete_one({'examId': document_id})
+            
+            if result.deleted_count > 0:
+                self.logger.info(f"Deleted exam metadata with ID: {document_id}")
+                return True
+            else:
+                self.logger.warning(f"No exam metadata found to delete with ID: {document_id}")
+                return False
+                
+        except Exception as e:
+            self.logger.error(f"Error deleting exam metadata: {str(e)}")
+            raise
+    
+    def document_exists(self, document_id):
+        """
+        Check if a document already exists in the exams collection.
+        
+        Args:
+            document_id (str): The document ID to check
+            
+        Returns:
+            bool: True if document exists, False otherwise
+        """
+        try:
+            collection = self.get_collection('exams')
+            count = collection.count_documents({'examId': document_id}, limit=1)
+            return count > 0
+        except Exception as e:
+            self.logger.error(f"Error checking document existence: {str(e)}")
+            raise

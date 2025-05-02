@@ -81,11 +81,26 @@ This document outlines the step-by-step action plan for integrating MongoDB into
 
 #### Progress Log
 
-- [ ] Implemented save functionality
-- [ ] Implemented retrieval functionality
-- [ ] Implemented deletion functionality
-- [ ] Added validation logic
-- [ ] Created tests for CRUD operations
+- [x] Implemented save functionality
+- [x] Implemented retrieval functionality
+- [x] Implemented deletion functionality
+- [x] Added validation logic
+- [x] Created tests for CRUD operations
+
+**Implementation Notes (2 May 2025):**
+
+- Implemented three core methods for handling exam metadata:
+  - `save_exam_metadata(metadata, document_id)` - For storing metadata in MongoDB
+  - `get_exam_metadata(document_id)` - For retrieving documents by ID
+  - `delete_exam_metadata(document_id)` - For removing documents
+- Added a utility method `document_exists(document_id)` to check if a document already exists in the database
+- Implemented validation for required fields in metadata ('subject', 'qualification', 'year', 'season', 'unit')
+- Added automatic generation of document IDs when not explicitly provided
+- Created comprehensive test suite with 10 test cases covering all methods
+- All methods include proper error handling and logging
+- Updated datetime handling to use timezone-aware objects (datetime.datetime.now(UTC)) as per best practices
+- Fixed a bug with pymongo datetime handling
+- All 24 tests now pass successfully without warnings
 
 ---
 

@@ -304,5 +304,297 @@ class TestDBManagerOperations:
         manager.close_connection()
 
 
+class TestExamMetadataOperations:
+    """Test exam metadata CRUD operations of DBManager."""
+
+    @patch.object(DBManager, 'get_collection')
+    def test_save_exam_metadata_new_document(self, mock_get_collection):
+        """Test saving new exam metadata."""
+        # Setup mock collection and update_one result
+        mock_collection = MagicMock()
+        mock_result = MagicMock()
+        mock_result.upserted_id = "new_id"  # Indicates a new document was created
+        mock_result.matched_count = 0
+        mock_collection.update_one.return_value = mock_result
+        mock_get_collection.return_value = mock_collection
+        
+        # Create test metadata
+        test_metadata = {
+            'subject': 'Computer Science',
+            'qualification': 'A2-Level',
+            'year': 2023,
+            'season': 'Summer',
+            'unit': 'Unit 3',
+            'exam_board': 'WJEC',
+            'paper_type': 'Question Paper'
+        }
+        
+        # Initialize manager and call method
+        manager = DBManager(
+            connection_string="mongodb://test",
+            database_name="test-db"
+        )
+        
+        doc_id = manager.save_exam_metadata(test_metadata)
+        
+        # Verify collection was accessed
+        mock_get_collection.assert_called_once_with('exams')
+        
+        # Verify a generated examId was added
+        assert 'examId' in test_metadata
+        assert test_metadata['examId'] == 'Computer Science_A2-Level_Unit 3_2023_Summer'
+        
+        # Verify metadata contains processed_date
+        assert 'metadata' in test_metadata
+        assert 'processed_date' in test_metadata['metadata']
+        
+        # Verify update_one was called with correct parameters
+        mock_collection.update_one.assert_called_once()
+        # Get the first positional argument (query)
+        call_args = mock_collection.update_one.call_args[0]
+        assert call_args[0] == {'examId': test_metadata['examId']}
+        
+        # Verify correct ID was returned
+        assert doc_id == test_metadata['examId']
+
+    @patch.object(DBManager, 'get_collection')
+    def test_save_exam_metadata_with_document_id(self, mock_get_collection):
+        """Test saving exam metadata with explicitly provided document ID."""
+        # Setup mock collection and update_one result
+        mock_collection = MagicMock()
+        mock_result = MagicMock()
+        mock_result.upserted_id = None  # No new document was created
+        mock_result.matched_count = 1   # Matched an existing document
+        mock_collection.update_one.return_value = mock_result
+        mock_get_collection.return_value = mock_collection
+        
+        # Create test metadata
+        test_metadata = {
+            'subject': 'Computer Science',
+            'qualification': 'AS-Level',
+            'year': 2023,
+            'season': 'Summer',
+            'unit': 'Unit 1',
+            'exam_board': 'WJEC',
+            'paper_type': 'Mark Scheme'
+        }
+        
+        # Explicit document ID
+        explicit_doc_id = "CS_AS_U1_2023_S_MS"
+        
+        # Initialize manager and call method
+        manager = DBManager(
+            connection_string="mongodb://test",
+            database_name="test-db"
+        )
+        
+        doc_id = manager.save_exam_metadata(test_metadata, explicit_doc_id)
+        
+        # Verify examId was set to explicit ID
+        assert test_metadata['examId'] == explicit_doc_id
+        
+        # Verify update_one was called with correct parameters
+        mock_collection.update_one.assert_called_once()
+        call_args = mock_collection.update_one.call_args[0]
+        assert call_args[0] == {'examId': explicit_doc_id}
+        
+        # Verify correct ID was returned
+        assert doc_id == explicit_doc_id
+
+    @patch.object(DBManager, 'get_collection')
+    def test_save_exam_metadata_missing_fields(self, mock_get_collection):
+        """Test saving exam metadata with missing required fields."""
+        # Setup mock collection
+        mock_collection = MagicMock()
+        mock_get_collection.return_value = mock_collection
+        
+        # Create test metadata with missing fields
+        test_metadata = {
+            'subject': 'Computer Science',
+            'qualification': 'AS-Level',
+            # 'year': missing,
+            'season': 'Summer',
+            # 'unit': missing
+        }
+        
+        # Initialize manager
+        manager = DBManager(
+            connection_string="mongodb://test",
+            database_name="test-db"
+        )
+        
+        # Should raise ValueError
+        with pytest.raises(ValueError) as excinfo:
+            manager.save_exam_metadata(test_metadata)
+        
+        assert "Metadata missing required fields" in str(excinfo.value)
+        assert "year" in str(excinfo.value)
+        assert "unit" in str(excinfo.value)
+        
+        # Verify update_one was not called
+        mock_collection.update_one.assert_not_called()
+
+    @patch.object(DBManager, 'get_collection')
+    def test_get_exam_metadata_found(self, mock_get_collection):
+        """Test retrieving exam metadata that exists."""
+        # Setup mock collection and find_one result
+        mock_collection = MagicMock()
+        expected_doc = {
+            'examId': 'test-doc-id',
+            'subject': 'Computer Science',
+            'qualification': 'A2-Level',
+            'year': 2023,
+            'season': 'Summer'
+        }
+        mock_collection.find_one.return_value = expected_doc
+        mock_get_collection.return_value = mock_collection
+        
+        # Initialize manager and call method
+        manager = DBManager(
+            connection_string="mongodb://test",
+            database_name="test-db"
+        )
+        
+        result = manager.get_exam_metadata('test-doc-id')
+        
+        # Verify collection was accessed
+        mock_get_collection.assert_called_once_with('exams')
+        
+        # Verify find_one was called with correct query
+        mock_collection.find_one.assert_called_once_with({'examId': 'test-doc-id'})
+        
+        # Verify correct document was returned
+        assert result == expected_doc
+
+    @patch.object(DBManager, 'get_collection')
+    def test_get_exam_metadata_not_found(self, mock_get_collection):
+        """Test retrieving exam metadata that doesn't exist."""
+        # Setup mock collection and find_one result
+        mock_collection = MagicMock()
+        mock_collection.find_one.return_value = None
+        mock_get_collection.return_value = mock_collection
+        
+        # Initialize manager and call method
+        manager = DBManager(
+            connection_string="mongodb://test",
+            database_name="test-db"
+        )
+        
+        result = manager.get_exam_metadata('nonexistent-id')
+        
+        # Verify collection was accessed
+        mock_get_collection.assert_called_once_with('exams')
+        
+        # Verify find_one was called with correct query
+        mock_collection.find_one.assert_called_once_with({'examId': 'nonexistent-id'})
+        
+        # Verify None was returned
+        assert result is None
+
+    @patch.object(DBManager, 'get_collection')
+    def test_delete_exam_metadata_success(self, mock_get_collection):
+        """Test successfully deleting exam metadata."""
+        # Setup mock collection and delete_one result
+        mock_collection = MagicMock()
+        mock_result = MagicMock()
+        mock_result.deleted_count = 1
+        mock_collection.delete_one.return_value = mock_result
+        mock_get_collection.return_value = mock_collection
+        
+        # Initialize manager and call method
+        manager = DBManager(
+            connection_string="mongodb://test",
+            database_name="test-db"
+        )
+        
+        result = manager.delete_exam_metadata('test-doc-id')
+        
+        # Verify collection was accessed
+        mock_get_collection.assert_called_once_with('exams')
+        
+        # Verify delete_one was called with correct query
+        mock_collection.delete_one.assert_called_once_with({'examId': 'test-doc-id'})
+        
+        # Verify True was returned (deletion successful)
+        assert result is True
+
+    @patch.object(DBManager, 'get_collection')
+    def test_delete_exam_metadata_not_found(self, mock_get_collection):
+        """Test deleting exam metadata that doesn't exist."""
+        # Setup mock collection and delete_one result
+        mock_collection = MagicMock()
+        mock_result = MagicMock()
+        mock_result.deleted_count = 0
+        mock_collection.delete_one.return_value = mock_result
+        mock_get_collection.return_value = mock_collection
+        
+        # Initialize manager and call method
+        manager = DBManager(
+            connection_string="mongodb://test",
+            database_name="test-db"
+        )
+        
+        result = manager.delete_exam_metadata('nonexistent-id')
+        
+        # Verify collection was accessed
+        mock_get_collection.assert_called_once_with('exams')
+        
+        # Verify delete_one was called with correct query
+        mock_collection.delete_one.assert_called_once_with({'examId': 'nonexistent-id'})
+        
+        # Verify False was returned (nothing was deleted)
+        assert result is False
+
+    @patch.object(DBManager, 'get_collection')
+    def test_document_exists_true(self, mock_get_collection):
+        """Test checking existence of a document that exists."""
+        # Setup mock collection and count_documents result
+        mock_collection = MagicMock()
+        mock_collection.count_documents.return_value = 1
+        mock_get_collection.return_value = mock_collection
+        
+        # Initialize manager and call method
+        manager = DBManager(
+            connection_string="mongodb://test",
+            database_name="test-db"
+        )
+        
+        result = manager.document_exists('existing-id')
+        
+        # Verify collection was accessed
+        mock_get_collection.assert_called_once_with('exams')
+        
+        # Verify count_documents was called with correct query and limit
+        mock_collection.count_documents.assert_called_once_with({'examId': 'existing-id'}, limit=1)
+        
+        # Verify True was returned
+        assert result is True
+
+    @patch.object(DBManager, 'get_collection')
+    def test_document_exists_false(self, mock_get_collection):
+        """Test checking existence of a document that doesn't exist."""
+        # Setup mock collection and count_documents result
+        mock_collection = MagicMock()
+        mock_collection.count_documents.return_value = 0
+        mock_get_collection.return_value = mock_collection
+        
+        # Initialize manager and call method
+        manager = DBManager(
+            connection_string="mongodb://test",
+            database_name="test-db"
+        )
+        
+        result = manager.document_exists('nonexistent-id')
+        
+        # Verify collection was accessed
+        mock_get_collection.assert_called_once_with('exams')
+        
+        # Verify count_documents was called with correct query and limit
+        mock_collection.count_documents.assert_called_once_with({'examId': 'nonexistent-id'}, limit=1)
+        
+        # Verify False was returned
+        assert result is False
+
+
 if __name__ == "__main__":
     pytest.main(["-v"])
