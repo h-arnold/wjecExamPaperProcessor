@@ -15,7 +15,7 @@ The Index Update Tool is a utility script for managing the master index of exam 
   - Intelligent inference from document IDs and naming patterns
   - Date pattern analysis from document codes
 
-- **File Organization**: 
+- **File Organization**:
   - Copy or move index and all referenced files to a target directory
   - Maintain directory structure during relocation
   - Update file paths in the index to reflect new locations
@@ -94,6 +94,7 @@ python update_index.py --index test_index.json
 ```
 
 Output:
+
 ```
 Loaded index with 42 documents
 Updated 0 documents with missing exam_season field
@@ -109,6 +110,7 @@ python update_index.py --index test_index.json --target-dir ./organized_exams
 ```
 
 Output:
+
 ```
 Loaded index with 42 documents
 Updated 0 documents with missing exam_season field
