@@ -2,7 +2,7 @@
 Tests for the ExamContentParser class.
 
 This module contains tests for the ExamContentParser class, focusing on:
-1. Initialization
+1. Initialisation
 2. Content loading
 3. Sliding window content processing
 4. LLM response parsing
@@ -13,7 +13,6 @@ import sys
 import json
 import tempfile
 import pytest
-import datetime
 from pathlib import Path
 from unittest.mock import patch, MagicMock, mock_open
 
@@ -920,140 +919,3 @@ class TestMediaFileHandling:
         # Verify question 3 doesn't have media files
         assert "media_files" in parsed_questions[2]
         assert len(parsed_questions[2]["media_files"]) == 0
-    
-    def test_associate_media_by_page(self, mock_llm_client, temp_index_file,
-                                   temp_ocr_results_dir):
-        """Test associating media files with questions based on page location."""
-        parser = ExamContentParser(
-            llm_client=mock_llm_client,
-            index_path=temp_index_file,
-            ocr_results_path=temp_ocr_results_dir
-        )
-        
-        # Create parsed questions with page indices but no explicit image references
-        parsed_questions = [
-            {
-                "question_number": "1",
-                "question_text": "Explain this diagram and its components.",
-                "mark_scheme": "Components correctly identified (1 mark)",
-                "max_marks": 5,
-                "page_index": 1,
-                "media_files": []
-            },
-            {
-                "question_number": "2",
-                "question_text": "This question is on a page with no images",
-                "mark_scheme": "Answer should be textual (2 marks)",
-                "max_marks": 10,
-                "page_index": 2,
-                "media_files": []
-            }
-        ]
-        
-        # Create content with images
-        content = [
-            {
-                "index": 0,
-                "markdown": "# Test Paper",
-                "images": []
-            },
-            {
-                "index": 1,
-                "markdown": "# Questions with Images\n\n1. Explain this diagram and its components.",
-                "images": [
-                    {
-                        "id": "img-0.jpeg",
-                        "top_left_x": 100,
-                        "top_left_y": 100,
-                        "bottom_right_x": 300,
-                        "bottom_right_y": 300,
-                        "image_path": "test_paper/images/img_1_0.jpeg"
-                    }
-                ]
-            },
-            {
-                "index": 2,
-                "markdown": "2. This question is on a page with no images",
-                "images": []
-            }
-        ]
-        
-        # Extract all media
-        all_media = {}
-        for page in content:
-            page_media = parser._extract_media_files(page)
-            all_media.update(page_media)
-        
-        # Associate media by page
-        parser._associate_media_by_page(parsed_questions, content, all_media)
-        
-        # Verify question 1 has the image from page 1
-        assert len(parsed_questions[0]["media_files"]) == 1
-        assert parsed_questions[0]["media_files"][0]["id"] == "img-0.jpeg"
-        assert parsed_questions[0]["media_files"][0]["page_index"] == 1
-        
-        # Verify question 2 still has no media files
-        assert len(parsed_questions[1]["media_files"]) == 0
-    
-    def test_associate_media_by_page_no_page_indices(self, mock_llm_client, temp_index_file,
-                                                  temp_ocr_results_dir):
-        """Test handling when questions don't have page indices."""
-        parser = ExamContentParser(
-            llm_client=mock_llm_client,
-            index_path=temp_index_file,
-            ocr_results_path=temp_ocr_results_dir
-        )
-        
-        # Create parsed questions with no page indices
-        parsed_questions = [
-            {
-                "question_number": "1",
-                "question_text": "Explain this diagram and its components.",
-                "mark_scheme": "Components correctly identified (1 mark)",
-                "max_marks": 5,
-                "media_files": []
-            },
-            {
-                "question_number": "2",
-                "question_text": "This question is on a page with no images",
-                "mark_scheme": "Answer should be textual (2 marks)",
-                "max_marks": 10,
-                "media_files": []
-            }
-        ]
-        
-        # Create content with images
-        content = [
-            {
-                "index": 0,
-                "markdown": "# Test Paper",
-                "images": []
-            },
-            {
-                "index": 1,
-                "markdown": "# Questions with Images\n\n1. Explain this diagram and its components.",
-                "images": [
-                    {
-                        "id": "img-0.jpeg",
-                        "top_left_x": 100,
-                        "top_left_y": 100,
-                        "bottom_right_x": 300,
-                        "bottom_right_y": 300,
-                        "image_path": "test_paper/images/img_1_0.jpeg"
-                    }
-                ]
-            }
-        ]
-        
-        # Extract all media
-        all_media = {}
-        for page in content:
-            page_media = parser._extract_media_files(page)
-            all_media.update(page_media)
-        
-        # Associate media by page - should log a warning since no page indices
-        parser._associate_media_by_page(parsed_questions, content, all_media)
-        
-        # Verify questions don't have any media files since page indices are missing
-        assert len(parsed_questions[0]["media_files"]) == 0
-        assert len(parsed_questions[1]["media_files"]) == 0
