@@ -11,10 +11,10 @@ This document outlines the step-by-step action plan for integrating MongoDB into
 
 ## Integration Goals
 
-- Eliminate the intermediary JSON files as the primary data store
-- Maintain JSON files as backups and for compatibility
+- Replace the intermediary JSON files with MongoDB as the primary data store
 - Leverage MongoDB's query capabilities for improved performance
-- Ensure real-time data updates with consistent relationships
+- Enable real-time data updates with consistent relationships
+- Provide a direct database-first approach for all operations
 
 ## Implementation Steps
 
@@ -69,7 +69,7 @@ This document outlines the step-by-step action plan for integrating MongoDB into
 #### Methods to Reuse
 
 - `MetadataExtractor.extract_metadata()` - No changes needed
-- `DocumentProcessor.process_document()` - Will be modified later
+- `DocumentProcessor.process_document()` - Will be modified to write directly to DB
 
 #### Testing Criteria
 
@@ -104,33 +104,62 @@ This document outlines the step-by-step action plan for integrating MongoDB into
 
 ---
 
-### Step 3: Modify Document Processing Flow
+### Step 3: Document Processing MongoDB Integration
 
-**Estimated time**: 3-4 days
+**Estimated time**: 4-5 days
 
-#### Methods to Modify
+This step consolidates the document processing workflow to integrate MongoDB storage while maintaining compatibility with existing file-based operations.
 
-- `DocumentProcessor.process_document()` - Update to write to MongoDB
-- `MetadataFileManager.write_metadata_to_file()` - Make optional for backup purposes
-
-#### Methods to Create
+#### Methods to Create/Modify
 
 - `DBManager.document_exists(document_id)` - Check if document already exists in MongoDB
+- `DBManager.bulk_save_exam_metadata(metadata_list)` - Store multiple metadata records efficiently
+- `DocumentProcessor.__init__()` - Add DBManager parameter and MongoDB configuration options
+- `DocumentProcessor.process_document()` - Update to write directly to MongoDB with optional file output
+- `DocumentProcessor.process_directory()` - Enhance to use bulk operations when processing multiple files
+- `MetadataExtractor.extract_metadata()` - Ensure output format is DB-compatible
+
+#### Implementation Approach
+
+1. **Individual Document Processing**
+   - Modify `DocumentProcessor.process_document()` to accept a `store_in_db` parameter
+   - Update document flow to write to MongoDB when enabled
+   - Implement duplicate detection using `DBManager.document_exists()`
+   - Maintain backwards compatibility with file output option
+
+2. **Bulk Document Processing**
+   - Implement `DBManager.bulk_save_exam_metadata()` for efficient batch operations
+   - Enhance `DocumentProcessor.process_directory()` to use bulk operations
+   - Add batching logic to optimize large directory processing
+
+3. **Performance Optimization**
+   - Add progress tracking for bulk operations
+   - Implement error handling that allows partial success in batches
+   - Create connection pooling for improved performance
 
 #### Testing Criteria
 
-- Processing a document writes to both MongoDB and JSON backup
-- Duplicate detection works correctly
-- Error handling preserves data integrity
-- Performance is not significantly impacted
+- Individual documents can be processed and stored in MongoDB
+- Duplicate detection works correctly for both individual and bulk operations
+- Bulk processing of directories works efficiently with proper error handling
+- Optional local file storage remains functional when requested
+- Performance metrics show improvement with bulk operations compared to individual storage
+- Documents can be processed from local files but stored in MongoDB exclusively
+- Database indexes are properly used during bulk operations
+- Error handling preserves data integrity across all operations
 
 #### Progress Log
 
-- [ ] Modified document processing flow
-- [ ] Implemented MongoDB write operations
-- [ ] Added backup file writing logic
-- [ ] Tested with sample documents
-- [ ] Validated error handling
+- [ ] Implemented `DBManager.document_exists()` method
+- [ ] Modified `DocumentProcessor.__init__()` to accept DBManager parameter
+- [ ] Updated `DocumentProcessor.process_document()` for MongoDB integration
+- [ ] Ensured backward compatibility with file-based storage
+- [ ] Implemented `DBManager.bulk_save_exam_metadata()` for batch operations
+- [ ] Enhanced `DocumentProcessor.process_directory()` with bulk processing
+- [ ] Added performance optimizations for bulk operations
+- [ ] Created comprehensive test suite for all processing scenarios
+- [ ] Validated data integrity across processing workflows
+- [ ] Documented the updated document processing architecture
 
 ---
 
@@ -178,7 +207,7 @@ This document outlines the step-by-step action plan for integrating MongoDB into
 
 #### Testing Criteria
 
-- Hierarchical view matches current JSON structure
+- Hierarchical view matches current structure requirements
 - Performance is acceptable for large document sets
 - Filtering options work correctly
 
@@ -188,36 +217,11 @@ This document outlines the step-by-step action plan for integrating MongoDB into
 - [ ] Created hierarchical view generation
 - [ ] Added filtering capabilities
 - [ ] Tested with complete document set
-- [ ] Validated structure against existing JSON
+- [ ] Validated structure against requirements
 
 ---
 
-### Step 6: Create Command Line Integration
-
-**Estimated time**: 1-2 days
-
-#### Methods to Create
-
-- `sync_mongodb_from_files()` - CLI command to migrate existing JSON to MongoDB
-- `export_mongodb_to_files()` - CLI command to export MongoDB to JSON
-
-#### Testing Criteria
-
-- Migration from JSON to MongoDB works correctly
-- Export from MongoDB to JSON creates valid files
-- CLI commands have appropriate logging and error handling
-
-#### Progress Log
-
-- [ ] Implemented migration command
-- [ ] Implemented export command
-- [ ] Added CLI argument parsing
-- [ ] Tested migration with existing data
-- [ ] Validated exported files
-
----
-
-### Step 7: Update Querying Functionality
+### Step 6: Update Querying Functionality
 
 **Estimated time**: 2-3 days
 
@@ -243,7 +247,7 @@ This document outlines the step-by-step action plan for integrating MongoDB into
 
 ---
 
-### Step 8: Create Validation and Error Recovery
+### Step 7: Create Validation and Error Recovery
 
 **Estimated time**: 2 days
 
@@ -251,25 +255,22 @@ This document outlines the step-by-step action plan for integrating MongoDB into
 
 - `DBManager.validate_database()` - Check database integrity
 - `DBManager.repair_relationships()` - Fix broken relationships
-- `DBManager.sync_with_filesystem()` - Ensure DB and files are in sync
 
 #### Testing Criteria
 
 - Validation identifies inconsistencies
 - Repair functions fix common issues
-- Sync functionality aligns database with filesystem
 
 #### Progress Log
 
 - [ ] Implemented validation methods
 - [ ] Created repair functionality
-- [ ] Added synchronization capabilities
 - [ ] Tested with intentionally broken data
 - [ ] Validated recovery procedures
 
 ---
 
-### Step 9: Performance Optimization
+### Step 8: Performance Optimization
 
 **Estimated time**: 2-3 days
 
@@ -294,7 +295,7 @@ This document outlines the step-by-step action plan for integrating MongoDB into
 
 ---
 
-### Step 10: Integration Testing and Documentation
+### Step 9: Integration Testing and Documentation
 
 **Estimated time**: 2-3 days
 
@@ -323,19 +324,19 @@ This document outlines the step-by-step action plan for integrating MongoDB into
 ## Rollout Strategy
 
 1. Implement in development environment
-2. Migrate test dataset to validate functionality
+2. Run data ingestion script to populate MongoDB
 3. Conduct performance testing with production-size dataset
-4. Roll out to production with backward compatibility
+4. Roll out to production with MongoDB as the primary data store
 5. Monitor for issues and performance bottlenecks
-6. After stability is confirmed, make MongoDB the primary data store
+6. Decommission legacy JSON file-based storage system after stability is confirmed
 
 ## Risks and Mitigations
 
 | Risk | Probability | Impact | Mitigation |
 |------|------------|--------|------------|
 | MongoDB performance issues | Low | High | Use appropriate indexes, monitor query performance |
-| Data integrity issues | Medium | High | Implement validation, maintain JSON backups |
-| Migration errors | Medium | Medium | Create test migrations, verify data integrity |
+| Data integrity issues | Medium | High | Implement validation and verification steps |
+| Migration errors | Medium | Medium | Create test migrations with validation checks |
 | Schema evolution challenges | Medium | Medium | Design flexible schema, version documents |
 | Connection failures | Low | High | Implement robust error handling and retry logic |
 
