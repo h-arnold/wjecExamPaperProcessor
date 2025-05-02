@@ -1,0 +1,190 @@
+{
+  "documents": [
+    {
+      "id": "1500U30-1-130622",
+      "type": "Question Paper",
+      "year": 2022,
+      "qualification": "A2-Level",
+      "subject": "Computer Science",
+      "exam_paper": "A2 unit 3",
+      "exam_season": "Summer",
+      "content_path": "ocr_results/1500U30-1-130622.json",
+      "metadata_path": "metadata/question_papers/1500U30-1-130622-metadata.json",
+      "unit_number": 3,
+      "related_documents": []
+    },
+    {
+      "id": "s23-2500u10-1",
+      "type": "Question Paper",
+      "year": 2023,
+      "qualification": "AS-Level",
+      "subject": "Computer Science",
+      "exam_paper": "AS unit 1: Fundamentals of Computer Science",
+      "exam_season": "Summer",
+      "content_path": "ocr_results/s23-2500u10-1.json",
+      "metadata_path": "metadata/question_papers/s23-2500u10-1-metadata.json",
+      "unit_number": 1,
+      "related_documents": []
+    },
+    {
+      "id": "1500U40-1-150618",
+      "type": "Question Paper",
+      "year": 2018,
+      "qualification": "A2-Level",
+      "subject": "Computer Science",
+      "exam_paper": "Unit 4: Computer Architecture, Data, Communication and Applications",
+      "exam_season": "Summer",
+      "content_path": "ocr_results/1500U40-1-150618.json",
+      "metadata_path": "metadata/question_papers/1500U40-1-150618-metadata.json",
+      "unit_number": 4,
+      "related_documents": []
+    },
+    {
+      "id": "s23-1500u30-1",
+      "type": "Question Paper",
+      "year": 2023,
+      "qualification": "A2-Level",
+      "subject": "Computer Science",
+      "exam_paper": "A2 unit 3",
+      "exam_season": "Summer",
+      "content_path": "ocr_results/s23-1500u30-1.json",
+      "metadata_path": "metadata/question_papers/s23-1500u30-1-metadata.json",
+      "unit_number": 3,
+      "related_documents": []
+    },
+    {
+      "id": "2500U20-1-240519",
+      "type": "Question Paper",
+      "year": 2019,
+      "qualification": "AS-Level",
+      "subject": "Computer Science",
+      "exam_paper": "AS unit 2 Practical Programming to Solve Problems",
+      "exam_season": "Summer",
+      "content_path": "ocr_results/2500U20-1-240519.json",
+      "metadata_path": "metadata/question_papers/2500U20-1-240519-metadata.json",
+      "unit_number": 2,
+      "related_documents": []
+    },
+    {
+      "id": "2500U20-1(140616)",
+      "type": "Question Paper",
+      "year": 2016,
+      "qualification": "AS-Level",
+      "subject": "Computer Science",
+      "exam_paper": "Unit 2 Practical Programming to Solve Problems",
+      "exam_season": "Summer",
+      "content_path": "ocr_results/2500U20-1(140616).json",
+      "metadata_path": "metadata/question_papers/2500U20-1(140616)-metadata.json",
+      "unit_number": 2,
+      "related_documents": []
+    },
+    {
+      "id": "1500U30-1-030619",
+      "type": "Question Paper",
+      "year": 2019,
+      "qualification": "A2-Level",
+      "subject": "Computer Science",
+      "exam_paper": "A2 unit 3",
+      "exam_season": "Summer",
+      "content_path": "ocr_results/1500U30-1-030619.json",
+      "metadata_path": "metadata/question_papers/1500U30-1-030619-metadata.json",
+      "unit_number": 3,
+      "related_documents": []
+    },
+    {
+      "id": "2500U10-1(050617)",
+      "type": "Question Paper",
+      "year": 2023,
+      "qualification": "AS-Level",
+      "subject": "Computer Science",
+      "exam_paper": "2500U10-1",
+      "exam_season": "Summer",
+      "content_path": "ocr_results/2500U10-1(050617).json",
+      "metadata_path": "metadata/question_papers/2500U10-1(050617)-metadata.json",
+      "unit_number": 1,
+      "related_documents": []
+    },
+    {
+      "id": "2500U10-1 WJEC GCE Computer Science - Unit 1 MS S22",
+      "type": "Mark Scheme",
+      "year": 2022,
+      "qualification": "AS-Level",
+      "subject": "Computer Science",
+      "exam_paper": "Unit 1: Fundamentals",
+      "exam_season": "Summer",
+      "content_path": "ocr_results/2500U10-1 WJEC GCE Computer Science - Unit 1 MS S22.json",
+      "metadata_path": "metadata/mark_schemes/2500U10-1 WJEC GCE Computer Science - Unit 1 MS S22-metadata.json",
+      "unit_number": 1,
+      "related_documents": []
+    },
+    {
+      "id": "2500U20-1 WJEC GCE AS Comp Science Unit 2 MS S17 (New)",
+      "type": "Mark Scheme",
+      "year": 2017,
+      "qualification": "AS-Level",
+      "subject": "Computer Science",
+      "exam_paper": "Unit 2",
+      "exam_season": "Summer",
+      "content_path": "ocr_results/2500U20-1 WJEC GCE AS Comp Science Unit 2 MS S17 (New).json",
+      "metadata_path": "metadata/mark_schemes/2500U20-1 WJEC GCE AS Comp Science Unit 2 MS S17 (New)-metadata.json",
+      "unit_number": 2,
+      "related_documents": []
+    },
+    {
+      "id": "1500U40-1-110619",
+      "type": "Question Paper",
+      "year": 2019,
+      "qualification": "A2-Level",
+      "subject": "Computer Science",
+      "exam_paper": "Unit 4 Computer Architecture, Data, Communication and Applications",
+      "exam_season": "Summer",
+      "content_path": "ocr_results/1500U40-1-110619.json",
+      "metadata_path": "metadata/question_papers/1500U40-1-110619-metadata.json",
+      "unit_number": 4,
+      "related_documents": []
+    },
+    {
+      "id": "1500U40-1-240622",
+      "type": "Question Paper",
+      "year": 2022,
+      "qualification": "A2-Level",
+      "subject": "Computer Science",
+      "exam_paper": "Unit 4: Computer Architecture, Data, Communication and Applications",
+      "exam_season": "Summer",
+      "content_path": "ocr_results/1500U40-1-240622.json",
+      "metadata_path": "metadata/question_papers/1500U40-1-240622-metadata.json",
+      "unit_number": 4,
+      "related_documents": []
+    },
+    {
+      "id": "s23-2500u20-1-ms",
+      "type": "Mark Scheme",
+      "year": 2023,
+      "qualification": "AS-Level",
+      "subject": "Computer Science",
+      "exam_paper": "Unit 2",
+      "exam_season": "Summer",
+      "content_path": "ocr_results/s23-2500u20-1-ms.json",
+      "metadata_path": "metadata/mark_schemes/s23-2500u20-1-ms-metadata.json",
+      "unit_number": 2,
+      "related_documents": [
+        "s23-2500u20-1a"
+      ]
+    },
+    {
+      "id": "s23-2500u20-1a",
+      "type": "Question Paper",
+      "year": 2023,
+      "qualification": "AS-Level",
+      "subject": "Computer Science",
+      "exam_paper": "AS unit 2 Practical Programming to Solve Problems",
+      "exam_season": "Summer",
+      "content_path": "/workspaces/wjecExamPaperProcessor/ocr_results/s23-2500u20-1a.json",
+      "metadata_path": "metadata/question_papers/s23-2500u20-1a-metadata.json",
+      "unit_number": 2,
+      "related_documents": [
+        "s23-2500u20-1-ms"
+      ]
+    }
+  ]
+}

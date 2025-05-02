@@ -177,3 +177,102 @@ The database connection requires the following environment variables:
 - All dates are stored in UTC format
 - Text indexes support full-text search for finding relevant questions
 - The system automatically updates coverage statistics when new exams are imported
+
+# MongoDB Integration for WJEC Exam Paper Processor
+
+This module provides functionality for integrating MongoDB into the WJEC Exam Paper Processor, creating a database-driven workflow for storing and managing exam metadata.
+
+## Overview
+
+The `DBManager` class enables storing and retrieving exam metadata in MongoDB, providing an alternative to the file-based storage system. It supports both individual document operations and bulk processing for improved performance.
+
+## Features
+
+- MongoDB connection management with environment variable support
+- Document storage and retrieval
+- Duplicate detection and prevention
+- Bulk operations for efficient processing
+- Graceful error handling with fallback to file-based storage
+- Collection management and database initialization
+
+## Usage
+
+### Environment Variables
+
+The following environment variables are used to configure the MongoDB connection:
+
+- `MONGODB_URI`: MongoDB connection string (required)
+- `MONGODB_DATABASE_NAME`: Name of the database to connect to (default: "wjec_exams")
+- `MONGODB_TIMEOUT_MS`: Connection timeout in milliseconds (default: 5000)
+
+### Basic Example
+
+```python
+from src.DBManager.db_manager import DBManager
+
+# Create a DB manager (uses MONGODB_URI env var by default)
+db_manager = DBManager()
+
+# Store metadata
+metadata = {
+    "subject": "Computer Science",
+    "qualification": "A-Level",
+    "year": 2023,
+    "season": "Summer",
+    "unit": 3,
+    "document_type": "Question Paper"
+}
+
+# Save to database
+document_id = db_manager.save_exam_metadata(metadata)
+
+# Retrieve from database
+retrieved = db_manager.get_exam_metadata(document_id)
+
+# Close connection when done
+db_manager.disconnect()
+```
+
+### Bulk Operations
+
+```python
+# Process multiple documents efficiently
+metadata_list = [
+    {
+        "subject": "Computer Science",
+        "qualification": "A-Level",
+        "year": 2023,
+        "season": "Summer",
+        "unit": 3,
+        "document_type": "Question Paper"
+    },
+    {
+        "subject": "Computer Science",
+        "qualification": "A-Level",
+        "year": 2023,
+        "season": "Summer",
+        "unit": 3,
+        "document_type": "Mark Scheme"
+    }
+]
+
+# Save multiple documents in a single operation
+document_ids = db_manager.bulk_save_exam_metadata(metadata_list)
+```
+
+## Dependencies
+
+The module requires the following packages:
+
+```
+pymongo
+python-dotenv
+```
+
+## Graceful Degradation
+
+If `pymongo` is not installed or MongoDB is unavailable, the module will fall back to file-based storage with appropriate warnings.
+
+## Database Schema
+
+See the [Database Schema](../../docs/database-schema.md) documentation for detailed information about the MongoDB collections and data structure.

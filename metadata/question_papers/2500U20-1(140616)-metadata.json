@@ -6,7 +6,8 @@
   "Exam Paper": "Unit 2 Practical Programming to Solve Problems",
   "Exam Season": "Summer",
   "Exam Length": "2 hours",
+  "Information for Candidates": "Answer ALL questions. The question paper is divided into two main sections. Below are the recommended timings for this assessment. The number of marks is given in brackets at the end of each question or part-question. The total number of marks available is 60. Assessment will take into account the quality of written communication used in your answers. You will need a computer with an installed functional copy of the Integrated Development Environment (IDE) appropriate to your chosen programming language and word processing software. A calculator is allowed in this examination. Remember to save your work regularly.",
   "Total Marks": 60,
-  "QuestionStartIndex": 1,
+  "QuestionStartIndex": 2,
   "FilePath": "/workspaces/wjecExamPaperProcessor/ocr_results/2500U20-1(140616).json"
 }

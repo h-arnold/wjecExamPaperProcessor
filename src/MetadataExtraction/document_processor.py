@@ -12,7 +12,7 @@ from src.Llm_client.base_client import LLMClient
 from src.MetadataExtraction.metadata_extractor import MetadataExtractor
 from src.FileManager.file_manager import MetadataFileManager
 from src.IndexManager.index_manager import IndexManager
-from src.DBManager.dbManager import DBManager
+from src.DBManager.db_manager import DBManager
 
 
 class DocumentProcessor:
@@ -58,17 +58,23 @@ class DocumentProcessor:
             self.db_manager = db_manager
         elif mongodb_config is not None:
             # Extract config values and pass them as individual parameters
-            self.db_manager = DBManager(
-                connection_string=mongodb_config.get("connection_string"),
-                database_name=mongodb_config.get("database_name"),
-                timeout_ms=mongodb_config.get("timeout_ms")
-            )
+            try:
+                self.db_manager = DBManager(
+                    connection_string=mongodb_config.get("connection_string"),
+                    database_name=mongodb_config.get("database_name"),
+                    timeout_ms=mongodb_config.get("timeout_ms")
+                )
+            except Exception as e:
+                print(f"Warning: Cannot connect to MongoDB: {e}. Database operations will be disabled.")
+                self.db_manager = None
+                self.use_db = False
         else:
             # Create with default parameters
             try:
                 self.db_manager = DBManager()
-            except ValueError:
-                print("Warning: Cannot connect to MongoDB. Database operations will be disabled.")
+                print("Successfully connected to MongoDB database.")
+            except Exception as e:
+                print(f"Warning: Cannot connect to MongoDB: {e}. Database operations will be disabled.")
                 self.db_manager = None
                 self.use_db = False
             

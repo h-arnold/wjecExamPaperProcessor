@@ -84,6 +84,16 @@ def main():
         '--api-key', '-k',
         help='LLM API key (can also be set via environment variable)'
     )
+    metadata_parser.add_argument(
+        '--use-db',
+        action='store_true',
+        default=True,
+        help='Store metadata in MongoDB instead of/in addition to files'
+    )
+    metadata_parser.add_argument(
+        '--db-connection',
+        help='MongoDB connection string (can also be set via MONGODB_URI environment variable)'
+    )
     
     # Question tagger subcommand
     question_tagger_parser = subparsers.add_parser('question-tagger', help='Tag exam questions with specification areas')
@@ -308,6 +318,10 @@ def main():
                 sys.argv.extend(['--provider', args.provider])
             if args.api_key:
                 sys.argv.extend(['--api-key', args.api_key])
+            if args.use_db:
+                sys.argv.append('--use-db')
+            if args.db_connection:
+                sys.argv.extend(['--db-connection', args.db_connection])
                 
             return metadata_main()
             

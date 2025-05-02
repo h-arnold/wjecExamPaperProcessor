@@ -250,7 +250,7 @@ Options:
 - `--index`: Path to hierarchical index file (default: `Index/hierarchical_index.json`)
 - `--output`: Path for output tagged index file (default: input filename suffixed with `_tagged.json`)
 - `--llm-provider`: LLM provider to use (default: `openai`)
-- `--llm-model`: LLM model to use (default: `gpt-4`)
+- `--llm-model`: LLM model to use (default: `gpt-4.1-mini`)
 - `--dry-run`: Run in dry-run mode (no API calls)
 - `--no-validate`: Disable validation of specification tags
 - `--verbose`: Enable verbose logging

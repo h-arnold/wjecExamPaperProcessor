@@ -15,6 +15,7 @@ from src.Llm_client.factory import LLMClientFactory
 from src.MetadataExtraction.document_processor import DocumentProcessor
 from src.FileManager.file_manager import MetadataFileManager
 from src.IndexManager.index_manager import IndexManager
+from src.DBManager.db_manager import DBManager
 
 
 
@@ -88,7 +89,8 @@ def extract_metadata_from_directory(
     pattern: str = "*.json",
     base_metadata_dir: str = "metadata",
     index_path: str = "index.json",
-    provider: str = "mistral"
+    provider: str = "mistral",
+    use_db: bool = True
 ) -> List[Dict[str, Any]]:
     """
     Extract metadata from all JSON files in a directory.
@@ -100,6 +102,7 @@ def extract_metadata_from_directory(
         base_metadata_dir: Base directory for metadata files
         index_path: Path to the index file
         provider: LLM provider to use
+        use_db: Whether to use database functionality (default True)
         
     Returns:
         List of dictionaries containing extraction results
@@ -121,12 +124,14 @@ def extract_metadata_from_directory(
     processor = DocumentProcessor(
         llm_client=llm_client,
         file_manager=file_manager,
-        index_manager=index_manager
+        index_manager=index_manager,
+        use_db=use_db
     )
     
 
     # Process the directory
-    results = processor.process_directory(directory_path, pattern)
+    store_in_db = use_db  # Only try to store in DB if use_db is True
+    results = processor.process_directory(directory_path, pattern, store_in_db=store_in_db, store_in_file=True)
     
     # Print summary
     print(f"\nProcessed {len(results)} documents from {directory_path}")
@@ -217,6 +222,16 @@ def main():
         '--api-key', '-k',
         help='LLM API key (can also be set via environment variable)'
     )
+    parser.add_argument(
+        '--use-db',
+        action='store_true',
+        default=True,
+        help='Store metadata in MongoDB instead of/in addition to files'
+    )
+    parser.add_argument(
+        '--db-connection',
+        help='MongoDB connection string (can also be set via MONGODB_URI environment variable)'
+    )
     
     args = parser.parse_args()
     
@@ -232,6 +247,24 @@ def main():
         print(f"Use --api-key or set {args.provider.upper()}_API_KEY environment variable.")
         return 1
     
+    # Set up database connection if requested
+    db_manager = None
+    if args.use_db:
+        # Get connection string from args or environment
+        db_connection = args.db_connection or os.environ.get('MONGODB_URI')
+        if not db_connection:
+            print("Warning: Database storage requested but no connection string provided.")
+            print("Using default connection. Set --db-connection or MONGODB_URI environment variable for custom connection.")
+        
+        # Create DB manager
+        try:
+            db_manager = DBManager(connection_string=db_connection)
+            print(f"Successfully connected to MongoDB database.")
+        except Exception as e:
+            print(f"Error connecting to MongoDB: {e}")
+            print("Falling back to file-based storage only.")
+            args.use_db = False
+    
     # Process file or directory
     if args.file:
         extract_metadata_from_file(
@@ -239,7 +272,8 @@ def main():
             api_key=api_key,
             base_metadata_dir=args.metadata_dir,
             index_path=args.index,
-            provider=args.provider
+            provider=args.provider,
+            use_db=args.use_db
         )
     elif args.directory:
         extract_metadata_from_directory(
@@ -248,12 +282,18 @@ def main():
             pattern=args.pattern,
             base_metadata_dir=args.metadata_dir,
             index_path=args.index,
-            provider=args.provider
+            provider=args.provider,
+            use_db=args.use_db
         )
     else:
         print("Error: Either --file or --directory must be specified.")
         parser.print_help()
         return 1
+    
+    # Close database connection if it was opened
+    if db_manager:
+        db_manager.disconnect()
+        print("Closed MongoDB connection.")
     
     return 0
 
