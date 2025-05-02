@@ -767,4 +767,3 @@ class ExamContentParser:
         
         # Process the exam content
         return self.parse_exam_content(qp_id, ms_id)
-``` 

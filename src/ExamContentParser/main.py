@@ -28,12 +28,10 @@ load_dotenv(WORKSPACE_ROOT / '.env')
 # Import the ExamContentParser
 try:
     from .exam_content_parser import ExamContentParser
-    from ..Llm_client.mistral_client import MistralLLMClient
 except ImportError:
     # When run directly as script
     sys.path.append(str(WORKSPACE_ROOT))
     from src.ExamContentParser.exam_content_parser import ExamContentParser
-    from src.Llm_client.mistral_client import MistralLLMClient
 
 
 def setupLogging(logLevel: str, outputDir: Optional[str] = None) -> logging.Logger:
@@ -344,24 +342,15 @@ def testExamParser(args: argparse.Namespace, logger: logging.Logger) -> int:
     examPath, exam = testExam
     logger.info(f"Using exam for testing: {examPath}")
     
-    # Initialize the LLM client
-    try:
-        llmClient = MistralLLMClient(
-            api_key=os.environ.get('MISTRAL_API_KEY', args.api_key),
-            model=args.model
-        )
-        logger.info(f"Initialized LLM client with model: {args.model}")
-    except Exception as e:
-        logger.error(f"Failed to initialize LLM client: {str(e)}")
-        return 1
-    
-    # Initialize the ExamContentParser
+    # Initialize the ExamContentParser with API key and model parameters
     try:
         examParser = ExamContentParser(
-            llm_client=llmClient,
             index_path=args.index,
             ocr_results_path=args.ocr_results,
-            log_level=logging.getLevelName(args.log_level.upper())
+            log_level=logging.getLevelName(args.log_level.upper()),
+            api_key=os.environ.get('MISTRAL_API_KEY', args.api_key),
+            model=args.model,
+            llm_provider="mistral"
         )
         logger.info("Initialized ExamContentParser")
     except Exception as e:
@@ -413,24 +402,15 @@ def processCommand(args: argparse.Namespace, logger: logging.Logger) -> int:
         logger.warning("No exams match the specified criteria")
         return 0
     
-    # Initialize the LLM client
-    try:
-        llmClient = MistralLLMClient(
-            api_key=os.environ.get('MISTRAL_API_KEY', args.api_key),
-            model=args.model
-        )
-        logger.info(f"Initialized LLM client with model: {args.model}")
-    except Exception as e:
-        logger.error(f"Failed to initialize LLM client: {str(e)}")
-        return 1
-    
-    # Initialize the ExamContentParser
+    # Initialize the ExamContentParser with API key and model parameters
     try:
         examParser = ExamContentParser(
-            llm_client=llmClient,
             index_path=args.index,
             ocr_results_path=args.ocr_results,
-            log_level=logging.getLevelName(args.log_level.upper())
+            log_level=logging.getLevelName(args.log_level.upper()),
+            api_key=os.environ.get('MISTRAL_API_KEY', args.api_key),
+            model=args.model,
+            llm_provider="mistral"
         )
         logger.info("Initialized ExamContentParser")
     except Exception as e:
@@ -505,24 +485,15 @@ def processSingleExam(args: argparse.Namespace, logger: logging.Logger) -> int:
         logger.error(f"No exam found with ID {args.exam_id}")
         return 1
     
-    # Initialize the LLM client
-    try:
-        llmClient = MistralLLMClient(
-            api_key=os.environ.get('MISTRAL_API_KEY', args.api_key),
-            model=args.model
-        )
-        logger.info(f"Initialized LLM client with model: {args.model}")
-    except Exception as e:
-        logger.error(f"Failed to initialize LLM client: {str(e)}")
-        return 1
-    
-    # Initialize the ExamContentParser
+    # Initialize the ExamContentParser with API key and model parameters
     try:
         examParser = ExamContentParser(
-            llm_client=llmClient,
             index_path=args.index,
             ocr_results_path=args.ocr_results,
-            log_level=logging.getLevelName(args.log_level.upper())
+            log_level=logging.getLevelName(args.log_level.upper()),
+            api_key=os.environ.get('MISTRAL_API_KEY', args.api_key),
+            model=args.model,
+            llm_provider="mistral"
         )
         logger.info("Initialized ExamContentParser")
     except Exception as e:
