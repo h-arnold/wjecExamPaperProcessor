@@ -112,12 +112,46 @@ class DBManager:
             self.db = self.client[self.database_name]
             
             self.logger.info(f"Connected to MongoDB: {self.database_name}")
+            
+            # Check if database is initialised by looking for required collections
+            self._check_and_initialise_database()
+            
             return self.db
             
         except (ConnectionFailure, ServerSelectionTimeoutError) as e:
             error_msg = f"Server not available: {e}"
             self.logger.error(error_msg)
             raise ConnectionFailure(error_msg)
+    
+    def _check_and_initialise_database(self):
+        """
+        Checks if required collections exist and initialises the database if needed.
+        This method is called automatically when connecting to the database.
+        """
+        if not MONGODB_AVAILABLE:
+            return
+            
+        try:
+            required_collections = ['exams', 'specifications', 'spec_coverage']
+            
+            # Get list of existing collections
+            existing_collections = self.db.list_collection_names()
+            
+            # Check if all required collections exist
+            all_collections_exist = all(collection in existing_collections for collection in required_collections)
+            
+            if not all_collections_exist:
+                missing = [c for c in required_collections if c not in existing_collections]
+                self.logger.info(f"Missing collections detected: {', '.join(missing)}. Initialising database...")
+                
+                # Call initialise_database directly
+                self.initialise_database()
+            else:
+                self.logger.info("Database already initialised with all required collections")
+                
+        except Exception as e:
+            self.logger.error(f"Error checking database initialisation status: {e}")
+            self.logger.warning("Database may need to be initialised manually")
     
     def disconnect(self):
         """
@@ -417,6 +451,253 @@ class DBManager:
         except Exception as e:
             self.logger.error(f"Error performing bulk save of exam metadata: {str(e)}")
             return []
+    
+    def initialise_database(self) -> bool:
+        """
+        Initialises the MongoDB database with required collections and indexes
+        for the WJEC exam paper processor system.
+        
+        Creates collections if they don't exist and sets up appropriate indexes
+        for optimised queries.
+        
+        Returns:
+            bool: True if initialisation was successful, False otherwise
+        """
+        if not MONGODB_AVAILABLE:
+            self.logger.error("Cannot initialise database: pymongo not installed")
+            return False
+            
+        try:
+            # Ensure we have a database connection
+            db = self.get_database()
+            if db is None:
+                self.logger.error("Failed to connect to MongoDB database")
+                return False
+                
+            self.logger.info('Connected to MongoDB database, checking collections')
+            
+            # Check and create collections if they don't exist
+            collections = db.list_collection_names()
+            
+            # Create exams collection if it doesn't exist
+            if 'exams' not in collections:
+                self.logger.info('Creating exams collection...')
+                db.create_collection('exams')
+                
+                # Create indexes for common query patterns
+                db['exams'].create_index([('subject', pymongo.ASCENDING), 
+                                         ('year', pymongo.ASCENDING), 
+                                         ('season', pymongo.ASCENDING)])
+                db['exams'].create_index([('examId', pymongo.ASCENDING)], unique=True)
+                db['exams'].create_index([('questions.spec_refs', pymongo.ASCENDING)])
+                db['exams'].create_index([
+                    ('subject', pymongo.TEXT), 
+                    ('questions.question_text', pymongo.TEXT),
+                    ('questions.mark_scheme', pymongo.TEXT)
+                ])
+                self.logger.info('Exams collection and indexes created successfully')
+            
+            # Create specifications collection if it doesn't exist
+            if 'specifications' not in collections:
+                self.logger.info('Creating specifications collection...')
+                db.create_collection('specifications')
+                
+                # Create indexes for specification lookup
+                db['specifications'].create_index([
+                    ('qualification', pymongo.ASCENDING), 
+                    ('subject', pymongo.ASCENDING)
+                ])
+                db['specifications'].create_index([
+                    ('units.sections.items.spec_ref', pymongo.ASCENDING)
+                ])
+                db['specifications'].create_index([
+                    ('units.sections.items.keywords', pymongo.ASCENDING)
+                ])
+                self.logger.info('Specifications collection and indexes created successfully')
+            
+            # Create spec_coverage collection if it doesn't exist
+            if 'spec_coverage' not in collections:
+                self.logger.info('Creating spec_coverage collection...')
+                db.create_collection('spec_coverage')
+                
+                # Create indexes for coverage analysis
+                db['spec_coverage'].create_index([
+                    ('qualification', pymongo.ASCENDING), 
+                    ('subject', pymongo.ASCENDING), 
+                    ('spec_ref', pymongo.ASCENDING)
+                ], unique=True)
+                db['spec_coverage'].create_index([
+                    ('coverage_frequency', pymongo.ASCENDING)
+                ])
+                self.logger.info('Spec_coverage collection and indexes created successfully')
+            
+            # Validate collections exist
+            updated_collections = db.list_collection_names()
+            required_collections = ['exams', 'specifications', 'spec_coverage']
+            all_collections_exist = all(collection in updated_collections for collection in required_collections)
+            
+            if all_collections_exist:
+                self.logger.info('Database initialisation complete')
+                return True
+            else:
+                missing = [c for c in required_collections if c not in updated_collections]
+                self.logger.error(f'Failed to create all required collections. Missing: {", ".join(missing)}')
+                return False
+                
+        except ConnectionFailure as ce:
+            self.logger.error(f'Database connection failed during initialisation: {str(ce)}')
+            return False
+        except Exception as e:
+            self.logger.error(f'Database initialisation failed: {str(e)}')
+            return False
+    
+    def import_specification(self, qualification: str, subject: str, spec_file_path: str, 
+                          year_introduced: Optional[int] = None, version: Optional[str] = None) -> bool:
+        """
+        Imports specification content from a markdown file into the specifications collection.
+        
+        Parses the markdown structure to extract units, sections, and individual specification points.
+        
+        Args:
+            qualification: The qualification level (e.g., 'A2-Level', 'AS-Level')
+            subject: The subject name (e.g., 'Computer Science')
+            spec_file_path: Path to the markdown file containing specification content
+            year_introduced: Year the specification was introduced
+            version: Version identifier for the specification
+            
+        Returns:
+            bool: True if import was successful, False otherwise
+            
+        Raises:
+            FileNotFoundError: If the specification file cannot be found
+        """
+        if not MONGODB_AVAILABLE:
+            self.logger.error("Cannot import specification: pymongo not installed")
+            return False
+            
+        try:
+            # Ensure we have a database connection
+            db = self.get_database()
+            if db is None:
+                self.logger.error("Failed to connect to MongoDB database")
+                return False
+                
+            self.logger.info(f'Importing specification for {qualification} {subject} from {spec_file_path}')
+            
+            # Check if file exists
+            if not os.path.exists(spec_file_path):
+                raise FileNotFoundError(f"Specification file not found: {spec_file_path}")
+            
+            # Read and parse the markdown file
+            with open(spec_file_path, 'r', encoding='utf-8') as file:
+                content = file.read()
+            
+            # Parse the markdown structure to extract specification data
+            units = []
+            current_unit = None
+            current_section = None
+            
+            # Split content by lines
+            lines = content.split('\n')
+            for line in lines:
+                line = line.strip()
+                
+                # Skip empty lines and horizontal rules
+                if not line or line.startswith('---'):
+                    continue
+                
+                # Unit heading (level 2)
+                if line.startswith('## '):
+                    unit_title = line.replace('## ', '').strip()
+                    # Extract unit number and name
+                    parts = unit_title.split(' ', 2)
+                    if len(parts) >= 3:
+                        unit_number = parts[1].strip('*.')
+                        unit_name = parts[2].strip('*')
+                    else:
+                        unit_number = parts[0].strip('*.')
+                        unit_name = ' '.join(parts[1:]).strip('*')
+                    
+                    # Create new unit
+                    current_unit = {
+                        'unit_number': unit_number,
+                        'unit_name': unit_name,
+                        'sections': []
+                    }
+                    units.append(current_unit)
+                    current_section = None
+                
+                # Section heading (level 3)
+                elif line.startswith('### '):
+                    if current_unit is None:
+                        continue  # Skip if no current unit
+                    
+                    section_title = line.replace('### ', '').strip()
+                    # Extract section number and name
+                    parts = section_title.split(' ', 1)
+                    if len(parts) >= 2:
+                        section_number = parts[0].strip('*.')
+                        section_name = parts[1].strip('*')
+                    else:
+                        section_number = parts[0].strip('*.')
+                        section_name = parts[0].strip('*.')
+                    
+                    # Create new section
+                    current_section = {
+                        'section_number': section_number,
+                        'section_name': section_name,
+                        'items': []
+                    }
+                    current_unit['sections'].append(current_section)
+                
+                # Specification item (bullet point)
+                elif line.startswith('- **') and current_section is not None:
+                    # Extract spec reference and description
+                    spec_ref_match = line.split('**', 2)
+                    if len(spec_ref_match) >= 3:
+                        spec_ref = spec_ref_match[1].strip()
+                        description = spec_ref_match[2].strip().lstrip('** ').strip()
+                        
+                        # Extract keywords from description
+                        keywords = []
+                        for word in description.split():
+                            word = word.lower().strip('.,;:()[]{}').strip()
+                            if len(word) > 3 and word not in ['this', 'that', 'with', 'from', 'their', 'have', 'using']:
+                                keywords.append(word)
+                        
+                        # Add specification item
+                        current_section['items'].append({
+                            'spec_ref': spec_ref,
+                            'description': description,
+                            'keywords': keywords
+                        })
+            
+            # Create specification document
+            spec_document = {
+                'qualification': qualification,
+                'subject': subject,
+                'year_introduced': year_introduced,
+                'version': version,
+                'units': units,
+                'imported_at': datetime.datetime.now(UTC)
+            }
+            
+            # Insert or update specification document
+            result = db['specifications'].update_one(
+                {'qualification': qualification, 'subject': subject},
+                {'$set': spec_document},
+                upsert=True
+            )
+            
+            self.logger.info(f'Specification import complete. Affected: {result.modified_count if result.matched_count > 0 else "1 (new)"}')
+            return True
+            
+        except FileNotFoundError as fnf:
+            self.logger.error(f'Specification file not found: {str(fnf)}')
+            raise
+        except Exception as e:
+            self.logger.error(f'Specification import failed: {str(e)}')
+            return False
     
     # Async methods from dbManager.py to be implemented as needed
     

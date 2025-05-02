@@ -65,16 +65,6 @@ def main():
         help='Glob pattern for matching OCR files (default: *.json)'
     )
     metadata_parser.add_argument(
-        '--metadata-dir',
-        default='metadata',
-        help='Base directory for metadata files (default: metadata)'
-    )
-    metadata_parser.add_argument(
-        '--index',
-        default='index.json',
-        help='Path to the index file (default: index.json)'
-    )
-    metadata_parser.add_argument(
         '--provider',
         default='mistral',
         choices=['mistral'],
@@ -85,14 +75,14 @@ def main():
         help='LLM API key (can also be set via environment variable)'
     )
     metadata_parser.add_argument(
-        '--use-db',
-        action='store_true',
-        default=True,
-        help='Store metadata in MongoDB instead of/in addition to files'
-    )
-    metadata_parser.add_argument(
         '--db-connection',
         help='MongoDB connection string (can also be set via MONGODB_URI environment variable)'
+    )
+    metadata_parser.add_argument(
+        '--batch-size',
+        type=int,
+        default=20,
+        help='Size of batches for bulk operations (default: 20)'
     )
     
     # Question tagger subcommand
@@ -310,18 +300,17 @@ def main():
                 sys.argv.extend(['--directory', args.directory])
             if args.pattern:
                 sys.argv.extend(['--pattern', args.pattern])
-            if args.metadata_dir:
-                sys.argv.extend(['--metadata-dir', args.metadata_dir])
-            if args.index:
-                sys.argv.extend(['--index', args.index])
+            # Removing the following arguments that are not recognized by the metadata extraction module:
+            # --metadata-dir, --index, --use-db
             if args.provider:
                 sys.argv.extend(['--provider', args.provider])
             if args.api_key:
                 sys.argv.extend(['--api-key', args.api_key])
-            if args.use_db:
-                sys.argv.append('--use-db')
+            # Remove use-db argument which is not recognized
             if args.db_connection:
                 sys.argv.extend(['--db-connection', args.db_connection])
+            if args.batch_size:
+                sys.argv.extend(['--batch-size', str(args.batch_size)])
                 
             return metadata_main()
             
