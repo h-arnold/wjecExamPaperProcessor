@@ -357,3 +357,11 @@ class DBManager:
             self.client = None
             self.db = None
             self.logger.info("MongoDB Atlas connection closed")
+            
+    def disconnect(self):
+        """
+        Alias for close_connection() to maintain naming consistency with the integration plan.
+        
+        Closes the MongoDB connection and resets client and database references.
+        """
+        return self.close_connection()

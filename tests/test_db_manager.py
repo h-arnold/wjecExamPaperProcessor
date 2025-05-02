@@ -222,6 +222,30 @@ class TestDBManagerConnection:
         mock_connect.assert_called_once()
         assert result == mock_db
 
+    def test_disconnect_method(self):
+        """Test that disconnect() method properly closes the connection as an alias for close_connection()."""
+        manager = DBManager(
+            connection_string="mongodb://test",
+            database_name="test-db"
+        )
+        
+        # Mock client and database
+        mock_client = MagicMock()
+        manager.client = mock_client
+        manager.db = MagicMock()
+        
+        # Spy on close_connection method to verify it gets called
+        with patch.object(manager, 'close_connection', wraps=manager.close_connection) as spy_close:
+            manager.disconnect()
+            
+            # Verify close_connection was called exactly once
+            spy_close.assert_called_once()
+            
+            # Verify client was closed
+            mock_client.close.assert_called_once()
+            assert manager.client is None
+            assert manager.db is None
+
 
 class TestDBManagerOperations:
     """Test database operations of DBManager."""
