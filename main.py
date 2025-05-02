@@ -85,6 +85,44 @@ def main():
         help='LLM API key (can also be set via environment variable)'
     )
     
+    # Question tagger subcommand
+    question_tagger_parser = subparsers.add_parser('question-tagger', help='Tag exam questions with specification areas')
+    question_tagger_parser.add_argument(
+        '--input',
+        default='Index/final_index.json',
+        help='Path to input index file (default: Index/final_index.json)'
+    )
+    question_tagger_parser.add_argument(
+        '--output',
+        help='Path for output tagged index file (default: input_filename_tagged.json)'
+    )
+    question_tagger_parser.add_argument(
+        '--llm-provider',
+        default='openai',
+        choices=['openai', 'mistral'],
+        help='LLM provider to use (default: openai)'
+    )
+    question_tagger_parser.add_argument(
+        '--llm-model',
+        default='gpt-4',
+        help='LLM model to use (default: gpt-4)'
+    )
+    question_tagger_parser.add_argument(
+        '--dry-run',
+        action='store_true',
+        help='Run in dry-run mode (does not make actual API calls)'
+    )
+    question_tagger_parser.add_argument(
+        '--no-validate',
+        action='store_true',
+        help='Disable validation of specification tags'
+    )
+    question_tagger_parser.add_argument(
+        '--verbose',
+        action='store_true',
+        help='Enable verbose logging'
+    )
+    
     # Index management subcommand
     index_parser = subparsers.add_parser('index', help='Manage, transform, and enhance the index')
     index_parser.add_argument(
@@ -295,6 +333,29 @@ def main():
                 sys.argv.append('--skip-metadata')
                 
             return index_main()
+            
+        elif args.command == 'question-tagger':
+            # Run the question tagger
+            from src.QuestionTagger.main import main as question_tagger_main
+            
+            # Replace sys.argv with the arguments for the question tagger script
+            sys.argv = [sys.argv[0]]
+            if args.input:
+                sys.argv.extend(['--input', args.input])
+            if args.output:
+                sys.argv.extend(['--output', args.output])
+            if args.llm_provider:
+                sys.argv.extend(['--llm-provider', args.llm_provider])
+            if args.llm_model:
+                sys.argv.extend(['--llm-model', args.llm_model])
+            if args.dry_run:
+                sys.argv.append('--dry-run')
+            if args.no_validate:
+                sys.argv.append('--no-validate')
+            if args.verbose:
+                sys.argv.append('--verbose')
+                
+            return question_tagger_main()
             
         elif args.command == 'exam-content':
             # Run the exam content parser

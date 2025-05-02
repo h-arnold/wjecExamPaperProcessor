@@ -54,13 +54,13 @@ def main():
     parser.add_argument(
         '--llm-provider',
         default='openai',
-        choices=['openai', 'mistral', 'anthropic'],
+        choices=['openai', 'mistral'],
         help='LLM provider to use (default: openai)'
     )
     parser.add_argument(
         '--llm-model',
-        default='gpt-4',
-        help='LLM model to use (default: gpt-4)'
+        default='gpt-4.1-mini',
+        help='LLM model to use (default: gpt-4.1-mini)'
     )
     parser.add_argument(
         '--dry-run',
