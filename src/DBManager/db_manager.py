@@ -132,7 +132,7 @@ class DBManager:
             return
             
         try:
-            required_collections = ['exams', 'specifications', 'spec_coverage']
+            required_collections = ['documents']
             
             # Get list of existing collections
             existing_collections = self.db.list_collection_names()
@@ -457,7 +457,7 @@ class DBManager:
         Initialises the MongoDB database with required collections and indexes
         for the WJEC exam paper processor system.
         
-        Creates collections if they don't exist and sets up appropriate indexes
+        Creates the documents collection if it doesn't exist and sets up appropriate indexes
         for optimised queries.
         
         Returns:
@@ -479,61 +479,19 @@ class DBManager:
             # Check and create collections if they don't exist
             collections = db.list_collection_names()
             
-            # Create exams collection if it doesn't exist
-            if 'exams' not in collections:
-                self.logger.info('Creating exams collection...')
-                db.create_collection('exams')
+            # Create documents collection if it doesn't exist
+            if 'documents' not in collections:
+                self.logger.info('Creating documents collection...')
+                db.create_collection('documents')
                 
-                # Create indexes for common query patterns
-                db['exams'].create_index([('subject', pymongo.ASCENDING), 
-                                         ('year', pymongo.ASCENDING), 
-                                         ('season', pymongo.ASCENDING)])
-                db['exams'].create_index([('examId', pymongo.ASCENDING)], unique=True)
-                db['exams'].create_index([('questions.spec_refs', pymongo.ASCENDING)])
-                db['exams'].create_index([
-                    ('subject', pymongo.TEXT), 
-                    ('questions.question_text', pymongo.TEXT),
-                    ('questions.mark_scheme', pymongo.TEXT)
-                ])
-                self.logger.info('Exams collection and indexes created successfully')
-            
-            # Create specifications collection if it doesn't exist
-            if 'specifications' not in collections:
-                self.logger.info('Creating specifications collection...')
-                db.create_collection('specifications')
+                # Create indexes for document lookup
+                db['documents'].create_index([('document_id', pymongo.ASCENDING)], unique=True)
                 
-                # Create indexes for specification lookup
-                db['specifications'].create_index([
-                    ('qualification', pymongo.ASCENDING), 
-                    ('subject', pymongo.ASCENDING)
-                ])
-                db['specifications'].create_index([
-                    ('units.sections.items.spec_ref', pymongo.ASCENDING)
-                ])
-                db['specifications'].create_index([
-                    ('units.sections.items.keywords', pymongo.ASCENDING)
-                ])
-                self.logger.info('Specifications collection and indexes created successfully')
-            
-            # Create spec_coverage collection if it doesn't exist
-            if 'spec_coverage' not in collections:
-                self.logger.info('Creating spec_coverage collection...')
-                db.create_collection('spec_coverage')
-                
-                # Create indexes for coverage analysis
-                db['spec_coverage'].create_index([
-                    ('qualification', pymongo.ASCENDING), 
-                    ('subject', pymongo.ASCENDING), 
-                    ('spec_ref', pymongo.ASCENDING)
-                ], unique=True)
-                db['spec_coverage'].create_index([
-                    ('coverage_frequency', pymongo.ASCENDING)
-                ])
-                self.logger.info('Spec_coverage collection and indexes created successfully')
+                self.logger.info('Documents collection and indexes created successfully')
             
             # Validate collections exist
             updated_collections = db.list_collection_names()
-            required_collections = ['exams', 'specifications', 'spec_coverage']
+            required_collections = ['documents']
             all_collections_exist = all(collection in updated_collections for collection in required_collections)
             
             if all_collections_exist:
