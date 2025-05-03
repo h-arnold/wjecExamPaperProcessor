@@ -9,7 +9,8 @@
         {
             "file": ".github/.copilot-codeGeneration-instructions.md"
         }
-    ]
-    "github.copilot.chat.followUps": 
-    
+    ],
+    "github.copilot.advanced": {
+        "maxRequests": 5 // Stops Copilot agent from runnning away and making too many changes without user approval.
+    }
 }

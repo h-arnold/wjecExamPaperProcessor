@@ -3,7 +3,7 @@ import json
 import base64
 import logging
 from pathlib import Path
-from .mistralOCRClient import MistralOCRClient
+from .mistral_OCR_Client import MistralOCRClient
 
 class PDF_OCR_Processor:
     """

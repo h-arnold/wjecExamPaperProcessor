@@ -1,12 +1,17 @@
 import os
-from mistralOCRClient import MistralOCRClient
-
-from pdfOcrProcessor import PDF_OCR_Processor
+from pathlib import Path
+from dotenv import load_dotenv
+from .mistral_OCR_Client import MistralOCRClient
+from .pdf_Ocr_Processor import PDF_OCR_Processor
 
 def main():
     """
     Main function to run the PDF OCR processing.
     """
+    # Load environment variables from .env file in project root
+    dotenv_path = Path(__file__).parents[3] / ".env"
+    load_dotenv(dotenv_path=dotenv_path)
+    
     # Retrieve the source and destination folders from environment variables.
     source_folder = os.environ.get("SOURCE_FOLDER")
     if not source_folder:
@@ -16,13 +21,13 @@ def main():
     if not destination_folder:
         raise EnvironmentError("DESTINATION_FOLDER environment variable not set.")
     
-    # Retrieve the Mistal API key from the environment.
+    # Retrieve the Mistral API key from the environment.
     api_key = os.environ.get("MISTRAL_API_KEY")
     if not api_key:
         raise EnvironmentError("MISTRAL_API_KEY environment variable not set.")
     
     
-    # Initialise the Mistal OCR client using the MistalAI Python library.
+    # Initialise the Mistral OCR client using the MistralAI Python library.
     ocr_client = MistralOCRClient(api_key=api_key)
     
     # Initialise and run the PDF OCR processor.
