@@ -2,7 +2,7 @@
 
 ## Overview
 
-The OCR (Optical Character Recognition) processing module provides functionality to scan PDF exam papers and extract structured text and images. This module supports both filesystem storage and MongoDB hybrid storage for the OCR results.
+The OCR (Optical Character Recognition) processing module provides functionality to scan PDF exam papers and extract structured text and images. This module uses MongoDB hybrid storage for the OCR results.
 
 ## Key Components
 
@@ -20,17 +20,9 @@ Main processor class that:
 - Processes PDF files from a source directory
 - Manages OCR extraction using the MistralOCRClient
 - Determines document types automatically (Question Paper or Mark Scheme)
-- Supports both filesystem and MongoDB hybrid storage
+- Stores all results in MongoDB using a hybrid storage approach
 
-## Storage Options
-
-### Filesystem Storage (Legacy)
-
-Stores OCR results as JSON files in a specified destination folder with:
-- Extracted images saved to a separate subfolder
-- References to image paths included in the JSON
-
-### MongoDB Hybrid Storage (Default)
+## MongoDB Hybrid Storage
 
 Implements an intelligent hybrid storage approach:
 - PDFs are stored in GridFS (MongoDB's solution for large files)
@@ -47,11 +39,9 @@ This hybrid approach optimises both storage efficiency and query performance.
 
 The module is configured through environment variables:
 - `SOURCE_FOLDER`: Directory containing PDF files to process
-- `DESTINATION_FOLDER`: Directory where OCR results will be saved (if using filesystem storage)
 - `MISTRAL_API_KEY`: API key for Mistral AI OCR services
-- `MONGODB_URI`: MongoDB connection string (for MongoDB storage)
-- `MONGODB_DATABASE_NAME`: Name of the MongoDB database (for MongoDB storage)
-- `USE_FILESYSTEM_STORAGE`: Set to "True" to use legacy filesystem storage (default: "False")
+- `MONGODB_URI`: MongoDB connection string
+- `MONGODB_DATABASE_NAME`: Name of the MongoDB database
 
 ## Usage
 
@@ -73,15 +63,13 @@ from src.DBManager.db_manager import DBManager
 # Create OCR client
 ocr_client = MistralOCRClient(api_key="your_mistral_api_key")
 
-# Create DB manager (for MongoDB storage)
+# Create DB manager for MongoDB storage
 db_manager = DBManager(connection_string="mongodb://...", database_name="your_db")
 
-# Create PDF processor with MongoDB storage (default)
+# Create PDF processor with MongoDB storage
 processor = PDF_OCR_Processor(
     source_folder="source_pdf",
-    destination_folder="ocr_results",
     ocr_client=ocr_client,
-    use_mongodb=True,
     db_manager=db_manager
 )
 
@@ -102,7 +90,7 @@ All errors are logged with appropriate detail level.
 
 ## Database Schema (MongoDB)
 
-When using MongoDB storage, documents are stored with the following structure:
+Documents are stored with the following structure:
 
 ```
 {

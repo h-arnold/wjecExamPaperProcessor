@@ -14,6 +14,7 @@ The WJEC Exam Paper Processor is a specialised tool designed to automate the ext
 - Unified index management system for organizing and relating exam documents
 - Hierarchical document structure generation for better content navigation
 - Extraction and structuring of questions and mark schemes into machine-readable format
+- MongoDB integration for efficient document storage and retrieval
 
 ## Getting Started
 
@@ -21,6 +22,7 @@ The WJEC Exam Paper Processor is a specialised tool designed to automate the ext
 
 - Python 3.8 or higher
 - Mistral AI API key
+- MongoDB instance (local or cloud-based)
 
 ### Installation
 
@@ -34,25 +36,31 @@ The WJEC Exam Paper Processor is a specialised tool designed to automate the ext
 2. Install the required packages:
 
    ```bash
-   pip install mistralai
+   pip install mistralai pymongo python-dotenv
    ```
 
-3. Set up your Mistral AI API key as an environment variable:
+3. Set up environment variables:
 
    ```bash
    export MISTRAL_API_KEY="your-api-key"
+   export MONGODB_URI="mongodb://localhost:27017"
+   export MONGODB_DATABASE_NAME="wjec_exams"
+   export SOURCE_FOLDER="source_pdfs"
    ```
 
    For Windows:
 
    ```powershell
    set MISTRAL_API_KEY=your-api-key
+   set MONGODB_URI=mongodb://localhost:27017
+   set MONGODB_DATABASE_NAME=wjec_exams
+   set SOURCE_FOLDER=source_pdfs
    ```
 
 4. Create the required directories:
 
    ```bash
-   mkdir -p source_pdfs ocr_results Index
+   mkdir -p source_pdfs Index
    ```
 
 ## Metadata Extraction
@@ -79,7 +87,7 @@ python main.py <command> [options]
 
 Available commands:
 
-- `ocr`: Run the OCR processing pipeline
+- `ocr`: Run the OCR processing pipeline with MongoDB storage
 - `metadata`: Extract metadata from OCR results
 - `index`: Manage, transform, and enhance the document index
 - `exam-content`: Parse and extract structured question and mark scheme data
@@ -98,7 +106,7 @@ python main.py exam-content --help
 **OCR Processing:**
 
 ```bash
-python main.py ocr --source /path/to/pdfs --dest /path/to/results --api-key YOUR_MISTRAL_API_KEY
+python main.py ocr --source /path/to/pdfs --api-key YOUR_MISTRAL_API_KEY --mongodb-uri mongodb://localhost:27017
 ```
 
 **Metadata Extraction:**
@@ -145,15 +153,18 @@ python main.py exam-content process --subject "Computer Science" --logs-dir ./lo
 
 1. Place your PDF files in the `source_pdfs` directory.
 
-2. Run the main script:
+2. Run the OCR processing command:
 
    ```bash
-   python src/main.py
+   python main.py ocr
    ```
 
-3. The OCR results will be saved in the `ocr_results` directory. For each PDF:
-   - A JSON file with the OCR text data
-   - An images directory containing extracted images (if any)
+3. The OCR results will be stored in MongoDB using a hybrid storage approach:
+   - PDF files are stored in GridFS
+   - OCR JSON results are stored inline if small (<5MB) or in GridFS if large
+   - Images are stored inline if small (<500KB) or in GridFS if large
+
+4. To use the OCR results for metadata extraction or exam content parsing, simply refer to the document IDs returned by the OCR process.
 
 ### Index Management
 
