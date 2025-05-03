@@ -8,7 +8,7 @@ from pathlib import Path
 from typing import Dict, Any, Union
 
 
-class MetadataFileManager:
+class FileManager:
     """
     Manages file operations related to OCR results.
     

@@ -12,7 +12,7 @@ from typing import Dict, Any, List, Union
 
 from src.Llm_client.factory import LLMClientFactory
 from src.MetadataExtraction.document_processor import DocumentProcessor
-from src.FileManager.file_manager import MetadataFileManager
+from src.FileManager.file_manager import FileManager
 from src.DBManager.db_manager import DBManager
 
 
@@ -41,7 +41,7 @@ def extract_metadata_from_file(
     )
     
     # Create file manager for reading OCR files
-    file_manager = MetadataFileManager()
+    file_manager = FileManager()
     
     # Get MongoDB connection string from environment variable
     mongo_uri = os.environ.get("MONGODB_URI")
@@ -97,7 +97,7 @@ def extract_metadata_from_directory(
     )
     
     # Create file manager for reading OCR files
-    file_manager = MetadataFileManager()
+    file_manager = FileManager()
     
     # Get MongoDB connection string from environment variable
     mongo_uri = os.environ.get("MONGODB_URI")

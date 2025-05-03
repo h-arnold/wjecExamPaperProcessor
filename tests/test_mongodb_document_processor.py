@@ -19,7 +19,7 @@ sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')
 from src.MetadataExtraction.document_processor import DocumentProcessor
 from src.DBManager.db_manager import DBManager
 from src.Llm_client.base_client import LLMClient
-from src.FileManager.file_manager import MetadataFileManager
+from src.FileManager.file_manager import FileManager
 from src.MetadataExtraction.metadata_extractor import MetadataExtractor
 
 
@@ -45,7 +45,7 @@ def mock_llm_client():
 @pytest.fixture
 def mock_file_manager():
     """Mock file manager for testing."""
-    mock_manager = MagicMock(spec=MetadataFileManager)
+    mock_manager = MagicMock(spec=FileManager)
     
     # Configure extract_document_id to return a consistent ID
     mock_manager.extract_document_id.return_value = "test-doc-id"

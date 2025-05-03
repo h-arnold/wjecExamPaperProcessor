@@ -10,7 +10,7 @@ from typing import Dict, Any, List, Optional, Union
 
 from src.Llm_client.base_client import LLMClient
 from src.MetadataExtraction.metadata_extractor import MetadataExtractor
-from src.FileManager.file_manager import MetadataFileManager
+from src.FileManager.file_manager import FileManager
 from src.DBManager.db_manager import DBManager
 
 
@@ -27,7 +27,7 @@ class DocumentProcessor:
     
     def __init__(self, 
                  llm_client: LLMClient,
-                 file_manager: Optional[MetadataFileManager] = None,
+                 file_manager: Optional[FileManager] = None,
                  db_manager: DBManager = None,
                  mongodb_config: Optional[Dict[str, Any]] = None
     ):
@@ -44,7 +44,7 @@ class DocumentProcessor:
             ValueError: If no valid database manager is provided or can be created
         """
         self.llm_client = llm_client
-        self.file_manager = file_manager or MetadataFileManager()
+        self.file_manager = file_manager or FileManager()
         
         # Handle the DBManager creation with proper config
         if db_manager is not None:
