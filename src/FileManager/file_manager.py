@@ -281,7 +281,7 @@ class FileManager:
         Returns:
             tuple: (processed_ocr_result, image_references)
         """
-        import base64
+
         import json
         
         MAX_INLINE_SIZE = 500 * 1024  # 500KB
