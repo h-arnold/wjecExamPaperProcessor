@@ -10,5 +10,6 @@
             "file": ".github/.copilot-codeGeneration-instructions.md"
         }
     ]
+    "github.copilot.chat.followUps": 
     
 }
