@@ -125,26 +125,35 @@ class PDF_OCR_Processor:
             str: Document ID if successful, None otherwise
         """
         try:
+            # Step 1: Generate document_id (hash) for the PDF file
+            document_id = self.file_manager.get_file_hash(pdf_file)
+            self.logger.info(f"Generated document ID (hash): {document_id}")
+            
+            # Step 2: Check if document already exists in the database
+            if self.file_manager.check_document_exists(document_id):
+                self.logger.info(f"Document with ID {document_id} already exists in the database. Skipping processing.")
+                return document_id
+                
             self.logger.info(f"Uploading file: {pdf_file.name}")
-            # Step 1: Upload the PDF file and get the file_id
+            # Step 3: Upload the PDF file and get the file_id
             uploaded_file = self.ocr_client.upload_pdf(str(pdf_file))
             file_id = uploaded_file.id
             self.logger.info(f"File uploaded successfully. File ID: {file_id}")
             
-            # Step 2: Get the signed URL using the file_id
+            # Step 4: Get the signed URL using the file_id
             signed_url_response = self.ocr_client.get_signed_url(file_id)
             signed_url = signed_url_response.url
             self.logger.info(f"Retrieved signed URL for processing")
             
-            # Step 3: Process OCR with the signed URL
+            # Step 5: Process OCR with the signed URL
             self.logger.info(f"Processing OCR for file: {pdf_file.name}")
             ocr_result = self.ocr_client.ocr_pdf(signed_url)
             
-            # Step 4: Serialize the OCR result pages before storing in MongoDB
+            # Step 6: Serialize the OCR result pages before storing in MongoDB
             # Use the existing serialization method
             serialized_pages = [self._serialise_ocr_result(page) for page in ocr_result.pages]
             
-            # Step 5: Store PDF, OCR results, and images in MongoDB
+            # Step 7: Store PDF, OCR results, and images in MongoDB
             document_type = self._determine_document_type(pdf_file)
             document_id = self.file_manager.add_document_to_db_with_images(
                 pdf_file, 
