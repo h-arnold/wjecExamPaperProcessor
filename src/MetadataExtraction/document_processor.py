@@ -93,7 +93,7 @@ class DocumentProcessor:
         document_id = self.file_manager.extract_document_id(ocr_file_path)
         
         # Check if document exists in MongoDB
-        if self.db_manager.document_exists(document_id):
+        if self.db_manager.exam_exists(document_id):
             print(f"Document {document_id} already exists in MongoDB, retrieving metadata")
             mongodb_metadata = self.db_manager.get_exam_metadata(document_id)
             if mongodb_metadata:
@@ -260,7 +260,7 @@ class DocumentProcessor:
                     document_ids.append(document_id)
                     
                     # Check if document already exists in MongoDB
-                    if self.db_manager.document_exists(document_id):
+                    if self.db_manager.exam_exists(document_id):
                         # Retrieve existing document
                         mongodb_metadata = self.db_manager.get_exam_metadata(document_id)
                         batch_results.append({

@@ -199,7 +199,8 @@ class DBManager:
             return None
         return db[collection_name]
     
-    def document_exists(self, document_id: str) -> bool:
+    # IMPORTANT: This will need refactoring later. This code won't work at the moment.
+    def exam_exists(self, document_id: str) -> bool:
         """
         Check if a document with the given ID exists in the database.
         
