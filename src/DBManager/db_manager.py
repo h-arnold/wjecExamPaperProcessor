@@ -14,6 +14,7 @@ from typing import Dict, Any, List, Optional, Union
 try:
     import pymongo
     from pymongo import MongoClient
+    import gridfs
     from pymongo.errors import ConnectionFailure, ServerSelectionTimeoutError, DuplicateKeyError
     from dotenv import load_dotenv
     MONGODB_AVAILABLE = True
@@ -696,3 +697,137 @@ class DBManager:
         document["updated_at"] = now
         
         return document
+
+    def get_gridfs(self):
+        """
+        Get a GridFS instance for the current database.
+        
+        Returns:
+            pymongo.gridfs.GridFS: A GridFS instance if connected, None otherwise
+        """
+        db = self.get_database()
+        if db is None:
+            self.logger.error("Not connected to MongoDB - cannot create GridFS instance")
+            return None
+        return gridfs.GridFS(db)
+
+    def store_file_in_gridfs(self, file_data, content_type=None, filename=None, metadata=None):
+        """
+        Store a file in GridFS.
+        
+        Args:
+            file_data: File data as bytes, Path object, string path, or file-like object
+            content_type: Optional MIME type of the file
+            filename: Optional filename
+            metadata: Optional dictionary with additional metadata
+        
+        Returns:
+            str: The ID of the stored file as a string, or None if storage failed
+        """
+        try:
+            # Ensure we have a database connection
+            fs = self.get_gridfs()
+            if fs is None:
+                self.logger.error("Not connected to MongoDB GridFS")
+                return None
+            
+            # Prepare file data
+            if isinstance(file_data, bytes):
+                data = file_data
+            elif isinstance(file_data, str) and os.path.isfile(file_data):
+                # String path to file
+                with open(file_data, 'rb') as f:
+                    data = f.read()
+            elif hasattr(file_data, 'read') and callable(file_data.read):
+                # File-like object
+                pos = file_data.tell()
+                file_data.seek(0)
+                data = file_data.read()
+                file_data.seek(pos)
+            else:
+                # Try to convert to bytes
+                data = bytes(file_data)
+            
+            # Add upload timestamp to metadata
+            meta = metadata or {}
+            meta['upload_date'] = datetime.datetime.now(UTC)
+            
+            # Store file in GridFS
+            file_id = fs.put(
+                data, 
+                content_type=content_type,
+                filename=filename,
+                metadata=meta
+            )
+            
+            self.logger.info(f"File stored in GridFS with ID: {file_id}")
+            return str(file_id)
+            
+        except Exception as e:
+            self.logger.error(f"Error storing file in GridFS: {str(e)}")
+            return None
+
+    def get_file_from_gridfs(self, file_id):
+        """
+        Retrieve a file from GridFS.
+        
+        Args:
+            file_id: The ID of the file to retrieve, as string or ObjectId
+        
+        Returns:
+            GridOut: The file object, which can be read like a file
+        
+        Raises:
+            NoFile: If no such file exists
+        """
+        try:
+            # Ensure we have a database connection
+            fs = self.get_gridfs()
+            if fs is None:
+                self.logger.error("Not connected to MongoDB GridFS")
+                return None
+            
+            # Convert string ID to ObjectId if necessary
+            if isinstance(file_id, str):
+                file_id = pymongo.ObjectId(file_id)
+            
+            # Retrieve file
+            grid_out = fs.get(file_id)
+            return grid_out
+            
+        except pymongo.errors.NoFile as nf:
+            self.logger.error(f"File not found in GridFS: {str(nf)}")
+            raise
+        except Exception as e:
+            self.logger.error(f"Error retrieving file from GridFS: {str(e)}")
+            return None
+
+    def delete_file_from_gridfs(self, file_id):
+        """
+        Delete a file from GridFS.
+        
+        Args:
+            file_id: The ID of the file to delete, as string or ObjectId
+        
+        Returns:
+            bool: True if file was deleted, False otherwise
+        """
+        try:
+            # Ensure we have a database connection
+            fs = self.get_gridfs()
+            if fs is None:
+                self.logger.error("Not connected to MongoDB GridFS")
+                return False
+            
+            # Convert string ID to ObjectId if necessary
+            if isinstance(file_id, str):
+                file_id = pymongo.ObjectId(file_id)
+            
+            # Delete file
+            fs.delete(file_id)
+            self.logger.info(f"File deleted from GridFS: {file_id}")
+            return True
+            
+        except Exception as e:
+            self.logger.error(f"Error deleting file from GridFS: {str(e)}")
+            return False
