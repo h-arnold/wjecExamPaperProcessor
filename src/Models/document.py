@@ -11,20 +11,21 @@ class Document:
     """
     Represents a WJEC exam document (Question Paper or Mark Scheme).
     This class models the document structure as stored in MongoDB.
+    Document objects will normally form part of an `exam` object.
     """
     
     def __init__(
         self,
         document_id: str,
-        file_name: str,
         document_type: str,
-        ocr_pages: List[Dict[str, Any]],
-        file_path: Optional[str] = None,
+        ocr_json: List[Dict[str, Any]],
+        pdf_filename: str,
+        pdf_file_id: Optional[str] = None,
+        ocr_storage: Optional[str] = None,
+        pdf_upload_date: Optional[datetime] = None,
+        ocr_upload_date: Optional[datetime] = None,
         images: Optional[List[Dict[str, Any]]] = None,
-        metadata: Optional[Dict[str, Any]] = None,
         processed: bool = False,
-        created_at: datetime = None,
-        updated_at: datetime = None,
         _id: Optional[ObjectId] = None
     ):
         """
@@ -32,27 +33,27 @@ class Document:
         
         Args:
             document_id (str): Unique identifier for the document (hash of PDF file)
-            file_name (str): Original filename of the PDF
             document_type (str): Type of document ('Question Paper' or 'Mark Scheme')
-            ocr_pages (List[Dict]): List of serialized OCR result pages
-            file_path (str, optional): Path to the original file on disk, if available
+            ocr_json (List[Dict]): List of serialized OCR result pages
+            pdf_filename (str): Original filename of the PDF
+            pdf_file_id (str, optional): GridFS file ID of the stored PDF
+            ocr_storage (str, optional): Storage type for OCR data (e.g. 'inline')
+            pdf_upload_date (datetime, optional): Timestamp when PDF was uploaded
+            ocr_upload_date (datetime, optional): Timestamp when OCR was completed
             images (List[Dict], optional): List of images extracted from the document
-            metadata (Dict, optional): Additional metadata about the document
             processed (bool): Flag indicating if the document has been fully processed
-            created_at (datetime, optional): Timestamp when document was first created
-            updated_at (datetime, optional): Timestamp when document was last updated
             _id (ObjectId, optional): MongoDB ObjectId
         """
         self.document_id = document_id
-        self.file_name = file_name
         self.document_type = document_type
-        self.ocr_pages = ocr_pages
-        self.file_path = file_path
+        self.ocr_json = ocr_json
+        self.pdf_filename = pdf_filename
+        self.pdf_file_id = pdf_file_id
+        self.ocr_storage = ocr_storage
+        self.pdf_upload_date = pdf_upload_date
+        self.ocr_upload_date = ocr_upload_date
         self.images = images or []
-        self.metadata = metadata or {}
         self.processed = processed
-        self.created_at = created_at or datetime.now()
-        self.updated_at = updated_at or datetime.now()
         self._id = _id
 
     @staticmethod
@@ -174,14 +175,15 @@ class Document:
             # 7. Create a Document instance with minimal data
             return cls(
                 document_id=document_id,
-                file_name=pdf_filename,
                 document_type=document_type,
-                ocr_pages=[],  # Empty as OCR has not been performed
-                file_path=str(pdf_path),
+                ocr_json=[],  # Empty as OCR has not been performed
+                pdf_filename=pdf_filename,
+                pdf_file_id=pdf_id,
+                pdf_upload_date=now,
+                ocr_upload_date=None,
                 images=[],
                 processed=False,
-                created_at=now,
-                updated_at=now
+                _id=None
             )
             
         except Exception as e:
@@ -223,13 +225,15 @@ class Document:
             # Extract document data
             return cls(
                 document_id=doc_data["document_id"],
-                file_name=doc_data.get("pdf_filename", ""),
                 document_type=doc_data.get("document_type", ""),
-                ocr_pages=doc_data.get("ocr_json", []),
+                ocr_json=doc_data.get("ocr_json", []),
+                pdf_filename=doc_data.get("pdf_filename", ""),
+                pdf_file_id=doc_data.get("pdf_file_id", None),
+                ocr_storage=doc_data.get("ocr_storage", None),
+                pdf_upload_date=doc_data.get("pdf_upload_date"),
+                ocr_upload_date=doc_data.get("ocr_upload_date"),
                 images=doc_data.get("images", []),
                 processed=doc_data.get("processed", False),
-                created_at=doc_data.get("pdf_upload_date"),
-                updated_at=doc_data.get("ocr_upload_date"),
                 _id=doc_data.get("_id")
             )
             

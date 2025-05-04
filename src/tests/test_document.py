@@ -135,71 +135,68 @@ class TestDocumentInit:
         """Test basic initialization of a Document object."""
         # Arrange
         document_id = "test_doc_123"
-        file_name = "test_file.pdf"
+        pdf_filename = "test_file.pdf"
         document_type = "Question Paper"
-        ocr_pages = [{"text": "Test content", "page_number": 1}]
+        ocr_json = [{"text": "Test content", "page_number": 1}]
         
         # Act
         document = Document(
             document_id=document_id,
-            file_name=file_name,
+            pdf_filename=pdf_filename,
             document_type=document_type,
-            ocr_pages=ocr_pages
+            ocr_json=ocr_json
         )
         
         # Assert
         assert document.document_id == document_id
-        assert document.file_name == file_name
+        assert document.pdf_filename == pdf_filename
         assert document.document_type == document_type
-        assert document.ocr_pages == ocr_pages
+        assert document.ocr_json == ocr_json
         assert document.images == []
-        assert document.metadata == {}
         assert document.processed is False
-        assert document.created_at is not None
-        assert document.updated_at is not None
         assert document._id is None
         
     def test_document_initialization_with_optional_params(self):
         """Test initialization of a Document object with all parameters."""
         # Arrange
         document_id = "test_doc_123"
-        file_name = "test_file.pdf"
+        pdf_filename = "test_file.pdf"
         document_type = "Mark Scheme"
-        ocr_pages = [{"text": "Test content", "page_number": 1}]
-        file_path = "/path/to/file.pdf"
+        ocr_json = [{"text": "Test content", "page_number": 1}]
         images = [{"image_id": "img1", "data": "base64data"}]
-        metadata = {"subject": "Computer Science", "year": 2023}
         processed = True
-        created_at = datetime.now(UTC)
-        updated_at = datetime.now(UTC)
+        pdf_file_id = "file_id_123"
+        ocr_storage = "inline"
+        pdf_upload_date = datetime.now(UTC)
+        ocr_upload_date = datetime.now(UTC)
         _id = ObjectId()
         
         # Act
         document = Document(
             document_id=document_id,
-            file_name=file_name,
+            pdf_filename=pdf_filename,
             document_type=document_type,
-            ocr_pages=ocr_pages,
-            file_path=file_path,
+            ocr_json=ocr_json,
             images=images,
-            metadata=metadata,
             processed=processed,
-            created_at=created_at,
-            updated_at=updated_at,
+            pdf_file_id=pdf_file_id,
+            ocr_storage=ocr_storage,
+            pdf_upload_date=pdf_upload_date,
+            ocr_upload_date=ocr_upload_date,
             _id=_id
         )
         
         # Assert
         assert document.document_id == document_id
-        assert document.file_name == file_name
+        assert document.pdf_filename == pdf_filename
         assert document.document_type == document_type
-        assert document.ocr_pages == ocr_pages
-        assert document.file_path == file_path
+        assert document.ocr_json == ocr_json
         assert document.images == images
-        assert document.metadata == metadata
         assert document.processed is True
-        assert document.created_at == created_at
-        assert document.updated_at == updated_at
+        assert document.pdf_file_id == pdf_file_id
+        assert document.ocr_storage == ocr_storage
+        assert document.pdf_upload_date == pdf_upload_date
+        assert document.ocr_upload_date == ocr_upload_date
         assert document._id == _id
 
 
@@ -399,8 +396,8 @@ class TestDocumentFromDatabase:
         assert document is not None
         assert document.document_id == document_id
         assert document.document_type == "Question Paper"
-        assert document.file_name == "sample_exam.pdf"
-        assert len(document.ocr_pages) == 1
+        assert document.pdf_filename == "sample_exam.pdf"
+        assert len(document.ocr_json) == 1
         assert len(document.images) == 1
         mock_file_manager.get_document_with_images.assert_called_once_with(document_id)
     
@@ -426,9 +423,9 @@ class TestDocumentFromDatabase:
         # Assert
         assert document is not None
         assert document.document_id == document_id
-        assert document.file_name == ""  # Default value for missing field
+        assert document.pdf_filename == ""  # Default value for missing field
         assert document.document_type == ""  # Default value for missing field
-        assert document.ocr_pages == []  # Default value for missing field
+        assert document.ocr_json == []  # Default value for missing field
         assert document.images == []  # Default value for missing field
         assert document.processed is False  # Default value for missing field
 

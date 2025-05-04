@@ -1,10 +1,11 @@
+DBManager
 ExamContentParser
 FileManager
 IndexManager
 Llm_client
 MetadataExtraction
+Models
+OCR
 Prompts
 QuestionTagger
-main
-mistralOCRClient
-pdfOcrProcessor
+tests
