@@ -3,9 +3,13 @@ from datetime import datetime
 from bson import ObjectId
 from pathlib import Path
 import logging
+import json
+
 
 from src.FileManager.file_manager import FileManager
 from src.DBManager.db_manager import DBManager
+from src.Prompts import QuestionIndexIdentifier
+from src.Llm_client import LLMClientFactory
 
 class Document:
     """
@@ -26,9 +30,11 @@ class Document:
         ocr_upload_date: Optional[datetime] = None,
         images: Optional[List[Dict[str, Any]]] = None,
         processed: bool = False,
+        question_start_index: Optional[int] = None,
         _id: Optional[ObjectId] = None,
         db_manager: Optional[DBManager] = None,
-        pdf_data: Optional[bytes] = None
+        pdf_data: Optional[bytes] = None,
+        document_collection = None
     ):
         """
         Initialise a Document object.
@@ -44,9 +50,11 @@ class Document:
             ocr_upload_date (datetime, optional): Timestamp when OCR was completed
             images (List[Dict], optional): List of images extracted from the document
             processed (bool): Flag indicating if the document has been fully processed
+            question_start_index (int, optional): Index where questions begin in the document
             _id (ObjectId, optional): MongoDB ObjectId
             db_manager (DBManager, optional): Database manager instance - ideally passed from elsewhere to avoid creating a new DB connection for each document.
             pdf_data (bytes, optional): The actual PDF file content as bytes
+            document_collection: MongoDB collection for documents (if already available)
         """
         self.document_id = document_id
         self.document_type = document_type
@@ -58,9 +66,11 @@ class Document:
         self.ocr_upload_date = ocr_upload_date
         self.images = images or []
         self.processed = processed
+        self._question_start_index = question_start_index
         self._id = _id
         self.db_manager = db_manager or DBManager()
         self._pdf_data = pdf_data  # Store PDF data internally (use property for access)
+        self._document_collection = document_collection  # Cache the collection if provided
 
     # Read-only properties that shouldn't change after initialization
     @property
@@ -206,6 +216,31 @@ class Document:
                 logging.warning(f"Failed to load PDF data: {e}")
                 return None
         return self._pdf_data
+
+    @property
+    def question_start_index(self) -> Optional[int]:
+        """Index where questions begin in the document."""
+        return self._question_start_index
+        
+    @question_start_index.setter
+    def question_start_index(self, value: Optional[int]):
+        if value is not None and not isinstance(value, int):
+            raise TypeError("question_start_index must be an integer or None")
+        if value is not None and (value < 0 or value > 10):  # Reasonable upper limit for question indices
+            raise ValueError(f"question_start_index {value} is outside reasonable range (0-10)")
+        self._question_start_index = value
+
+    @property
+    def document_collection(self):
+        """
+        Get the documents collection, caching it for future use.
+        
+        Returns:
+            The MongoDB documents collection or None if it can't be accessed
+        """
+        if self._document_collection is None:
+            self._document_collection = self.db_manager.get_collection('documents')
+        return self._document_collection
 
     @staticmethod
     def _determine_document_type(filename: str) -> str:
@@ -457,7 +492,8 @@ class Document:
                 processed=doc_data.get("processed", False),
                 _id=doc_data.get("_id"),
                 db_manager=db_manager,  # Pass the db_manager to the constructor
-                pdf_data=pdf_data  # Include the PDF data if loaded
+                pdf_data=pdf_data,  # Include the PDF data if loaded
+
             )
             
         except Exception as e:
@@ -512,13 +548,12 @@ class Document:
         logger = logging.getLogger(__name__)
         
         try:
-            # Get the documents collection
-            collection = self.db_manager.get_collection('documents')
-            if collection is None:
+            # Get the documents collection using our cached property
+            if self.document_collection is None:
                 raise ValueError("Failed to access documents collection")
             
             # Verify document exists
-            doc_data = collection.find_one({"document_id": self.document_id})
+            doc_data = self.document_collection.find_one({"document_id": self.document_id})
             if not doc_data:
                 logger.warning(f"Document with ID {self.document_id} not found in database")
                 return False
@@ -540,7 +575,7 @@ class Document:
                     logger.info(f"Deleted image file with ID {img_id}")
             
             # Delete the document record
-            result = collection.delete_one({"document_id": self.document_id})
+            result = self.document_collection.delete_one({"document_id": self.document_id})
             
             deleted = result.deleted_count > 0
             if deleted:
@@ -583,7 +618,7 @@ class Document:
         
         Args:
             ocr_client: An OCR client instance (e.g., MistralOCRClient)
-            
+                        
         Returns:
             bool: True if OCR processing was successful, False otherwise
         """
@@ -615,14 +650,21 @@ class Document:
             logger.info(f"Processing OCR for file: {self.pdf_filename}")
             ocr_result = ocr_client.ocr_pdf(signed_url)
             
-            # Step 4: Serialize the OCR result pages
-            serialized_pages = [self._serialise_ocr_result(page) for page in ocr_result.pages]
+            # Step 4: Serialise the OCR result pages
+            serialised_pages = [self._serialise_ocr_result(page) for page in ocr_result.pages]
             
             # Step 5: Update document with OCR results and store images
-            self.update_with_ocr_results(serialized_pages)
+            self.update_with_ocr_results(serialised_pages)
             
             # Step 6: Extract and store images
             self.extract_and_store_images(ocr_result)
+            
+            # Step 7: Identify question start index if LLM client is provided
+            try:
+                question_index = self.identify_question_start_index()
+                logger.info(f"Identified question start index: {question_index} for document {self.document_id}")
+            except Exception as e:
+                logger.error(f"Error identifying question start index: {str(e)}")
             
             return True
             
@@ -630,7 +672,76 @@ class Document:
             logger.error(f"Error performing OCR on document {self.document_id}: {str(e)}")
             return False
     
-    def update_with_ocr_results(self, serialized_pages, ocr_storage='inline'):
+    def identify_question_start_index(self) -> Optional[int]:
+        """
+        Identifies the index where questions begin in this document.
+        
+        Args:
+            llm_client: An initialized LLM client for generating text
+            
+        Returns:
+            int: The index where questions start, or None if it cannot be determined
+            
+        Raises:
+            ValueError: If the index cannot be determined or is invalid
+        """
+        logger = logging.getLogger(__name__)
+        
+        llm_client = LLMClientFactory().create_client("mistral")
+        
+        # Validate document type
+        if self.document_type not in ["Question Paper", "Mark Scheme"]:
+            logger.warning(f"Cannot identify question start index for document type: {self.document_type}")
+            return None
+            
+        # Check if we already have the index
+        if self._question_start_index is not None:
+            return self._question_start_index
+            
+        # Ensure we have OCR data
+        if not self.ocr_json:
+            logger.warning("Cannot identify question start index: No OCR data available")
+            return None
+            
+        try:
+            # Create a QuestionIndexIdentifier prompt for this document
+            prompt = QuestionIndexIdentifier(self.document_type, self.ocr_json).get()
+            
+            # Send the prompt to the LLM client
+            response = llm_client.generate_text(prompt)
+            
+            # Extract and set the index (setter will handle validation)
+            try:
+                # Clean the response by removing any non-digit characters
+                cleaned_response = ''.join(char for char in response if char.isdigit())
+                
+                # Handle empty response
+                if not cleaned_response:
+                    raise ValueError("Could not extract a valid index number from LLM response")
+                
+                # Convert to integer and set (will be validated by setter)
+                index = int(cleaned_response)
+                self.question_start_index = index
+                
+            except ValueError as e:
+                logger.error(f"Failed to parse question index: {str(e)}")
+                return None
+            
+            # Update the database with the new index
+            if self.document_collection:
+                result = self.document_collection.update_one(
+                    {"document_id": self.document_id},
+                    {"$set": {"question_start_index": self._question_start_index}}
+                )
+                if result.modified_count == 0:
+                    logger.warning(f"Failed to update question_start_index in database for document {self.document_id}")
+            
+            return self._question_start_index
+        except Exception as e:
+            logger.error(f"Failed to identify question start index: {str(e)}")
+            return None
+
+    def update_with_ocr_results(self, serialised_pages, ocr_storage='inline'):
         """
         Update document with OCR results and mark as processed.
         
@@ -645,22 +756,20 @@ class Document:
         
         try:
             # Set OCR data
-            self.ocr_json = serialized_pages
+            self.ocr_json = serialised_pages
             self.ocr_storage = ocr_storage
             from datetime import UTC
             self.ocr_upload_date = datetime.now(UTC)
             self.processed = True
             
-            # Save changes to database
-            collection = self.db_manager.get_collection('documents')
-            if collection is None:
+            # Update document in database
+            if self.document_collection is None:
                 raise ValueError("Failed to access documents collection")
             
-            # Update document in database
-            result = collection.update_one(
+            result = self.document_collection.update_one(
                 {"document_id": self.document_id},
                 {"$set": {
-                    "ocr_json": serialized_pages,
+                    "ocr_json": serialised_pages,
                     "ocr_storage": ocr_storage,
                     "ocr_upload_date": self.ocr_upload_date,
                     "processed": True
@@ -743,11 +852,10 @@ class Document:
                 self.images = images_data
                 
                 # Update document in database with image file IDs
-                collection = self.db_manager.get_collection('documents')
-                if collection is None:
+                if self.document_collection is None:
                     raise ValueError("Failed to access documents collection")
                     
-                result = collection.update_one(
+                result = self.document_collection.update_one(
                     {"document_id": self.document_id},
                     {"$set": {
                         "image_file_ids": image_file_ids,
