@@ -629,9 +629,21 @@ class Document:
             if not pdf_data:
                 raise ValueError(f"Cannot perform OCR: PDF data not available for document {self.document_id}")
             
+            # Validate PDF data - check for null bytes
+            if b'\x00' in pdf_data:
+                raise ValueError("PDF contains embedded null bytes which may cause upload failures")
+                
+            # Validate PDF data is not empty and has proper PDF header
+            if not pdf_data.startswith(b'%PDF-'):
+                raise ValueError("Invalid PDF: File does not start with PDF header")
+                
             # Step 1: Upload the PDF to OCR service
             logger.info(f"Uploading file: {self.pdf_filename}")
-            uploaded_file = ocr_client.upload_pdf(pdf_data)
+            try:
+                uploaded_file = ocr_client.upload_pdf(pdf_data)
+            except Exception as upload_error:
+                raise ValueError(f"Failed to upload PDF: {str(upload_error)}")
+                
             file_id = uploaded_file.id
             logger.info(f"File uploaded successfully. File ID: {file_id}")
             
@@ -665,6 +677,9 @@ class Document:
                 
             return True
             
+        except ValueError as ve:
+            logger.error(f"Validation error for document {self.document_id}: {str(ve)}")
+            raise
         except Exception as e:
             logger.error(f"Error performing OCR on document {self.document_id}: {str(e)}")
             return False
