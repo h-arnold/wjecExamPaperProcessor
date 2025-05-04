@@ -18,9 +18,9 @@ class Document:
         self,
         document_id: str,
         document_type: str,
-        ocr_json: List[Dict[str, Any]],
         pdf_filename: str,
-        pdf_file_id: Optional[str] = None,
+        pdf_file_id: str,
+        ocr_json: Optional[List[Dict[str, Any]]] = None,
         ocr_storage: Optional[str] = None,
         pdf_upload_date: Optional[datetime] = None,
         ocr_upload_date: Optional[datetime] = None,
@@ -34,9 +34,9 @@ class Document:
         Args:
             document_id (str): Unique identifier for the document (hash of PDF file)
             document_type (str): Type of document ('Question Paper' or 'Mark Scheme')
-            ocr_json (List[Dict]): List of serialized OCR result pages
             pdf_filename (str): Original filename of the PDF
-            pdf_file_id (str, optional): GridFS file ID of the stored PDF
+            pdf_file_id (str): GridFS file ID of the stored PDF
+            ocr_json (List[Dict], optional): List of serialized OCR result pages
             ocr_storage (str, optional): Storage type for OCR data (e.g. 'inline')
             pdf_upload_date (datetime, optional): Timestamp when PDF was uploaded
             ocr_upload_date (datetime, optional): Timestamp when OCR was completed
@@ -46,9 +46,9 @@ class Document:
         """
         self.document_id = document_id
         self.document_type = document_type
-        self.ocr_json = ocr_json
         self.pdf_filename = pdf_filename
         self.pdf_file_id = pdf_file_id
+        self.ocr_json = ocr_json or []
         self.ocr_storage = ocr_storage
         self.pdf_upload_date = pdf_upload_date
         self.ocr_upload_date = ocr_upload_date
@@ -81,9 +81,39 @@ class Document:
         else:
             return "Unknown"
 
+    @staticmethod
+    def check_document_exists(document_id: str, db_manager: Optional[DBManager] = None) -> bool:
+        """
+        Check if a document with the given ID exists in the database.
+        
+        Args:
+            document_id: The document ID (hash) to check
+            db_manager: Optional DBManager instance to use for database operations
+            
+        Returns:
+            bool: True if the document exists, False otherwise
+        """
+        # Initialise DB manager if not provided
+        if db_manager is None:
+            db_manager = DBManager()
+            
+        try:
+            collection = db_manager.get_collection('documents')
+            if collection is None:
+                return False
+                
+            # Count documents matching the ID (limit to 1 for efficiency)
+            count = collection.count_documents({"document_id": document_id}, limit=1)
+            return count > 0
+            
+        except Exception as e:
+            # Log the error but return False rather than raising an exception
+            logging.error(f"Error checking if document exists: {str(e)}")
+            return False
+
     @classmethod
     def from_pdf(cls, pdf_file: Union[str, Path], document_type: str = None, 
-                 ocr_client = None, db_manager: Optional[DBManager] = None, 
+                 db_manager: Optional[DBManager] = None, 
                  file_manager: Optional[FileManager] = None) -> 'Document':
         """
         Create a Document instance from a PDF file, without OCR processing.
@@ -122,7 +152,7 @@ class Document:
             logger.info(f"Generated document ID (hash): {document_id}")
             
             # 2. Check if document already exists in the database
-            if file_manager.check_document_exists(document_id):
+            if cls.check_document_exists(document_id, db_manager):
                 logger.info(f"Document with ID {document_id} already exists in the database")
                 return cls.from_database(document_id, db_manager, file_manager)
             

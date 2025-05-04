@@ -272,34 +272,6 @@ class FileManager:
         except Exception as e:
             raise ValueError(f"Error retrieving document from database: {str(e)}")
     
-    def check_document_exists(self, document_id: str) -> bool:
-        """
-        Check if a document with the given ID exists in the database.
-        
-        Args:
-            document_id: The document ID (hash) to check
-            
-        Returns:
-            bool: True if the document exists, False otherwise
-        """
-        # Ensure we have a DB manager
-        if self.db_manager is None:
-            self.db_manager = DBManager()
-            
-        try:
-            collection = self.db_manager.get_collection('documents')
-            if collection is None:
-                return False
-                
-            # Count documents matching the ID (limit to 1 for efficiency)
-            count = collection.count_documents({"document_id": document_id}, limit=1)
-            return count > 0
-            
-        except Exception as e:
-            # Log the error but return False rather than raising an exception
-            print(f"Error checking if document exists: {str(e)}")
-            return False
-    
     def _process_ocr_images(self, ocr_result):
         """
         Process OCR result to extract images and decide storage strategy.
@@ -509,7 +481,6 @@ class FileManager:
         Returns:
             dict: The document with its OCR data and images
         """
-        import pymongo
         import base64
         
         # Ensure we have a DB manager
