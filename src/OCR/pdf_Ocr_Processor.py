@@ -26,7 +26,7 @@ class PDF_OCR_Processor:
         
         # Set up DBManager and FileManager
         self.db_manager = db_manager if db_manager is not None else DBManager()
-        self.file_manager = FileManager(self.db_manager)
+        self.file_manager = FileManager()
         
         logging.basicConfig(level=logging.INFO)
         self.logger = logging.getLogger(__name__)
@@ -43,24 +43,6 @@ class PDF_OCR_Processor:
             self.logger.info(f"Deleted source file: {file_path}")
         except Exception as e:
             self.logger.error(f"Error deleting file {file_path}: {e}")
-
-    def _determine_document_type(self, pdf_file):
-        """
-        Determine the document type (Question Paper or Mark Scheme) based on filename.
-        
-        Args:
-            pdf_file (Path or str): Path to the PDF file
-            
-        Returns:
-            str: Document type ("Question Paper" or "Mark Scheme")
-        """
-        pdf_path = Path(pdf_file)
-        filename = pdf_path.name.lower()
-        
-        if "ms" in filename or "mark scheme" in filename or "markscheme" in filename:
-            return "Mark Scheme"
-        else:
-            return "Question Paper"
 
     def process_pdfs(self):
         """

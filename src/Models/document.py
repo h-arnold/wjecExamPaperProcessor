@@ -289,7 +289,7 @@ class Document:
         if db_manager is None:
             db_manager = DBManager()
         if file_manager is None:
-            file_manager = FileManager(db_manager)
+            file_manager = FileManager()
         
         try:
             # Convert to Path object
@@ -375,7 +375,6 @@ class Document:
 
     @classmethod
     def from_database(cls, document_id: str, db_manager: Optional[DBManager] = None, 
-                     file_manager: Optional[FileManager] = None,
                      load_pdf_data: bool = False) -> 'Document':
         """
         Create a Document instance from a document stored in the database.
