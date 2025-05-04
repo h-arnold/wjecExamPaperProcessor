@@ -263,9 +263,9 @@ class Document:
         elif any(pattern in filename for pattern in ["qp", "question paper", "questionpaper", "question_paper", "exam_paper"]):
             return "Question Paper"
         
-        # Default to Unknown if no pattern matches
+        # Default to question paper if no pattern matches - mark schemes are usually explicitly labelled. This may need to be reviewed.
         else:
-            return "Unknown"
+            return "Question Paper"
 
     @staticmethod
     def check_document_exists(document_id: str, db_manager: Optional[DBManager] = None) -> bool:
@@ -567,7 +567,7 @@ class Document:
             if self.ocr_storage == "gridfs" and "ocr_file_id" in doc_data:
                 self.db_manager.delete_file_from_gridfs(doc_data["ocr_file_id"])
                 logger.info(f"Deleted OCR file with ID {doc_data['ocr_file_id']}")
-            
+            question
             # Delete image files from GridFS
             if "image_file_ids" in doc_data and doc_data["image_file_ids"]:
                 for img_id in doc_data["image_file_ids"]:
