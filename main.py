@@ -276,7 +276,7 @@ def main():
     try:
         if args.command == 'ocr':
             # Run the OCR processing pipeline
-            from src.main import main as ocr_main
+            from src.OCR import main as ocr_main
             
             # Set environment variables for OCR processing
             if args.source:

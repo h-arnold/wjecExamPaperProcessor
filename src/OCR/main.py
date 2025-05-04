@@ -5,24 +5,27 @@ from .mistral_OCR_Client import MistralOCRClient
 from .pdf_Ocr_Processor import PDF_OCR_Processor
 from src.DBManager.db_manager import DBManager
 
-def main():
+def main() -> int:
     """
-    Main function to run the PDF OCR processing.
-    All results are stored in MongoDB using a hybrid storage approach.
+    Main entry point for OCR processing pipeline.
+    Returns:
+        int: 0 for success, 1 for failure
     """
     # Load environment variables from .env file in project root
     dotenv_path = Path(__file__).parents[2] / ".env"
     load_dotenv(dotenv_path=dotenv_path)
     
     # Retrieve the source folder from environment variables.
-    source_folder = os.environ.get("SOURCE_FOLDER")
-    if not source_folder:
-        raise EnvironmentError("SOURCE_FOLDER environment variable not set.")
-    
-    # Retrieve the Mistral API key from the environment.
-    api_key = os.environ.get("MISTRAL_API_KEY")
-    if not api_key:
-        raise EnvironmentError("MISTRAL_API_KEY environment variable not set.")
+    source_folder = os.getenv("SOURCE_FOLDER")
+    dest_folder = os.getenv("DESTINATION_FOLDER")
+    api_key = os.getenv("MISTRAL_API_KEY")
+
+    if not all([source_folder, dest_folder, api_key]):
+        print("Error: Required environment variables not set")
+        print(f"SOURCE_FOLDER: {'✓' if source_folder else '✗'}")
+        print(f"DESTINATION_FOLDER: {'✓' if dest_folder else '✗'}")
+        print(f"MISTRAL_API_KEY: {'✓' if api_key else '✗'}")
+        return 1
     
     # MongoDB connection settings
     mongodb_uri = os.environ.get("MONGODB_URI")
@@ -57,6 +60,13 @@ def main():
             print(f"Processed: {doc_id}")
     else:
         print("No documents were processed.")
+    
+    try:
+        print("OCR processing completed successfully.")
+        return 0
+    except Exception as e:
+        print(f"Error during OCR processing: {str(e)}")
+        return 1
 
 if __name__ == "__main__":
     main()

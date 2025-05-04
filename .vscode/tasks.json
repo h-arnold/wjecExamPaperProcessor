@@ -1,0 +1,37 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "uv sync",
+            "type": "shell",
+            "command": "uv",
+            "args": ["sync"],
+            "presentation": {
+                "reveal": "silent"
+            },
+            "problemMatcher": []
+        },
+        {
+            "label": "uv venv",
+            "type": "shell",
+            "command": "uv",
+            "args": ["venv"],
+            "presentation": {
+                "reveal": "silent"
+            },
+            "dependsOn": ["uv sync"],
+            "problemMatcher": []
+        },
+        {
+            "label": "source .venv/bin/activate",
+            "type": "shell",
+            "command": "source",
+            "args": [".venv/bin/activate"],
+            "presentation": {
+                "reveal": "silent"
+            },
+            "dependsOn": ["uv venv"],
+            "problemMatcher": []
+        }
+    ]
+}

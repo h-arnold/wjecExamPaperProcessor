@@ -602,7 +602,7 @@ class Document:
             
             # Step 1: Upload the PDF to OCR service
             logger.info(f"Uploading file: {self.pdf_filename}")
-            uploaded_file = ocr_client.upload_pdf_bytes(pdf_data, self.pdf_filename)
+            uploaded_file = ocr_client.upload_pdf(pdf_data)
             file_id = uploaded_file.id
             logger.info(f"File uploaded successfully. File ID: {file_id}")
             

@@ -5,7 +5,7 @@
     "version": "0.3.0",
     "configurations": [
         {
-            "name": "Python Debugger: Current File",
+            "name": "Python with uv: Current File",
             "type": "debugpy",
             "request": "launch",
             "program": "${file}",
@@ -18,25 +18,25 @@
             }
         },
         {
-            "name": "Python with uv: Current File",
+            "name": "UV - OCR Module",
             "type": "debugpy",
             "request": "launch",
-            "module": "uv.run",
-            "args": ["${file}"],
+            "program": "${workspaceFolder}/main.py",
+            "args": ["ocr"],
             "console": "integratedTerminal",
             "justMyCode": true,
             "cwd": "${workspaceFolder}",
             "env": {
                 "VIRTUAL_ENV": "${workspaceFolder}/.venv",
                 "PATH": "${workspaceFolder}/.venv/bin:${env:PATH}"
-            }
+            },
+            //"preLaunchTask": "source .venv/bin/activate"
         },
         {
             "name": "Python with uv: main.py",
             "type": "debugpy",
             "request": "launch",
-            "module": "uv.run",
-            "args": ["${workspaceFolder}/main.py"],
+            "program": "${workspaceFolder}/main.py",
             "console": "integratedTerminal",
             "justMyCode": true,
             "cwd": "${workspaceFolder}",
@@ -49,7 +49,7 @@
             "name": "Python Debugger: QuestionTagger Module",
             "type": "debugpy",
             "request": "launch",
-            "module": "src.QuestionTagger.question_tagger", // Specify the module path
+            "program": "${workspaceFolder}/src/QuestionTagger/question_tagger.py", // Specify the program path
             "console": "integratedTerminal",
             "justMyCode": true,
             "cwd": "${workspaceFolder}", // Ensure CWD is the project root

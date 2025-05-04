@@ -15,6 +15,7 @@ try:
     import pymongo
     from pymongo import MongoClient
     import gridfs
+    from bson import ObjectId
     from pymongo.errors import ConnectionFailure, ServerSelectionTimeoutError, DuplicateKeyError
     from dotenv import load_dotenv
     MONGODB_AVAILABLE = True
@@ -776,25 +777,32 @@ class DBManager:
             file_id: The ID of the file to retrieve, as string or ObjectId
         
         Returns:
-            GridOut: The file object, which can be read like a file
+            bytes: The file contents as bytes, or None if retrieval failed
         
         Raises:
             NoFile: If no such file exists
+            Exception: If other errors occur during retrieval
         """
         try:
             # Ensure we have a database connection
             fs = self.get_gridfs()
             if fs is None:
                 self.logger.error("Not connected to MongoDB GridFS")
-                return None
+                return None            
+            # Convert string to ObjectId
+            file_id = ObjectId(file_id)
             
-            # Convert string ID to ObjectId if necessary
-            if isinstance(file_id, str):
-                file_id = pymongo.ObjectId(file_id)
-            
-            # Retrieve file
+            # Get the GridFS file
             grid_out = fs.get(file_id)
-            return grid_out
+            
+            if grid_out is None:
+                raise ValueError(f"No file found with ID: {file_id}");
+            
+            file = grid_out.read();
+            self.logger.info(f"File retrieved from GridFS with ID: {file_id}")
+                           
+            # Return the file as a file-like object
+            return file
             
         except pymongo.errors.NoFile as nf:
             self.logger.error(f"File not found in GridFS: {str(nf)}")

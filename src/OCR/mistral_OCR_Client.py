@@ -1,6 +1,8 @@
 import os
+import logging
 from pathlib import Path
 from mistralai import Mistral
+import io
 
 class MistralOCRClient:
     """
@@ -17,26 +19,47 @@ class MistralOCRClient:
         self.client = Mistral(api_key=api_key)
         self.model = model
 
-    def upload_pdf(self, file_path: str) -> str:
+    def upload_pdf(self, file, filename="document.pdf") -> str:
         """
-        Upload a PDF file to the Mistal API for OCR processing.
+        Upload a PDF file to the Mistral API for OCR processing.
 
         Args:
-            file_path (str): Path to the PDF file.
+            file (bytes | BytesIO): The PDF file content as bytes or BytesIO object
+            filename (str, optional): Name to use for the file. Defaults to "document.pdf"
 
         Returns:
-            str: The signed URL for the uploaded PDF.
-        """
-        with open(file_path, "rb") as file:
-            response = self.client.files.upload(
-                file={
-                    "file_name": Path(file_path).name,
-                    "content": file,
-                },
-                purpose="ocr"
-            )
+            str: Response from the Mistral API containing file information
 
-        return response
+        Raises:
+            ValueError: If file content is empty or upload fails
+        """
+        logger = logging.getLogger(__name__)
+        
+        try:
+            # Convert to bytes if needed
+            if hasattr(file, 'read'):
+                file_content = file.read()
+            else:
+                file_content = file
+
+            if not file_content:
+                raise ValueError("File content is empty")
+            
+            logger.debug(f"Uploading file with name {filename} to Mistral OCR API")
+            
+            # Upload file according to the API documentation
+            # The API expects raw bytes for the content, not a file-like object
+            response = self.client.files.upload(file={
+                "file_name": filename,
+                "content": open(file_content, "rb")},
+                purpose="ocr")
+            
+            logger.debug(f"File uploaded successfully, received ID: {response.id}")
+            return response
+
+        except Exception as e:
+            logger.error(f"Failed to upload PDF: {str(e)}")
+            raise ValueError(f"Failed to upload PDF: {str(e)}")
 
     def get_signed_url(self, file_id: str):
         """
