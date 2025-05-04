@@ -30,7 +30,7 @@ You must return a valid JSON object with the following fields:
 
 - `Subject`: must always be `"Computer Science"`
 
-- `Exam Paper`: the name or number of the paper (e.g. `"Paper 1"`, `"Component 2"`, `"Unit 1: Fundamentals"`)
+- `Unit Number`: the name or number of the paper (e.g. `"1"`, `"2"`, `"3"` etc.)
 
 - `Exam Season`: one of the following:
   - `"Autumn"`
@@ -64,7 +64,7 @@ These examples show the exact format your response should follow - a raw JSON ob
   "Qualification": "GCSE",
   "Year": 2021,
   "Subject": "Computer Science",
-  "Exam Paper": "Paper 1 – Computational Thinking and Programming",
+  "Unit Number": "1",
   "Exam Season": "Summer",
   "Exam Length": "1 hour 30 minutes",
   "Information for Candidates": "You must not use a calculator.",
@@ -83,7 +83,7 @@ These examples show the exact format your response should follow - a raw JSON ob
   "Qualification": "A-Level",
   "Year": 2022,
   "Subject": "Computer Science",
-  "Exam Paper": "Component 2",
+  "Unit Number": "2",
   "Exam Season": "Autumn",
   "Exam Length": "2 hours 30 minutes"
 }
@@ -103,7 +103,7 @@ These examples show the exact format your response should follow - a raw JSON ob
     "Qualification",
     "Year",
     "Subject",
-    "Exam Paper",
+    "Unit number",
     "Exam Season",
     "Exam Length"
   ],
@@ -114,7 +114,7 @@ These examples show the exact format your response should follow - a raw JSON ob
     },
     "Qualification": {
       "type": "string",
-      "enum": ["A-Level", "AS-Level", "A2-Level", "GCSE"]
+      "enum": ["AS-Level", "A2-Level", "GCSE"]
     },
     "Year": {
       "type": "integer",
@@ -145,7 +145,7 @@ These examples show the exact format your response should follow - a raw JSON ob
     "Total Marks": {
       "type": "integer",
       "minimum": 1,
-      "maximum": 500
+      "maximum": 50
     }
   },
   "additionalProperties": false
