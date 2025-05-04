@@ -567,7 +567,7 @@ class Document:
             if self.ocr_storage == "gridfs" and "ocr_file_id" in doc_data:
                 self.db_manager.delete_file_from_gridfs(doc_data["ocr_file_id"])
                 logger.info(f"Deleted OCR file with ID {doc_data['ocr_file_id']}")
-            question
+
             # Delete image files from GridFS
             if "image_file_ids" in doc_data and doc_data["image_file_ids"]:
                 for img_id in doc_data["image_file_ids"]:
