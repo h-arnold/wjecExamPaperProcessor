@@ -615,12 +615,6 @@ class Document:
     def perform_ocr(self, ocr_client):
         """
         Perform OCR processing on the PDF document.
-        
-        Args:
-            ocr_client: An OCR client instance (e.g., MistralOCRClient)
-                        
-        Returns:
-            bool: True if OCR processing was successful, False otherwise
         """
         logger = logging.getLogger(__name__)
         
@@ -653,37 +647,103 @@ class Document:
             # Step 4: Serialise the OCR result pages
             serialised_pages = [self._serialise_ocr_result(page) for page in ocr_result.pages]
             
-            # Step 5: Update document with OCR results and store images
+            # Step 5: Update document attributes (no DB writes)
             self.update_with_ocr_results(serialised_pages)
-            
-            # Step 6: Extract and store images
             self.extract_and_store_images(ocr_result)
             
-            # Step 7: Identify question start index if LLM client is provided
+            # Step 6: Identify question start index 
             try:
                 question_index = self.identify_question_start_index()
-                logger.info(f"Identified question start index: {question_index} for document {self.document_id}")
+                logger.info(f"Identified question start index: {question_index}")
             except Exception as e:
                 logger.error(f"Error identifying question start index: {str(e)}")
             
+            # Write all changes to database at once
+            if not self.write_to_db():
+                logger.error("Failed to write OCR results to database")
+                return False
+                
             return True
             
         except Exception as e:
             logger.error(f"Error performing OCR on document {self.document_id}: {str(e)}")
             return False
+
+    def update_with_ocr_results(self, serialised_pages, ocr_storage='inline'):
+        """
+        Update document attributes with OCR results (no DB write).
+        """
+        logger = logging.getLogger(__name__)
+        
+        try:
+            # Update instance attributes only
+            self.ocr_json = serialised_pages
+            self.ocr_storage = ocr_storage
+            from datetime import UTC
+            self.ocr_upload_date = datetime.now(UTC)
+            self.processed = True
+            
+            logger.info(f"Document {self.document_id} attributes updated with OCR results")
+            return True
+            
+        except Exception as e:
+            logger.error(f"Error updating document attributes with OCR results: {str(e)}")
+            return False
     
+    def extract_and_store_images(self, ocr_result):
+        """
+        Extract images and store them in GridFS. Updates document attributes but doesn't write to DB.
+        """
+        logger = logging.getLogger(__name__)
+        
+        try:
+            image_file_ids = []
+            images_data = []
+            
+            # Process each page in OCR result
+            for page_idx, page in enumerate(ocr_result.pages):
+                if hasattr(page, 'images') and page.images:
+                    for img_idx, img in enumerate(page.images):
+                        if hasattr(img, 'image') and img.image:
+                            # Create unique image ID
+                            img_id = f"{self.document_id}_p{page_idx}_i{img_idx}"
+                            
+                            # Store image in GridFS
+                            img_file_id = self.db_manager.store_binary_in_gridfs(
+                                img.image,
+                                filename=f"{img_id}.png",
+                                content_type="image/png",
+                                metadata={
+                                    "document_id": self.document_id,
+                                    "page_number": page_idx + 1,
+                                    "image_index": img_idx
+                                }
+                            )
+                            
+                            if img_file_id:
+                                image_file_ids.append(img_file_id)
+                                images_data.append({
+                                    "image_id": str(img_file_id),
+                                    "page_number": page_idx + 1,
+                                    "width": getattr(img, 'width', 0),
+                                    "height": getattr(img, 'height', 0)
+                                })
+            
+            # Update instance attributes only
+            if image_file_ids:
+                self.images = images_data
+                self._image_file_ids = image_file_ids  # Store for database update
+                logger.info(f"Document attributes updated with {len(image_file_ids)} images")
+            
+            return True
+            
+        except Exception as e:
+            logger.error(f"Error extracting and storing images: {str(e)}")
+            return False
+
     def identify_question_start_index(self) -> Optional[int]:
         """
         Identifies the index where questions begin in this document.
-        
-        Args:
-            llm_client: An initialized LLM client for generating text
-            
-        Returns:
-            int: The index where questions start, or None if it cannot be determined
-            
-        Raises:
-            ValueError: If the index cannot be determined or is invalid
         """
         logger = logging.getLogger(__name__)
         
@@ -727,151 +787,56 @@ class Document:
                 logger.error(f"Failed to parse question index: {str(e)}")
                 return None
             
-            # Update the database with the new index
-            if self.document_collection:
-                result = self.document_collection.update_one(
-                    {"document_id": self.document_id},
-                    {"$set": {"question_start_index": self._question_start_index}}
-                )
-                if result.modified_count == 0:
-                    logger.warning(f"Failed to update question_start_index in database for document {self.document_id}")
-            
+            # Write the updated document to the database using write_to_db()
+            self.write_to_db()
             return self._question_start_index
         except Exception as e:
             logger.error(f"Failed to identify question start index: {str(e)}")
             return None
 
-    def update_with_ocr_results(self, serialised_pages, ocr_storage='inline'):
+    def write_to_db(self) -> bool:
         """
-        Update document with OCR results and mark as processed.
-        
-        Args:
-            serialized_pages (list): List of serialized OCR result pages
-            ocr_storage (str): Storage type for OCR data ('inline' or 'gridfs')
-            
-        Returns:
-            bool: True if update was successful, False otherwise
+        Write the current document state to the database.
         """
         logger = logging.getLogger(__name__)
-        
         try:
-            # Set OCR data
-            self.ocr_json = serialised_pages
-            self.ocr_storage = ocr_storage
-            from datetime import UTC
-            self.ocr_upload_date = datetime.now(UTC)
-            self.processed = True
-            
-            # Update document in database
             if self.document_collection is None:
                 raise ValueError("Failed to access documents collection")
+                
+            update_fields = {
+                "document_id": self.document_id,
+                "document_type": self.document_type,
+                "pdf_filename": self.pdf_filename,
+                "pdf_file_id": self.pdf_file_id,
+                "ocr_json": self.ocr_json,
+                "ocr_storage": self.ocr_storage,
+                "pdf_upload_date": self._pdf_upload_date,
+                "ocr_upload_date": self._ocr_upload_date,
+                "images": self.images,
+                "processed": self.processed,
+                "question_start_index": self._question_start_index,
+            }
+            
+            # Add image_file_ids if they exist
+            if hasattr(self, '_image_file_ids') and self._image_file_ids:
+                update_fields["image_file_ids"] = self._image_file_ids
             
             result = self.document_collection.update_one(
                 {"document_id": self.document_id},
-                {"$set": {
-                    "ocr_json": serialised_pages,
-                    "ocr_storage": ocr_storage,
-                    "ocr_upload_date": self.ocr_upload_date,
-                    "processed": True
-                }}
+                {"$set": update_fields},
+                upsert=True
             )
             
-            if result.modified_count == 0:
-                logger.warning(f"No document was updated with OCR results for {self.document_id}")
-                return False
-                
-            logger.info(f"Document {self.document_id} updated with OCR results")
-            return True
-            
-        except Exception as e:
-            logger.error(f"Error updating document {self.document_id} with OCR results: {str(e)}")
-            return False
-    
-    def extract_and_store_images(self, ocr_result):
-        """
-        Extract images from OCR results and store them in the database.
-        
-        Args:
-            ocr_result: OCR result object containing pages with images
-            
-        Returns:
-            bool: True if images were extracted and stored successfully
-        """
-        logger = logging.getLogger(__name__)
-        
-        try:
-            image_file_ids = []
-            images_data = []
-            
-            # Process each page in OCR result
-            for page_idx, page in enumerate(ocr_result.pages):
-                # Extract images if available
-                if hasattr(page, 'images') and page.images:
-                    for img_idx, img in enumerate(page.images):
-                        if hasattr(img, 'image') and img.image:
-                            # Create unidescribed and justified the breaking down of the problem into subproblems and explained the links between the sub programs and the project objectivesque image ID
-                            img_id = f"{self.document_id}_p{page_idx}_i{img_idx}"
-                            
-                            # Store image data for database
-                            image_data = {
-                                "document_id": self.document_id,
-                                "page_number": page_idx + 1,
-                                "image_index": img_idx,
-                                "width": getattr(img, 'width', 0),
-                                "height": getattr(img, 'height', 0),
-                                "image_data": img.image,
-                                "original_ref": img_id
-                            }
-                            
-                            # Store image in GridFS
-                            img_file_id = self.db_manager.store_binary_in_gridfs(
-                                img.image,
-                                filename=f"{img_id}.png",
-                                content_type="image/png",
-                                metadata={
-                                    "document_id": self.document_id,
-                                    "page_number": page_idx + 1,
-                                    "image_index": img_idx
-                                }
-                            )
-                            
-                            if img_file_id:
-                                image_file_ids.append(img_file_id)
-                                
-                                # Add image to document's images list
-                                images_data.append({
-                                    "image_id": str(img_file_id),
-                                    "page_number": page_idx + 1,
-                                    "width": getattr(img, 'width', 0),
-                                    "height": getattr(img, 'height', 0)
-                                })
-            
-            # Update document with image information
-            if image_file_ids:
-                # Update document's images list
-                self.images = images_data
-                
-                # Update document in database with image file IDs
-                if self.document_collection is None:
-                    raise ValueError("Failed to access documents collection")
-                    
-                result = self.document_collection.update_one(
-                    {"document_id": self.document_id},
-                    {"$set": {
-                        "image_file_ids": image_file_ids,
-                        "images": images_data
-                    }}
-                )
-                
-                if result.modified_count == 0:
-                    logger.warning(f"No document was updated with image data for {self.document_id}")
-                    return False
-                    
-                logger.info(f"Document {self.document_id} updated with {len(image_file_ids)} images")
+            if result.upserted_id is not None:
+                logger.info(f"Document {self.document_id} inserted into database")
                 return True
-                
+            elif result.modified_count > 0:
+                logger.info(f"Document {self.document_id} updated in database")
+            else:
+                logger.info(f"No changes written to document {self.document_id} (state already up-to-date)")
+            
             return True
             
         except Exception as e:
-            logger.error(f"Error extracting and storing images for document {self.document_id}: {str(e)}")
+            logger.error(f"Error writing document {self.document_id} to database: {str(e)}")
             return False
