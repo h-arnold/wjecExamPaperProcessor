@@ -17,6 +17,7 @@ src/MetadataExtraction/document_processor.py
 src/MetadataExtraction/main.py
 src/MetadataExtraction/metadata_extractor.py
 src/Models/document.py
+src/Models/exam.py
 src/OCR/__init__.py
 src/OCR/main.py
 src/OCR/mistral_OCR_Client.py
