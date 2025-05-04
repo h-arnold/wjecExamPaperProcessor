@@ -26,7 +26,9 @@ class Document:
         ocr_upload_date: Optional[datetime] = None,
         images: Optional[List[Dict[str, Any]]] = None,
         processed: bool = False,
-        _id: Optional[ObjectId] = None
+        _id: Optional[ObjectId] = None,
+        db_manager: Optional[DBManager] = None,
+        pdf_data: Optional[bytes] = None
     ):
         """
         Initialise a Document object.
@@ -43,6 +45,8 @@ class Document:
             images (List[Dict], optional): List of images extracted from the document
             processed (bool): Flag indicating if the document has been fully processed
             _id (ObjectId, optional): MongoDB ObjectId
+            db_manager (DBManager, optional): Database manager instance - ideally passed from elsewhere to avoid creating a new DB connection for each document.
+            pdf_data (bytes, optional): The actual PDF file content as bytes
         """
         self.document_id = document_id
         self.document_type = document_type
@@ -55,6 +59,153 @@ class Document:
         self.images = images or []
         self.processed = processed
         self._id = _id
+        self.db_manager = db_manager or DBManager()
+        self._pdf_data = pdf_data  # Store PDF data internally (use property for access)
+
+    # Read-only properties that shouldn't change after initialization
+    @property
+    def id(self) -> Optional[ObjectId]:
+        """MongoDB ObjectId of the document."""
+        return self._id
+        
+    @property
+    def pdf_upload_date(self) -> Optional[datetime]:
+        """Date and time when the PDF was uploaded."""
+        return self._pdf_upload_date
+        
+    @pdf_upload_date.setter
+    def pdf_upload_date(self, value: Optional[datetime]):
+        if value is not None and not isinstance(value, datetime):
+            raise TypeError("pdf_upload_date must be a datetime object or None")
+        self._pdf_upload_date = value
+        
+    @property
+    def ocr_upload_date(self) -> Optional[datetime]:
+        """Date and time when OCR processing was completed."""
+        return self._ocr_upload_date
+        
+    @ocr_upload_date.setter
+    def ocr_upload_date(self, value: Optional[datetime]):
+        if value is not None and not isinstance(value, datetime):
+            raise TypeError("ocr_upload_date must be a datetime object or None")
+        self._ocr_upload_date = value
+    
+    @property
+    def document_id(self) -> str:
+        """Unique identifier for the document (hash of PDF file)."""
+        return self._document_id
+        
+    @document_id.setter
+    def document_id(self, value: str):
+        if not isinstance(value, str) or not value:
+            raise ValueError("document_id must be a non-empty string")
+        
+        # Validate SHA-256 hash format (64 hexadecimal characters)
+        import re
+        if not re.match(r'^[0-9a-f]{64}$', value.lower()):
+            raise ValueError("document_id must be a valid SHA-256 hash (64 hexadecimal characters)")
+            
+        self._document_id = value
+    
+    @property
+    def document_type(self) -> str:
+        """Type of document (Question Paper, Mark Scheme, or Unknown)."""
+        return self._document_type
+        
+    @document_type.setter
+    def document_type(self, value: str):
+        valid_types = ["Question Paper", "Mark Scheme", "Unknown"]
+        if not isinstance(value, str) or value not in valid_types:
+            raise ValueError(f"document_type must be one of: {', '.join(valid_types)}")
+        self._document_type = value
+    
+    @property
+    def pdf_filename(self) -> str:
+        """Original filename of the PDF."""
+        return self._pdf_filename
+        
+    @pdf_filename.setter
+    def pdf_filename(self, value: str):
+        if not isinstance(value, str):
+            raise ValueError("pdf_filename must be a string")
+        
+        # Ensure the filename ends with .pdf extension (case-insensitive)
+        if not value.lower().endswith('.pdf'):
+            raise ValueError("pdf_filename must end with .pdf extension")
+            
+        self._pdf_filename = value
+    
+    @property
+    def pdf_file_id(self) -> str:
+        """GridFS file ID of the stored PDF."""
+        return self._pdf_file_id
+        
+    @pdf_file_id.setter
+    def pdf_file_id(self, value: str):
+        if not isinstance(value, str) and value is not None:
+            raise ValueError("pdf_file_id must be a string or None")
+        self._pdf_file_id = value
+    
+    @property
+    def ocr_json(self) -> List[Dict[str, Any]]:
+        """List of serialized OCR result pages."""
+        return self._ocr_json
+        
+    @ocr_json.setter
+    def ocr_json(self, value: List[Dict[str, Any]]):
+        if not isinstance(value, list):
+            raise ValueError("ocr_json must be a list")
+        self._ocr_json = value
+    
+    @property
+    def ocr_storage(self) -> Optional[str]:
+        """Storage type for OCR data (e.g. 'inline', 'gridfs')."""
+        return self._ocr_storage
+        
+    @ocr_storage.setter
+    def ocr_storage(self, value: Optional[str]):
+        valid_storage_types = [None, "inline", "gridfs"]
+        if value not in valid_storage_types:
+            raise ValueError(f"ocr_storage must be one of: {', '.join(str(t) for t in valid_storage_types)}")
+        self._ocr_storage = value
+    
+    @property
+    def images(self) -> List[Dict[str, Any]]:
+        """List of images extracted from the document."""
+        return self._images
+        
+    @images.setter
+    def images(self, value: List[Dict[str, Any]]):
+        if not isinstance(value, list):
+            raise ValueError("images must be a list")
+        self._images = value
+    
+    @property
+    def processed(self) -> bool:
+        """Flag indicating if the document has been fully processed."""
+        return self._processed
+        
+    @processed.setter
+    def processed(self, value: bool):
+        if not isinstance(value, bool):
+            raise ValueError("processed must be a boolean value")
+        self._processed = value
+
+    @property
+    def pdf_data(self) -> Optional[bytes]:
+        """
+        Get the PDF data. If not already loaded, fetch it from GridFS.
+        
+        Returns:
+            bytes: The PDF file content as bytes, or None if retrieval fails
+        """
+        if self._pdf_data is None:
+            try:
+                self._pdf_data = self.get_pdf_file()
+            except ValueError as e:
+                logging.warning(f"Failed to load PDF data: {e}")
+                return None
+        return self._pdf_data
 
     @staticmethod
     def _determine_document_type(filename: str) -> str:
@@ -112,7 +263,7 @@ class Document:
             return False
 
     @classmethod
-    def from_pdf(cls, pdf_file: Union[str, Path], document_type: str = None, 
+    def from_pdf(cls, pdf_file: Union[str, Path], 
                  db_manager: Optional[DBManager] = None, 
                  file_manager: Optional[FileManager] = None) -> 'Document':
         """
@@ -123,9 +274,6 @@ class Document:
         
         Args:
             pdf_file (str or Path): Path to the PDF file
-            document_type (str, optional): Type of document ('Question Paper' or 'Mark Scheme')
-                                          If None, will be determined from filename
-            ocr_client: OCR client instance (not used in this method, but accepted for compatibility)
             db_manager (DBManager, optional): Database manager instance
             file_manager (FileManager, optional): File manager instance
             
@@ -156,12 +304,15 @@ class Document:
                 logger.info(f"Document with ID {document_id} already exists in the database")
                 return cls.from_database(document_id, db_manager, file_manager)
             
-            # 3. Determine document type if not provided
+            # Read PDF data before storing it in GridFS
+            with open(pdf_path, 'rb') as pdf_file:
+                pdf_data = pdf_file.read()
+            
+            # 3. Determine document type from filename
             pdf_filename = pdf_path.name
-            if document_type is None:
-                document_type = cls._determine_document_type(pdf_filename)
-                if document_type == "Unknown":
-                    logger.warning(f"Could not determine document type for {pdf_filename}, setting to 'Unknown'")
+            document_type = cls._determine_document_type(pdf_filename)
+            if document_type == "Unknown":
+                logger.warning(f"Could not determine document type for {pdf_filename}, setting to 'Unknown'")
             
             # 4. Store PDF in GridFS
             pdf_id = db_manager.store_file_in_gridfs(
@@ -202,7 +353,7 @@ class Document:
             if not (result.upserted_id or result.modified_count > 0):
                 raise ValueError("Failed to store document in database")
             
-            # 7. Create a Document instance with minimal data
+            # 7. Create a Document instance with minimal data and include PDF data
             return cls(
                 document_id=document_id,
                 document_type=document_type,
@@ -213,7 +364,9 @@ class Document:
                 ocr_upload_date=None,
                 images=[],
                 processed=False,
-                _id=None
+                _id=None,
+                db_manager=db_manager,  # Pass the db_manager to the constructor
+                pdf_data=pdf_data  # Include the PDF data
             )
             
         except Exception as e:
@@ -222,14 +375,16 @@ class Document:
 
     @classmethod
     def from_database(cls, document_id: str, db_manager: Optional[DBManager] = None, 
-                     file_manager: Optional[FileManager] = None) -> 'Document':
+                     file_manager: Optional[FileManager] = None,
+                     load_pdf_data: bool = False) -> 'Document':
         """
         Create a Document instance from a document stored in the database.
         
         Args:
             document_id (str): The ID of the document to retrieve
             db_manager (DBManager, optional): Database manager instance
-            file_manager (FileManager, optional): File manager instance
+            file_manager (FileManager, optional): File manager instance (kept for backward compatibility)
+            load_pdf_data (bool): Whether to load the PDF data immediately
             
         Returns:
             Document: The retrieved document instance
@@ -239,34 +394,377 @@ class Document:
         """
         logger = logging.getLogger(__name__)
         
-        # Initialize managers if not provided
+        # Initialize database manager if not provided
         if db_manager is None:
             db_manager = DBManager()
-        if file_manager is None:
-            file_manager = FileManager(db_manager)
         
         try:
+            # Get the documents collection
+            collection = db_manager.get_collection('documents')
+            if collection is None:
+                raise ValueError("Failed to access documents collection")
+            
             # Retrieve the document from the database
-            doc_data = file_manager.get_document_with_images(document_id)
+            doc_data = collection.find_one({"document_id": document_id})
             
             if not doc_data:
                 raise ValueError(f"Document with ID {document_id} not found in database")
+            
+            # Retrieve associated images if they exist
+            images = []
+            if "image_file_ids" in doc_data and doc_data["image_file_ids"]:
+                try:
+                    # Get images collection
+                    images_collection = db_manager.get_collection('images')
+                    if images_collection is not None:
+                        # Find all images associated with this document
+                        cursor = images_collection.find({"_id": {"$in": doc_data["image_file_ids"]}})
+                        for img_doc in cursor:
+                            # Add image data to list
+                            images.append({
+                                "image_id": str(img_doc["_id"]),
+                                "page_number": img_doc.get("page_number"),
+                                "width": img_doc.get("width"),
+                                "height": img_doc.get("height"),
+                                "image_data": img_doc.get("image_data")
+                            })
+                except Exception as img_error:
+                    logger.error(f"Error retrieving images for document {document_id}: {str(img_error)}")
+            
+            # Get OCR data if it exists
+            ocr_json = []
+            if "ocr_json" in doc_data and doc_data["ocr_json"]:
+                ocr_json = doc_data["ocr_json"]
+            
+            # Get PDF data if requested
+            pdf_data = None
+            if load_pdf_data and doc_data.get("pdf_file_id"):
+                try:
+                    pdf_data = db_manager.get_file_from_gridfs(doc_data.get("pdf_file_id"))
+                except Exception as pdf_error:
+                    logger.warning(f"Failed to load PDF data for document {document_id}: {pdf_error}")
             
             # Extract document data
             return cls(
                 document_id=doc_data["document_id"],
                 document_type=doc_data.get("document_type", ""),
-                ocr_json=doc_data.get("ocr_json", []),
+                ocr_json=ocr_json,
                 pdf_filename=doc_data.get("pdf_filename", ""),
                 pdf_file_id=doc_data.get("pdf_file_id", None),
                 ocr_storage=doc_data.get("ocr_storage", None),
                 pdf_upload_date=doc_data.get("pdf_upload_date"),
                 ocr_upload_date=doc_data.get("ocr_upload_date"),
-                images=doc_data.get("images", []),
+                images=images,
                 processed=doc_data.get("processed", False),
-                _id=doc_data.get("_id")
+                _id=doc_data.get("_id"),
+                db_manager=db_manager,  # Pass the db_manager to the constructor
+                pdf_data=pdf_data  # Include the PDF data if loaded
             )
             
         except Exception as e:
             logger.error(f"Error retrieving document {document_id} from database: {e}")
             raise ValueError(f"Failed to retrieve document from database: {str(e)}")
+
+    def get_pdf_file(self) -> bytes:
+        """
+        Retrieves the PDF file associated with this document from GridFS.
+        If the PDF data is already loaded, returns the cached version.
+        
+        Returns:
+            bytes: The PDF file content as bytes
+            
+        Raises:
+            ValueError: If the PDF file cannot be retrieved
+        """
+        logger = logging.getLogger(__name__)
+        
+        # Return cached PDF data if available
+        if self._pdf_data is not None:
+            return self._pdf_data
+            
+        try:
+            if not self.pdf_file_id:
+                raise ValueError(f"Document {self.document_id} has no associated PDF file ID")
+            
+            # Use the instance's db_manager to retrieve the file
+            pdf_data = self.db_manager.get_file_from_gridfs(self.pdf_file_id)
+            
+            if pdf_data is None:
+                raise ValueError(f"Failed to retrieve PDF file with ID {self.pdf_file_id}")
+            
+            # Store the result for future access
+            self._pdf_data = pdf_data
+            return pdf_data
+            
+        except Exception as e:
+            logger.error(f"Error retrieving PDF file for document {self.document_id}: {str(e)}")
+            raise ValueError(f"Failed to retrieve PDF file: {str(e)}")
+
+    def delete_document(self) -> bool:
+        """
+        Delete this document and all associated files (PDF, OCR, images) from the database.
+        
+        Returns:
+            bool: True if document was deleted, False otherwise
+            
+        Raises:
+            ValueError: If deletion fails for any reason
+        """
+        logger = logging.getLogger(__name__)
+        
+        try:
+            # Get the documents collection
+            collection = self.db_manager.get_collection('documents')
+            if collection is None:
+                raise ValueError("Failed to access documents collection")
+            
+            # Verify document exists
+            doc_data = collection.find_one({"document_id": self.document_id})
+            if not doc_data:
+                logger.warning(f"Document with ID {self.document_id} not found in database")
+                return False
+            
+            # Delete PDF file from GridFS
+            if self.pdf_file_id:
+                self.db_manager.delete_file_from_gridfs(self.pdf_file_id)
+                logger.info(f"Deleted PDF file with ID {self.pdf_file_id}")
+            
+            # Delete OCR data from GridFS if stored there
+            if self.ocr_storage == "gridfs" and "ocr_file_id" in doc_data:
+                self.db_manager.delete_file_from_gridfs(doc_data["ocr_file_id"])
+                logger.info(f"Deleted OCR file with ID {doc_data['ocr_file_id']}")
+            
+            # Delete image files from GridFS
+            if "image_file_ids" in doc_data and doc_data["image_file_ids"]:
+                for img_id in doc_data["image_file_ids"]:
+                    self.db_manager.delete_file_from_gridfs(img_id)
+                    logger.info(f"Deleted image file with ID {img_id}")
+            
+            # Delete the document record
+            result = collection.delete_one({"document_id": self.document_id})
+            
+            deleted = result.deleted_count > 0
+            if deleted:
+                logger.info(f"Successfully deleted document {self.document_id} from database")
+            else:
+                logger.warning(f"Document {self.document_id} was not deleted from database")
+            
+            return deleted
+            
+        except Exception as e:
+            logger.error(f"Error deleting document {self.document_id}: {str(e)}")
+            raise ValueError(f"Failed to delete document: {str(e)}")
+
+    def _serialise_ocr_result(self, obj):
+        """
+        Convert OCR result objects to serialisable dictionaries.
+        """
+        if hasattr(obj, '__dict__'):
+            # For custom objects with __dict__ attribute
+            result = {}
+            for key, value in obj.__dict__.items():
+                # Skip private attributes
+                if not key.startswith('_'):
+                    if isinstance(value, list):
+                        result[key] = [self._serialise_ocr_result(item) for item in value]
+                    else:
+                        result[key] = self._serialise_ocr_result(value)
+            return result
+        elif isinstance(obj, list):
+            return [self._serialise_ocr_result(item) for item in obj]
+        elif isinstance(obj, (str, int, float, bool, type(None))):
+            return obj
+        else:
+            # For other types, convert to string
+            return str(obj)
+    
+    def perform_ocr(self, ocr_client):
+        """
+        Perform OCR processing on the PDF document.
+        
+        Args:
+            ocr_client: An OCR client instance (e.g., MistralOCRClient)
+            
+        Returns:
+            bool: True if OCR processing was successful, False otherwise
+        """
+        logger = logging.getLogger(__name__)
+        
+        try:
+            # Check if document already has OCR data
+            if self.processed and self.ocr_json:
+                logger.info(f"Document {self.document_id} already has OCR data")
+                return True
+                
+            # Get PDF data
+            pdf_data = self.pdf_data
+            if not pdf_data:
+                raise ValueError(f"Cannot perform OCR: PDF data not available for document {self.document_id}")
+            
+            # Step 1: Upload the PDF to OCR service
+            logger.info(f"Uploading file: {self.pdf_filename}")
+            uploaded_file = ocr_client.upload_pdf_bytes(pdf_data, self.pdf_filename)
+            file_id = uploaded_file.id
+            logger.info(f"File uploaded successfully. File ID: {file_id}")
+            
+            # Step 2: Get the signed URL using the file_id
+            signed_url_response = ocr_client.get_signed_url(file_id)
+            signed_url = signed_url_response.url
+            logger.info(f"Retrieved signed URL for processing")
+            
+            # Step 3: Process OCR with the signed URL
+            logger.info(f"Processing OCR for file: {self.pdf_filename}")
+            ocr_result = ocr_client.ocr_pdf(signed_url)
+            
+            # Step 4: Serialize the OCR result pages
+            serialized_pages = [self._serialise_ocr_result(page) for page in ocr_result.pages]
+            
+            # Step 5: Update document with OCR results and store images
+            self.update_with_ocr_results(serialized_pages)
+            
+            # Step 6: Extract and store images
+            self.extract_and_store_images(ocr_result)
+            
+            return True
+            
+        except Exception as e:
+            logger.error(f"Error performing OCR on document {self.document_id}: {str(e)}")
+            return False
+    
+    def update_with_ocr_results(self, serialized_pages, ocr_storage='inline'):
+        """
+        Update document with OCR results and mark as processed.
+        
+        Args:
+            serialized_pages (list): List of serialized OCR result pages
+            ocr_storage (str): Storage type for OCR data ('inline' or 'gridfs')
+            
+        Returns:
+            bool: True if update was successful, False otherwise
+        """
+        logger = logging.getLogger(__name__)
+        
+        try:
+            # Set OCR data
+            self.ocr_json = serialized_pages
+            self.ocr_storage = ocr_storage
+            from datetime import UTC
+            self.ocr_upload_date = datetime.now(UTC)
+            self.processed = True
+            
+            # Save changes to database
+            collection = self.db_manager.get_collection('documents')
+            if collection is None:
+                raise ValueError("Failed to access documents collection")
+            
+            # Update document in database
+            result = collection.update_one(
+                {"document_id": self.document_id},
+                {"$set": {
+                    "ocr_json": serialized_pages,
+                    "ocr_storage": ocr_storage,
+                    "ocr_upload_date": self.ocr_upload_date,
+                    "processed": True
+                }}
+            )
+            
+            if result.modified_count == 0:
+                logger.warning(f"No document was updated with OCR results for {self.document_id}")
+                return False
+                
+            logger.info(f"Document {self.document_id} updated with OCR results")
+            return True
+            
+        except Exception as e:
+            logger.error(f"Error updating document {self.document_id} with OCR results: {str(e)}")
+            return False
+    
+    def extract_and_store_images(self, ocr_result):
+        """
+        Extract images from OCR results and store them in the database.
+        
+        Args:
+            ocr_result: OCR result object containing pages with images
+            
+        Returns:
+            bool: True if images were extracted and stored successfully
+        """
+        logger = logging.getLogger(__name__)
+        
+        try:
+            image_file_ids = []
+            images_data = []
+            
+            # Process each page in OCR result
+            for page_idx, page in enumerate(ocr_result.pages):
+                # Extract images if available
+                if hasattr(page, 'images') and page.images:
+                    for img_idx, img in enumerate(page.images):
+                        if hasattr(img, 'image') and img.image:
+                            # Create unique image ID
+                            img_id = f"{self.document_id}_p{page_idx}_i{img_idx}"
+                            
+                            # Store image data for database
+                            image_data = {
+                                "document_id": self.document_id,
+                                "page_number": page_idx + 1,
+                                "image_index": img_idx,
+                                "width": getattr(img, 'width', 0),
+                                "height": getattr(img, 'height', 0),
+                                "image_data": img.image,
+                                "original_ref": img_id
+                            }
+                            
+                            # Store image in GridFS
+                            img_file_id = self.db_manager.store_binary_in_gridfs(
+                                img.image,
+                                filename=f"{img_id}.png",
+                                content_type="image/png",
+                                metadata={
+                                    "document_id": self.document_id,
+                                    "page_number": page_idx + 1,
+                                    "image_index": img_idx
+                                }
+                            )
+                            
+                            if img_file_id:
+                                image_file_ids.append(img_file_id)
+                                
+                                # Add image to document's images list
+                                images_data.append({
+                                    "image_id": str(img_file_id),
+                                    "page_number": page_idx + 1,
+                                    "width": getattr(img, 'width', 0),
+                                    "height": getattr(img, 'height', 0)
+                                })
+            
+            # Update document with image information
+            if image_file_ids:
+                # Update document's images list
+                self.images = images_data
+                
+                # Update document in database with image file IDs
+                collection = self.db_manager.get_collection('documents')
+                if collection is None:
+                    raise ValueError("Failed to access documents collection")
+                    
+                result = collection.update_one(
+                    {"document_id": self.document_id},
+                    {"$set": {
+                        "image_file_ids": image_file_ids,
+                        "images": images_data
+                    }}
+                )
+                
+                if result.modified_count == 0:
+                    logger.warning(f"No document was updated with image data for {self.document_id}")
+                    return False
+                    
+                logger.info(f"Document {self.document_id} updated with {len(image_file_ids)} images")
+                return True
+                
+            return True
+            
+        except Exception as e:
+            logger.error(f"Error extracting and storing images for document {self.document_id}: {str(e)}")
+            return False

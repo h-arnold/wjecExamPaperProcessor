@@ -3,6 +3,7 @@ from pathlib import Path
 from .mistral_OCR_Client import MistralOCRClient
 from src.FileManager.file_manager import FileManager
 from src.DBManager.db_manager import DBManager
+from src.Models.document import Document
 
 class PDF_OCR_Processor:
     """
@@ -30,29 +31,6 @@ class PDF_OCR_Processor:
         logging.basicConfig(level=logging.INFO)
         self.logger = logging.getLogger(__name__)
     
-    def _serialise_ocr_result(self, obj):
-        """
-        Convert OCR result objects to serialisable dictionaries.
-        """
-        if hasattr(obj, '__dict__'):
-            # For custom objects with __dict__ attribute
-            result = {}
-            for key, value in obj.__dict__.items():
-                # Skip private attributes
-                if not key.startswith('_'):
-                    if isinstance(value, list):
-                        result[key] = [self._serialise_ocr_result(item) for item in value]
-                    else:
-                        result[key] = self._serialise_ocr_result(value)
-            return result
-        elif isinstance(obj, list):
-            return [self._serialise_ocr_result(item) for item in obj]
-        elif isinstance(obj, (str, int, float, bool, type(None))):
-            return obj
-        else:
-            # For other types, convert to string
-            return str(obj)
-
     def _delete_source_file(self, file_path):
         """
         Deletes a file from the filesystem.
@@ -95,16 +73,22 @@ class PDF_OCR_Processor:
             return
         
         processed_documents = []
-        
         for pdf_file in pdf_files:
             try:
                 self.logger.info(f"Processing file: {pdf_file.name}")
                 
-                # Process the PDF and store in MongoDB
-                document_id = self.process_pdf(pdf_file)
-                if document_id:
-                    processed_documents.append(document_id)
-                    self.logger.info(f"Document stored in MongoDB with ID: {document_id}")
+                # Create or retrieve Document object - document type is determined internally
+                document = Document.from_pdf(pdf_file, self.db_manager)
+                
+                # Perform OCR processing
+                if document and not document.processed:
+                    success = document.perform_ocr(self.ocr_client)
+                    if success:
+                        processed_documents.append(document.document_id)
+                        self.logger.info(f"Document processed with OCR and stored in MongoDB with ID: {document.document_id}")
+                elif document:
+                    processed_documents.append(document.document_id)
+                    self.logger.info(f"Document already processed with ID: {document.document_id}")
                 
                 # Delete the source PDF file after successful processing
                 self._delete_source_file(pdf_file)
@@ -113,56 +97,3 @@ class PDF_OCR_Processor:
                 self.logger.error(f"Error processing {pdf_file.name}: {e}")
         
         return processed_documents
-
-    def process_pdf(self, pdf_file):
-        """
-        Process a PDF file and store it in MongoDB using the hybrid approach.
-        
-        Args:
-            pdf_file (Path): Path to the PDF file to process
-            
-        Returns:
-            str: Document ID if successful, None otherwise
-        """
-        try:
-            # Step 1: Generate document_id (hash) for the PDF file
-            document_id = self.file_manager.get_file_hash(pdf_file)
-            self.logger.info(f"Generated document ID (hash): {document_id}")
-            
-            # Step 2: Check if document already exists in the database
-            if self.file_manager.check_document_exists(document_id):
-                self.logger.info(f"Document with ID {document_id} already exists in the database. Skipping processing.")
-                return document_id
-                
-            self.logger.info(f"Uploading file: {pdf_file.name}")
-            # Step 3: Upload the PDF file and get the file_id
-            uploaded_file = self.ocr_client.upload_pdf(str(pdf_file))
-            file_id = uploaded_file.id
-            self.logger.info(f"File uploaded successfully. File ID: {file_id}")
-            
-            # Step 4: Get the signed URL using the file_id
-            signed_url_response = self.ocr_client.get_signed_url(file_id)
-            signed_url = signed_url_response.url
-            self.logger.info(f"Retrieved signed URL for processing")
-            
-            # Step 5: Process OCR with the signed URL
-            self.logger.info(f"Processing OCR for file: {pdf_file.name}")
-            ocr_result = self.ocr_client.ocr_pdf(signed_url)
-            
-            # Step 6: Serialize the OCR result pages before storing in MongoDB
-            # Use the existing serialization method
-            serialized_pages = [self._serialise_ocr_result(page) for page in ocr_result.pages]
-            
-            # Step 7: Store PDF, OCR results, and images in MongoDB
-            document_type = self._determine_document_type(pdf_file)
-            document_id = self.file_manager.add_document_to_db_with_images(
-                pdf_file, 
-                serialized_pages, 
-                document_type
-            )
-            
-            return document_id
-            
-        except Exception as e:
-            self.logger.error(f"Error processing {pdf_file.name} for MongoDB: {e}")
-            raise
