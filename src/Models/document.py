@@ -809,7 +809,7 @@ class Document:
                 if hasattr(page, 'images') and page.images:
                     for img_idx, img in enumerate(page.images):
                         if hasattr(img, 'image') and img.image:
-                            # Create unique image ID
+                            # Create unidescribed and justified the breaking down of the problem into subproblems and explained the links between the sub programs and the project objectivesque image ID
                             img_id = f"{self.document_id}_p{page_idx}_i{img_idx}"
                             
                             # Store image data for database
