@@ -12,8 +12,9 @@ from typing import Dict, Any, List, Optional
 from pathlib import Path
 
 from src.DBManager.db_manager import DBManager
+from src.DBManager.base_repository import BaseRepository
 
-class DocumentRepository:
+class DocumentRepository(BaseRepository):
     """
     Repository for document-related database operations.
     
@@ -28,9 +29,7 @@ class DocumentRepository:
         Args:
             db_manager: The database manager to use for database operations
         """
-        self.db_manager = db_manager
-        self.logger = logging.getLogger(__name__)
-        self.document_collection = self.db_manager.get_collection('documents')
+        super().__init__(db_manager, collection_name='documents')
         
     def check_document_exists(self, document_id: str) -> bool:
         """
@@ -42,18 +41,7 @@ class DocumentRepository:
         Returns:
             bool: True if the document exists, False otherwise
         """
-        try:
-            if self.document_collection is None:
-                return False
-                
-            # Count documents matching the ID (limit to 1 for efficiency)
-            count = self.document_collection.count_documents({"document_id": document_id}, limit=1)
-            return count > 0
-            
-        except Exception as e:
-            # Log the error but return False rather than raising an exception
-            self.logger.error(f"Error checking if document exists: {str(e)}")
-            return False
+        return self.exists("document_id", document_id)
             
     def get_document(self, document_id: str) -> Optional[Dict[str, Any]]:
         """
@@ -65,17 +53,7 @@ class DocumentRepository:
         Returns:
             dict: The document data or None if not found
         """
-        try:
-            if self.document_collection is None:
-                self.logger.error("Failed to access documents collection")
-                return None
-            
-            # Retrieve the document from the database
-            return self.document_collection.find_one({"document_id": document_id})
-            
-        except Exception as e:
-            self.logger.error(f"Error retrieving document {document_id} from database: {e}")
-            return None
+        return self.get_by_id("document_id", document_id)
             
     def create_document_from_pdf(self, document_id: str, document_type: str, 
                                pdf_filename: str, pdf_id: str, now: datetime.datetime) -> bool:
@@ -92,35 +70,19 @@ class DocumentRepository:
         Returns:
             bool: True if creation was successful, False otherwise
         """
-        try:
-            document = {
-                "document_id": document_id,
-                "document_type": document_type,
-                "pdf_file_id": pdf_id,
-                "pdf_filename": pdf_filename,
-                "pdf_upload_date": now,
-                "ocr_storage": None,
-                "ocr_upload_date": None,
-                "images": [],
-                "processed": False
-            }
-            
-            # Store in documents collection
-            if self.document_collection is None:
-                self.logger.error("Failed to access documents collection")
-                return False
-                
-            result = self.document_collection.update_one(
-                {'document_id': document_id},
-                {'$set': document},
-                upsert=True
-            )
-            
-            return bool(result.upserted_id or result.modified_count > 0)
-            
-        except Exception as e:
-            self.logger.error(f"Error creating document record: {str(e)}")
-            return False
+        document = {
+            "document_id": document_id,
+            "document_type": document_type,
+            "pdf_file_id": pdf_id,
+            "pdf_filename": pdf_filename,
+            "pdf_upload_date": now,
+            "ocr_storage": None,
+            "ocr_upload_date": None,
+            "images": [],
+            "processed": False
+        }
+        
+        return self.create_or_update("document_id", document_id, document)
             
     def store_pdf_in_gridfs(self, pdf_path: Path, document_id: str, document_type: str) -> Optional[str]:
         """
@@ -182,11 +144,7 @@ class DocumentRepository:
         """
         try:
             # Verify document exists
-            if self.document_collection is None:
-                self.logger.error("Failed to access documents collection")
-                return False
-                
-            doc_data = self.document_collection.find_one({"document_id": document_id})
+            doc_data = self.get_document(document_id)
             if not doc_data:
                 self.logger.warning(f"Document with ID {document_id} not found in database")
                 return False
@@ -208,15 +166,7 @@ class DocumentRepository:
                     self.logger.info(f"Deleted image file with ID {img_id}")
             
             # Delete the document record
-            result = self.document_collection.delete_one({"document_id": document_id})
-            
-            deleted = result.deleted_count > 0
-            if deleted:
-                self.logger.info(f"Successfully deleted document {document_id} from database")
-            else:
-                self.logger.warning(f"Document {document_id} was not deleted from database")
-            
-            return deleted
+            return self.delete("document_id", document_id)
             
         except Exception as e:
             self.logger.error(f"Error deleting document {document_id}: {str(e)}")
@@ -233,28 +183,7 @@ class DocumentRepository:
         Returns:
             bool: True if update was successful, False otherwise
         """
-        try:
-            if self.document_collection is None:
-                self.logger.error("Failed to access documents collection")
-                return False
-                
-            result = self.document_collection.update_one(
-                {"document_id": document_id},
-                {"$set": update_fields},
-                upsert=True
-            )
-            
-            success = result.upserted_id is not None or result.modified_count > 0
-            if success:
-                self.logger.info(f"Document {document_id} updated successfully")
-            else:
-                self.logger.info(f"No changes made to document {document_id} (state already up-to-date)")
-                
-            return True
-            
-        except Exception as e:
-            self.logger.error(f"Error updating document {document_id}: {str(e)}")
-            return False
+        return self.update("document_id", document_id, update_fields)
 
     def store_binary_in_gridfs(self, binary_data, filename: str, content_type: str, metadata: Dict[str, Any]) -> Optional[str]:
         """
