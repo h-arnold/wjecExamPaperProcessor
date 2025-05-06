@@ -35,7 +35,6 @@ class Document:
         db_manager: Optional[DBManager] = None,
         document_repository: Optional[DocumentRepository] = None,
         pdf_data: Optional[bytes] = None,
-        document_collection = None,
         exam_id: Optional[str] = None
     ):
         """
@@ -57,7 +56,6 @@ class Document:
             db_manager (DBManager, optional): Database manager instance - ideally passed from elsewhere to avoid creating a new DB connection for each document.
             document_repository (DocumentRepository, optional): Repository for document operations
             pdf_data (bytes, optional): The actual PDF file content as bytes
-            document_collection: MongoDB collection for documents (if already available)
             exam_id (str, optional): ID of the exam this document belongs to
         """
         self.document_id = document_id
@@ -74,7 +72,6 @@ class Document:
         self._id = _id
         self.db_manager = db_manager or DBManager()
         self._pdf_data = pdf_data  # Store PDF data internally (use property for access)
-        self._document_collection = document_collection  # Cache the collection if provided
         self._exam_id = exam_id
         
         # Initialize document repository
@@ -240,21 +237,6 @@ class Document:
         if value is not None and (value < 0 or value > 10):  # Reasonable upper limit for question indices
             raise ValueError(f"question_start_index {value} is outside reasonable range (0-10)")
         self._question_start_index = value
-
-    @property
-    def document_collection(self):
-        """
-        Get the documents collection, caching it for future use.
-        
-        Note: This property is maintained for backward compatibility.
-        New code should use document_repository for database operations.
-        
-        Returns:
-            The MongoDB documents collection or None if it can't be accessed
-        """
-        if self._document_collection is None:
-            self._document_collection = self.db_manager.get_collection('documents')
-        return self._document_collection
 
     @property
     def exam_id(self) -> Optional[str]:
@@ -610,14 +592,7 @@ class Document:
             if not pdf_data:
                 raise ValueError(f"Cannot perform OCR: PDF data not available for document {self.document_id}")
             
-            # Validate PDF data - check for null bytes
-            if b'\x00' in pdf_data:
-                raise ValueError("PDF contains embedded null bytes which may cause upload failures")
-                
-            # Validate PDF data is not empty and has proper PDF header
-            if not pdf_data.startswith(b'%PDF-'):
-                raise ValueError("Invalid PDF: File does not start with PDF header")
-                
+              
             # Step 1: Upload the PDF to OCR service
             logger.info(f"Uploading file: {self.pdf_filename}")
             try:
