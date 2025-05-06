@@ -2,12 +2,6 @@ from enum import Enum
 from typing import Optional, Dict, Any
 
 
-class ExamType(Enum):
-    """Enumeration of possible exam document types."""
-    QUESTION_PAPER = "Question Paper"
-    MARK_SCHEME = "Mark Scheme"
-
-
 class Qualification(Enum):
     """Enumeration of possible qualification types."""
     AS_LEVEL = "AS-Level"
@@ -32,7 +26,7 @@ class Exam:
 
     def __init__(
         self,
-        exam_type: ExamType,
+        exam_id: str,
         qualification: Qualification,
         year: int,
         subject: str,
@@ -47,7 +41,7 @@ class Exam:
         Initialize an Exam object with metadata extracted from an exam document.
 
         Args:
-            exam_type: Type of the exam document (Question Paper or Mark Scheme)
+            exam_id: Unique identifier for the exam
             qualification: Level of qualification (AS-Level, A2-Level, GCSE)
             year: The year when the exam was published
             subject: The subject of the exam (always Computer Science)
@@ -58,7 +52,7 @@ class Exam:
             information_for_examiners: Optional instructions for examiners
             total_marks: Optional total number of marks available
         """
-        self.exam_type = exam_type
+        self.exam_id = exam_id
         self.qualification = qualification
         self.year = year
         self.subject = subject
@@ -81,7 +75,7 @@ class Exam:
             An Exam instance with the specified metadata
         """
         return cls(
-            exam_type=ExamType(data["Type"]),
+            exam_id=data["Exam ID"],
             qualification=Qualification(data["Qualification"]),
             year=data["Year"],
             subject=data["Subject"],
@@ -101,7 +95,7 @@ class Exam:
             Dictionary containing all non-None exam metadata fields
         """
         result = {
-            "Type": self.exam_type.value,
+            "Exam ID": self.exam_id,
             "Qualification": self.qualification.value,
             "Year": self.year,
             "Subject": self.subject,
