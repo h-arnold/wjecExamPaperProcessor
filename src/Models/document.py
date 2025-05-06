@@ -34,7 +34,8 @@ class Document:
         _id: Optional[ObjectId] = None,
         db_manager: Optional[DBManager] = None,
         pdf_data: Optional[bytes] = None,
-        document_collection = None
+        document_collection = None,
+        exam_id: Optional[str] = None
     ):
         """
         Initialise a Document object.
@@ -55,6 +56,7 @@ class Document:
             db_manager (DBManager, optional): Database manager instance - ideally passed from elsewhere to avoid creating a new DB connection for each document.
             pdf_data (bytes, optional): The actual PDF file content as bytes
             document_collection: MongoDB collection for documents (if already available)
+            exam_id (str, optional): ID of the exam this document belongs to
         """
         self.document_id = document_id
         self.document_type = document_type
@@ -71,6 +73,7 @@ class Document:
         self.db_manager = db_manager or DBManager()
         self._pdf_data = pdf_data  # Store PDF data internally (use property for access)
         self._document_collection = document_collection  # Cache the collection if provided
+        self._exam_id = exam_id
 
     # Read-only properties that shouldn't change after initialization
     @property
@@ -241,6 +244,17 @@ class Document:
         if self._document_collection is None:
             self._document_collection = self.db_manager.get_collection('documents')
         return self._document_collection
+
+    @property
+    def exam_id(self) -> Optional[str]:
+        """ID of the exam this document belongs to."""
+        return self._exam_id
+        
+    @exam_id.setter
+    def exam_id(self, value: Optional[str]):
+        if value is not None and not isinstance(value, str):
+            raise TypeError("exam_id must be a string or None")
+        self._exam_id = value
 
     @staticmethod
     def _determine_document_type(filename: str) -> str:
@@ -830,6 +844,7 @@ class Document:
                 "images": self.images,
                 "processed": self.processed,
                 "question_start_index": self._question_start_index,
+                "exam_id": self._exam_id,
             }
             
             # Add image_file_ids if they exist
