@@ -202,68 +202,7 @@ class DBManager:
             return None
         return db[collection_name]
        
-    def get_exam_document(self, document_id: str) -> Optional[Dict[str, Any]]:
-        """
-        Retrieve a specific exam document from MongoDB by ID.
-        
-        Args:
-            document_id: The unique identifier of the document to retrieve
-            
-        Returns:
-            dict: The exam metadata document or None if not found
-        """
-        try:
-            # Ensure we have a database connection
-            collection = self.get_collection('exams')
-            if collection is None:
-                self.logger.error("Not connected to MongoDB")
-                return None
-            
-            # Query for the document
-            document = collection.find_one({'examId': document_id})
-            
-            if document:
-                self.logger.info(f"Retrieved exam metadata for ID: {document_id}")
-            else:
-                self.logger.warning(f"No exam metadata found with ID: {document_id}")
-            
-            return document
-            
-        except Exception as e:
-            self.logger.error(f"Error retrieving exam metadata: {str(e)}")
-            return None
-    
-    def delete_exam_document(self, document_id: str) -> bool:
-        """
-        Remove a specific exam document from MongoDB by ID.
-        
-        Args:
-            document_id: The unique identifier of the document to delete
-            
-        Returns:
-            bool: True if document was deleted, False if document was not found
-        """
-        try:
-            # Ensure we have a database connection
-            collection = self.get_collection('exams')
-            if collection is None:
-                self.logger.error("Not connected to MongoDB")
-                return False
-            
-            # Delete the document
-            result = collection.delete_one({'examId': document_id})
-            
-            if result.deleted_count > 0:
-                self.logger.info(f"Deleted exam metadata with ID: {document_id}")
-                return True
-            else:
-                self.logger.warning(f"No exam metadata found to delete with ID: {document_id}")
-                return False
-                
-        except Exception as e:
-            self.logger.error(f"Error deleting exam metadata: {str(e)}")
-            return False
-    
+   
     
     def initialise_database(self) -> bool:
         """
@@ -539,6 +478,22 @@ class DBManager:
         except Exception as e:
             self.logger.error(f"Error storing file in GridFS: {str(e)}")
             return None
+            
+    def store_binary_in_gridfs(self, binary_data, content_type=None, filename=None, metadata=None):
+        """
+        Store binary data in GridFS. This is an alias for store_file_in_gridfs for
+        compatibility with DocumentRepository.
+        
+        Args:
+            binary_data: Binary data to store
+            content_type: Optional MIME type of the content
+            filename: Optional filename
+            metadata: Optional dictionary with additional metadata
+        
+        Returns:
+            str: The ID of the stored file as a string, or None if storage failed
+        """
+        return self.store_file_in_gridfs(binary_data, content_type, filename, metadata)
 
     def get_file_from_gridfs(self, file_id):
         """

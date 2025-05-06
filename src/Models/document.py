@@ -3,7 +3,6 @@ from datetime import datetime
 from bson import ObjectId
 from pathlib import Path
 import logging
-import json
 
 
 from src.FileManager.file_manager import FileManager
