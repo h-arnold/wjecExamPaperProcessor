@@ -9,7 +9,7 @@ import logging
 import os
 import datetime
 from datetime import UTC
-from typing import Dict, Any, List, Optional, Union
+from typing import Dict, Any, List, Optional, Union, Callable, TypeVar, cast
 
 try:
     import pymongo
@@ -22,6 +22,8 @@ try:
 except ImportError:
     MONGODB_AVAILABLE = False
 
+# Type variable for generic return types
+T = TypeVar('T')
 
 class DBManager:
     """
@@ -609,3 +611,89 @@ class DBManager:
         except Exception as e:
             self.logger.error(f"Error deleting file from GridFS: {str(e)}")
             return False
+
+    def run_query(self, collection_name: str, query_type: str, query: Dict[str, Any], 
+                 projection: Optional[Dict[str, Any]] = None, 
+                 sort: Optional[List[tuple]] = None,
+                 limit: Optional[int] = None) -> Optional[Union[Dict[str, Any], List[Dict[str, Any]]]]:
+        """
+        Execute a database query with proper error handling and logging.
+        
+        This method provides a centralized way to execute various types of queries
+        against MongoDB collections with consistent error handling and logging.
+        
+        Args:
+            collection_name: Name of the collection to query
+            query_type: Type of query to execute (e.g., 'find_one', 'find', 'count')
+            query: Query dictionary to filter documents
+            projection: Optional dictionary specifying which fields to include/exclude
+            sort: Optional list of (field, direction) tuples to sort results
+            limit: Optional maximum number of results to return
+            
+        Returns:
+            The query results, which could be a single document (dict), a list of documents,
+            or None if an error occurred or no results were found.
+            
+        Example:
+            # Get a single document
+            user = db_manager.run_query('users', 'find_one', {'username': 'john'})
+            
+            # Get multiple documents with sorting and limiting
+            recent_posts = db_manager.run_query(
+                'posts', 'find', {'author': 'john'},
+                sort=[('date', -1)], limit=10
+            )
+            
+            # Count documents
+            num_comments = db_manager.run_query('comments', 'count', {'post_id': '123'})
+        """
+        try:
+            # Ensure we have a database connection
+            collection = self.get_collection(collection_name)
+            if collection is None:
+                self.logger.error(f"Cannot execute query: not connected to MongoDB collection '{collection_name}'")
+                return None
+            
+            # Log query information
+            self.logger.debug(f"Executing {query_type} query on collection '{collection_name}': {query}")
+            
+            # Execute the appropriate query based on query_type
+            if query_type == 'find_one':
+                result = collection.find_one(query, projection)
+                if result is None:
+                    self.logger.debug(f"No documents found in '{collection_name}' matching {query}")
+                return result
+                
+            elif query_type == 'find':
+                cursor = collection.find(query, projection)
+                
+                # Apply sort if provided
+                if sort:
+                    cursor = cursor.sort(sort)
+                
+                # Apply limit if provided
+                if limit is not None:
+                    cursor = cursor.limit(limit)
+                
+                # Convert cursor to list
+                results = list(cursor)
+                self.logger.debug(f"Found {len(results)} documents in '{collection_name}' matching query")
+                return results
+                
+            elif query_type == 'count':
+                return collection.count_documents(query)
+                
+            elif query_type == 'aggregate':
+                # For aggregate, the query parameter should be the pipeline
+                cursor = collection.aggregate(query)
+                results = list(cursor)
+                self.logger.debug(f"Aggregation returned {len(results)} documents")
+                return results
+                
+            else:
+                self.logger.error(f"Unsupported query type: {query_type}")
+                return None
+                
+        except Exception as e:
+            self.logger.error(f"Error executing {query_type} query on '{collection_name}': {str(e)}")
+            return None
