@@ -148,3 +148,86 @@ class Exam:
         except Exception as e:
             logging.error(f"Error retrieving exam {exam_id}: {e}")
             return None
+            
+    @classmethod
+    def get_by_exam_details(
+        cls,
+        subject: str,
+        year: int,
+        qualification: Qualification,
+        exam_season: ExamSeason,
+        unit_number: str,
+        create_if_not_found: bool = False
+    ) -> Optional['Exam']:
+        """
+        Retrieve an exam from the database by its details or create it if not found.
+        
+        Args:
+            subject: The subject of the exam (determines collection)
+            year: The year of the exam
+            qualification: The qualification level (AS, A2, GCSE)
+            exam_season: The season when the exam was held
+            unit_number: The unit or paper number
+            create_if_not_found: Whether to create a new exam if not found (default: False)
+            
+        Returns:
+            An Exam instance if found or created, None otherwise
+            
+        Raises:
+            ImportError: If the ExamRepository import fails
+        """
+        try:
+            # Import here to avoid circular imports
+            from src.DBManager.exam_repository import ExamRepository
+            
+            # Create repository instance
+            exam_repository = ExamRepository()
+            
+            # Define search criteria
+            criteria = {
+                "Year": year,
+                "Qualification": qualification.value,
+                "Exam Season": exam_season.value,
+                "Unit Number": unit_number
+            }
+            
+            # Attempt to find the exam
+            exams = exam_repository.get_exams_by_criteria(subject, criteria)
+            
+            if exams:
+                # Return the first matching exam
+                return exams[0]
+            elif create_if_not_found:
+                # Generate an exam ID based on details
+                exam_id = f"{subject}_{qualification.value}_{year}_{exam_season.value}_{unit_number}"
+                
+                # Create a new exam instance
+                new_exam = cls(
+                    exam_id=exam_id,
+                    qualification=qualification,
+                    year=year,
+                    subject=subject,
+                    unit_number=unit_number,
+                    exam_season=exam_season,
+                    exam_length="Unknown"  # Default value, should be updated later
+                )
+                
+                # Save to database
+                success = exam_repository.create_exam(new_exam)
+                
+                if success:
+                    logging.info(f"Created new exam with ID: {exam_id}")
+                    return new_exam
+                else:
+                    logging.error(f"Failed to create new exam with ID: {exam_id}")
+                    return None
+            
+            # Not found and not creating a new one
+            return None
+            
+        except ImportError as e:
+            logging.error(f"Failed to import required modules: {e}")
+            raise
+        except Exception as e:
+            logging.error(f"Error retrieving/creating exam: {e}")
+            return None
