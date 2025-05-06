@@ -9,14 +9,14 @@ import logging
 import os
 import datetime
 from datetime import UTC
-from typing import Dict, Any, List, Optional, Union, Callable, TypeVar, cast
+from typing import Dict, Any, List, Optional, Union, TypeVar, cast
 
 try:
     import pymongo
     from pymongo import MongoClient
     import gridfs
     from bson import ObjectId
-    from pymongo.errors import ConnectionFailure, ServerSelectionTimeoutError, DuplicateKeyError
+    from pymongo.errors import ConnectionFailure, ServerSelectionTimeoutError
     from dotenv import load_dotenv
     MONGODB_AVAILABLE = True
 except ImportError:

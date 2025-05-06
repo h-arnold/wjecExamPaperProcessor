@@ -45,7 +45,7 @@ class Document:
             document_type (str): Type of document ('Question Paper' or 'Mark Scheme')
             pdf_filename (str): Original filename of the PDF
             pdf_file_id (str): GridFS file ID of the stored PDF
-            ocr_json (List[Dict], optional): List of serialized OCR result pages
+            ocr_json (List[Dict], optional): List of serialised OCR result pages
             ocr_storage (str, optional): Storage type for OCR data (e.g. 'inline')
             pdf_upload_date (datetime, optional): Timestamp when PDF was uploaded
             ocr_upload_date (datetime, optional): Timestamp when OCR was completed
@@ -161,7 +161,7 @@ class Document:
     
     @property
     def ocr_json(self) -> List[Dict[str, Any]]:
-        """List of serialized OCR result pages."""
+        """List of serialised OCR result pages."""
         return self._ocr_json
         
     @ocr_json.setter
