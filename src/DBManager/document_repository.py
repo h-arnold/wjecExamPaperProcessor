@@ -255,3 +255,27 @@ class DocumentRepository:
         except Exception as e:
             self.logger.error(f"Error updating document {document_id}: {str(e)}")
             return False
+
+    def store_binary_in_gridfs(self, binary_data, filename: str, content_type: str, metadata: Dict[str, Any]) -> Optional[str]:
+        """
+        Store binary data in GridFS.
+        
+        Args:
+            binary_data: The binary data to store
+            filename: Name to give the stored file
+            content_type: MIME type of the content
+            metadata: Additional metadata to store with the file
+            
+        Returns:
+            str: The GridFS file ID or None if storage failed
+        """
+        try:
+            return self.db_manager.store_binary_in_gridfs(
+                binary_data,
+                filename=filename,
+                content_type=content_type,
+                metadata=metadata
+            )
+        except Exception as e:
+            self.logger.error(f"Error storing binary data in GridFS: {str(e)}")
+            return None

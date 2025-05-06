@@ -8,6 +8,7 @@ import json
 
 from src.FileManager.file_manager import FileManager
 from src.DBManager.db_manager import DBManager
+from src.DBManager.document_repository import DocumentRepository
 from src.Prompts import QuestionIndexIdentifier
 from src.Llm_client import LLMClientFactory
 
@@ -33,6 +34,7 @@ class Document:
         question_start_index: Optional[int] = None,
         _id: Optional[ObjectId] = None,
         db_manager: Optional[DBManager] = None,
+        document_repository: Optional[DocumentRepository] = None,
         pdf_data: Optional[bytes] = None,
         document_collection = None,
         exam_id: Optional[str] = None
@@ -54,6 +56,7 @@ class Document:
             question_start_index (int, optional): Index where questions begin in the document
             _id (ObjectId, optional): MongoDB ObjectId
             db_manager (DBManager, optional): Database manager instance - ideally passed from elsewhere to avoid creating a new DB connection for each document.
+            document_repository (DocumentRepository, optional): Repository for document operations
             pdf_data (bytes, optional): The actual PDF file content as bytes
             document_collection: MongoDB collection for documents (if already available)
             exam_id (str, optional): ID of the exam this document belongs to
@@ -74,6 +77,12 @@ class Document:
         self._pdf_data = pdf_data  # Store PDF data internally (use property for access)
         self._document_collection = document_collection  # Cache the collection if provided
         self._exam_id = exam_id
+        
+        # Initialize document repository
+        if document_repository is None and db_manager is not None:
+            self.document_repository = DocumentRepository(db_manager)
+        else:
+            self.document_repository = document_repository or DocumentRepository(self.db_manager)
 
     # Read-only properties that shouldn't change after initialization
     @property
@@ -238,6 +247,9 @@ class Document:
         """
         Get the documents collection, caching it for future use.
         
+        Note: This property is maintained for backward compatibility.
+        New code should use document_repository for database operations.
+        
         Returns:
             The MongoDB documents collection or None if it can't be accessed
         """
@@ -282,39 +294,35 @@ class Document:
             return "Question Paper"
 
     @staticmethod
-    def check_document_exists(document_id: str, db_manager: Optional[DBManager] = None) -> bool:
+    def check_document_exists(document_id: str, db_manager: Optional[DBManager] = None,
+                              document_repository: Optional[DocumentRepository] = None) -> bool:
         """
         Check if a document with the given ID exists in the database.
         
         Args:
             document_id: The document ID (hash) to check
             db_manager: Optional DBManager instance to use for database operations
+            document_repository: Optional DocumentRepository instance to use for document operations
             
         Returns:
             bool: True if the document exists, False otherwise
         """
-        # Initialise DB manager if not provided
+        # Use document_repository if provided
+        if document_repository is not None:
+            return document_repository.check_document_exists(document_id)
+            
+        # Initialize DB manager and document repository if not provided
         if db_manager is None:
             db_manager = DBManager()
-            
-        try:
-            collection = db_manager.get_collection('documents')
-            if collection is None:
-                return False
-                
-            # Count documents matching the ID (limit to 1 for efficiency)
-            count = collection.count_documents({"document_id": document_id}, limit=1)
-            return count > 0
-            
-        except Exception as e:
-            # Log the error but return False rather than raising an exception
-            logging.error(f"Error checking if document exists: {str(e)}")
-            return False
+        
+        doc_repo = DocumentRepository(db_manager)
+        return doc_repo.check_document_exists(document_id)
 
     @classmethod
     def from_pdf(cls, pdf_file: Union[str, Path], 
                  db_manager: Optional[DBManager] = None, 
-                 file_manager: Optional[FileManager] = None) -> 'Document':
+                 file_manager: Optional[FileManager] = None,
+                 document_repository: Optional[DocumentRepository] = None) -> 'Document':
         """
         Create a Document instance from a PDF file, without OCR processing.
         
@@ -325,6 +333,7 @@ class Document:
             pdf_file (str or Path): Path to the PDF file
             db_manager (DBManager, optional): Database manager instance
             file_manager (FileManager, optional): File manager instance
+            document_repository (DocumentRepository, optional): Repository for document operations
             
         Returns:
             Document: The created document instance
@@ -339,6 +348,8 @@ class Document:
             db_manager = DBManager()
         if file_manager is None:
             file_manager = FileManager()
+        if document_repository is None:
+            document_repository = DocumentRepository(db_manager)
         
         try:
             # Convert to Path object
@@ -349,13 +360,13 @@ class Document:
             logger.info(f"Generated document ID (hash): {document_id}")
             
             # 2. Check if document already exists in the database
-            if cls.check_document_exists(document_id, db_manager):
+            if document_repository.check_document_exists(document_id):
                 logger.info(f"Document with ID {document_id} already exists in the database")
-                return cls.from_database(document_id, db_manager, file_manager)
+                return cls.from_database(document_id, db_manager, document_repository=document_repository)
             
             # Read PDF data before storing it in GridFS
-            with open(pdf_path, 'rb') as pdf_file:
-                pdf_data = pdf_file.read()
+            with open(pdf_path, 'rb') as pdf_file_obj:
+                pdf_data = pdf_file_obj.read()
             
             # 3. Determine document type from filename
             pdf_filename = pdf_path.name
@@ -363,13 +374,8 @@ class Document:
             if document_type == "Unknown":
                 logger.warning(f"Could not determine document type for {pdf_filename}, setting to 'Unknown'")
             
-            # 4. Store PDF in GridFS
-            pdf_id = db_manager.store_file_in_gridfs(
-                pdf_path, 
-                content_type="application/pdf",
-                filename=pdf_filename,
-                metadata={"document_id": document_id, "document_type": document_type}
-            )
+            # 4. Store PDF in GridFS using document repository
+            pdf_id = document_repository.store_pdf_in_gridfs(pdf_path, document_id, document_type)
             
             if not pdf_id:
                 raise ValueError("Failed to store PDF in GridFS")
@@ -379,27 +385,17 @@ class Document:
             from datetime import UTC
             
             now = datetime.datetime.now(UTC)
-            document = {
-                "document_id": document_id,
-                "document_type": document_type,
-                "pdf_file_id": pdf_id,
-                "pdf_filename": pdf_filename,
-                "pdf_upload_date": now,
-                "ocr_storage": None,
-                "ocr_upload_date": None,
-                "images": [],
-                "processed": False
-            }
             
-            # 6. Store in documents collection
-            collection = db_manager.get_collection('documents')
-            result = collection.update_one(
-                {'document_id': document_id},
-                {'$set': document},
-                upsert=True
+            # 6. Create document using document repository
+            success = document_repository.create_document_from_pdf(
+                document_id=document_id,
+                document_type=document_type,
+                pdf_filename=pdf_filename,
+                pdf_id=pdf_id,
+                now=now
             )
             
-            if not (result.upserted_id or result.modified_count > 0):
+            if not success:
                 raise ValueError("Failed to store document in database")
             
             # 7. Create a Document instance with minimal data and include PDF data
@@ -414,7 +410,8 @@ class Document:
                 images=[],
                 processed=False,
                 _id=None,
-                db_manager=db_manager,  # Pass the db_manager to the constructor
+                db_manager=db_manager,
+                document_repository=document_repository,
                 pdf_data=pdf_data  # Include the PDF data
             )
             
@@ -424,15 +421,16 @@ class Document:
 
     @classmethod
     def from_database(cls, document_id: str, db_manager: Optional[DBManager] = None, 
-                     load_pdf_data: bool = False) -> 'Document':
+                     load_pdf_data: bool = False,
+                     document_repository: Optional[DocumentRepository] = None) -> 'Document':
         """
         Create a Document instance from a document stored in the database.
         
         Args:
             document_id (str): The ID of the document to retrieve
             db_manager (DBManager, optional): Database manager instance
-            file_manager (FileManager, optional): File manager instance (kept for backward compatibility)
             load_pdf_data (bool): Whether to load the PDF data immediately
+            document_repository (DocumentRepository, optional): Repository for document operations
             
         Returns:
             Document: The retrieved document instance
@@ -446,14 +444,13 @@ class Document:
         if db_manager is None:
             db_manager = DBManager()
         
+        # Initialize document repository if not provided
+        if document_repository is None:
+            document_repository = DocumentRepository(db_manager)
+        
         try:
-            # Get the documents collection
-            collection = db_manager.get_collection('documents')
-            if collection is None:
-                raise ValueError("Failed to access documents collection")
-            
-            # Retrieve the document from the database
-            doc_data = collection.find_one({"document_id": document_id})
+            # Retrieve the document from the database using document repository
+            doc_data = document_repository.get_document(document_id)
             
             if not doc_data:
                 raise ValueError(f"Document with ID {document_id} not found in database")
@@ -488,7 +485,7 @@ class Document:
             pdf_data = None
             if load_pdf_data and doc_data.get("pdf_file_id"):
                 try:
-                    pdf_data = db_manager.get_file_from_gridfs(doc_data.get("pdf_file_id"))
+                    pdf_data = document_repository.get_pdf_from_gridfs(doc_data.get("pdf_file_id"))
                 except Exception as pdf_error:
                     logger.warning(f"Failed to load PDF data for document {document_id}: {pdf_error}")
             
@@ -505,9 +502,9 @@ class Document:
                 images=images,
                 processed=doc_data.get("processed", False),
                 _id=doc_data.get("_id"),
-                db_manager=db_manager,  # Pass the db_manager to the constructor
+                db_manager=db_manager,
+                document_repository=document_repository,
                 pdf_data=pdf_data,  # Include the PDF data if loaded
-
             )
             
         except Exception as e:
@@ -535,8 +532,8 @@ class Document:
             if not self.pdf_file_id:
                 raise ValueError(f"Document {self.document_id} has no associated PDF file ID")
             
-            # Use the instance's db_manager to retrieve the file
-            pdf_data = self.db_manager.get_file_from_gridfs(self.pdf_file_id)
+            # Use document repository to retrieve the file
+            pdf_data = self.document_repository.get_pdf_from_gridfs(self.pdf_file_id)
             
             if pdf_data is None:
                 raise ValueError(f"Failed to retrieve PDF file with ID {self.pdf_file_id}")
@@ -562,42 +559,13 @@ class Document:
         logger = logging.getLogger(__name__)
         
         try:
-            # Get the documents collection using our cached property
-            if self.document_collection is None:
-                raise ValueError("Failed to access documents collection")
-            
-            # Verify document exists
-            doc_data = self.document_collection.find_one({"document_id": self.document_id})
-            if not doc_data:
-                logger.warning(f"Document with ID {self.document_id} not found in database")
-                return False
-            
-            # Delete PDF file from GridFS
-            if self.pdf_file_id:
-                self.db_manager.delete_file_from_gridfs(self.pdf_file_id)
-                logger.info(f"Deleted PDF file with ID {self.pdf_file_id}")
-            
-            # Delete OCR data from GridFS if stored there
-            if self.ocr_storage == "gridfs" and "ocr_file_id" in doc_data:
-                self.db_manager.delete_file_from_gridfs(doc_data["ocr_file_id"])
-                logger.info(f"Deleted OCR file with ID {doc_data['ocr_file_id']}")
-
-            # Delete image files from GridFS
-            if "image_file_ids" in doc_data and doc_data["image_file_ids"]:
-                for img_id in doc_data["image_file_ids"]:
-                    self.db_manager.delete_file_from_gridfs(img_id)
-                    logger.info(f"Deleted image file with ID {img_id}")
-            
-            # Delete the document record
-            result = self.document_collection.delete_one({"document_id": self.document_id})
-            
-            deleted = result.deleted_count > 0
-            if deleted:
-                logger.info(f"Successfully deleted document {self.document_id} from database")
-            else:
-                logger.warning(f"Document {self.document_id} was not deleted from database")
-            
-            return deleted
+            # Use document repository to delete the document
+            return self.document_repository.delete_document(
+                document_id=self.document_id,
+                pdf_file_id=self.pdf_file_id,
+                ocr_file_id=self.ocr_storage == "gridfs" and getattr(self, 'ocr_file_id', None),
+                image_file_ids=getattr(self, '_image_file_ids', None)
+            )
             
         except Exception as e:
             logger.error(f"Error deleting document {self.document_id}: {str(e)}")
@@ -737,8 +705,8 @@ class Document:
                             # Create unique image ID
                             img_id = f"{self.document_id}_p{page_idx}_i{img_idx}"
                             
-                            # Store image in GridFS
-                            img_file_id = self.db_manager.store_binary_in_gridfs(
+                            # Store image in GridFS using document repository
+                            img_file_id = self.document_repository.store_binary_in_gridfs(
                                 img.image,
                                 filename=f"{img_id}.png",
                                 content_type="image/png",
@@ -829,9 +797,6 @@ class Document:
         """
         logger = logging.getLogger(__name__)
         try:
-            if self.document_collection is None:
-                raise ValueError("Failed to access documents collection")
-                
             update_fields = {
                 "document_id": self.document_id,
                 "document_type": self.document_type,
@@ -851,21 +816,15 @@ class Document:
             if hasattr(self, '_image_file_ids') and self._image_file_ids:
                 update_fields["image_file_ids"] = self._image_file_ids
             
-            result = self.document_collection.update_one(
-                {"document_id": self.document_id},
-                {"$set": update_fields},
-                upsert=True
-            )
+            # Use document repository to update the document
+            success = self.document_repository.update_document(self.document_id, update_fields)
             
-            if result.upserted_id is not None:
-                logger.info(f"Document {self.document_id} inserted into database")
-                return True
-            elif result.modified_count > 0:
+            if success:
                 logger.info(f"Document {self.document_id} updated in database")
             else:
-                logger.info(f"No changes written to document {self.document_id} (state already up-to-date)")
-            
-            return True
+                logger.error(f"Failed to update document {self.document_id} in database")
+                
+            return success
             
         except Exception as e:
             logger.error(f"Error writing document {self.document_id} to database: {str(e)}")
