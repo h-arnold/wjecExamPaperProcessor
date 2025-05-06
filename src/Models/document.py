@@ -75,10 +75,7 @@ class Document:
         self._exam_id = exam_id
         
         # Initialize document repository
-        if document_repository is None and db_manager is not None:
-            self.document_repository = DocumentRepository(db_manager)
-        else:
-            self.document_repository = document_repository or DocumentRepository(self.db_manager)
+        self.document_repository = document_repository or DocumentRepository()
 
     # Read-only properties that shouldn't change after initialization
     @property
@@ -292,11 +289,8 @@ class Document:
         if document_repository is not None:
             return document_repository.check_document_exists(document_id)
             
-        # Initialize DB manager and document repository if not provided
-        if db_manager is None:
-            db_manager = DBManager()
-        
-        doc_repo = DocumentRepository(db_manager)
+        # Create a new document repository if not provided
+        doc_repo = DocumentRepository()
         return doc_repo.check_document_exists(document_id)
 
     @classmethod
@@ -330,7 +324,7 @@ class Document:
         if file_manager is None:
             file_manager = FileManager()
         if document_repository is None:
-            document_repository = DocumentRepository(db_manager)
+            document_repository = DocumentRepository()
         
         try:
             # Convert to Path object
@@ -427,7 +421,7 @@ class Document:
         
         # Initialize document repository if not provided
         if document_repository is None:
-            document_repository = DocumentRepository(db_manager)
+            document_repository = DocumentRepository()
         
         try:
             # Retrieve the document from the database using document repository

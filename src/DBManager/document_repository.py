@@ -11,7 +11,6 @@ from datetime import UTC
 from typing import Dict, Any, List, Optional
 from pathlib import Path
 
-from src.DBManager.db_manager import DBManager
 from src.DBManager.base_repository import BaseRepository
 
 class DocumentRepository(BaseRepository):
@@ -22,14 +21,13 @@ class DocumentRepository(BaseRepository):
     providing methods for saving, retrieving, and deleting documents.
     """
     
-    def __init__(self, db_manager: DBManager):
+    def __init__(self):
         """
-        Initialise the document repository with a database manager instance.
+        Initialise the document repository.
         
-        Args:
-            db_manager: The database manager to use for database operations
+        This class automatically uses the DBManager singleton instance from BaseRepository.
         """
-        super().__init__(db_manager, collection_name='documents')
+        super().__init__(collection_name='documents')
         
     def check_document_exists(self, document_id: str) -> bool:
         """

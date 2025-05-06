@@ -1,5 +1,7 @@
 from enum import Enum
 from typing import Optional, Dict, Any
+import logging
+
 
 
 class Qualification(Enum):
@@ -115,3 +117,34 @@ class Exam:
             result["Total Marks"] = self.total_marks
 
         return result
+        
+    @classmethod
+    def get_by_id(cls, exam_id: str, subject: str) -> Optional['Exam']:
+        """
+        Retrieve an exam from the database by its ID.
+        
+        Args:
+            exam_id: The unique identifier of the exam to retrieve
+            subject: The subject of the exam (determines collection)
+            
+        Returns:
+            An Exam instance if found, None otherwise
+            
+        Raises:
+            ImportError: If the ExamRepository import fails
+        """
+        try:
+            # Import here to avoid circular imports
+            from src.DBManager.exam_repository import ExamRepository
+            
+            # Create repository instance
+            exam_repository = ExamRepository()
+            
+            # Retrieve the exam
+            return exam_repository.get_exam(exam_id, subject)
+        except ImportError as e:
+            logging.error(f"Failed to import required modules: {e}")
+            raise
+        except Exception as e:
+            logging.error(f"Error retrieving exam {exam_id}: {e}")
+            return None

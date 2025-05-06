@@ -29,9 +29,35 @@ class DBManager:
     """
     Manages MongoDB database connections and operations for exam metadata.
     
-    This class provides methods for connecting to MongoDB, storing exam metadata,
-    retrieving documents, and managing relationships between documents.
+    This class is responsible for:
+    1. Establishing and maintaining database connections
+    2. Providing access to collections
+    3. Handling GridFS operations for binary data
+    4. Initialising the database structure
+    
+    This class implements the Singleton pattern to ensure only one database
+    connection is maintained throughout the application.
     """
+    
+    _instance = None
+    
+    def __new__(cls, connection_string: Optional[str] = None, database_name: Optional[str] = None, timeout_ms: Optional[int] = None):
+        """
+        Create a singleton instance of DBManager.
+        
+        Args:
+            connection_string: MongoDB connection string. If None, uses environment variable
+                              MONGODB_URI or falls back to localhost.
+            database_name: Name of the MongoDB database to use.
+            timeout_ms: Connection timeout in milliseconds.
+            
+        Returns:
+            DBManager: The singleton instance of the DBManager
+        """
+        if cls._instance is None:
+            cls._instance = super(DBManager, cls).__new__(cls)
+            cls._instance._initialised = False
+        return cls._instance
     
     def __init__(self, connection_string: Optional[str] = None, database_name: Optional[str] = None, timeout_ms: Optional[int] = None):
         """
@@ -48,6 +74,10 @@ class DBManager:
             database_name: Name of the MongoDB database to use.
             timeout_ms: Connection timeout in milliseconds.
         """
+        # Skip initialisation if already initialised
+        if getattr(self, '_initialised', False):
+            return
+            
         # Set up logging
         logging.basicConfig(level=logging.INFO)
         self.logger = logging.getLogger(__name__)
@@ -56,6 +86,7 @@ class DBManager:
             self.logger.warning("pymongo not installed. MongoDB functionality will not be available.")
             self.client = None
             self.db = None
+            self._initialised = True
             return
             
         # Load environment variables
@@ -87,6 +118,26 @@ class DBManager:
             self.connect()
         except ConnectionFailure as e:
             self.logger.error(f"Failed to connect to MongoDB: {e}")
+            
+        self._initialised = True
+    
+    @classmethod
+    def get_instance(cls, connection_string: Optional[str] = None, database_name: Optional[str] = None, timeout_ms: Optional[int] = None):
+        """
+        Get the singleton instance of DBManager.
+        
+        This is an alternative to using the constructor directly and makes
+        the singleton pattern more explicit.
+        
+        Args:
+            connection_string: MongoDB connection string
+            database_name: Name of the MongoDB database
+            timeout_ms: Connection timeout in milliseconds
+            
+        Returns:
+            DBManager: The singleton instance of DBManager
+        """
+        return cls(connection_string, database_name, timeout_ms)
     
     def connect(self):
         """
@@ -574,8 +625,10 @@ class DBManager:
         """
         Execute a database query with proper error handling and logging.
         
-        This method provides a centralized way to execute various types of queries
+        This method provides a centralised way to execute various types of queries
         against MongoDB collections with consistent error handling and logging.
+        It should be used by Repository classes rather than directly implementing
+        query logic in each repository.
         
         Args:
             collection_name: Name of the collection to query
@@ -644,6 +697,23 @@ class DBManager:
                 results = list(cursor)
                 self.logger.debug(f"Aggregation returned {len(results)} documents")
                 return results
+                
+            elif query_type == 'insert_one':
+                result = collection.insert_one(query)
+                return {"inserted_id": str(result.inserted_id)}
+                
+            elif query_type == 'update_one':
+                update_data = projection if projection else {}
+                result = collection.update_one(query, update_data, upsert=sort[0][0] if sort and len(sort) > 0 else False)
+                return {
+                    "matched_count": result.matched_count,
+                    "modified_count": result.modified_count,
+                    "upserted_id": str(result.upserted_id) if result.upserted_id else None
+                }
+                
+            elif query_type == 'delete_one':
+                result = collection.delete_one(query)
+                return {"deleted_count": result.deleted_count}
                 
             else:
                 self.logger.error(f"Unsupported query type: {query_type}")

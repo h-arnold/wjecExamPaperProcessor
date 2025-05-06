@@ -8,7 +8,6 @@ database access logic from the Exam domain model.
 import logging
 from typing import Dict, Any, List, Optional
 
-from src.DBManager.db_manager import DBManager
 from src.DBManager.base_repository import BaseRepository
 from src.Models.exam import Exam, Qualification, ExamSeason
 
@@ -22,14 +21,13 @@ class ExamRepository(BaseRepository[Exam]):
     to improve query performance for subject-specific searches.
     """
     
-    def __init__(self, db_manager: DBManager):
+    def __init__(self):
         """
-        Initialise the exam repository with a database manager instance.
+        Initialise the exam repository.
         
-        Args:
-            db_manager: The database manager to use for database operations
+        The repository uses the BaseRepository's DBManager instance.
         """
-        super().__init__(db_manager)
+        super().__init__()
     
     def check_exam_exists(self, exam_id: str, subject: str) -> bool:
         """
